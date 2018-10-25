@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_gravity="center"
+    tools:layout_height="@dimen/wallet_card_height"
+    tools:layout_width="@dimen/wallet_card_width">
+
+    <ImageView
+        android:id="@+id/wallet_card_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="matrix"
+        android:src="@drawable/default_window_background" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/wallet_card_gradient" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/wallet_card_content"
+        android:layout_width="@dimen/wallet_card_width"
+        android:layout_height="@dimen/wallet_card_height"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:layout_width="@dimen/dimen_36dp"
+            android:layout_height="@dimen/dimen_60dp"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:layout_marginEnd="@dimen/dimen_16dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ethereum_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/wallet_card_value_eth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16dp"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:fontFamily="sans-serif-medium"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.01"
+            android:maxLength="12"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_fixed_30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="12.1415921234564645" />
+
+        <TextView
+            android:id="@+id/wallet_card_currency_eth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_4dp"
+            android:letterSpacing="0.01"
+            android:text="@string/wallet_card_currency_eth"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_fixed_20sp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@id/wallet_card_value_eth"
+            app:layout_constraintStart_toEndOf="@id/wallet_card_value_eth" />
+
+        <TextView
+            android:id="@+id/wallet_card_value_usd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16dp"
+            android:alpha="0.5"
+            android:fontFamily="sans-serif-medium"
+            android:includeFontPadding="false"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_fixed_16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wallet_card_value_eth"
+            tools:text="$8,877.08" />
+
+        <TextView
+            android:id="@+id/wallet_card_currency_usd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_4dp"
+            android:alpha="0.5"
+            android:letterSpacing="0.01"
+            android:text="@string/wallet_card_currency_usd"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_fixed_12sp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@id/wallet_card_value_usd"
+            app:layout_constraintStart_toEndOf="@id/wallet_card_value_usd" />
+
+        <TextView
+            android:id="@+id/wallet_card_stock_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_8dp"
+            android:alpha="0.5"
+            android:letterSpacing="0.01"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_fixed_12sp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@id/wallet_card_value_usd"
+            app:layout_constraintStart_toEndOf="@id/wallet_card_currency_usd"
+            tools:text="\@ 731.13/ETH" />
+
+        <TextView
+            android:id="@+id/wallet_card_address_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16dp"
+            android:layout_marginTop="@dimen/dimen_12dp"
+            android:alpha="0.5"
+            android:text="@string/wallet_card_address_title"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_fixed_12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wallet_card_value_usd" />
+
+        <TextView
+            android:id="@+id/wallet_card_address"
+            android:layout_width="@dimen/wallet_card_address_width"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16dp"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.02"
+            android:maxLines="1"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_fixed_22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wallet_card_address_title"
+            tools:text="0x97d2b2422372b24223709c53b" />
+
+        <FrameLayout
+            android:id="@+id/wallet_card_address_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dimen_16dp"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintBottom_toBottomOf="@id/wallet_card_address"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@drawable/wallet_card_address" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/wallet_card_backed_up_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16dp"
+            android:layout_marginBottom="@dimen/dimen_16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_16dp"
+                android:layout_height="@dimen/dimen_16dp"
+                android:contentDescription="@null"
+                android:src="@drawable/wallet_card_backed_up" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_4dp"
+                android:layout_marginEnd="@dimen/dimen_4dp"
+                android:fontFamily="sans-serif-medium"
+                android:lineSpacingExtra="4sp"
+                android:text="@string/wallet_card_backed_up"
+                android:textColor="@color/text_white"
+                android:textSize="@dimen/text_size_fixed_12sp" />
+        </LinearLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/wallet_card_backup_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_68dp"
+            android:layout_marginStart="@dimen/dimen_8dp"
+            android:layout_marginTop="@dimen/dimen_4dp"
+            android:layout_marginEnd="@dimen/dimen_8dp"
+            android:layout_marginBottom="@dimen/dimen_8dp"
+            android:background="@drawable/wallet_card_backup_background"
+            android:paddingStart="@dimen/dimen_8dp"
+            android:paddingTop="@dimen/dimen_4dp"
+            android:paddingEnd="@dimen/dimen_8dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wallet_card_address_icon"
+            app:layout_constraintVertical_bias="1">
+
+            <TextView
+                android:id="@+id/wallet_card_backup_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/wallet_card_backup_icon"
+                android:drawablePadding="@dimen/dimen_4dp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.03"
+                android:text="@string/wallet_card_backup_title"
+                android:textColor="@color/text_white"
+                android:textSize="@dimen/text_size_fixed_12sp"
+                app:layout_constraintEnd_toStartOf="@id/wallet_card_back_up"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_2dp"
+                android:layout_marginEnd="@dimen/dimen_4dp"
+                android:letterSpacing="0.03"
+                android:text="@string/wallet_card_backup_description"
+                android:textColor="@color/wallet_card_backup_description"
+                android:textSize="@dimen/text_size_fixed_12sp"
+                app:layout_constraintEnd_toStartOf="@id/wallet_card_back_up"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/wallet_card_backup_title" />
+
+            <TextView
+                android:id="@+id/wallet_card_back_up"
+                android:layout_width="@dimen/dimen_84dp"
+                android:layout_height="@dimen/dimen_28dp"
+                android:background="@drawable/wallet_card_backup_button_background"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:text="@string/back_up"
+                android:textAllCaps="true"
+                android:textColor="@color/wallet_card_backup_background"
+                android:textSize="@dimen/text_size_fixed_13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>

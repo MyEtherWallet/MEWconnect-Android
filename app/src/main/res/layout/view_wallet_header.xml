@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/wallet_header_height"
+    android:layout_marginStart="@dimen/dimen_16dp"
+    android:layout_marginEnd="@dimen/dimen_16dp"
+    android:background="@color/wallet_background"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/wallet_header_update_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:transformPivotX="0dp"
+            android:transformPivotY="0dp"
+            tools:scaleX="0.7"
+            tools:scaleY="0.7">
+
+            <TextView
+                android:id="@+id/wallet_header_balances_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wallet_header_balances_title"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_size_22sp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:layout_marginTop="@dimen/dimen_2dp">
+
+                <ImageView
+                    android:id="@+id/wallet_header_update_button"
+                    android:layout_width="@dimen/dimen_28dp"
+                    android:layout_height="@dimen/dimen_28dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/wallet_refresh" />
+
+                <ProgressBar
+                    android:id="@+id/wallet_header_update_progress"
+                    android:layout_width="@dimen/dimen_20dp"
+                    android:layout_height="@dimen/dimen_20dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/wallet_header_balances_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/battleship_grey"
+            android:textSize="@dimen/text_size_22sp"
+            android:transformPivotX="0dp"
+            android:transformPivotY="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:scaleX="0.7"
+            tools:scaleY="0.7"
+            tools:text="$1,511.12" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/wallet_header_search_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_12dp"
+        android:layout_marginBottom="@dimen/dimen_12dp"
+        android:background="@drawable/wallet_header_search_background">
+
+        <ImageView
+            android:layout_width="@dimen/dimen_24dp"
+            android:layout_height="@dimen/dimen_24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/dimen_4dp"
+            android:layout_marginEnd="@dimen/dimen_4dp"
+            android:contentDescription="@null"
+            android:src="@drawable/wallet_header_search" />
+
+        <EditText
+            android:id="@+id/wallet_header_search"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_28dp"
+            android:background="@null"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColorHint="@color/battleship_grey"
+            android:textSize="@dimen/text_size_14sp"
+            tools:hint="Search 81 tokens"
+            tools:ignore="Autofill" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="static_toolbar_height">80dp</dimen>
+    <dimen name="separator_size">1dp</dimen>
+
+    <dimen name="dimen_1dp">1dp</dimen>
+    <dimen name="dimen_2dp">2dp</dimen>
+    <dimen name="dimen_4dp">4dp</dimen>
+    <dimen name="dimen_8dp">8dp</dimen>
+    <dimen name="dimen_12dp">12dp</dimen>
+    <dimen name="dimen_16dp">16dp</dimen>
+    <dimen name="dimen_20dp">20dp</dimen>
+    <dimen name="dimen_24dp">24dp</dimen>
+    <dimen name="dimen_28dp">28dp</dimen>
+    <dimen name="dimen_32dp">32dp</dimen>
+    <dimen name="dimen_36dp">36dp</dimen>
+    <dimen name="dimen_40dp">40dp</dimen>
+    <dimen name="dimen_44dp">44dp</dimen>
+    <dimen name="dimen_48dp">48dp</dimen>
+    <dimen name="dimen_56dp">56dp</dimen>
+    <dimen name="dimen_60dp">60dp</dimen>
+    <dimen name="dimen_68dp">68dp</dimen>
+    <dimen name="dimen_72dp">72dp</dimen>
+    <dimen name="dimen_80dp">80dp</dimen>
+    <dimen name="dimen_84dp">84dp</dimen>
+    <dimen name="dimen_88dp">88dp</dimen>
+    <dimen name="dimen_96dp">96dp</dimen>
+    <dimen name="dimen_104dp">104dp</dimen>
+    <dimen name="dimen_112dp">112dp</dimen>
+    <dimen name="dimen_120dp">120dp</dimen>
+    <dimen name="dimen_128dp">128dp</dimen>
+    <dimen name="dimen_136dp">136dp</dimen>
+    <dimen name="dimen_156dp">156dp</dimen>
+    <dimen name="dimen_168dp">168dp</dimen>
+    <dimen name="dimen_184dp">184dp</dimen>
+    <dimen name="dimen_204dp">204dp</dimen>
+    <dimen name="dimen_224dp">224dp</dimen>
+    <dimen name="dimen_248dp">248dp</dimen>
+    <dimen name="dimen_272dp">272dp</dimen>
+    <dimen name="dimen_308dp">308dp</dimen>
+
+    <dimen name="text_size_11sp">11sp</dimen>
+    <dimen name="text_size_12sp">12sp</dimen>
+    <dimen name="text_size_14sp">14sp</dimen>
+    <dimen name="text_size_16sp">16sp</dimen>
+    <dimen name="text_size_18sp">18sp</dimen>
+    <dimen name="text_size_20sp">20sp</dimen>
+    <dimen name="text_size_22sp">22sp</dimen>
+    <dimen name="text_size_24sp">24sp</dimen>
+    <dimen name="text_size_28sp">28sp</dimen>
+    <dimen name="text_size_30sp">30sp</dimen>
+    <dimen name="text_size_34sp">34sp</dimen>
+    <dimen name="text_size_40sp">40sp</dimen>
+    <dimen name="text_size_48sp">48sp</dimen>
+
+    <dimen name="text_size_fixed_11sp">11dp</dimen>
+    <dimen name="text_size_fixed_12sp">12dp</dimen>
+    <dimen name="text_size_fixed_13sp">13dp</dimen>
+    <dimen name="text_size_fixed_14sp">14dp</dimen>
+    <dimen name="text_size_fixed_16sp">16dp</dimen>
+    <dimen name="text_size_fixed_18sp">18dp</dimen>
+    <dimen name="text_size_fixed_20sp">20dp</dimen>
+    <dimen name="text_size_fixed_22sp">22dp</dimen>
+    <dimen name="text_size_fixed_24sp">24dp</dimen>
+    <dimen name="text_size_fixed_28sp">28dp</dimen>
+    <dimen name="text_size_fixed_30sp">30dp</dimen>
+    <dimen name="text_size_fixed_34sp">34dp</dimen>
+    <dimen name="text_size_fixed_40sp">40dp</dimen>
+    <dimen name="text_size_fixed_48sp">48dp</dimen>
+
+    <dimen name="wallet_scroll_threshold">216dp</dimen>
+    <dimen name="wallet_list_item_height">56dp</dimen>
+    <dimen name="wallet_list_header_height">400dp</dimen>
+    <dimen name="wallet_list_footer_height">80dp</dimen>
+    <dimen name="wallet_toolbar_height">48dp</dimen>
+    <dimen name="wallet_card_width">328dp</dimen>
+    <dimen name="wallet_card_height">208dp</dimen>
+    <dimen name="wallet_header_height">96dp</dimen>
+    <dimen name="wallet_card_address_width">264dp</dimen>
+
+    <dimen name="address_qr_size">156dp</dimen>
+</resources>

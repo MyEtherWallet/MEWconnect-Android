@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="generating_animation_strings">
+        <item><![CDATA[Generating your<br/><font color="#064dd6">Ethereum address</font>]]></item>
+        <item><![CDATA[Encrypting your<br/><font color="#064dd6">private key</font> using<br/>your password]]></item>
+        <item><![CDATA[Saving your<br/>encrypted keys to a<br/><font color="#064dd6">local secure vault</font><br/>on this device]]></item>
+        <item><![CDATA[<font color="#064dd6">All done!</font>]]></item>
+    </string-array>
+</resources>

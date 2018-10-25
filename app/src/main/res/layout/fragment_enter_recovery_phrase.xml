@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_background"
+    android:orientation="vertical">
+
+    <com.myetherwallet.mewconnect.core.ui.view.StaticToolbar
+        android:id="@+id/enter_recovery_phrase_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/static_toolbar_height" />
+
+    <ScrollView
+        android:id="@+id/enter_recovery_phrase_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/enter_recovery_phrase_content_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_24dp"
+            android:fitsSystemWindows="true"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="-8sp"
+                android:text="@string/enter_recovery_phrase_title"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/text_size_40sp"
+                android:textStyle="bold" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/enter_recovery_phrase_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:hint="@string/enter_recovery_phrase_hint">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/enter_recovery_phrase_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:minLines="9" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_background"
+    android:orientation="vertical">
+
+    <com.myetherwallet.mewconnect.core.ui.view.StaticToolbar
+        android:id="@+id/address_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/static_toolbar_height" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_24dp"
+                android:layout_marginEnd="@dimen/dimen_24dp"
+                android:text="@string/address_title"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/text_size_34sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_24dp"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                android:layout_marginEnd="@dimen/dimen_24dp"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.03"
+                android:lineSpacingExtra="12sp"
+                android:text="@string/address_description"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_size_16sp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/address_qr"
+                        android:layout_width="@dimen/address_qr_size"
+                        android:layout_height="@dimen/address_qr_size"
+                        android:layout_gravity="center_horizontal"
+                        android:contentDescription="@null"
+                        android:scaleType="fitXY"
+                        tools:src="@tools:sample/avatars[2]" />
+
+                    <TextView
+                        android:id="@+id/address_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginStart="@dimen/dimen_48dp"
+                        android:layout_marginTop="@dimen/dimen_8dp"
+                        android:layout_marginEnd="@dimen/dimen_48dp"
+                        android:gravity="center_horizontal"
+                        android:letterSpacing="0.02"
+                        android:lineSpacingExtra="6sp"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/text_size_14sp"
+                        android:textStyle="bold"
+                        tools:text="0x20D901fD3934A161CE07AF4A7226c3d21d8664c3" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_84dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <android.support.design.button.MaterialButton
+                    android:id="@+id/address_copy"
+                    style="@style/Button"
+                    android:layout_width="@dimen/dimen_112dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_8dp"
+                    android:layout_marginEnd="@dimen/dimen_8dp"
+                    android:backgroundTint="@color/address_copy_background"
+                    android:text="@string/address_copy"
+                    android:textColor="@color/colorAccent" />
+
+                <android.support.design.button.MaterialButton
+                    android:id="@+id/address_share"
+                    style="@style/Button"
+                    android:layout_width="@dimen/dimen_184dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_8dp"
+                    android:layout_marginEnd="@dimen/dimen_8dp"
+                    android:text="@string/address_share"
+                    app:icon="@drawable/address_share"
+                    app:iconGravity="textStart"
+                    app:iconPadding="@dimen/dimen_12dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

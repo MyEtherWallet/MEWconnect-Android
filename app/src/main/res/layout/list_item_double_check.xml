@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/double_check_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:letterSpacing="0.03"
+        android:textColor="@color/text_grey"
+        android:textSize="@dimen/text_size_16sp"
+        tools:text="Select word #3" />
+
+    <com.myetherwallet.mewconnect.core.ui.view.ButtonGroup
+        android:id="@+id/double_check_group"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_48dp"
+        android:layout_marginTop="@dimen/dimen_8dp">
+
+        <com.myetherwallet.mewconnect.core.ui.view.ButtonGroupItem
+            android:id="@+id/double_check_left"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:text="witch" />
+
+        <com.myetherwallet.mewconnect.core.ui.view.ButtonGroupItem
+            android:id="@+id/double_check_center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:checked="true"
+            tools:text="practice" />
+
+        <com.myetherwallet.mewconnect.core.ui.view.ButtonGroupItem
+            android:id="@+id/double_check_right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:text="monk" />
+    </com.myetherwallet.mewconnect.core.ui.view.ButtonGroup>
+</LinearLayout>

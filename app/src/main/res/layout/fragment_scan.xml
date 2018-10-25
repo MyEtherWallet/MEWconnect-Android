@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true"
+    android:orientation="vertical">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_112dp">
+
+        <com.myetherwallet.mewconnect.core.ui.view.StaticToolbar
+            android:id="@+id/scan_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerPadding="@dimen/dimen_24dp"
+            android:panelBackground="@drawable/scan_toolbar_panel_background" />
+
+        <TextView
+            android:id="@+id/scan_toolbar_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_44dp"
+            android:layout_marginTop="@dimen/dimen_40dp"
+            android:layout_marginEnd="@dimen/dimen_44dp"
+            android:text="@string/scan_toolbar_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_fixed_30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:textColor="@color/text_black" />
+
+        <TextView
+            android:id="@+id/scan_toolbar_subtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/scan_toolbar_subtitle"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_fixed_16sp"
+            app:layout_constraintEnd_toEndOf="@id/scan_toolbar_title"
+            app:layout_constraintStart_toStartOf="@id/scan_toolbar_title"
+            app:layout_constraintTop_toBottomOf="@+id/scan_toolbar_title"
+            tools:textColor="@color/text_black" />
+    </android.support.constraint.ConstraintLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/black">
+
+        <com.myetherwallet.mewconnect.feature.scan.view.CameraSourcePreview
+            android:id="@+id/scan_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/scan_camera_permission_rationale"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:letterSpacing="0.02"
+            android:lineSpacingExtra="6sp"
+            android:text="@string/scan_camera_permission_rationale_settings"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_fixed_14sp"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/scan_animation_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/black" />
+
+        <FrameLayout
+            android:id="@+id/scan_connecting_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/scan_background_grey"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="visible"
+            tools:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                tools:ignore="UselessParent">
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="@dimen/dimen_44dp"
+                    android:layout_height="@dimen/dimen_44dp"
+                    android:indeterminateTint="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center_horizontal"
+                    android:letterSpacing="0.01"
+                    android:text="@string/scan_connecting"
+                    android:textColor="@color/text_white"
+                    android:textSize="@dimen/text_size_fixed_20sp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/scan_error_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/scan_background_grey"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                tools:ignore="UselessParent">
+
+                <ImageView
+                    android:id="@+id/scan_error_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@null"
+                    android:src="@drawable/scan_error" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/scan_error"
+                    android:textColor="@color/text_white"
+                    android:textSize="@dimen/text_size_fixed_20sp" />
+
+                <TextView
+                    android:id="@+id/scan_error_try_again"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:fontFamily="sans-serif-medium"
+                    android:foreground="@drawable/scan_error_try_again"
+                    android:gravity="center_horizontal"
+                    android:padding="@dimen/dimen_8dp"
+                    android:text="@string/scan_error_try_again"
+                    android:textColor="@color/text_white"
+                    android:textSize="@dimen/text_size_fixed_16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/scan_error_icon" />
+
+                <TextView
+                    android:id="@+id/scan_error_contact"
+                    android:layout_width="@dimen/dimen_224dp"
+                    android:layout_height="@dimen/dimen_24dp"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:letterSpacing="0.03"
+                    android:text="@string/scan_error_contact"
+                    android:textColor="@color/text_white"
+                    android:textSize="@dimen/text_size_fixed_16sp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/scan_done_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/scan_background_blue"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                tools:ignore="UselessParent">
+
+                <ImageView
+                    android:id="@+id/scan_done_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/scan_done" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.01"
+                    android:text="@string/scan_connected"
+                    android:textColor="@color/text_white"
+                    android:textSize="@dimen/text_size_fixed_20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.03"
+                    android:lineSpacingExtra="12sp"
+                    android:text="@string/scan_connected2"
+                    android:textColor="@color/text_light_white"
+                    android:textSize="@dimen/text_size_fixed_16sp" />
+            </LinearLayout>
+        </FrameLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_248dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/scan_manual_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/battleship_grey">
+
+            <TextView
+                android:id="@+id/scan_number_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                android:padding="@dimen/dimen_4dp"
+                android:text="1"
+                android:textColor="@color/scan_manual_number"
+                android:textSize="@dimen/text_size_fixed_12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/scan_manual_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:text="@string/scan_manual_1"
+                android:textColor="@color/text_white"
+                android:textSize="@dimen/text_size_fixed_14sp"
+                app:layout_constraintStart_toEndOf="@id/scan_number_1"
+                app:layout_constraintTop_toTopOf="@id/scan_number_1" />
+
+            <TextView
+                android:id="@+id/scan_number_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:padding="@dimen/dimen_4dp"
+                android:text="2"
+                android:textColor="@color/scan_manual_number"
+                android:textSize="@dimen/text_size_fixed_12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/scan_manual_1" />
+
+            <TextView
+                android:id="@+id/scan_manual_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:text="@string/scan_manual_2"
+                android:textColor="@color/text_white"
+                android:textSize="@dimen/text_size_fixed_14sp"
+                app:layout_constraintStart_toEndOf="@id/scan_number_2"
+                app:layout_constraintTop_toBottomOf="@id/scan_manual_1"
+                app:layout_constraintTop_toTopOf="@id/scan_number_2" />
+
+            <TextView
+                android:id="@+id/scan_number_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:padding="@dimen/dimen_4dp"
+                android:text="3"
+                android:textColor="@color/scan_manual_number"
+                android:textSize="@dimen/text_size_fixed_12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/scan_manual_2" />
+
+            <TextView
+                android:id="@+id/scan_manual_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:text="@string/scan_manual_3"
+                android:textColor="@color/text_white"
+                android:textSize="@dimen/text_size_fixed_14sp"
+                app:layout_constraintStart_toEndOf="@id/scan_number_3"
+                app:layout_constraintTop_toBottomOf="@id/scan_manual_2"
+                app:layout_constraintTop_toTopOf="@id/scan_number_3" />
+        </android.support.constraint.ConstraintLayout>
+
+
+    </FrameLayout>
+</LinearLayout>

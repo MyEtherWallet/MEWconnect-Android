@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.myetherwallet.mewconnect.core.ui.view.StaticToolbar
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/static_toolbar_height" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/default_background"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_24dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="-8sp"
+            android:text="@string/sign_message_title"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/text_size_40sp"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_224dp"
+            android:layout_marginStart="@dimen/dimen_24dp"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            android:background="@drawable/sign_message_text_background"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <TextView
+                android:id="@+id/sign_message_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:letterSpacing="0.03"
+                android:lineSpacingExtra="12sp"
+                android:padding="@dimen/dimen_12dp"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_size_16sp"
+                tools:text="Some text" />
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/sign_message_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_24dp"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            android:letterSpacing="0.02"
+            android:lineSpacingExtra="4sp"
+            android:text="@string/sign_message_description"
+            android:textColor="@color/text_grey" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimen_16dp">
+
+            <android.support.design.button.MaterialButton
+                android:id="@+id/sign_message_cancel"
+                style="@style/Button"
+                android:layout_width="@dimen/dimen_128dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:text="@string/cancel"
+                app:layout_constraintEnd_toStartOf="@+id/sign_message_confirm"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <android.support.design.button.MaterialButton
+                android:id="@+id/sign_message_confirm"
+                style="@style/Button"
+                android:layout_width="@dimen/dimen_168dp"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_message_confirm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/sign_message_cancel" />
+        </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+</LinearLayout>

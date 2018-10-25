@@ -1,0 +1,161 @@
+<resources>
+    <string name="app_name">MEWсonnect</string>
+
+    <string name="password">Password</string>
+    <string name="decline">Decline</string>
+    <string name="confirm">Confirm</string>
+    <string name="done">Done</string>
+    <string name="next">Next</string>
+    <string name="close">Close</string>
+    <string name="cancel">Cancel</string>
+    <string name="back_up">Back up</string>
+    <string name="reset_wallet">Reset wallet</string>
+    <string name="words_loading_error">Cannot load words list</string>
+
+    <string name="enter_recovery_phrase_title">Enter your\nrecovery phrase</string>
+    <string name="enter_recovery_phrase_hint">Words separated by spaces</string>
+    <string name="enter_recovery_phrase_error">Wrong recovery phrase</string>
+
+    <string name="pick_password_title">Pick a\npassword</string>
+    <string name="pick_password_description">So no one else but you can unlock your wallet.</string>
+    <string name="pick_password_description2">Best passwords are long and contain letters, numbers and special characters.</string>
+    <string name="pick_password_strength_weak">Weak</string>
+    <string name="pick_password_strength_so_so">So-so</string>
+    <string name="pick_password_strength_good">Good</string>
+    <string name="pick_password_strength_great">Great</string>
+
+    <string name="password_again_title">Type your\npassword again</string>
+    <string name="password_again_description"><![CDATA[There will be <u>NO ‘Restore password’</u> button. Make sure you remember it.]]></string>
+    <string name="password_again_error">Wrong password</string>
+
+    <string name="lets_double_check_title">Let’s double\ncheck it</string>
+    <string name="lets_double_check_description">Once you finish, you won’t be able to view your recovery phrase again.</string>
+    <string name="lets_double_check_item_title">Select word #%d</string>
+
+    <string name="prepare_write_title">Prepare to write down your recovery phrase</string>
+    <string name="prepare_write_description">If your device gets lost or stolen, you can restore your wallet using your recovery phrase. Get pen and paper before you start.</string>
+    <string name="prepare_write_confirm">Start</string>
+
+    <string name="wallet_backed_up_title">Your wallet is\nnow backed up</string>
+    <string name="wallet_backed_up_description">Protect your recovery phrase like a million dollars your account might once be worth. In a de-centralized world your safety and security is your own responsibility.  Stay safe out there!</string>
+    <string name="wallet_status_connected">Connected to MyEtherWallet</string>
+    <string name="wallet_status_disconnect">Disconnect</string>
+    <string name="wallet_header_search_hint">Search %d tokens</string>
+    <string name="wallet_empty">This address currently\ndoesn\'t own any tokens</string>
+
+    <string name="intro_by_mew_label">by MyEtherWallet</string>
+    <string name="intro_verify">Verify</string>
+    <string name="intro_restore_wallet">Restore wallet</string>
+    <string name="intro_setup">CREATE NEW WALLET</string>
+    <string name="intro_page_footer1">Finally, a ’hardware wallet’\nwithout all the hardware.\nOfficially by MyEtherWallet</string>
+    <string name="intro_page_footer2">Secure your every\nMyEtherWallet\ntransaction with two-\nfactor verification</string>
+    <string name="intro_page_footer3">Store your private keys\nsafely in a local isolated\nsecure vault on your\ndevice</string>
+    <string name="intro_page_footer4">Protect yourself from\nphishers and malware. No\none can obtain your\nprivate key.</string>
+    <string name="intro_page_footer5">No data collection:\nMyEtherWallet can\'t\ncollect your personal data\neven if we wanted to.</string>
+    <string name="intro_page_footer6">No centralized servers, no\ndatabases.\nMEWconnect and\nMyEtherWallet talk via\nP2P communication.</string>
+    <string name="intro_page_footer7">Transparent, free and\nopen source. Audited by\nthe community.</string>
+
+    <string name="generating_start_using">Start using MEWconnect</string>
+
+    <string name="wallet_card_currency_eth">ETH</string>
+    <string name="wallet_card_currency_usd">USD</string>
+    <string name="wallet_card_address_title">Your public Ethereum address</string>
+    <string name="wallet_card_stock_price">\@ %.2f/%s</string>
+    <string name="wallet_card_backup_title">Action required: not backed up</string>
+    <string name="wallet_card_backup_description">If you loose this device you will loose your account and all your funds forever.</string>
+    <string name="wallet_card_backed_up">Backed up</string>
+    <string name="wallet_toolbar_buy_ether">Buy ether</string>
+    <string name="wallet_header_balances_title">Tokens</string>
+    <string name="wallet_network_title">Select network</string>
+    <string name="wallet_network_main_full">Main Ethereum Network</string>
+    <string name="wallet_network_ropsten_full">Ropsten Test Network</string>
+    <string name="wallet_network_main_short">Mainnet</string>
+    <string name="wallet_network_ropsten_short">Ropsten</string>
+    <string name="wallet_network_main_currency">ETH</string>
+    <string name="wallet_network_ropsten_currency">ROPSTEN ETH</string>
+    <string name="wallet_scan_to_connect">Scan to connect</string>
+    <string name="wallet_offline">No internet connection</string>
+
+    <string name="scan_camera_permission_rationale_settings">Please enable camera access for\nMEWconnect in Settings</string>
+    <string name="scan_camera_permission_rationale_dialog">Please enable camera access for\nMEWconnect</string>
+    <string name="scan_low_storage_error">Not enough free space</string>
+    <string name="scan_camera_source_error">Unable to start camera</string>
+
+    <string name="transaction_confirmed_title">Continue in your browser</string>
+    <string name="transaction_confirmed_description">Transaction is generated and signed. Please continue in MyEtherWallet in your browser in order to send it.</string>
+
+    <string name="transaction_declined_title">Transaction declined</string>
+    <string name="transaction_declined_description"><![CDATA[You declined the transaction and it was cancelled. If you have security concerns, please contact <a href="mail:support@myetherwallet.com">MEW Support</a>]]></string>
+
+    <string name="confirm_transaction_title">Verify\ntransaction</string>
+    <string name="confirm_transaction_wallet_title">Check address you’re sending to:</string>
+    <string name="confirm_transaction_amount_title">Check the amount:</string>
+    <string name="confirm_transaction_description">If your computer is compromised, attackers might replace ‘Send to’ address with their own, before sending your transaction. That’s why it’s important to check it in MEWconnect.</string>
+
+    <string name="scan_connected">Connected to MyEtherWallet</string>
+    <string name="scan_connected2">Via encrypted peer-to-peer connection</string>
+    <string name="scan_toolbar_title">Scan QR code</string>
+    <string name="scan_toolbar_subtitle">To connect to MyEtherWallet</string>
+    <string name="scan_error">Something went wrong</string>
+    <string name="scan_error_try_again">Try again</string>
+    <string name="scan_error_contact">Contact support</string>
+    <string name="scan_connecting">Creating a local connection\nwith MyEtherWallet</string>
+    <string name="scan_manual_1"><![CDATA[Go to <b>MyEtherWallet.com</b> on your<br/>computer and choose <b>Send Ether and<br/>Tokens</b> option.]]></string>
+    <string name="scan_manual_2"><![CDATA[Select <b>MEWconnect</b> option on <b>How<br/>would you like to access your wallet</b><br/>screen.]]></string>
+    <string name="scan_manual_3"><![CDATA[Click <b>Access with MEWconnect</b> and scan<br/>the QR code on the screen that will follow.]]></string>
+
+    <string name="auth_forgot_password">Forgot password?</string>
+    <string name="auth_forgot_password_error">Wrong password</string>
+
+    <string name="forgot_password_title">Forgot password?</string>
+    <string name="forgot_password_description">Unfortunately, as we mentioned when you were creating a password, there’s no ‘Restore Password’ button, however, if you created a backup for your wallet, you can restore your wallet using a backup passphrase and set a new password once it’s restored.</string>
+    <string name="forgot_password_restore_wallet">Restore wallet</string>
+
+    <string name="write_these_title">Write these down</string>
+    <string name="write_these_subtitle">Here’s your recovery phrase:</string>
+    <string name="write_these_description">Resist temptation to email it to yourself or screenshot it. You will thank yourself later.\nThe order of words is important too.</string>
+    <string name="write_these_screenshot_text">Please remember NOT to keep your passphrase anywhere digitally, otherwise you can lose all your funds. We strongly suggest to delete the screenshot you\'ve just taken and write down the passphrase using pen and paper.</string>
+    <string name="write_these_screenshot_title">Oops! It looks like you\'ve just taken a screenshot.</string>
+
+    <string name="back_up_wallet_title">Back up your  wallet</string>
+    <string name="back_up_wallet_description">Your Ethereum address and private key are stored in a local secure vault on this device.\nBut, what happens if you loose this device? Well… unless you back up your wallet, you will loose all your funds forever.</string>
+    <string name="back_up_wallet_now">Back up now</string>
+
+    <string name="info_title">Info</string>
+    <string name="info_contact">Contact</string>
+    <string name="info_user_guide">User guide</string>
+    <string name="info_knowledge_base">Knowledge base</string>
+    <string name="info_site">Myetherwallet.com</string>
+    <string name="info_privacy_and_terms">Privacy and terms</string>
+    <string name="info_copyright">Copyright 2018 MyEtherWallet Inc.</string>
+    <string name="info_version">Version %s (%d)</string>
+
+    <string name="reset_wallet_title">⚠ Warning: you can loose your account and funds forever</string>
+    <string name="reset_wallet_message">Don\'t reset if you didn\'t make a backup, as there will be NO WAY to restore your account after you reset.</string>
+    <string name="backup_warning_title">Action required: your funds are at risk</string>
+    <string name="backup_warning_message">If your device gets lost or stolen your will loose all your funds forever. Please back up your account.</string>
+
+    <string name="buy_title">Buy Ether</string>
+    <string name="buy_button">Buy with credit card</string>
+    <string name="buy_minimum_warning">$50 minimum purchase</string>
+    <string name="buy_loading_error">Buy Ether failed</string>
+
+    <string name="history_title">Purchase history</string>
+    <string name="history_total_amount_title">Total amount:</string>
+    <string name="history_date">%1$tB %2$te via Simplex</string>
+    <string name="history_empty">Your credit card purchases\nwill be displayed here</string>
+
+    <string name="sign_message_title">Sign message</string>
+    <string name="sign_message_description">Please remember to include your nickname and a specific reason for the message, so someone else cannot re-use it for a different purpose.</string>
+    <string name="sign_message_confirm">Sign</string>
+
+    <string name="message_sidned_title">Continue in your browser</string>
+    <string name="message_sidned_description">The message is signed. Please continue in MyEtherWallet in your browser.</string>
+
+    <string name="address_title">Your public\nethereum address</string>
+    <string name="address_description">Share your public address to receive Ether and ERC-20 tokens</string>
+    <string name="address_share">Share</string>
+    <string name="address_share_title">Choose application</string>
+    <string name="address_copy">Copy</string>
+    <string name="address_copied">Address copied</string>
+</resources>

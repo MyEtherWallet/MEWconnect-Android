@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3f51b5</color>
+    <color name="colorPrimaryDark">#303f9f</color>
+    <color name="colorAccent">@color/blue</color>
+
+    <color name="default_background">#ffffff</color>
+    <color name="status_bar_white">#66ffffff</color>
+    <color name="status_bar_transparent">#01000000</color>
+    <color name="disabled_button">#f0f1f2</color>
+    <color name="disabled_button_text">#336e7384</color>
+    <color name="separator">#1e000000</color>
+
+    <color name="text_black">#de000000</color>
+    <color name="text_grey">@color/battleship_grey</color>
+    <color name="text_white">@color/white</color>
+    <color name="text_light_white">#99ffffff</color>
+
+    <color name="blue">#064dd6</color>
+    <color name="light_blue">#ebf1fc</color>
+    <color name="red">#d60606</color>
+    <color name="white">#fff</color>
+    <color name="dark_grey">#2e3033</color>
+    <color name="battleship_grey">#6e7384</color>
+
+    <color name="start_pager_indicator_selected">#ccffffff</color>
+    <color name="start_page_mew_connect_verify_background">#33000000</color>
+
+    <color name="pick_password_strength_progress_background">#a6a6a6</color>
+    <color name="pick_password_strength_great">@color/blue</color>
+    <color name="pick_password_strength_good">#11d252</color>
+    <color name="pick_password_strength_so_so">#e8a800</color>
+    <color name="pick_password_strength_weak">@color/red</color>
+
+    <color name="scan_manual_number">#abb2ba</color>
+    <color name="scan_background_grey">#989daa</color>
+    <color name="scan_background_blue">#4681e8</color>
+
+    <color name="wallet_background">#f2f4f7</color>
+    <color name="wallet_card_backup_background">#e8a800</color>
+    <color name="wallet_card_backup_description">#ffe6a3</color>
+    <color name="wallet_toolbar_buttons_background">#dae3f2</color>
+
+    <color name="buy_toggle_currency_background">#eaf0fc</color>
+    <color name="buy_keyboard_background">#f9f9f9</color>
+
+    <color name="address_copy_background">#ebf1fc</color>
+</resources>

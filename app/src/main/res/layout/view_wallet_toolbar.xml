@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/wallet_toolbar_height"
+    tools:background="#ddd">
+
+    <com.myetherwallet.mewconnect.core.ui.view.FixedFontTextView
+        android:id="@+id/wallet_toolbar_info"
+        android:layout_width="@dimen/dimen_20dp"
+        android:layout_height="@dimen/dimen_20dp"
+        android:layout_marginStart="@dimen/dimen_16dp"
+        android:gravity="center"
+        android:text="i"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/text_size_fixed_13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/wallet_toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:ellipsize="end"
+        android:gravity="center_horizontal"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:text="@string/app_name"
+        android:textSize="@dimen/text_size_fixed_16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/wallet_toolbar_beta"
+        android:layout_width="14dp"
+        android:layout_height="10dp"
+        android:layout_marginBottom="@dimen/dimen_12dp"
+        android:contentDescription="@null"
+        android:src="@drawable/beta_blue"
+        app:layout_constraintBottom_toBottomOf="@id/wallet_toolbar_title"
+        app:layout_constraintStart_toEndOf="@id/wallet_toolbar_title" />
+
+    <FrameLayout
+        android:id="@+id/wallet_toolbar_balance_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/wallet_toolbar_beta"
+        app:layout_constraintStart_toStartOf="@id/wallet_toolbar_title">
+
+        <TextView
+            android:id="@+id/wallet_toolbar_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:alpha="0.7"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_fixed_14sp"
+            tools:text="0.5679 ETH" />
+
+        <TextView
+            android:id="@+id/wallet_toolbar_network"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:drawableEnd="@drawable/wallet_toolbar_network"
+            android:drawablePadding="@dimen/dimen_4dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_horizontal"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/text_size_fixed_12sp"
+            tools:text="Ropsten" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/wallet_toolbar_buy"
+        android:layout_width="@dimen/dimen_84dp"
+        android:layout_height="@dimen/dimen_20dp"
+        android:layout_marginEnd="@dimen/dimen_16dp"
+        android:background="@drawable/wallet_toolbar_buy_background"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:letterSpacing="0.09"
+        android:text="@string/wallet_toolbar_buy_ether"
+        android:textAllCaps="true"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/text_size_fixed_11sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

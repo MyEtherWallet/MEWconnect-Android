@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/wallet_content_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wallet_background"
+    android:orientation="vertical">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/wallet_coordinator_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/wallet_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <FrameLayout
+            android:id="@+id/wallet_scrollable_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--app:layout_behavior="com.myetherwallet.mewconnect.feature.main.view.behavior.WalletScrollBehavior"-->
+
+            <com.myetherwallet.mewconnect.feature.main.view.WalletCardView
+                android:id="@+id/wallet_card"
+                android:layout_width="@dimen/wallet_card_width"
+                android:layout_height="@dimen/wallet_card_height"
+                android:layout_gravity="center_horizontal"
+                app:cardElevation="@dimen/dimen_8dp" />
+
+            <com.myetherwallet.mewconnect.feature.main.view.WalletHeader
+                android:id="@+id/wallet_header"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_80dp"
+                android:background="@drawable/wallet_content_background"
+                android:elevation="@dimen/dimen_12dp" />
+
+            <com.myetherwallet.mewconnect.feature.main.view.WalletToolbar
+                android:id="@+id/wallet_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                android:elevation="@dimen/dimen_20dp" />
+        </FrameLayout>
+    </android.support.design.widget.CoordinatorLayout>
+
+    <FrameLayout
+        android:id="@+id/wallet_loading"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/wallet_list_header_height"
+        android:background="@color/wallet_background"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/wallet_empty"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/wallet_list_header_height"
+        android:background="@color/wallet_background"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:letterSpacing="0.01"
+            android:lineSpacingExtra="8sp"
+            android:text="@string/wallet_empty"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/text_size_16sp" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/wallet_scan_to_connect"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_48dp"
+        android:layout_marginBottom="@dimen/dimen_16dp"
+        android:background="@drawable/wallet_scan_to_connect_background"
+        android:drawableStart="@drawable/wallet_scan_to_connect"
+        android:drawablePadding="@dimen/dimen_8dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:letterSpacing="0.09"
+        android:paddingStart="@dimen/dimen_20dp"
+        android:paddingEnd="@dimen/dimen_20dp"
+        android:text="@string/wallet_scan_to_connect"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_14sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/wallet_status_container"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_28dp"
+        android:background="@drawable/wallet_status_background"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/dimen_16dp"
+            android:layout_weight="1"
+            android:letterSpacing="0.02"
+            android:text="@string/wallet_status_connected"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_14sp" />
+
+        <TextView
+            android:id="@+id/wallet_status_disconnect"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/dimen_16dp"
+            android:layout_marginEnd="@dimen/dimen_16dp"
+            android:background="?attr/selectableItemBackground"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:letterSpacing="0.09"
+            android:text="@string/wallet_status_disconnect"
+            android:textAllCaps="true"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/wallet_offline_container"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_28dp"
+        android:background="@drawable/wallet_offline_background"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/dimen_16dp"
+            android:layout_weight="1"
+            android:letterSpacing="0.02"
+            android:text="@string/wallet_offline"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_14sp" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

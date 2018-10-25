@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.myetherwallet.mewconnect.core.ui.view.StaticToolbar
+            android:id="@+id/buy_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/static_toolbar_height" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_56dp"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/buy_symbol_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/colorAccent"
+                        tools:text="$"
+                        tools:textSize="48sp" />
+
+                    <TextView
+                        android:id="@+id/buy_sum_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:textColor="@color/colorAccent"
+                        tools:text="123.12"
+                        tools:textSize="48sp" />
+
+                    <TextView
+                        android:id="@+id/buy_currency_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginStart="@dimen/dimen_8dp"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/text_size_fixed_28sp"
+                        tools:text="ETH" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/buy_toggle_currency"
+                    android:layout_width="@dimen/dimen_36dp"
+                    android:layout_height="@dimen/dimen_36dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="@dimen/dimen_16dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/buy_toggle_currency" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/buy_symbol_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/text_size_16sp"
+                        tools:text="$" />
+
+                    <TextView
+                        android:id="@+id/buy_sum_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0.03"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/text_size_16sp"
+                        tools:text="123.456789" />
+
+                    <TextView
+                        android:id="@+id/buy_currency_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_4dp"
+                        android:letterSpacing="0.03"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/text_size_16sp"
+                        tools:text="ETH" />
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/buy_keyboard_background"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dimen_32dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/buy_button_1"
+                    style="@style/BuyButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="1"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/buy_button_2"
+                    style="@style/BuyButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="2"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/buy_button_3"
+                    style="@style/BuyButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="3"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/buy_button_4"
+                    style="@style/BuyButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="4"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/buy_button_5"
+                    style="@style/BuyButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="5"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/buy_button_6"
+                    style="@style/BuyButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="6"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/buy_button_7"
+                    style="@style/BuyButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="7"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/buy_button_8"
+                    style="@style/BuyButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="8"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/buy_button_9"
+                    style="@style/BuyButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="9"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/buy_button_point"
+                    style="@style/BuyButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="."
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/buy_button_0"
+                    style="@style/BuyButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="0"
+                    tools:ignore="HardcodedText" />
+
+                <ImageView
+                    android:id="@+id/buy_button_delete"
+                    style="@style/BuyButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:contentDescription="@null"
+                    android:gravity="center"
+                    android:scaleType="center"
+                    android:src="@drawable/buy_button_delete"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/buy_keyboard_background">
+
+            <android.support.design.button.MaterialButton
+                android:id="@+id/buy_button"
+                style="@style/Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:layout_marginBottom="@dimen/dimen_16dp"
+                android:paddingStart="@dimen/dimen_24dp"
+                android:paddingEnd="@dimen/dimen_24dp"
+                android:text="@string/buy_button" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <com.myetherwallet.mewconnect.core.ui.view.LoadingView
+        android:id="@+id/buy_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+</FrameLayout>
