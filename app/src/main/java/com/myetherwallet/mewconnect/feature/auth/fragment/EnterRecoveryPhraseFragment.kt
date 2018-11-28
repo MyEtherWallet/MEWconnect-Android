@@ -17,8 +17,7 @@ import org.web3j.crypto.MnemonicUtils
  * Created by BArtWell on 13.08.2018.
  */
 
-private const val MIN_WORDS_COUNT = 12
-private const val MAX_WORDS_COUNT = 24
+private const val WORDS_COUNT = 24
 
 class EnterRecoveryPhraseFragment : BaseDiFragment() {
 
@@ -58,7 +57,7 @@ class EnterRecoveryPhraseFragment : BaseDiFragment() {
         text = text.replace(Regex("\\s+"), " ")
         text = text.trim()
         val wordsCount = text.count { " ".contains(it) } + 1
-        if (wordsCount in MIN_WORDS_COUNT..MAX_WORDS_COUNT && MnemonicUtils.validateMnemonic(text)) {
+        if (wordsCount == WORDS_COUNT && MnemonicUtils.validateMnemonic(text)) {
             addFragment(PickPasswordFragment.newInstance(text))
         } else {
             enter_recovery_phrase_layout.error = getString(R.string.enter_recovery_phrase_error)

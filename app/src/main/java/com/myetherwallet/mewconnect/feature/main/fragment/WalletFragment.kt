@@ -140,7 +140,7 @@ class WalletFragment : BaseViewModelFragment() {
 
     private fun load() {
         wallet_header.setUpdating(true)
-        viewModel.loadData(preferences.getCurrentWalletPreferences(), address)
+        viewModel.loadData(preferences.getCurrentWalletPreferences(), preferences.applicationPreferences.getCurrentNetwork(), address)
     }
 
     private fun populateWithEmpties() {

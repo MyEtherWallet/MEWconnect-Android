@@ -19,24 +19,24 @@ import javax.inject.Inject
 
 interface MewApiRepository {
 
-    fun getAllBalances(jsonRpc: JsonRpcRequest<Transaction>): Either<Failure, List<Balance>>
+    fun getAllBalances(apiMethod: String, jsonRpc: JsonRpcRequest<Transaction>): Either<Failure, List<Balance>>
 
-    fun getWalletBalance(jsonRpc: JsonRpcRequest<String>): Either<Failure, BigDecimal>
+    fun getWalletBalance(apiMethod: String, jsonRpc: JsonRpcRequest<String>): Either<Failure, BigDecimal>
 
     class Network
     @Inject constructor(private val networkHandler: NetworkHandler,
                         private val service: MewApiService) : MewApiRepository {
 
-        override fun getAllBalances(jsonRpc: JsonRpcRequest<Transaction>): Either<Failure, List<Balance>> {
+        override fun getAllBalances(apiMethod: String, jsonRpc: JsonRpcRequest<Transaction>): Either<Failure, List<Balance>> {
             return when (networkHandler.isConnected) {
-                true -> request(service.getAllBalances(jsonRpc)) { JsonRpcResponseConverter(it).toBalancesList() }
+                true -> request(service.getAllBalances(apiMethod, jsonRpc)) { JsonRpcResponseConverter(it).toBalancesList() }
                 false, null -> Either.Left(Failure.NetworkConnection())
             }
         }
 
-        override fun getWalletBalance(jsonRpc: JsonRpcRequest<String>): Either<Failure, BigDecimal> {
+        override fun getWalletBalance(apiMethod: String, jsonRpc: JsonRpcRequest<String>): Either<Failure, BigDecimal> {
             return when (networkHandler.isConnected) {
-                true -> request(service.getWalletBalance(jsonRpc)) { JsonRpcResponseConverter(it).toWalletBalance() }
+                true -> request(service.getWalletBalance(apiMethod, jsonRpc)) { JsonRpcResponseConverter(it).toWalletBalance() }
                 false, null -> Either.Left(Failure.NetworkConnection())
             }
         }

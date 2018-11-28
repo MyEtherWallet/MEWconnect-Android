@@ -1,5 +1,6 @@
 package com.myetherwallet.mewconnect.feature.main.interactor
 
+import com.myetherwallet.mewconnect.content.data.Network
 import com.myetherwallet.mewconnect.core.platform.BaseInteractor
 import com.myetherwallet.mewconnect.core.platform.Either
 import com.myetherwallet.mewconnect.core.platform.Failure
@@ -22,8 +23,8 @@ class GetWalletBalance
     override suspend fun run(params: Params): Either<Failure, BigDecimal> {
         val address = HexUtils.withPrefix(params.address)
         val request = JsonRpcRequest(METHOD, listOf(address, PERIOD))
-        return repository.getWalletBalance(request)
+        return repository.getWalletBalance(params.network.apiMethod, request)
     }
 
-    data class Params(val address: String)
+    data class Params(val network: Network, val address: String)
 }

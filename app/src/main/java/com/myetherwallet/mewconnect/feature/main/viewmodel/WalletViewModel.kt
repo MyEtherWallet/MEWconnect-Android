@@ -8,6 +8,7 @@ import android.content.ServiceConnection
 import android.os.IBinder
 import com.myetherwallet.mewconnect.MewApplication
 import com.myetherwallet.mewconnect.content.data.MessageToSign
+import com.myetherwallet.mewconnect.content.data.Network
 import com.myetherwallet.mewconnect.content.data.Transaction
 import com.myetherwallet.mewconnect.core.persist.prefenreces.WalletPreferences
 import com.myetherwallet.mewconnect.core.platform.Failure
@@ -73,19 +74,20 @@ class WalletViewModel
         super.onCleared()
     }
 
-    fun loadData(preferences: WalletPreferences, walletAddress: String) {
+    fun loadData(preferences: WalletPreferences, network: Network, walletAddress: String) {
         preferences.getWalletDataCache()?.let {
             it.isFromCache = true
             walletData.postValue(it)
         }
-        Collector(walletAddress, getWalletBalance, getAllBalances, getTickerData) { items, balance ->
+        Collector(network, walletAddress, getWalletBalance, getAllBalances, getTickerData) { items, balance ->
             val data = WalletData(false, items, balance)
             walletData.postValue(data)
             preferences.setWalletDataCache(data)
         }.execute()
     }
 
-    private class Collector(private var walletAddress: String,
+    private class Collector(private var network: Network,
+                            private var walletAddress: String,
                             private val getWalletBalance: GetWalletBalance,
                             private val getAllBalances: GetAllBalances,
                             private val getTickerData: GetTickerData,
@@ -101,7 +103,7 @@ class WalletViewModel
         }
 
         fun loadWalletBalance() {
-            getWalletBalance.execute(GetWalletBalance.Params(walletAddress)) { result ->
+            getWalletBalance.execute(GetWalletBalance.Params(network, walletAddress)) { result ->
                 result.either(::onWalletBalanceFail, ::onWalletBalanceSuccess)
             }
         }
@@ -117,7 +119,7 @@ class WalletViewModel
         }
 
         private fun loadAllBalances() {
-            getAllBalances.execute(GetAllBalances.Params(walletAddress)) {
+            getAllBalances.execute(GetAllBalances.Params(network, walletAddress)) {
                 it.either(::onAllBalancesFail, ::onAllBalancesSuccess)
             }
         }

@@ -1,5 +1,6 @@
 package com.myetherwallet.mewconnect.feature.main.interactor
 
+import com.myetherwallet.mewconnect.content.data.Network
 import com.myetherwallet.mewconnect.core.platform.BaseInteractor
 import com.myetherwallet.mewconnect.core.platform.Either
 import com.myetherwallet.mewconnect.core.platform.Failure
@@ -44,8 +45,8 @@ class GetAllBalances
                 Arrays.asList<TypeReference<*>>(object : TypeReference<DynamicBytes>() {}))
         val data = FunctionEncoder.encode(function)
         val transaction = Transaction.createEthCallTransaction(null, CONTRACT_ADDRESS, data)
-        return repository.getAllBalances(JsonRpcRequest(TRANSACTION_METHOD, listOf(transaction)))
+        return repository.getAllBalances(params.network.apiMethod, JsonRpcRequest(TRANSACTION_METHOD, listOf(transaction)))
     }
 
-    data class Params(val address: String)
+    data class Params(val network: Network, val address: String)
 }
