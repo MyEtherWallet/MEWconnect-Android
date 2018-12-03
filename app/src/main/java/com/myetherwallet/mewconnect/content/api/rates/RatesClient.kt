@@ -1,4 +1,4 @@
-package com.myetherwallet.mewconnect.content.api.mew
+package com.myetherwallet.mewconnect.content.api.rates
 
 import com.myetherwallet.mewconnect.BuildConfig
 import okhttp3.OkHttpClient
@@ -10,13 +10,13 @@ import retrofit2.converter.gson.GsonConverterFactory
  * Created by BArtWell on 01.09.2018.
  */
 
-class HerokuClient {
+class RatesClient {
 
     val retrofit = createRetrofit()
 
     private fun createRetrofit(): Retrofit {
         return Retrofit.Builder()
-                .baseUrl(BuildConfig.HEROKU_API_END_POINT)
+                .baseUrl(BuildConfig.RATES_API_END_POINT)
                 .client(createClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

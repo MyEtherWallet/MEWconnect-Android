@@ -38,7 +38,7 @@ android {
         buildConfigField "String", "APICCSWAP_API_END_POINT", "\"https://apiccswap.myetherwallet.com/\""
         buildConfigField "String", "APICCSWAP_API_KEY", "\"" + secretsProperties['apiccswapApiKey'] + "\""
         buildConfigField "String", "APICCSWAP_REFERER", "\"" + secretsProperties['apiccswapReferer'] + "\""
-        buildConfigField "String", "HEROKU_API_END_POINT", "\"http://still-waters-52916.herokuapp.com/\""
+        buildConfigField "String", "RATES_API_END_POINT", "\"https://cryptorates.mewapi.io/\""
     }
     buildTypes {
         release {

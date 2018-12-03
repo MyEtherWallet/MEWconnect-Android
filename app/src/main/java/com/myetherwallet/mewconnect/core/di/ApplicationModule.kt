@@ -4,10 +4,10 @@ import android.app.Application
 import android.content.Context
 import com.myetherwallet.mewconnect.MewApplication
 import com.myetherwallet.mewconnect.content.api.apiccswap.ApiccswapClient
-import com.myetherwallet.mewconnect.content.api.mew.HerokuClient
+import com.myetherwallet.mewconnect.content.api.rates.RatesClient
 import com.myetherwallet.mewconnect.content.api.mew.MewClient
 import com.myetherwallet.mewconnect.core.repository.ApiccswapApiRepository
-import com.myetherwallet.mewconnect.core.repository.HerokuApiRepository
+import com.myetherwallet.mewconnect.core.repository.RatesApiRepository
 import com.myetherwallet.mewconnect.core.repository.MewApiRepository
 import dagger.Module
 import dagger.Provides
@@ -34,7 +34,7 @@ class ApplicationModule(private val application: MewApplication) {
 
     @Provides
     @Singleton
-    fun provideHerokuApiClient() = HerokuClient()
+    fun provideRatesApiClient() = RatesClient()
 
     @Provides
     @Singleton
@@ -46,5 +46,5 @@ class ApplicationModule(private val application: MewApplication) {
 
     @Provides
     @Singleton
-    fun provideHerokuApiRepository(dataSource: HerokuApiRepository.Network): HerokuApiRepository = dataSource
+    fun provideRatesApiRepository(dataSource: RatesApiRepository.Network): RatesApiRepository = dataSource
 }

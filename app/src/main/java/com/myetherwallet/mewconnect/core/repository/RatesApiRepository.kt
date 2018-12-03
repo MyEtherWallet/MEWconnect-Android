@@ -1,6 +1,6 @@
 package com.myetherwallet.mewconnect.core.repository
 
-import com.myetherwallet.mewconnect.content.api.mew.HerokuApiService
+import com.myetherwallet.mewconnect.content.api.rates.RatesApiService
 import com.myetherwallet.mewconnect.core.platform.Either
 import com.myetherwallet.mewconnect.core.platform.Failure
 import com.myetherwallet.mewconnect.core.platform.NetworkHandler
@@ -13,13 +13,13 @@ import javax.inject.Inject
  * Created by BArtWell on 16.07.2018.
  */
 
-interface HerokuApiRepository {
+interface RatesApiRepository {
 
     fun getTickerData(filter: String): Either<Failure, Map<String, BigDecimal>>
 
     class Network
     @Inject constructor(private val networkHandler: NetworkHandler,
-                        private val service: HerokuApiService) : HerokuApiRepository {
+                        private val service: RatesApiService) : RatesApiRepository {
 
         override fun getTickerData(filter: String): Either<Failure, Map<String, BigDecimal>> {
             return when (networkHandler.isConnected) {

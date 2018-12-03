@@ -3,8 +3,7 @@ package com.myetherwallet.mewconnect.feature.main.interactor
 import com.myetherwallet.mewconnect.core.platform.BaseInteractor
 import com.myetherwallet.mewconnect.core.platform.Either
 import com.myetherwallet.mewconnect.core.platform.Failure
-import com.myetherwallet.mewconnect.core.repository.HerokuApiRepository
-import com.myetherwallet.mewconnect.feature.main.data.TickerData
+import com.myetherwallet.mewconnect.core.repository.RatesApiRepository
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -13,7 +12,7 @@ import javax.inject.Inject
  */
 
 class GetTickerData
-@Inject constructor(private val repository: HerokuApiRepository) : BaseInteractor<Map<String, BigDecimal>, GetTickerData.Params>() {
+@Inject constructor(private val repository: RatesApiRepository) : BaseInteractor<Map<String, BigDecimal>, GetTickerData.Params>() {
 
     override suspend fun run(params: Params): Either<Failure, Map<String, BigDecimal>> {
         return repository.getTickerData(params.filter.joinToString(","))
