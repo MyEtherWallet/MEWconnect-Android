@@ -3,7 +3,6 @@ package com.myetherwallet.mewconnect.core.utils
 import android.content.Context
 import android.graphics.*
 import android.widget.ImageView
-import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.content.data.Network
 import pm.gnosis.blockies.Blockies
 import java.io.File
@@ -38,7 +37,7 @@ class CardBackgroundHelper(private val context: Context) {
             Triple(Point(0.0f, 50.970837f), Point(6.005995f, 68.999359f), Point(32.0f, 69.0f))
     )
 
-    fun draw(address: String, network: Network, scaledWidth: Int) {
+    fun draw(address: String, network: Network, scaledWidth: Int, scaledHeight: Int) {
         var sourcePath = Path()
         sourcePath.moveTo(startPoint.x, startPoint.y)
         for ((point1, point2, point3) in curvePoints) {
@@ -93,8 +92,6 @@ class CardBackgroundHelper(private val context: Context) {
         val x = (((nextFromSeed(randSeed) + nextFromSeed(randSeed)) * 40) + 10) / 100.0
         val y = (((nextFromSeed(randSeed) + nextFromSeed(randSeed)) * 45) + 5) / 100.0
 
-        val scaledHeight = context.resources.getDimension(R.dimen.wallet_card_height).toInt()
-
         val lastBitmap = Bitmap.createBitmap(bitmap,
                 (x * (bounds.width() - scaledWidth)).toInt() / 2,
                 (y * (bounds.height() - scaledHeight)).toInt() / 2,
@@ -120,7 +117,7 @@ class CardBackgroundHelper(private val context: Context) {
     private fun seedFromAddress(address: String): IntArray {
         val seed = IntArray(2)
         var i = 0
-        (0 until address.length).forEach {
+        (0 until address.length).forEach { _ ->
             seed[i % 2] = ((seed[i % 2] * 8) - seed[i % 2]) + Character.codePointAt(address, i)
             i++
         }

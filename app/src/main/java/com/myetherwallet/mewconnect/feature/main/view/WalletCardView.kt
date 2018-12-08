@@ -14,6 +14,7 @@ import com.myetherwallet.mewconnect.core.utils.ApplicationUtils
 import com.myetherwallet.mewconnect.core.utils.CardBackgroundHelper
 import com.myetherwallet.mewconnect.core.utils.HexUtils
 import com.myetherwallet.mewconnect.feature.main.data.WalletBalance
+import com.myetherwallet.mewconnect.feature.main.utils.WalletSizingUtils
 import kotlinx.android.synthetic.main.view_wallet_card.view.*
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -33,9 +34,9 @@ class WalletCardView @JvmOverloads constructor(
     lateinit var preferences: PreferencesManager
 
     private val collapsedWidth = ApplicationUtils.getDisplaySize(context).width
-    private val expandedWidth = resources.getDimension(R.dimen.wallet_card_width)
+    private val expandedWidth = WalletSizingUtils.calculateCardWidth(context)
     private var collapsedHeight = 0
-    private val expandedHeight = resources.getDimension(R.dimen.wallet_card_height)
+    private val expandedHeight = WalletSizingUtils.calculateCardHeight(context)
     private var expandedY = 0
 
     private var cornerRadius = context.resources.getDimension(R.dimen.dimen_12dp).toInt()
@@ -55,6 +56,11 @@ class WalletCardView @JvmOverloads constructor(
         val statusBarHeight = ApplicationUtils.getStatusBarHeight(context)
         expandedY = statusBarHeight + resources.getDimension(R.dimen.wallet_toolbar_height).toInt()
         collapsedHeight = expandedY + resources.getDimension(R.dimen.dimen_32dp).toInt()
+
+        val layoutParams = wallet_card_content.layoutParams
+        layoutParams.width = expandedWidth.toInt()
+        layoutParams.height = expandedHeight.toInt()
+        wallet_card_content.layoutParams = layoutParams
 
         CardBackgroundHelper.setImage(wallet_card_background, preferences.applicationPreferences.getCurrentNetwork())
 

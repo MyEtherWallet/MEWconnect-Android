@@ -8,6 +8,7 @@ import android.view.View
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.extenstion.formatUsd
 import com.myetherwallet.mewconnect.core.utils.ApplicationUtils
+import com.myetherwallet.mewconnect.feature.main.utils.WalletSizingUtils
 import kotlinx.android.synthetic.main.view_wallet_header.view.*
 import java.math.BigDecimal
 
@@ -38,7 +39,7 @@ class WalletHeader @JvmOverloads constructor(
         val statusBarHeight = ApplicationUtils.getStatusBarHeight(context)
         yCollapsed = statusBarHeight + resources.getDimension(R.dimen.wallet_toolbar_height).toInt()
         yExpanded = yCollapsed +
-                resources.getDimension(R.dimen.wallet_card_height).toInt() +
+                WalletSizingUtils.calculateCardHeight(context) +
                 resources.getDimension(R.dimen.dimen_16dp).toInt()
 
         wallet_header_update_button.setOnClickListener {

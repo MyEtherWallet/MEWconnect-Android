@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.View.*
+import android.view.ViewGroup
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.content.data.MessageToSign
 import com.myetherwallet.mewconnect.content.data.Network
@@ -27,6 +28,7 @@ import com.myetherwallet.mewconnect.feature.main.data.WalletData
 import com.myetherwallet.mewconnect.feature.main.dialog.BackupWarningDialog
 import com.myetherwallet.mewconnect.feature.main.dialog.ChooseNetworkDialog
 import com.myetherwallet.mewconnect.feature.main.receiver.NetworkStateReceiver
+import com.myetherwallet.mewconnect.feature.main.utils.WalletSizingUtils
 import com.myetherwallet.mewconnect.feature.main.view.behavior.WalletScrollBehavior
 import com.myetherwallet.mewconnect.feature.main.viewmodel.WalletViewModel
 import com.myetherwallet.mewconnect.feature.register.utils.ScrollWatcher
@@ -76,7 +78,9 @@ class WalletFragment : BaseViewModelFragment() {
         layoutParams.behavior = WalletScrollBehavior(requireContext(), null, scrollWatcher)
         wallet_scrollable_container.layoutParams = layoutParams
 
-        scrollThreshold = resources.getDimension(R.dimen.wallet_scroll_threshold).toInt()
+        scrollThreshold = WalletSizingUtils.calculateScrollThreshold(view)
+
+        wallet_toolbar.y = WalletSizingUtils.getToolbarMargin(view).toFloat()
 
         wallet_header.onUpdateClickListener = { load() }
         init()
@@ -89,6 +93,8 @@ class WalletFragment : BaseViewModelFragment() {
         viewModel = viewModel(viewModelFactory) {
             observe(walletData, ::onBalancesLoaded)
         }
+
+        setupWalletEmptyView()
 
         populateWithEmpties()
 
@@ -136,6 +142,18 @@ class WalletFragment : BaseViewModelFragment() {
         }
 
         load()
+    }
+
+    private fun setupWalletEmptyView() {
+        view?.let {
+            val listMargin = WalletSizingUtils.calculateListMargin(it)
+            val layoutParamsEmpty = wallet_empty.layoutParams as ViewGroup.MarginLayoutParams
+            layoutParamsEmpty.topMargin = listMargin
+            wallet_empty.layoutParams = layoutParamsEmpty
+            val layoutParamsLoading = wallet_loading.layoutParams as ViewGroup.MarginLayoutParams
+            layoutParamsLoading.topMargin = listMargin
+            wallet_loading.layoutParams = layoutParamsLoading
+        }
     }
 
     private fun load() {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/wallet_content_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,10 +26,12 @@
 
             <com.myetherwallet.mewconnect.feature.main.view.WalletCardView
                 android:id="@+id/wallet_card"
-                android:layout_width="@dimen/wallet_card_width"
-                android:layout_height="@dimen/wallet_card_height"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                app:cardElevation="@dimen/dimen_8dp" />
+                app:cardElevation="@dimen/dimen_8dp"
+                tools:layout_height="208dp"
+                tools:layout_width="328dp" />
 
             <com.myetherwallet.mewconnect.feature.main.view.WalletHeader
                 android:id="@+id/wallet_header"
@@ -41,7 +44,6 @@
                 android:id="@+id/wallet_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_24dp"
                 android:elevation="@dimen/dimen_20dp" />
         </FrameLayout>
     </android.support.design.widget.CoordinatorLayout>
@@ -50,7 +52,7 @@
         android:id="@+id/wallet_loading"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/wallet_list_header_height"
+        tools:layout_marginTop="400dp"
         android:background="@color/wallet_background"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -68,13 +70,13 @@
         android:id="@+id/wallet_empty"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/wallet_list_header_height"
         android:background="@color/wallet_background"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_marginTop="400dp">
 
         <TextView
             android:layout_width="match_parent"

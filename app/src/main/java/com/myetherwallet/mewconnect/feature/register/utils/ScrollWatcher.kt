@@ -3,6 +3,7 @@ package com.myetherwallet.mewconnect.feature.register.utils
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.myetherwallet.mewconnect.R
+import com.myetherwallet.mewconnect.feature.main.utils.WalletSizingUtils
 import kotlin.math.abs
 
 /**
@@ -21,9 +22,8 @@ class ScrollWatcher(private val recyclerView: RecyclerView) {
     var scrollPosition = 0
     var scrollState = RecyclerView.SCROLL_STATE_IDLE
 
-    private val headerHeight = recyclerView.context.resources.getDimension(R.dimen.wallet_list_header_height)
+    private val headerHeight = WalletSizingUtils.calculateListMargin(recyclerView)
     private val itemHeight = recyclerView.context.resources.getDimension(R.dimen.wallet_list_item_height)
-
 
     init {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {

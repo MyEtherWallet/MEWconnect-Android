@@ -39,6 +39,9 @@
     <dimen name="dimen_272dp">272dp</dimen>
     <dimen name="dimen_308dp">308dp</dimen>
 
+    <dimen name="dimen_328dp">328dp</dimen>
+    <dimen name="dimen_208dp">208dp</dimen>
+
     <dimen name="text_size_11sp">11sp</dimen>
     <dimen name="text_size_12sp">12sp</dimen>
     <dimen name="text_size_14sp">14sp</dimen>
@@ -70,11 +73,8 @@
 
     <dimen name="wallet_scroll_threshold">216dp</dimen>
     <dimen name="wallet_list_item_height">56dp</dimen>
-    <dimen name="wallet_list_header_height">400dp</dimen>
     <dimen name="wallet_list_footer_height">80dp</dimen>
     <dimen name="wallet_toolbar_height">48dp</dimen>
-    <dimen name="wallet_card_width">328dp</dimen>
-    <dimen name="wallet_card_height">208dp</dimen>
     <dimen name="wallet_header_height">96dp</dimen>
     <dimen name="wallet_card_address_width">264dp</dimen>
 

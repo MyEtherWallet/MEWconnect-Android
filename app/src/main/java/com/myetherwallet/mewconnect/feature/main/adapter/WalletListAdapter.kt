@@ -8,6 +8,7 @@ import com.myetherwallet.mewconnect.core.ui.adapter.BaseRecyclerAdapter
 import com.myetherwallet.mewconnect.feature.main.adapter.filter.WalletListFilter
 import com.myetherwallet.mewconnect.feature.main.adapter.holder.WalletListBaseHolder
 import com.myetherwallet.mewconnect.feature.main.adapter.holder.WalletListEmptyHolder
+import com.myetherwallet.mewconnect.feature.main.adapter.holder.WalletListHeaderHolder
 import com.myetherwallet.mewconnect.feature.main.adapter.holder.WalletListHolder
 import com.myetherwallet.mewconnect.feature.main.data.WalletListItem
 
@@ -26,7 +27,7 @@ class WalletListAdapter : BaseRecyclerAdapter<WalletListBaseHolder>(), Filterabl
     private var filter: WalletListFilter? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
-        TYPE_HEADER -> WalletListEmptyHolder(inflate(R.layout.list_item_header_wallet, parent))
+        TYPE_HEADER -> WalletListHeaderHolder(inflate(R.layout.list_item_header_wallet, parent))
         TYPE_FOOTER -> WalletListEmptyHolder(inflate(R.layout.list_item_footer_wallet, parent))
         TYPE_NOTHING -> WalletListEmptyHolder(inflate(R.layout.list_item_wallet, parent))
         else -> WalletListHolder(inflate(R.layout.list_item_wallet, parent))

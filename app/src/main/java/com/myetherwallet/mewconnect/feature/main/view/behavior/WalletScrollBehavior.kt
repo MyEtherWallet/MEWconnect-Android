@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
-import com.myetherwallet.mewconnect.R
+import com.myetherwallet.mewconnect.feature.main.utils.WalletSizingUtils
 import com.myetherwallet.mewconnect.feature.main.view.WalletScrollable
 import com.myetherwallet.mewconnect.feature.register.utils.ScrollWatcher
 
@@ -22,7 +22,7 @@ private const val EXTRA_SCROLL = "scroll"
 class WalletScrollBehavior(context: Context, attrs: AttributeSet?, private val scrollWatcher: ScrollWatcher) : CoordinatorLayout.Behavior<FrameLayout>(context, attrs) {
 
     private var scroll = 0
-    private val scrollThreshold = context.resources.getDimension(R.dimen.wallet_scroll_threshold).toInt()
+    private var scrollThreshold = 0
     private val views = mutableListOf<WalletScrollable>()
 
     override fun layoutDependsOn(parent: CoordinatorLayout, child: FrameLayout, dependency: View) = dependency is RecyclerView
@@ -44,6 +44,9 @@ class WalletScrollBehavior(context: Context, attrs: AttributeSet?, private val s
     }
 
     override fun onLayoutChild(parent: CoordinatorLayout, child: FrameLayout, layoutDirection: Int): Boolean {
+        if (scrollThreshold == 0) {
+            scrollThreshold = WalletSizingUtils.calculateScrollThreshold(parent)
+        }
         val result = super.onLayoutChild(parent, child, layoutDirection)
         notifyViews()
         return result

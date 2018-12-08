@@ -9,6 +9,8 @@ import com.myetherwallet.mewconnect.core.platform.Either
 import com.myetherwallet.mewconnect.core.platform.Failure
 import com.myetherwallet.mewconnect.core.utils.CardBackgroundHelper
 import com.myetherwallet.mewconnect.core.utils.crypto.StorageCryptHelper
+import com.myetherwallet.mewconnect.feature.main.utils.WalletSizingUtils
+import com.myetherwallet.mewconnect.feature.main.view.WalletCardView
 import org.bitcoinj.crypto.ChildNumber
 import org.bitcoinj.crypto.HDKeyDerivation
 import org.bitcoinj.wallet.DeterministicSeed
@@ -57,7 +59,7 @@ class CreateWallets
             val address = Keys.getAddress(ecKeyPair)
             walletPreferences.setWalletPrivateKey(StorageCryptHelper.encrypt(ecKeyPair.privateKey.toBytes(), params.password))
             walletPreferences.setWalletAddress(address)
-            CardBackgroundHelper(context).draw(address, network, params.displayWidth)
+            CardBackgroundHelper(context).draw(address, network, params.displayWidth, WalletSizingUtils.calculateCardHeight(context))
         }
 
         if (params.mnemonic != null) {
