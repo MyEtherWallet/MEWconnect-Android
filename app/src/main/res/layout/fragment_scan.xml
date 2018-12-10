@@ -147,22 +147,13 @@
                     android:textColor="@color/text_white"
                     android:textSize="@dimen/text_size_fixed_20sp" />
 
-                <TextView
+                <android.support.design.button.MaterialButton
                     android:id="@+id/scan_error_try_again"
+                    style="@style/Button"
+                    android:layout_marginTop="@dimen/dimen_8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_8dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:fontFamily="sans-serif-medium"
-                    android:foreground="@drawable/scan_error_try_again"
-                    android:gravity="center_horizontal"
-                    android:padding="@dimen/dimen_8dp"
-                    android:text="@string/scan_error_try_again"
-                    android:textColor="@color/text_white"
-                    android:textSize="@dimen/text_size_fixed_16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/scan_error_icon" />
+                    android:text="@string/scan_error_try_again" />
 
                 <TextView
                     android:id="@+id/scan_error_contact"
