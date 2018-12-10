@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/static_toolbar_height" />
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:id="@+id/enter_recovery_phrase_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -20,8 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_24dp"
-            android:fitsSystemWindows="true"
             android:layout_marginEnd="@dimen/dimen_24dp"
+            android:fitsSystemWindows="true"
             android:orientation="vertical">
 
             <TextView
@@ -47,8 +47,11 @@
                     android:layout_height="wrap_content"
                     android:gravity="top"
                     android:inputType="textMultiLine"
-                    android:minLines="9" />
+                    android:lines="9"
+                    android:overScrollMode="always"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical" />
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
