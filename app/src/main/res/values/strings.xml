@@ -89,6 +89,7 @@
 
     <string name="confirm_transaction_title">Verify\ntransaction</string>
     <string name="confirm_transaction_wallet_title">Check address you’re sending to:</string>
+    <string name="confirm_transaction_unknown_token">Unknown Token</string>
     <string name="confirm_transaction_amount_title">Check the amount:</string>
     <string name="confirm_transaction_description">If your computer is compromised, attackers might replace ‘Send to’ address with their own, before sending your transaction. That’s why it’s important to check it in MEWconnect.</string>
 

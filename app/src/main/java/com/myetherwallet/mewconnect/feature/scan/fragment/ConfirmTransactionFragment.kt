@@ -2,6 +2,8 @@ package com.myetherwallet.mewconnect.feature.scan.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.content.data.Transaction
@@ -54,15 +56,22 @@ class ConfirmTransactionFragment : BaseViewModelFragment(), AuthCallback {
         super.onViewCreated(view, savedInstanceState)
         viewModel = viewModel()
         val transaction = arguments?.getParcelable<Transaction>(EXTRA_TRANSACTION)
+        var isUnknownToken = false
         transaction?.let {
             viewModel.transaction = transaction
             val transactionData = TransactionData.fromString(transaction.data)
             val currency: String
             val amount: BigDecimal
             val to: String
-            if (transaction.value == BigInteger.ZERO && transactionData?.function == TransactionData.FUNCTION_TOKEN_TRANSFER && transaction.currency != null) {
-                amount = transactionData.amount.toEthValue(transaction.currency.decimals)
-                currency = transaction.currency.symbol
+            if (transaction.value == BigInteger.ZERO && transactionData?.function == TransactionData.FUNCTION_TOKEN_TRANSFER) {
+                if (transaction.currency == null) {
+                    isUnknownToken = true
+                    amount = transactionData.amount.toBigDecimal().stripTrailingZeros()
+                    currency = getString(R.string.confirm_transaction_unknown_token)
+                } else {
+                    amount = transactionData.amount.toEthValue(transaction.currency.decimals)
+                    currency = transaction.currency.symbol
+                }
                 to = transactionData.address
             } else {
                 amount = transaction.value.toEthValue()
@@ -83,8 +92,12 @@ class ConfirmTransactionFragment : BaseViewModelFragment(), AuthCallback {
             addOrReplaceFragment(TransactionDeclinedFragment.newInstance(), TAG)
         }
 
-        arguments?.getSerializable(EXTRA_PRICE)?.let {
-            confirm_transaction_amount_price.text = (it as BigDecimal).multiply(transaction?.value?.toEthValue()).formatUsd()
+        val price = arguments?.getSerializable(EXTRA_PRICE) as BigDecimal?
+        if (price == null || isUnknownToken) {
+            confirm_transaction_amount_price.visibility = GONE
+        } else {
+            confirm_transaction_amount_price.text = price.multiply(transaction?.value?.toEthValue()).formatUsd()
+            confirm_transaction_amount_price.visibility = VISIBLE
         }
 
         updateCheckBoxState(confirm_transaction_wallet_container, false)
