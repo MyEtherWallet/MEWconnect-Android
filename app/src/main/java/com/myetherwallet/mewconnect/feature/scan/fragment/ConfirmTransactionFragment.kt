@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.content.data.Transaction
+import com.myetherwallet.mewconnect.content.data.TransactionData
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
 import com.myetherwallet.mewconnect.core.extenstion.formatMoney
 import com.myetherwallet.mewconnect.core.extenstion.formatUsd
@@ -18,6 +19,7 @@ import com.myetherwallet.mewconnect.feature.register.utils.EmoticonHelper
 import com.myetherwallet.mewconnect.feature.scan.viewmodel.ConfirmTransactionViewModel
 import kotlinx.android.synthetic.main.fragment_confirm_transaction.*
 import java.math.BigDecimal
+import java.math.BigInteger
 import javax.inject.Inject
 
 /**
@@ -54,10 +56,23 @@ class ConfirmTransactionFragment : BaseViewModelFragment(), AuthCallback {
         val transaction = arguments?.getParcelable<Transaction>(EXTRA_TRANSACTION)
         transaction?.let {
             viewModel.transaction = transaction
-            val currency = preferences.applicationPreferences.getCurrentNetwork().getCurrency(requireContext())
-            confirm_transaction_amount.text = transaction.value.toEthValue().formatMoney(5, currency)
-            confirm_transaction_wallet_address.text = transaction.to
-            confirm_transaction_wallet_emoticon.setImageBitmap(EmoticonHelper.draw(transaction.to, resources.getDimension(R.dimen.dimen_32dp).toInt()))
+            val transactionData = TransactionData.fromString(transaction.data)
+            val currency: String
+            val amount: BigDecimal
+            val to: String
+            if (transaction.value == BigInteger.ZERO && transactionData?.function == TransactionData.FUNCTION_TOKEN_TRANSFER && transaction.currency != null) {
+                amount = transactionData.amount.toEthValue(transaction.currency.decimal)
+                currency = transaction.currency.symbol
+                to = transactionData.address
+            } else {
+                amount = transaction.value.toEthValue()
+                currency = preferences.applicationPreferences.getCurrentNetwork().getCurrency(requireContext())
+                to = transaction.to
+            }
+            confirm_transaction_amount.text = amount.formatMoney(5, currency)
+            confirm_transaction_wallet_address.text = to
+
+            confirm_transaction_wallet_emoticon.setImageBitmap(EmoticonHelper.draw(to, resources.getDimension(R.dimen.dimen_32dp).toInt()))
             confirm_transaction_ok.setOnClickListener { _ ->
                 val authFragment = AuthFragment.newInstance()
                 authFragment.setTargetFragment(this, AUTH_REQUEST_CODE)

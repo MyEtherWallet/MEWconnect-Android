@@ -17,7 +17,8 @@ data class Transaction(
         val to: String,
         val value: BigInteger,
         val data: String,
-        val chainId: Byte
+        val chainId: Byte,
+        val currency: TransactionCurrency?
 ) : BaseMessage(), Parcelable {
 
     fun toRawTransaction(): RawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gas, to, value, data)

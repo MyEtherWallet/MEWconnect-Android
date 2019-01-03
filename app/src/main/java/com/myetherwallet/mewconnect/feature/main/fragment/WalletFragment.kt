@@ -264,7 +264,10 @@ class WalletFragment : BaseViewModelFragment() {
     }
 
     private fun openConfirmFragment(transaction: Transaction) {
-        addOrReplaceFragment(ConfirmTransactionFragment.newInstance(transaction, viewModel.walletData.value?.balance?.stockPrice), ConfirmTransactionFragment.TAG)
+        val price = transaction.currency?.symbol?.let { symbol ->
+            viewModel.walletData.value?.items?.find { it.symbol == symbol }?.stockPrice
+        } ?: viewModel.walletData.value?.balance?.stockPrice
+        addOrReplaceFragment(ConfirmTransactionFragment.newInstance(transaction, price), ConfirmTransactionFragment.TAG)
     }
 
     private fun openSignMessageFragment(message: MessageToSign) {

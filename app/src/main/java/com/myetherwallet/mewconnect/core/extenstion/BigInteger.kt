@@ -15,4 +15,4 @@ fun BigInteger.toHex(): String = Hex.bytesToStringUppercase(this.toBytes()).toLo
 
 fun BigInteger.toBytes(): ByteArray = BigIntegers.asUnsignedByteArray(this)
 
-fun BigInteger.toEthValue(): BigDecimal = BigDecimal(this).divide(BigDecimal.TEN.pow(ETH_DECIMALS))
+fun BigInteger.toEthValue(decimals: Int = ETH_DECIMALS): BigDecimal = BigDecimal(this).divide(BigDecimal.TEN.pow(decimals))
