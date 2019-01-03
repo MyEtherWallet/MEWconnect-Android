@@ -61,7 +61,7 @@ class ConfirmTransactionFragment : BaseViewModelFragment(), AuthCallback {
             val amount: BigDecimal
             val to: String
             if (transaction.value == BigInteger.ZERO && transactionData?.function == TransactionData.FUNCTION_TOKEN_TRANSFER && transaction.currency != null) {
-                amount = transactionData.amount.toEthValue(transaction.currency.decimal)
+                amount = transactionData.amount.toEthValue(transaction.currency.decimals)
                 currency = transaction.currency.symbol
                 to = transactionData.address
             } else {
