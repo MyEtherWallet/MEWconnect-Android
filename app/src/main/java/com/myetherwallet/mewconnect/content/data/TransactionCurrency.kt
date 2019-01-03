@@ -10,6 +10,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class TransactionCurrency(
         val symbol: String,
-        val decimal: Int,
+        val decimals: Int,
         val address: String?
 ) : Parcelable
