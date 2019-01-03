@@ -16,7 +16,7 @@ env:
 deploy:
   provider: script
   script:
-    bash ./release.sh $TRAVIS_TAG $GITHUB_TOKEN "kvhnuke/MEWconnect-Android"
+    bash ./release.sh $TRAVIS_TAG $GITHUB_TOKEN "MyEtherWallet/MEWconnect-Android"
     true
   skip_cleanup: true
   on:

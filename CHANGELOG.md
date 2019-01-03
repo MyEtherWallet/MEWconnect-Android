@@ -1,9 +1,10 @@
-### Release v1.0.0.beta.3 (18120901)
+### Release v1.0.0.beta.4 (18120901)
 
 ### Devop
 
 - Adaptation to devices with notch
 - Change rates URL
+- Fix Travis repo_slug
 
 ### Release v1.0.0.beta.2 (18112601)
 
