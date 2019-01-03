@@ -4,9 +4,9 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.jetbrains.kotlin.android.extensions'
 
-int MAJOR_VERSION = 0
+int MAJOR_VERSION = 1
 int MINOR_VERSION = 0
-int MICRO_VERSION = 3
+int MICRO_VERSION = 0
 int BUILD_FOR_TODAY = 1
 
 def secretsPropertiesFile = rootProject.file("secrets.properties");

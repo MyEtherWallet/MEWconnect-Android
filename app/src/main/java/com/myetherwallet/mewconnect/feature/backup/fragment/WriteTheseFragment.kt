@@ -34,6 +34,7 @@ class WriteTheseFragment : BaseDiFragment(), View.OnClickListener, Toolbar.OnMen
     @Inject
     lateinit var preferences: PreferencesManager
     private var password: String? = null
+    private var isAuthCanceled = false
     val adapter = WriteTheseWordsAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,6 +54,9 @@ class WriteTheseFragment : BaseDiFragment(), View.OnClickListener, Toolbar.OnMen
 
     override fun onResume() {
         super.onResume()
+        if (isAuthCanceled) {
+            return
+        }
         setWindowSecure(true)
         if (password == null) {
             val authFragment = AuthFragment.newInstance()
@@ -78,6 +82,7 @@ class WriteTheseFragment : BaseDiFragment(), View.OnClickListener, Toolbar.OnMen
     }
 
     override fun onAuthCancel() {
+        isAuthCanceled = true
         close()
     }
 

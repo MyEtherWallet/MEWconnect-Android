@@ -9,7 +9,7 @@
     <com.myetherwallet.mewconnect.core.ui.view.StaticToolbar
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_112dp"
-        android:dividerPadding="@dimen/dimen_96dp" />
+        app:innerTopPadding="@dimen/dimen_72dp" />
 
     <LinearLayout
         android:layout_width="match_parent"

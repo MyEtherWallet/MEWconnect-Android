@@ -1,3 +1,14 @@
+### Release v1.0 (19010401)
+
+- Update version to 1.0
+- Check for absent currency
+- Fix decimals field name
+- Fix back action on 'Write these down' screen
+- Changes in SignTx
+- Fix UI issues on devices with notch
+- Remove beta icons
+- Note: please remove beta application before install
+
 ### Release v1.0.0.beta.4 (18120901)
 
 ### Devop

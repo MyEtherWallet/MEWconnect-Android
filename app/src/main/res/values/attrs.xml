@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="StaticToolbar">
+        <attr name="innerBottomPadding" format="dimension" />
+        <attr name="innerTopPadding" format="dimension" />
+        <attr name="innerBackground" format="reference" />
+    </declare-styleable>
+</resources>

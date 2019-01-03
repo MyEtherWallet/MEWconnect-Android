@@ -2,6 +2,8 @@ package com.myetherwallet.mewconnect.feature.auth.fragment
 
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
+import android.text.method.ScrollingMovementMethod
+import android.view.MotionEvent
 import android.view.View
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
@@ -38,6 +40,14 @@ class EnterRecoveryPhraseFragment : BaseDiFragment() {
             true
         })
 
+        // Fix scroll of EditText inside ScrollView
+        enter_recovery_phrase_text.setOnTouchListener { editText, event ->
+            editText.parent.requestDisallowInterceptTouchEvent(true)
+            if ((event.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
+                editText.parent.requestDisallowInterceptTouchEvent(false)
+            }
+            return@setOnTouchListener false
+        }
         enter_recovery_phrase_text.addTextChangedListener(object : EmptyTextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 enter_recovery_phrase_layout.isErrorEnabled = false

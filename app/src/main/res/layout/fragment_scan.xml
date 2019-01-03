@@ -9,14 +9,15 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_112dp">
+        android:layout_height="wrap_content">
 
         <com.myetherwallet.mewconnect.core.ui.view.StaticToolbar
             android:id="@+id/scan_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:dividerPadding="@dimen/dimen_24dp"
-            android:panelBackground="@drawable/scan_toolbar_panel_background" />
+            android:layout_height="wrap_content"
+            app:innerBackground="@drawable/scan_toolbar_panel_background"
+            app:innerBottomPadding="@dimen/dimen_40dp"
+            app:innerTopPadding="0dp" />
 
         <TextView
             android:id="@+id/scan_toolbar_title"
@@ -29,21 +30,22 @@
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_fixed_30sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/scan_toolbar_subtitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:textColor="@color/text_black" />
 
         <TextView
             android:id="@+id/scan_toolbar_subtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimen_16dp"
             android:text="@string/scan_toolbar_subtitle"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_fixed_16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/scan_toolbar_title"
             app:layout_constraintStart_toStartOf="@id/scan_toolbar_title"
-            app:layout_constraintTop_toBottomOf="@+id/scan_toolbar_title"
             tools:textColor="@color/text_black" />
     </android.support.constraint.ConstraintLayout>
 
@@ -147,22 +149,13 @@
                     android:textColor="@color/text_white"
                     android:textSize="@dimen/text_size_fixed_20sp" />
 
-                <TextView
+                <android.support.design.button.MaterialButton
                     android:id="@+id/scan_error_try_again"
+                    style="@style/Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_8dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:fontFamily="sans-serif-medium"
-                    android:foreground="@drawable/scan_error_try_again"
-                    android:gravity="center_horizontal"
-                    android:padding="@dimen/dimen_8dp"
-                    android:text="@string/scan_error_try_again"
-                    android:textColor="@color/text_white"
-                    android:textSize="@dimen/text_size_fixed_16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/scan_error_icon" />
+                    android:text="@string/scan_error_try_again" />
 
                 <TextView
                     android:id="@+id/scan_error_contact"

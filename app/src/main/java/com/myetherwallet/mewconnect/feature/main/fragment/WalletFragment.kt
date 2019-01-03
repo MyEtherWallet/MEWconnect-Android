@@ -19,6 +19,7 @@ import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.platform.NetworkHandler
 import com.myetherwallet.mewconnect.core.ui.callback.EmptyTextWatcher
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseViewModelFragment
+import com.myetherwallet.mewconnect.core.utils.ApplicationUtils
 import com.myetherwallet.mewconnect.core.utils.CardBackgroundHelper
 import com.myetherwallet.mewconnect.feature.backup.fragment.BackUpWalletFragment
 import com.myetherwallet.mewconnect.feature.buy.fragment.BuyFragment
@@ -80,7 +81,7 @@ class WalletFragment : BaseViewModelFragment() {
 
         scrollThreshold = WalletSizingUtils.calculateScrollThreshold(view)
 
-        wallet_toolbar.y = WalletSizingUtils.getToolbarMargin(view).toFloat()
+        wallet_toolbar.y = ApplicationUtils.getToolbarMargin(view).toFloat()
 
         wallet_header.onUpdateClickListener = { load() }
         init()
@@ -263,7 +264,10 @@ class WalletFragment : BaseViewModelFragment() {
     }
 
     private fun openConfirmFragment(transaction: Transaction) {
-        addOrReplaceFragment(ConfirmTransactionFragment.newInstance(transaction, viewModel.walletData.value?.balance?.stockPrice), ConfirmTransactionFragment.TAG)
+        val price = transaction.currency?.symbol?.let { symbol ->
+            viewModel.walletData.value?.items?.find { it.symbol == symbol }?.stockPrice
+        } ?: viewModel.walletData.value?.balance?.stockPrice
+        addOrReplaceFragment(ConfirmTransactionFragment.newInstance(transaction, price), ConfirmTransactionFragment.TAG)
     }
 
     private fun openSignMessageFragment(message: MessageToSign) {

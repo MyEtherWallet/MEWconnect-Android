@@ -22,21 +22,10 @@ object WalletSizingUtils {
 
     fun calculateListMargin(view: View): Int {
         val toolbarHeight = view.context.resources.getDimension(R.dimen.wallet_toolbar_height)
-        val toolbarMargin = WalletSizingUtils.getToolbarMargin(view)
+        val toolbarMargin = ApplicationUtils.getToolbarMargin(view)
         val headerHeight = view.context.resources.getDimension(R.dimen.wallet_header_height)
         val cardHeight = WalletSizingUtils.calculateCardHeight(view.context)
         return (toolbarHeight + toolbarMargin + headerHeight + cardHeight).toInt()
-    }
-
-    fun getToolbarMargin(view: View?): Int {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            view?.rootWindowInsets?.displayCutout?.let {
-                if (it.boundingRects.isNotEmpty()) {
-                    return it.boundingRects[0].height()
-                }
-            }
-        }
-        return ApplicationUtils.getStatusBarHeight(view?.context)
     }
 
     fun calculateScrollThreshold(view: View): Int {

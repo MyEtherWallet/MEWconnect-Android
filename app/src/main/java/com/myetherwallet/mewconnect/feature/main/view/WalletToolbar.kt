@@ -45,17 +45,8 @@ class WalletToolbar @JvmOverloads constructor(
 
     override fun setRatio(ratio: Float) {
         val blackWhite = ArgbEvaluator().evaluate(ratio, Color.WHITE, Color.BLACK) as Int
-        val blueWhite = ArgbEvaluator().evaluate(ratio, Color.WHITE, blueColor) as Int
 
         wallet_toolbar_title.setTextColor(blackWhite)
-
-        if (ratio > 0.5f) {
-            wallet_toolbar_beta.setImageResource(R.drawable.beta_blue)
-            wallet_toolbar_beta.alpha = 1f - (1f - ratio) * 2
-        } else {
-            wallet_toolbar_beta.setImageResource(R.drawable.beta_white)
-            wallet_toolbar_beta.alpha = 1f - ratio * 2
-        }
 
         val sumRatio = 1f / 0.15f * (0.15f - min(0.15f, ratio))
         val sumTextSize = subtitleTextSize * sumRatio

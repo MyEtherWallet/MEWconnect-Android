@@ -2,9 +2,12 @@ package com.myetherwallet.mewconnect.feature.scan.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.content.data.Transaction
+import com.myetherwallet.mewconnect.content.data.TransactionData
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
 import com.myetherwallet.mewconnect.core.extenstion.formatMoney
 import com.myetherwallet.mewconnect.core.extenstion.formatUsd
@@ -18,6 +21,7 @@ import com.myetherwallet.mewconnect.feature.register.utils.EmoticonHelper
 import com.myetherwallet.mewconnect.feature.scan.viewmodel.ConfirmTransactionViewModel
 import kotlinx.android.synthetic.main.fragment_confirm_transaction.*
 import java.math.BigDecimal
+import java.math.BigInteger
 import javax.inject.Inject
 
 /**
@@ -52,12 +56,32 @@ class ConfirmTransactionFragment : BaseViewModelFragment(), AuthCallback {
         super.onViewCreated(view, savedInstanceState)
         viewModel = viewModel()
         val transaction = arguments?.getParcelable<Transaction>(EXTRA_TRANSACTION)
+        var isUnknownToken = false
         transaction?.let {
             viewModel.transaction = transaction
-            val currency = preferences.applicationPreferences.getCurrentNetwork().getCurrency(requireContext())
-            confirm_transaction_amount.text = transaction.value.toEthValue().formatMoney(5, currency)
-            confirm_transaction_wallet_address.text = transaction.to
-            confirm_transaction_wallet_emoticon.setImageBitmap(EmoticonHelper.draw(transaction.to, resources.getDimension(R.dimen.dimen_32dp).toInt()))
+            val transactionData = TransactionData.fromString(transaction.data)
+            val currency: String
+            val amount: BigDecimal
+            val to: String
+            if (transaction.value == BigInteger.ZERO && transactionData?.function == TransactionData.FUNCTION_TOKEN_TRANSFER) {
+                if (transaction.currency == null) {
+                    isUnknownToken = true
+                    amount = transactionData.amount.toBigDecimal().stripTrailingZeros()
+                    currency = getString(R.string.confirm_transaction_unknown_token)
+                } else {
+                    amount = transactionData.amount.toEthValue(transaction.currency.decimals)
+                    currency = transaction.currency.symbol
+                }
+                to = transactionData.address
+            } else {
+                amount = transaction.value.toEthValue()
+                currency = preferences.applicationPreferences.getCurrentNetwork().getCurrency(requireContext())
+                to = transaction.to
+            }
+            confirm_transaction_amount.text = amount.formatMoney(5, currency)
+            confirm_transaction_wallet_address.text = to
+
+            confirm_transaction_wallet_emoticon.setImageBitmap(EmoticonHelper.draw(to, resources.getDimension(R.dimen.dimen_32dp).toInt()))
             confirm_transaction_ok.setOnClickListener { _ ->
                 val authFragment = AuthFragment.newInstance()
                 authFragment.setTargetFragment(this, AUTH_REQUEST_CODE)
@@ -68,8 +92,12 @@ class ConfirmTransactionFragment : BaseViewModelFragment(), AuthCallback {
             addOrReplaceFragment(TransactionDeclinedFragment.newInstance(), TAG)
         }
 
-        arguments?.getSerializable(EXTRA_PRICE)?.let {
-            confirm_transaction_amount_price.text = (it as BigDecimal).multiply(transaction?.value?.toEthValue()).formatUsd()
+        val price = arguments?.getSerializable(EXTRA_PRICE) as BigDecimal?
+        if (price == null || isUnknownToken) {
+            confirm_transaction_amount_price.visibility = GONE
+        } else {
+            confirm_transaction_amount_price.text = price.multiply(transaction?.value?.toEthValue()).formatUsd()
+            confirm_transaction_amount_price.visibility = VISIBLE
         }
 
         updateCheckBoxState(confirm_transaction_wallet_container, false)
