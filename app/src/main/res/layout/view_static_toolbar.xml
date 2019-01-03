@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/static_toolbar_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:layout_height="@dimen/static_toolbar_height">
+    tools:layout_height="@dimen/dimen_88dp">
 
     <ImageView
         android:id="@+id/static_toolbar_background"
@@ -17,7 +18,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/static_toolbar_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/dimen_32dp"
-        android:background="@drawable/static_toolbar_bar_background" />
+        android:layout_height="@dimen/dimen_56dp"
+        android:background="@drawable/static_toolbar_bar_background"
+        tools:layout_marginTop="@dimen/dimen_32dp" />
 </FrameLayout>

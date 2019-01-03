@@ -9,7 +9,7 @@
     <com.myetherwallet.mewconnect.core.ui.view.StaticToolbar
         android:id="@+id/info_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/static_toolbar_height" />
+        android:layout_height="wrap_content" />
 
     <ScrollView
         android:layout_width="match_parent"

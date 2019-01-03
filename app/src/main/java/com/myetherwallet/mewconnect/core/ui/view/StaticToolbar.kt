@@ -13,13 +13,10 @@ import android.widget.LinearLayout
 import com.myetherwallet.mewconnect.MewApplication
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
+import com.myetherwallet.mewconnect.core.utils.ApplicationUtils
 import com.myetherwallet.mewconnect.core.utils.CardBackgroundHelper
 import kotlinx.android.synthetic.main.view_static_toolbar.view.*
 import javax.inject.Inject
-
-private const val NAMESPACE = "http://schemas.android.com/apk/res/android"
-private const val ATTRIBUTE_MARGIN = "dividerPadding"
-private const val ATTRIBUTE_BACKGROUND = "panelBackground"
 
 class StaticToolbar @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -28,18 +25,26 @@ class StaticToolbar @JvmOverloads constructor(
     @Inject
     lateinit var preferences: PreferencesManager
 
-    private var margin = resources.getDimension(R.dimen.dimen_32dp).toInt()
+    private val toolbarMargin = ApplicationUtils.getToolbarMargin(this)
+    private val toolbarHeight = resources.getDimension(R.dimen.dimen_56dp).toInt()
+    private var topMargin = toolbarMargin + resources.getDimension(R.dimen.dimen_8dp).toInt()
+    private var bottomMargin = 0
     private var backgroundResId = -1
 
     init {
         View.inflate(context, R.layout.view_static_toolbar, this)
-        attrs?.let {
-            val resId = it.getAttributeResourceValue(NAMESPACE, ATTRIBUTE_MARGIN, 0)
-            if (resId != 0) {
-                margin = resources.getDimension(resId).toInt()
-            }
-            backgroundResId = it.getAttributeResourceValue(NAMESPACE, ATTRIBUTE_BACKGROUND, -1)
+
+        val typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.StaticToolbar)
+        val innerTopPadding = typedArray.getDimension(R.styleable.StaticToolbar_innerTopPadding, -1f).toInt()
+        if (innerTopPadding != -1) {
+            topMargin = toolbarMargin + innerTopPadding
         }
+        val innerBottomPadding = typedArray.getDimension(R.styleable.StaticToolbar_innerBottomPadding, -1f).toInt()
+        if (innerBottomPadding != -1) {
+            bottomMargin = innerBottomPadding
+        }
+        backgroundResId = typedArray.getResourceId(R.styleable.StaticToolbar_innerBackground, -1)
+        typedArray.recycle()
     }
 
     override fun onFinishInflate() {
@@ -50,10 +55,9 @@ class StaticToolbar @JvmOverloads constructor(
         }
 
         (context.applicationContext as MewApplication).appComponent.inject(this)
+        setToolbarMargin()
+        setViewHeight()
 
-        val marginLayoutParams = static_toolbar_bar.layoutParams as MarginLayoutParams
-        marginLayoutParams.topMargin = margin
-        static_toolbar_bar.layoutParams = marginLayoutParams
         val network = preferences.applicationPreferences.getCurrentNetwork()
         if (backgroundResId == 0) {
             static_toolbar_background.setImageDrawable(null)
@@ -97,5 +101,18 @@ class StaticToolbar @JvmOverloads constructor(
 
     fun setNavigationOnClickListener(listener: OnClickListener) {
         static_toolbar_bar.setNavigationOnClickListener(listener)
+    }
+
+    private fun setToolbarMargin() {
+        val marginLayoutParams = static_toolbar_bar.layoutParams as MarginLayoutParams
+        marginLayoutParams.topMargin = topMargin
+        marginLayoutParams.height += bottomMargin
+        static_toolbar_bar.layoutParams = marginLayoutParams
+    }
+
+    private fun setViewHeight() {
+        val layoutParams = static_toolbar_container.layoutParams
+        layoutParams.height = toolbarHeight + topMargin + bottomMargin
+        static_toolbar_container.layoutParams = layoutParams
     }
 }
