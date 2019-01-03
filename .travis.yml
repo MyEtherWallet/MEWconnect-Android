@@ -1,0 +1,24 @@
+language: minimal
+sudo: required
+dist: trusty
+install:
+  - openssl aes-256-cbc -K $encrypted_1bce3901ab10_key -iv $encrypted_1bce3901ab10_iv
+    -in mewconnect.tar.enc -out mewconnect.tar -d
+  - tar xvf mewconnect.tar
+  - gpg --allow-secret-key-import --import mew_sec.gpg
+  - docker build -q -t android-build .
+  - docker run --rm -v "$PWD":/home/gradle/ -w /home/gradle/ android-build gradle assemble
+env:
+  global:
+    - secure: FA8tQWQxYWN96bqM4idFzTvZl6ZWStc/dhypGxCPcRUl6g4idiJgW3eJC9FP28t7pVEATfSUodQs//h/ctegSnXWIKAyMRGTkCpiusrpRu0o4vl+nKimMwvebdSqRaqEzVSnvRV4LZyISCB+beY3xjwlI1acV1iuC82ygvqPO4X/DnafBcRoxN63bEIDi/oGfIPuQWSPcQAUkenqs3cYt+p4vIYqzCRsTuszkaT3H41FkMrD5mOrdgfqCKl9xNM8u3mm75UhV5qsRO+aNZ7b4cmZCX+iGiHsnHjFMYgbpc8lpxs4kXKlevyjT5PqCGT9kHQzNV+u8fl0Hij1iwrj41NAMj8fIJEAF3x4xeLdoGs706sVrPXSmClDoa+7WuaYqFQ/mYKasQh6QF1FKjsUv3p1tTu8PB+HJ+8IMI/DYT5m3hk55ZLzqn75qfTgKcw+8M3VVhGn8038XBwhR2XYwPBAQHmiXmrBMm9WOJVSRCKzv7S/QBFHCO5ZcnLzF7A4wA/qr4SgVSfgmAenOIddcVHGAGd6jGW+TVjo9h2C1gcPhu5zX1/YuT8id94gdJYt7zh9VHDdwp3eHUAKg83YthQ3ITSPqIq2BEdRyoj6Yu3g300qMt3pSVUvlJic+Uqoq6R3tYxItP1NmklpjYpCKRFIc205tQ2YRLXpIHQTwuE=
+    - secure: f0UmJWDtYpeVNpZj8iEARE3G5w+VXOBYWAeScZ48g/kvn0FfzX2xJb0NM9amrQypDWRDwXWXStWfnuCeiwlrqyVNCEeeC7IHed3u1L9wojFQesI5BjEKhIQwMg5PS/4vhXQWEUekbZ14W95xkWgY9v8nj0SD9sdv42jFlK4Sa20RwqJq+gVzS0xuIXv1cIwPD6aTJ1zj64FH312a/3xcPVgDB3bC+/KaJiad1D8BfRfJtbhxYPhpT3mnFYXFvriXiRTzjadgectfPN6zCg3FfFL4Xw8hLJqfsZWNhTuJjBNaKir3XxAvE0z7IbKQzieNgWzmII7Zes/eWjIDWPP6GhKh7C2Z8mejEeFCFcEG+kPr69GTSkDuXZpqm4/2En5rbVJHUBlBu7A5xf4Mmy2EWsZVrZ2KEfqrgwINhVq8ea6w3SN46xahdTFJsoLH0ROZANB0J0IrEksHwBA4vQ/H98M4mBQkZL/sbHLt51WlzvIpsQIijioixw46g0GeaxyJMntMw9v4bPRjwnMk3hXdNlhHAi8aeOV06n1I6JbE9uulpv9IJTDivPw+qaw15nhbtn3stJv2R4BRxXdz7MViJISJQkw8U4PA+EO7l0tKnHs7vi0gQUKv6GpSwReMBrszEMx+Q0aMUsfvqh6gBdBxOAxICOwyD8/lfIEjlVbt1vU=
+    - secure: CBq9k/x60nvpaR87zo+omhMX7sV0Ag6yYBMxZ6/J+zKQxaKR4v3F/Yla94YtRsTejhEa0FnWqPXaGlTEB3ewEHswEnNJvASSfnRMcpjP7xBYATndX/W3gwboT9IP+nra2YdhqIuFGk2OO6fOEi2nXH9hECikVcfAhPhq/67RRZ0NZxqvNDypNBxqorNjYmdWcLcHG/uhumu2G7F9jXPQmVN+3lrW/GOrhD9aCFuNnr7lVQEVB+ABsahBTSNbHg092n394LeptsmqvWIEQGsoa5p7zKGReUJD/Vidpg7vLNlPeE7h6NDENzceXDu04tgpwIxux4v9IsGvB9SAwHkCGzg1H9//9bpuuiZ+xVpRhrOotD3h//9vsm8Mzz2aNXJ3pGv+WMPzyFNx95oSs1DoksZr/83VQsFjM+XorghqO/rohIkUNDMpwPkostlcSiKJP25iJaHeXfCSwTu2hjxa2YX56Yo/zEMHG6CWArhji1b+5Ne5GBdMnlGGG2UI7ape68aTXv5GJA+lJEbEi/w/Z+LtcdQPWljIJ1b3PSXmRDxCeHRlUhIXL2u0T377zRnwxszZVQfd5H2XvasVZAbCksm50lKrGHC7EnUQmMRetN/ZgQ2f0Jsoz3Sj+pgfcgk6LwlkyN3w+R5nVV3dk3aejV70T+nQMiT7qAImCxrAWLg=
+deploy:
+  provider: script
+  script:
+    bash ./release.sh $TRAVIS_TAG $GITHUB_TOKEN "MyEtherWallet/MEWconnect-Android"
+    true
+  skip_cleanup: true
+  on:
+    tags: true
+    branch: master
