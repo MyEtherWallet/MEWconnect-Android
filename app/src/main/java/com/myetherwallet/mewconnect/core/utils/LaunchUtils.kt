@@ -1,10 +1,12 @@
 package com.myetherwallet.mewconnect.core.utils
 
 import android.content.ActivityNotFoundException
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.text.TextUtils
+
 
 /**
  * Created by BArtWell on 28.08.2018.
@@ -51,6 +53,27 @@ object LaunchUtils {
             } catch (e: ActivityNotFoundException) {
                 e.printStackTrace()
             }
+        }
+    }
+
+    fun openMarket(context: Context?) {
+        context?.let {
+            val packageName = context.packageName
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName"))
+            val apps = context.packageManager.queryIntentActivities(intent, 0)
+            for (app in apps) {
+                if (app.activityInfo.applicationInfo.packageName == "com.android.vending") {
+                    val activityInfo = app.activityInfo
+                    val componentName = ComponentName(activityInfo.applicationInfo.packageName, activityInfo.name)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    intent.component = componentName
+                    context.startActivity(intent)
+                    return
+                }
+            }
+            openWebSite(context, "https://play.google.com/store/apps/details?id=$packageName")
         }
     }
 }

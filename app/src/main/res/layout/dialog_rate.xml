@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/rate_close"
+        android:layout_width="@dimen/dimen_40dp"
+        android:layout_height="@dimen/dimen_40dp"
+        android:alpha="0.5"
+        android:contentDescription="@null"
+        android:padding="@dimen/dimen_8dp"
+        android:src="@drawable/ic_action_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/rate_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_24dp"
+        android:layout_marginTop="@dimen/dimen_24dp"
+        android:fontFamily="sans-serif-medium"
+        android:letterSpacing="0.01"
+        android:text="@string/rate_title"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text_size_20sp"
+        app:layout_constraintEnd_toStartOf="@id/rate_close"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/rate_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_24dp"
+        android:layout_marginTop="@dimen/dimen_12dp"
+        android:layout_marginEnd="@dimen/dimen_24dp"
+        android:layout_marginBottom="@dimen/dimen_24dp"
+        android:letterSpacing="0.01"
+        android:lineSpacingExtra="8sp"
+        android:text="@string/rate_text"
+        android:textColor="@color/text_grey"
+        android:textSize="@dimen/text_size_16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rate_title" />
+</android.support.constraint.ConstraintLayout>
