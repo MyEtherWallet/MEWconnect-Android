@@ -10,7 +10,6 @@ import com.myetherwallet.mewconnect.core.platform.Failure
 import com.myetherwallet.mewconnect.core.utils.CardBackgroundHelper
 import com.myetherwallet.mewconnect.core.utils.crypto.StorageCryptHelper
 import com.myetherwallet.mewconnect.feature.main.utils.WalletSizingUtils
-import com.myetherwallet.mewconnect.feature.main.view.WalletCardView
 import org.bitcoinj.crypto.ChildNumber
 import org.bitcoinj.crypto.HDKeyDerivation
 import org.bitcoinj.wallet.DeterministicSeed
@@ -36,16 +35,13 @@ class CreateWallets
 
         val mnemonic: String
         val creationTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis())
-        val deterministicSeed: DeterministicSeed
-        if (params.mnemonic == null) {
+        mnemonic = if (params.mnemonic == null) {
             val entropy = generateNewEntropy()
-            mnemonic = MnemonicUtils.generateMnemonic(entropy)
-            deterministicSeed = DeterministicSeed(emptyList(), entropy, WALLET_PASSWORD, creationTime)
+            MnemonicUtils.generateMnemonic(entropy)
         } else {
-            mnemonic = params.mnemonic
-            val mnemonicList = mnemonic.split(" ")
-            deterministicSeed = DeterministicSeed(mnemonicList, null, WALLET_PASSWORD, creationTime)
+            params.mnemonic
         }
+        val deterministicSeed = DeterministicSeed(mnemonic.split(" "), null, WALLET_PASSWORD, creationTime)
 
         val encryptedMnemonic = StorageCryptHelper.encrypt(mnemonic.toByteArray(), params.password)
         preferences.applicationPreferences.setWalletMnemonic(encryptedMnemonic)
