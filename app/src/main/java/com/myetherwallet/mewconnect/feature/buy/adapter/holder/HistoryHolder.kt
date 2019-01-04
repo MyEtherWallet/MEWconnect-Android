@@ -17,9 +17,9 @@ class HistoryHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.history_total_amount.text = status.fiatTotalAmount.amount.formatUsd()
         itemView.history_status.text = status.status.toLowerCase().capitalize()
         val statusLowerCase = status.status.toLowerCase()
-        if (statusLowerCase == PurchaseStatus.STATUS_IN_PROGRESS) {
+        if (PurchaseStatus.STATUS_IN_PROGRESS.contains(statusLowerCase)) {
             itemView.history_status.setTextColor(context.getColor(R.color.blue))
-        } else if (statusLowerCase == PurchaseStatus.STATUS_DECLINED) {
+        } else if (PurchaseStatus.STATUS_DECLINED.contains(statusLowerCase)) {
             itemView.history_status.setTextColor(context.getColor(R.color.red))
         } else {
             itemView.history_status.setTextColor(context.getColor(R.color.text_black))

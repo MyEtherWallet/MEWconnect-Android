@@ -13,8 +13,8 @@ data class PurchaseStatus(
         val requestedDigitalAmount: Amount
 ) {
     companion object {
-        const val STATUS_IN_PROGRESS = "in progress"
-        const val STATUS_APPROVED = "approved"
-        const val STATUS_DECLINED = "declined"
+        val STATUS_IN_PROGRESS = arrayOf("payment_request_submitted", "pending_simplexcc_approval")
+        val STATUS_APPROVED = arrayOf("payment_simplexcc_approved")
+        val STATUS_DECLINED = arrayOf("payment_simplexcc_declined", "simplexcc_declined")
     }
 }

@@ -52,9 +52,9 @@ class HistoryFragment : BaseViewModelFragment() {
                 history_empty.visibility = VISIBLE
             } else {
                 adapter.items = it.filter { purchaseStatus ->
-                    purchaseStatus.status == PurchaseStatus.STATUS_IN_PROGRESS ||
-                            purchaseStatus.status == PurchaseStatus.STATUS_APPROVED ||
-                            purchaseStatus.status == PurchaseStatus.STATUS_DECLINED
+                    PurchaseStatus.STATUS_IN_PROGRESS.contains(purchaseStatus.status) ||
+                            PurchaseStatus.STATUS_APPROVED.contains(purchaseStatus.status) ||
+                            PurchaseStatus.STATUS_DECLINED.contains(purchaseStatus.status)
                 }
                 history_empty.visibility = GONE
                 adapter.notifyDataSetChanged()

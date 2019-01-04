@@ -21,7 +21,7 @@ private const val KEY_URL = "payment_post_url"
 class BuyViewModel
 @Inject constructor(application: Application, private val getBuyInfo: GetBuyQuote, private val getBuyOrder: GetBuyOrder, private val saveHistoryItem: SaveHistoryItem, private val getHistory: GetHistory) : AndroidViewModel(application) {
 
-    fun load(amount: BigDecimal, currency:  String, address: String, installTime: Date, successCallback: (postRequest: PostRequest) -> Unit, failureCallback: () -> Unit) {
+    fun load(amount: BigDecimal, currency: String, address: String, installTime: Date, successCallback: (postRequest: PostRequest) -> Unit, failureCallback: () -> Unit) {
         getBuyInfo.execute(GetBuyQuote.Params(amount, currency)) {
             it.either(
                     { failureCallback() },
@@ -35,7 +35,14 @@ class BuyViewModel
         getBuyOrder.execute(GetBuyOrder.Params(quote, address, installTime)) {
             it.either(
                     { failureCallback() },
-                    { successCallback(createPostRequest(it.result)) })
+                    {
+                        try {
+                            successCallback(createPostRequest(it.result))
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            failureCallback()
+                        }
+                    })
         }
         saveHistoryItem.execute(SaveHistoryItem.Params(quote)) {}
         getHistory.execute(GetHistory.Params()) {}
