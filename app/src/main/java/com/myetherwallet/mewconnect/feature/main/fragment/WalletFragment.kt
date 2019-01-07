@@ -66,7 +66,7 @@ class WalletFragment : BaseViewModelFragment() {
     private val handler = Handler()
     private val adapter = WalletListAdapter()
     private lateinit var address: String
-    private lateinit var scrollWatcher: ScrollWatcher
+    private val scrollWatcher = ScrollWatcher()
     private var scrollThreshold = 0
     private var shouldScrollToThreshold = false
 
@@ -74,7 +74,7 @@ class WalletFragment : BaseViewModelFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        scrollWatcher = ScrollWatcher(wallet_list)
+        scrollWatcher.setup(wallet_list)
         scrollWatcher.scrollStateListener = ::onScrollStateChanged
 
         val layoutParams = wallet_scrollable_container.layoutParams as CoordinatorLayout.LayoutParams
@@ -231,6 +231,7 @@ class WalletFragment : BaseViewModelFragment() {
 
     override fun onResume() {
         super.onResume()
+        wallet_list.smoothScrollBy(0, 0)
         setConnectedStatus()
         networkStateReceiver.register(requireContext())
         viewModel.setOnDisconnectListener {

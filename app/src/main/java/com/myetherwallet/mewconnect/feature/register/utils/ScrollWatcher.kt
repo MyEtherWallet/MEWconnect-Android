@@ -14,18 +14,20 @@ import kotlin.math.abs
 // RecyclerView.OnScrollListener doesn't catch scroll events when items removed
 // So we will compute scroll position
 
-class ScrollWatcher(private val recyclerView: RecyclerView) {
+class ScrollWatcher {
 
+    private lateinit var recyclerView: RecyclerView
     var scrollPositionListener: ((position: Int) -> Unit)? = null
     var scrollStateListener: ((state: Int, position: Int) -> Unit)? = null
 
     var scrollPosition = 0
     var scrollState = RecyclerView.SCROLL_STATE_IDLE
 
-    private val headerHeight = WalletSizingUtils.calculateListMargin(recyclerView)
-    private val itemHeight = recyclerView.context.resources.getDimension(R.dimen.wallet_list_item_height)
+    private val headerHeight by lazy { WalletSizingUtils.calculateListMargin(recyclerView) }
+    private val itemHeight by lazy { recyclerView.context.resources.getDimension(R.dimen.wallet_list_item_height) }
 
-    init {
+    fun setup(view: RecyclerView) {
+        recyclerView = view
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
