@@ -2,7 +2,6 @@ package com.myetherwallet.mewconnect.feature.auth.fragment
 
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
-import android.text.method.ScrollingMovementMethod
 import android.view.MotionEvent
 import android.view.View
 import com.myetherwallet.mewconnect.R
@@ -63,9 +62,10 @@ class EnterRecoveryPhraseFragment : BaseDiFragment() {
     }
 
     private fun onNextClick() {
-        var text = enter_recovery_phrase_text.text.toString()
-        text = text.replace(Regex("\\s+"), " ")
-        text = text.trim()
+        val text = enter_recovery_phrase_text.text.toString()
+                .replace(Regex("\\s+"), " ")
+                .trim()
+                .toLowerCase()
         val wordsCount = text.count { " ".contains(it) } + 1
         if (wordsCount == WORDS_COUNT && MnemonicUtils.validateMnemonic(text)) {
             addFragment(PickPasswordFragment.newInstance(text))

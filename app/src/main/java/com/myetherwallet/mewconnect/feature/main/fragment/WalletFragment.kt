@@ -186,6 +186,8 @@ class WalletFragment : BaseViewModelFragment() {
             wallet_header.visibility = VISIBLE
 
             if (data.items.isEmpty()) {
+                adapter.items.clear()
+                adapter.notifyDataSetChanged()
                 wallet_empty.visibility = VISIBLE
                 wallet_header.setBalance(BigDecimal.ZERO)
                 wallet_header.setSearchVisible(false)
