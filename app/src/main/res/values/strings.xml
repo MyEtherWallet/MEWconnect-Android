@@ -146,6 +146,9 @@
     <string name="history_total_amount_title">Total amount:</string>
     <string name="history_date">%1$tB %2$te via Simplex</string>
     <string name="history_empty">Your credit card purchases\nwill be displayed here</string>
+    <string name="history_status_approved">Successful</string>
+    <string name="history_status_declined">Failed</string>
+    <string name="history_status_in_progress">In progress</string>
 
     <string name="sign_message_title">Sign message</string>
     <string name="sign_message_description">Please remember to include your nickname and a specific reason for the message, so someone else cannot re-use it for a different purpose.</string>

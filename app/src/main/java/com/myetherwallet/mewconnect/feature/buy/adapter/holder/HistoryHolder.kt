@@ -15,13 +15,15 @@ class HistoryHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val date = Date()
         itemView.history_date.text = String.format(Locale.US, context.getString(R.string.history_date), date, date)
         itemView.history_total_amount.text = status.fiatTotalAmount.amount.formatUsd()
-        itemView.history_status.text = status.status.toLowerCase().capitalize()
         val statusLowerCase = status.status.toLowerCase()
         if (PurchaseStatus.STATUS_IN_PROGRESS.contains(statusLowerCase)) {
+            itemView.history_status.setText(R.string.history_status_in_progress)
             itemView.history_status.setTextColor(context.getColor(R.color.blue))
         } else if (PurchaseStatus.STATUS_DECLINED.contains(statusLowerCase)) {
+            itemView.history_status.setText(R.string.history_status_declined)
             itemView.history_status.setTextColor(context.getColor(R.color.red))
         } else {
+            itemView.history_status.setText(R.string.history_status_approved)
             itemView.history_status.setTextColor(context.getColor(R.color.text_black))
         }
     }

@@ -7,12 +7,14 @@
 
     <TextView
         android:id="@+id/history_date"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_16dp"
         android:layout_marginTop="@dimen/dimen_16dp"
+        android:layout_marginEnd="8dp"
         android:textColor="@color/text_black"
         android:textSize="@dimen/text_size_16sp"
+        app:layout_constraintEnd_toStartOf="@+id/history_status"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="June 17 via Simplex" />
@@ -23,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_16dp"
         android:layout_marginEnd="@dimen/dimen_16dp"
+        android:maxLength="15"
         android:textSize="@dimen/text_size_16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -31,14 +34,16 @@
 
     <TextView
         android:id="@+id/history_total_amount_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_16dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="@dimen/dimen_16dp"
         android:text="@string/history_total_amount_title"
         android:textColor="@color/text_grey"
         android:textSize="@dimen/text_size_16sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/history_total_amount"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -47,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/dimen_16dp"
         android:layout_marginBottom="@dimen/dimen_16dp"
+        android:maxLength="10"
         android:textColor="@color/text_black"
         android:textSize="@dimen/text_size_16sp"
         android:textStyle="bold"
