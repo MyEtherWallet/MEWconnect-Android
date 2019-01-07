@@ -13,7 +13,7 @@ data class PurchaseStatus(
         val requestedDigitalAmount: Amount
 ) {
     companion object {
-        val STATUS_IN_PROGRESS = arrayOf("payment_request_submitted", "pending_simplexcc_approval")
+        val STATUS_IN_PROGRESS = arrayOf("payment_request_submitted", "pending_simplexcc_approval", "pending_simplexcc_payment_to_partner")
         val STATUS_APPROVED = arrayOf("payment_simplexcc_approved")
         val STATUS_DECLINED = arrayOf("payment_simplexcc_declined", "simplexcc_declined")
     }

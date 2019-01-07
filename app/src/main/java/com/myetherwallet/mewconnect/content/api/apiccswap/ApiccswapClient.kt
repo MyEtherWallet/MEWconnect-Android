@@ -2,11 +2,11 @@ package com.myetherwallet.mewconnect.content.api.apiccswap
 
 import com.google.gson.GsonBuilder
 import com.myetherwallet.mewconnect.BuildConfig
+import com.myetherwallet.mewconnect.core.utils.MewLog
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
 
 /**
  * Created by BArtWell on 15.09.2018.
@@ -29,7 +29,7 @@ class ApiccswapClient {
 
     private fun createClient(): OkHttpClient {
         val okHttpClientBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
-        if (BuildConfig.DEBUG) {
+        if (MewLog.shouldDisplayLogs()) {
             val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             okHttpClientBuilder.addInterceptor(loggingInterceptor)
         }

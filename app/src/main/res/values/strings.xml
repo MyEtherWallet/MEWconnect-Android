@@ -61,6 +61,7 @@
     <string name="wallet_card_currency_usd">USD</string>
     <string name="wallet_card_address_title">Your public Ethereum address</string>
     <string name="wallet_card_stock_price">\@ %.2f/%s</string>
+    <string name="wallet_card_test_network">Test network</string>
     <string name="wallet_card_backup_title">Action required: not backed up</string>
     <string name="wallet_card_backup_description">If you loose this device you will loose your account and all your funds forever.</string>
     <string name="wallet_card_backed_up">Backed up</string>
