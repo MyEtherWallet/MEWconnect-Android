@@ -14,6 +14,10 @@ private const val WALLET_IS_BACKED_UP = "wallet_is_backed_up"
 private const val CURRENT_NETWORK = "current_network"
 private const val BACKUP_WARNING_TIME = "backup_warning_time"
 private const val INSTALL_TIME = "install_time"
+private const val RATE_STARTS_COUNT = "rate_starts_count"
+private const val RATE_VERSION = "rate_version"
+
+private const val RATE_VERSION_VALUE = 1
 
 class ApplicationPreferences(private val preferences: SharedPreferences) {
 
@@ -70,4 +74,16 @@ class ApplicationPreferences(private val preferences: SharedPreferences) {
                 .remove(CURRENT_NETWORK)
                 .apply()
     }
+
+    fun getRateStartsCount() = preferences.getInt(RATE_STARTS_COUNT, 0)
+
+    fun setRateStartsCount(count: Int) {
+        preferences.edit().putInt(RATE_STARTS_COUNT, count).apply()
+    }
+
+    fun disableRateDialog() {
+        preferences.edit().putInt(RATE_VERSION, RATE_VERSION_VALUE).apply()
+    }
+
+    fun isRateDialogEnabled() = preferences.getInt(RATE_VERSION, 0) != RATE_VERSION_VALUE
 }

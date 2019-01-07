@@ -12,6 +12,7 @@ import com.myetherwallet.mewconnect.feature.backup.fragment.*
 import com.myetherwallet.mewconnect.feature.buy.fragment.BuyFragment
 import com.myetherwallet.mewconnect.feature.buy.fragment.HistoryFragment
 import com.myetherwallet.mewconnect.feature.main.activity.MainActivity
+import com.myetherwallet.mewconnect.feature.main.dialog.RateDialog
 import com.myetherwallet.mewconnect.feature.main.fragment.AddressFragment
 import com.myetherwallet.mewconnect.feature.main.fragment.InfoFragment
 import com.myetherwallet.mewconnect.feature.main.fragment.IntroFragment
@@ -79,6 +80,8 @@ interface ApplicationComponent {
     fun inject(fragment: BuyFragment)
 
     fun inject(fragment: HistoryFragment)
+
+    fun inject(dialog: RateDialog)
 
     fun inject(view: WalletCardView)
 

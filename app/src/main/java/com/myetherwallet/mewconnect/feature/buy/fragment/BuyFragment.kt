@@ -116,6 +116,7 @@ class BuyFragment : BaseViewModelFragment() {
                     },
                     {
                         Toast.makeText(context, R.string.buy_loading_error, Toast.LENGTH_LONG).show()
+                        buy_loading.visibility = GONE
                     })
         }
 
@@ -133,10 +134,14 @@ class BuyFragment : BaseViewModelFragment() {
 
     private fun populateSecondValue() {
         val text = getCurrentValue()
-        if (isInUsd) {
-            buy_sum_2.text = BigDecimal(text).divide(price, ETH_DECIMALS, RoundingMode.HALF_UP).formatMoney(ETH_DECIMALS)
+        if (price > BigDecimal.ZERO) {
+            if (isInUsd) {
+                buy_sum_2.text = BigDecimal(text).divide(price, ETH_DECIMALS, RoundingMode.HALF_UP).formatMoney(ETH_DECIMALS)
+            } else {
+                buy_sum_2.text = BigDecimal(text).multiply(price).formatMoney(2)
+            }
         } else {
-            buy_sum_2.text = BigDecimal(text).multiply(price).formatMoney(2)
+            buy_sum_2.text = "0"
         }
         populateCurrency()
     }
@@ -159,13 +164,18 @@ class BuyFragment : BaseViewModelFragment() {
     }
 
     private fun setupBuyButton() {
-        var currentValue = BigDecimal(getCurrentValue())
-        if (!isInUsd) {
-            currentValue = currentValue.multiply(price)
-        }
-        if (currentValue < LIMIT_MIN) {
-            buy_button.setText(R.string.buy_minimum_warning)
-            buy_button.isEnabled = false
+        if (isInUsd || price > BigDecimal.ZERO) {
+            var currentValue = BigDecimal(getCurrentValue())
+            if (!isInUsd) {
+                currentValue = currentValue.multiply(price)
+            }
+            if (currentValue < LIMIT_MIN) {
+                buy_button.setText(R.string.buy_minimum_warning)
+                buy_button.isEnabled = false
+            } else {
+                buy_button.setText(R.string.buy_button)
+                buy_button.isEnabled = true
+            }
         } else {
             buy_button.setText(R.string.buy_button)
             buy_button.isEnabled = true
@@ -224,7 +234,11 @@ class BuyFragment : BaseViewModelFragment() {
             if (length >= ETH_DECIMALS + 1 && text.substring(length - ETH_DECIMALS - 1, length - ETH_DECIMALS) == ".") { // If already has 18 decimals
                 return
             }
-            val limit = LIMIT_MAX.divide(price, ETH_DECIMALS, RoundingMode.HALF_UP)
+            val limit = if (price > BigDecimal.ZERO) {
+                LIMIT_MAX.divide(price, ETH_DECIMALS, RoundingMode.HALF_UP)
+            } else {
+                BigDecimal(20000)
+            }
             if (BigDecimal(newValue) > limit) {
                 populateMainValue(limit)
                 return

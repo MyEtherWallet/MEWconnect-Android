@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentManager
 
 abstract class BaseDialogFragment : DialogFragment() {
 
-    fun show(fragmentManager: FragmentManager) {
+    open fun show(fragmentManager: FragmentManager) {
         show(fragmentManager, getFragmentTag())
     }
 

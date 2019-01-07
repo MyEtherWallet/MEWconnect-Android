@@ -7,7 +7,7 @@ apply plugin: 'org.jetbrains.kotlin.android.extensions'
 int MAJOR_VERSION = 1
 int MINOR_VERSION = 0
 int MICRO_VERSION = 0
-int BUILD_FOR_TODAY = 1
+int BUILD_FOR_TODAY = 2
 
 def secretsPropertiesFile = rootProject.file("secrets.properties");
 def secretsProperties = new Properties()
@@ -23,11 +23,7 @@ android {
         applicationId "com.myetherwallet.mewconnect"
         minSdkVersion 23
         targetSdkVersion 28
-        if (MICRO_VERSION == 0) {
-            versionName String.format("%d.%d", MAJOR_VERSION, MINOR_VERSION)
-        } else {
-            versionName String.format("%d.%d.%d", MAJOR_VERSION, MINOR_VERSION, MICRO_VERSION)
-        }
+        versionName String.format("%d.%d.%d", MAJOR_VERSION, MINOR_VERSION, MICRO_VERSION)
         def date = new Date()
         versionCode Integer.valueOf(String.format("%ty%tm%td%02d", date, date, date, BUILD_FOR_TODAY))
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

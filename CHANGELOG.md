@@ -1,3 +1,17 @@
+### Release v1.0.0 (19010702)
+
+- Update version to 1.0.0
+- Fix amount in 'get buy order' request
+- Make mnemonic phrase case unsensitive on Restore screen
+- Fix bug when UI breaks after Info screen
+- Fix payment status bug on History screen
+- Show "Test network" instead of stock price for Ropsten network
+- Force portrait orientation for Buy screen
+- Allow buy if stock price not available
+- Rate dialog
+- Change wallet creation process
+- Update application icon
+
 ### Release v1.0 (19010401)
 
 - Update version to 1.0

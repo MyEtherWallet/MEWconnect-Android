@@ -16,6 +16,7 @@ import com.myetherwallet.mewconnect.core.utils.HexUtils
 import com.myetherwallet.mewconnect.feature.main.data.WalletBalance
 import com.myetherwallet.mewconnect.feature.main.utils.WalletSizingUtils
 import kotlinx.android.synthetic.main.view_wallet_card.view.*
+import java.math.BigDecimal
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -109,8 +110,20 @@ class WalletCardView @JvmOverloads constructor(
             val currency = network.getCurrency(context)
             wallet_card_value_eth.text = value.formatMoney(5)
             wallet_card_currency_eth.text = currency
-            wallet_card_value_usd.text = valueUsd.formatUsd()
-            wallet_card_stock_price.text = context.getString(R.string.wallet_card_stock_price, stockPrice?.stripTrailingZeros(), currency)
+            if (network == Network.ROPSTEN) {
+                wallet_card_value_usd.text = context.getString(R.string.wallet_card_test_network)
+                wallet_card_stock_price.visibility = View.GONE
+                wallet_card_currency_usd.visibility = View.GONE
+            } else {
+                wallet_card_value_usd.text = valueUsd.formatUsd()
+                wallet_card_stock_price.text = context.getString(R.string.wallet_card_stock_price,
+                        (stockPrice ?: BigDecimal.ZERO).stripTrailingZeros(),
+                        currency)
+                wallet_card_stock_price.visibility = View.VISIBLE
+                wallet_card_currency_usd.visibility = View.VISIBLE
+            }
+
+
         }
     }
 }

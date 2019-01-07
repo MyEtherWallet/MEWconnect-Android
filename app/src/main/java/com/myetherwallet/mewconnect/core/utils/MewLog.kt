@@ -9,7 +9,7 @@ import com.myetherwallet.mewconnect.BuildConfig
 
 object MewLog {
 
-    private fun shouldDisplayLogs() = BuildConfig.DEBUG
+    fun shouldDisplayLogs() = BuildConfig.DEBUG
 
     fun v(tag: String, msg: String) {
         if (shouldDisplayLogs()) {

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
+import com.myetherwallet.mewconnect.MewApplication
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.content.data.MessageToSign
 import com.myetherwallet.mewconnect.content.data.Network
@@ -28,6 +29,7 @@ import com.myetherwallet.mewconnect.feature.main.data.WalletBalance
 import com.myetherwallet.mewconnect.feature.main.data.WalletData
 import com.myetherwallet.mewconnect.feature.main.dialog.BackupWarningDialog
 import com.myetherwallet.mewconnect.feature.main.dialog.ChooseNetworkDialog
+import com.myetherwallet.mewconnect.feature.main.dialog.RateDialog
 import com.myetherwallet.mewconnect.feature.main.receiver.NetworkStateReceiver
 import com.myetherwallet.mewconnect.feature.main.utils.WalletSizingUtils
 import com.myetherwallet.mewconnect.feature.main.view.behavior.WalletScrollBehavior
@@ -64,7 +66,7 @@ class WalletFragment : BaseViewModelFragment() {
     private val handler = Handler()
     private val adapter = WalletListAdapter()
     private lateinit var address: String
-    private lateinit var scrollWatcher: ScrollWatcher
+    private val scrollWatcher = ScrollWatcher()
     private var scrollThreshold = 0
     private var shouldScrollToThreshold = false
 
@@ -72,7 +74,7 @@ class WalletFragment : BaseViewModelFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        scrollWatcher = ScrollWatcher(wallet_list)
+        scrollWatcher.setup(wallet_list)
         scrollWatcher.scrollStateListener = ::onScrollStateChanged
 
         val layoutParams = wallet_scrollable_container.layoutParams as CoordinatorLayout.LayoutParams
@@ -85,6 +87,8 @@ class WalletFragment : BaseViewModelFragment() {
 
         wallet_header.onUpdateClickListener = { load() }
         init()
+
+        RateDialog.newInstance(requireActivity().application as MewApplication).show(childFragmentManager)
     }
 
     private fun init() {
@@ -182,6 +186,8 @@ class WalletFragment : BaseViewModelFragment() {
             wallet_header.visibility = VISIBLE
 
             if (data.items.isEmpty()) {
+                adapter.items.clear()
+                adapter.notifyDataSetChanged()
                 wallet_empty.visibility = VISIBLE
                 wallet_header.setBalance(BigDecimal.ZERO)
                 wallet_header.setSearchVisible(false)
@@ -204,8 +210,9 @@ class WalletFragment : BaseViewModelFragment() {
             wallet_toolbar.setBalance(balance.value)
             wallet_toolbar.setNetwork(preferences.applicationPreferences.getCurrentNetwork())
 
-            balance.stockPrice?.let { stockPrice ->
-                wallet_toolbar.onBuyClickListener = { addFragment(BuyFragment.newInstance(stockPrice)) }
+            wallet_toolbar.onBuyClickListener = {
+                val stockPrice = balance.stockPrice?.let { it } ?: BigDecimal.ZERO
+                addFragment(BuyFragment.newInstance(stockPrice))
             }
 
             showBackupWarning(balance.value)
@@ -226,6 +233,7 @@ class WalletFragment : BaseViewModelFragment() {
 
     override fun onResume() {
         super.onResume()
+        wallet_list.smoothScrollBy(0, 0)
         setConnectedStatus()
         networkStateReceiver.register(requireContext())
         viewModel.setOnDisconnectListener {

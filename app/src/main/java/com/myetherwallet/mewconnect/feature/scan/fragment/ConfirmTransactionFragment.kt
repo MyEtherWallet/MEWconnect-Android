@@ -60,12 +60,12 @@ class ConfirmTransactionFragment : BaseViewModelFragment(), AuthCallback {
         transaction?.let {
             viewModel.transaction = transaction
             val transactionData = TransactionData.fromString(transaction.data)
+            isUnknownToken = transactionData?.function == TransactionData.FUNCTION_TOKEN_TRANSFER
             val currency: String
             val amount: BigDecimal
             val to: String
             if (transaction.value == BigInteger.ZERO && transactionData?.function == TransactionData.FUNCTION_TOKEN_TRANSFER) {
                 if (transaction.currency == null) {
-                    isUnknownToken = true
                     amount = transactionData.amount.toBigDecimal().stripTrailingZeros()
                     currency = getString(R.string.confirm_transaction_unknown_token)
                 } else {

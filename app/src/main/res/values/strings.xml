@@ -61,6 +61,7 @@
     <string name="wallet_card_currency_usd">USD</string>
     <string name="wallet_card_address_title">Your public Ethereum address</string>
     <string name="wallet_card_stock_price">\@ %.2f/%s</string>
+    <string name="wallet_card_test_network">Test network</string>
     <string name="wallet_card_backup_title">Action required: not backed up</string>
     <string name="wallet_card_backup_description">If you loose this device you will loose your account and all your funds forever.</string>
     <string name="wallet_card_backed_up">Backed up</string>
@@ -145,6 +146,9 @@
     <string name="history_total_amount_title">Total amount:</string>
     <string name="history_date">%1$tB %2$te via Simplex</string>
     <string name="history_empty">Your credit card purchases\nwill be displayed here</string>
+    <string name="history_status_approved">Successful</string>
+    <string name="history_status_declined">Failed</string>
+    <string name="history_status_in_progress">In progress</string>
 
     <string name="sign_message_title">Sign message</string>
     <string name="sign_message_description">Please remember to include your nickname and a specific reason for the message, so someone else cannot re-use it for a different purpose.</string>
@@ -159,4 +163,9 @@
     <string name="address_share_title">Choose application</string>
     <string name="address_copy">Copy</string>
     <string name="address_copied">Address copied</string>
+
+    <string name="rate_title">Enjoying our app so far?</string>
+    <string name="rate_text">Let us know how you feel, your feedback is important for us.</string>
+    <string name="rate_button_rate">Sure, I\'ll rate it</string>
+    <string name="rate_button_feedback">I have feedback</string>
 </resources>
