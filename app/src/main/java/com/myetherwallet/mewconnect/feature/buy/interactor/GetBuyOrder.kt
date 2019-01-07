@@ -20,7 +20,7 @@ class GetBuyOrder
         val request = BuyOrderRequest(
                 BuyOrderAccountDetails(params.quote.userId, params.installTime),
                 BuyOrderTransactionDetails(BuyOrderPaymentDetails(
-                        Amount("USD", params.quote.fiatMoney.baseAmount),
+                        Amount("USD", params.quote.fiatMoney.totalAmount),
                         Amount("ETH", params.quote.digitalMoney.amount),
                         BuyOrderPaymentDetailsAddress("ETH", HexUtils.withPrefix(params.address))
                 ))
