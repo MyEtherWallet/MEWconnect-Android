@@ -5,6 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import com.myetherwallet.mewconnect.content.data.EncryptedMessage
 import com.myetherwallet.mewconnect.content.data.Offer
+import com.myetherwallet.mewconnect.content.data.TurnServer
 import com.myetherwallet.mewconnect.core.utils.MewLog
 import org.webrtc.*
 import java.nio.ByteBuffer
@@ -31,19 +32,36 @@ class WebRtc {
     lateinit var messageListener: (data: String) -> Unit
     lateinit var disconnectListener: () -> Unit
 
-    fun connectWithOffer(context: Context, offer: Offer) {
+    fun connectWithOffer(context: Context, offer: Offer, turnServers: List<TurnServer>? = null) {
         val sessionDescription = offer.toSessionDescription()
-        val iceServer = PeerConnection.IceServer
-                .builder(ICE_SERVER_URL)
-                .createIceServer()
-        val iceServersList = listOf<PeerConnection.IceServer>(iceServer)
+        val iceServersList = mutableListOf<PeerConnection.IceServer>()
+        if (turnServers == null) {
+            iceServersList.add(PeerConnection.IceServer
+                    .builder(ICE_SERVER_URL)
+                    .createIceServer())
+        } else {
+            iceServersList.add(PeerConnection.IceServer
+                    .builder(turnServers[0].url)
+                    .createIceServer())
+            for (i in 1 until turnServers.size) {
+                iceServersList.add(PeerConnection.IceServer
+                        .builder(turnServers[i].url)
+                        .setUsername(turnServers[i].username)
+                        .setPassword(turnServers[i].credential)
+                        .createIceServer())
+            }
+        }
         PeerConnectionFactory.initialize(PeerConnectionFactory.InitializationOptions.builder(context).createInitializationOptions())
         val peerConnectionFactory = PeerConnectionFactory(PeerConnectionFactory.Options())
         val rtcConfig = PeerConnection.RTCConfiguration(iceServersList)
 
-        peerConnection = peerConnectionFactory.createPeerConnection(rtcConfig, mediaConstraints, PeerConnectionObserver(::waitForAllIceCandidates, ::handleIceConnectionChange))
-
-        peerConnection.setRemoteDescription(WebRtcSdpObserver("setRemoteDescription", ::createAnswer), sessionDescription)
+        val connection = peerConnectionFactory.createPeerConnection(rtcConfig, mediaConstraints, PeerConnectionObserver(::waitForAllIceCandidates, ::handleIceConnectionChange))
+        if (connection == null) {
+            connectErrorListener()
+        } else {
+            peerConnection = connection
+            peerConnection.setRemoteDescription(WebRtcSdpObserver("setRemoteDescription", ::createAnswer, connectErrorListener::invoke), sessionDescription)
+        }
     }
 
     private fun waitForAllIceCandidates() {
@@ -92,11 +110,15 @@ class WebRtc {
     }
 
     private fun createAnswer() {
-        peerConnection.createAnswer(WebRtcSdpObserver("createAnswer", ::setLocalDescription), mediaConstraints)
+        peerConnection.createAnswer(WebRtcSdpObserver("createAnswer", ::setLocalDescription, connectErrorListener::invoke), mediaConstraints)
     }
 
-    private fun setLocalDescription(sessionDescription: SessionDescription) {
-        peerConnection.setLocalDescription(WebRtcSdpObserver("setLocalDescription"), sessionDescription)
+    private fun setLocalDescription(sessionDescription: SessionDescription?) {
+        if (sessionDescription == null) {
+            connectErrorListener()
+        } else {
+            peerConnection.setLocalDescription(WebRtcSdpObserver("setLocalDescription"), sessionDescription)
+        }
     }
 
     fun send(data: EncryptedMessage) {

@@ -4,7 +4,6 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
-import android.util.Log
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.myetherwallet.mewconnect.BuildConfig
@@ -38,6 +37,7 @@ private const val EXTRA_SHUTDOWN_DELAYED = "shutdown_delayed"
 private const val EVENT_HANDSHAKE = "handshake"
 private const val EVENT_OFFER = "offer"
 private const val EVENT_ANSWER = "answer"
+private const val EVENT_TURN_TOKEN = "turnToken"
 private const val EVENT_ERROR = "error"
 private const val EVENT_INVALID_CONNECTION = "InvalidConnection"
 private const val EVENT_CONFIRMATION_FAILED = "confirmationFailed"
@@ -87,9 +87,11 @@ class SocketService : Service() {
     private val shutdownRunnable = Runnable { stopSelf() }
     private val timeoutRunnable = Runnable {
         MewLog.d(TAG, "Timeout")
-        disconnect()
-        errorListener?.invoke()
+        sendTryTurnOrThrowError()
     }
+
+    private var wasTryTurnSent = false
+    private var turnServerData: TurnServerData? = null
 
     var errorListener: (() -> Unit)? = null
     var connectedListener: (() -> Unit)? = null
@@ -97,7 +99,6 @@ class SocketService : Service() {
     var transactionConfirmListener: ((transaction: Transaction) -> Unit)? = null
     var messageSignListener: ((message: MessageToSign) -> Unit)? = null
     var disconnectListener: (() -> Unit)? = null
-
 
     override fun onCreate() {
         super.onCreate()
@@ -118,6 +119,7 @@ class SocketService : Service() {
     }
 
     fun connect(privateKey: String, connectionId: String) {
+        wasTryTurnSent = false
         connectingListener?.invoke()
         this.privateKey = privateKey
         this.connectionId = connectionId
@@ -129,6 +131,7 @@ class SocketService : Service() {
                 ?.on(Socket.EVENT_CONNECT, ::onConnected)
                 ?.on(EVENT_HANDSHAKE, ::onHandShake)
                 ?.on(EVENT_ANSWER, ::onAnswer)
+                ?.on(EVENT_TURN_TOKEN, ::onTurnToken)
                 ?.on(EVENT_OFFER, ::onOffer)
                 ?.on(EVENT_ERROR, ::onError)
                 ?.on(EVENT_CONFIRMATION_FAILED, ::onConfirmationFailed)
@@ -154,7 +157,7 @@ class SocketService : Service() {
         webRtc.disconnectListener = ::onRtcDisconnected
         webRtc.dataListener = ::onRtcDataOpened
         webRtc.messageListener = { handleWebRtcMessages(webRtc, it) }
-        webRtc.connectWithOffer(this, offer)
+        webRtc.connectWithOffer(this, offer, turnServerData?.data)
     }
 
     private fun onWebRtcConnectSuccess(offer: Offer) {
@@ -164,7 +167,7 @@ class SocketService : Service() {
     }
 
     private fun onWebRtcConnectError() {
-        socket?.emit(EMIT_TRY_TURN, JsonParser.toJsonObject(Cont(connectionId, true)))
+        sendTryTurnOrThrowError()
     }
 
     private fun onRtcDisconnected() {
@@ -174,6 +177,18 @@ class SocketService : Service() {
 
     private fun onRtcDataOpened() {
         socket?.emit(EMIT_RTC_CONNECTED)
+    }
+
+    private fun sendTryTurnOrThrowError() {
+        if (wasTryTurnSent) {
+            disconnect()
+            errorListener?.invoke()
+        } else {
+            wasTryTurnSent = true
+            disconnect(false)
+            handler.postDelayed(timeoutRunnable, CONNECT_TIMEOUT)
+            socket?.emit(EMIT_TRY_TURN, JsonParser.toJsonObject(Cont(connectionId, true)))
+        }
     }
 
     private fun handleWebRtcMessages(webRtc: WebRtc, json: String) {
@@ -243,6 +258,12 @@ class SocketService : Service() {
     }
 
     @Suppress("UNUSED_PARAMETER")
+    private fun onTurnToken(vararg args: Any) {
+        MewLog.d(TAG, "onTurnToken")
+        turnServerData = JsonParser.fromJson(args[0] as JSONObject, TurnServerData::class.java)
+    }
+
+    @Suppress("UNUSED_PARAMETER")
     private fun onHandShake(vararg args: Any) {
         MewLog.d(TAG, "onHandShake")
         val signed = messageCrypt.signMessage(privateKey)
@@ -257,12 +278,14 @@ class SocketService : Service() {
     }
 
 
-    fun disconnect() {
+    fun disconnect(closeSocket: Boolean = true) {
         isConnected = false
         try {
             handler.removeCallbacks(timeoutRunnable)
             webRtc.disconnect()
-            socket?.disconnect()
+            if (closeSocket) {
+                socket?.disconnect()
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }
