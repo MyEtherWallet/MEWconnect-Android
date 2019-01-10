@@ -1,3 +1,11 @@
+### Release v1.0.1 (19011101)
+
+- Update version to 1.0.1
+- Connection improvements
+- Fix address truncation
+- Reset WebRTC connection before reconnect
+- Support for turn servers
+
 ### Release v1.0.0 (19010702)
 
 - Update version to 1.0.0
