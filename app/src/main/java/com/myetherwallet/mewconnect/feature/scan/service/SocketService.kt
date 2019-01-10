@@ -51,7 +51,7 @@ class SocketService : Service() {
 
     companion object {
 
-        private val CONNECT_TIMEOUT = TimeUnit.SECONDS.toMillis(30)
+        private val CONNECT_TIMEOUT = TimeUnit.SECONDS.toMillis(10)
         private val SHUTDOWN_DELAY = TimeUnit.MINUTES.toMillis(5)
 
         init {
@@ -120,6 +120,7 @@ class SocketService : Service() {
 
     fun connect(privateKey: String, connectionId: String) {
         wasTryTurnSent = false
+        turnServers = null
         connectingListener?.invoke()
         this.privateKey = privateKey
         this.connectionId = connectionId
@@ -139,7 +140,7 @@ class SocketService : Service() {
                 ?.on(Socket.EVENT_DISCONNECT, ::onDisconnected)
         socket?.connect()
 
-        handler.postDelayed(timeoutRunnable, CONNECT_TIMEOUT)
+        startTimeoutTimer()
     }
 
     @Suppress("UNUSED_PARAMETER")
@@ -165,6 +166,7 @@ class SocketService : Service() {
         val encryptedOfferMessage = messageCrypt.encrypt(offer)
         val signatureMessage = SocketMessage(connectionId, encryptedOfferMessage)
         socket?.emit(EMIT_ANSWER_SIGNAL, JsonParser.toJsonObject(signatureMessage))
+        startTimeoutTimer()
     }
 
     private fun onWebRtcConnectError() {
@@ -179,19 +181,22 @@ class SocketService : Service() {
     }
 
     private fun onRtcDataOpened() {
-        MewLog.d(TAG, "onRtcDataOpened")
+        MewLog.d(TAG, "Connected")
         socket?.emit(EMIT_RTC_CONNECTED)
+        connectedListener?.invoke()
+        isConnected = true
+        stopTimeoutTimer()
     }
 
     private fun sendTryTurnOrThrowError() {
-        if (wasTryTurnSent) {
+        if (wasTryTurnSent || isConnected) {
             disconnect()
             errorListener?.invoke()
         } else {
             wasTryTurnSent = true
             disconnect(false)
-            handler.postDelayed(timeoutRunnable, CONNECT_TIMEOUT)
             socket?.emit(EMIT_TRY_TURN, JsonParser.toJsonObject(Cont(connectionId, true)))
+            startTimeoutTimer()
             MewLog.d(TAG, "Try turn")
         }
     }
@@ -202,12 +207,8 @@ class SocketService : Service() {
             val webRtcMessage = JsonParser.fromJson<WebRtcMessage<JsonElement>>(messageCrypt.decrypt(encryptedMessage)!!, object : TypeToken<WebRtcMessage<JsonElement>>() {}.type)
             when {
                 webRtcMessage.type == WebRtcMessage.Type.ADDRESS -> {
-                    MewLog.d(TAG, "Connected")
                     val message = messageCrypt.encrypt(WebRtcMessage(WebRtcMessage.Type.ADDRESS, Address(preferences.getCurrentWalletPreferences().getWalletAddress())))
                     webRtc.send(message)
-                    connectedListener?.invoke()
-                    isConnected = true
-                    handler.removeCallbacks(timeoutRunnable)
                 }
                 webRtcMessage.type == WebRtcMessage.Type.SIGN_TX -> {
                     val transaction = JsonParser.fromJson(webRtcMessage.data.asString as String, Transaction::class.java)
@@ -276,11 +277,13 @@ class SocketService : Service() {
         val version = messageCrypt.encrypt(VERSION.toByteArray())
         val signatureMessage = SocketMessage(connectionId, signed, version)
         socket?.emit(EMIT_SIGNATURE, JsonParser.toJsonObject(signatureMessage))
+        startTimeoutTimer()
     }
 
     @Suppress("UNUSED_PARAMETER")
     private fun onDisconnected(vararg args: Any) {
         MewLog.d(TAG, "onDisconnected")
+        disconnectListener?.invoke()
     }
 
 
@@ -288,7 +291,7 @@ class SocketService : Service() {
         MewLog.d(TAG, "disconnect")
         isConnected = false
         try {
-            handler.removeCallbacks(timeoutRunnable)
+            stopTimeoutTimer()
             webRtc.disconnect()
             if (closeSocket) {
                 MewLog.d(TAG, "Close socket")
@@ -302,5 +305,14 @@ class SocketService : Service() {
     override fun onDestroy() {
         socket?.disconnect()
         super.onDestroy()
+    }
+
+    private fun startTimeoutTimer() {
+        stopTimeoutTimer()
+        handler.postDelayed(timeoutRunnable, CONNECT_TIMEOUT)
+    }
+
+    private fun stopTimeoutTimer() {
+        handler.removeCallbacks(timeoutRunnable)
     }
 }

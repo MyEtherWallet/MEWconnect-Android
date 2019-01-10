@@ -132,6 +132,7 @@ class WebRtc {
             isDataChannelOpened = false
             dataChannel.close()
             dataChannel.dispose()
+            peerConnection.close()
         }
     }
 }
