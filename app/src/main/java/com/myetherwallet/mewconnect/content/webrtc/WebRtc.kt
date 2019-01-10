@@ -36,10 +36,12 @@ class WebRtc {
         val sessionDescription = offer.toSessionDescription()
         val iceServersList = mutableListOf<PeerConnection.IceServer>()
         if (turnServers == null) {
+            MewLog.d(TAG, "Without turn servers")
             iceServersList.add(PeerConnection.IceServer
                     .builder(ICE_SERVER_URL)
                     .createIceServer())
         } else {
+            MewLog.d(TAG, "With turn servers")
             iceServersList.add(PeerConnection.IceServer
                     .builder(turnServers[0].url)
                     .createIceServer())

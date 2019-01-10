@@ -82,7 +82,7 @@ class SocketService : Service() {
     private lateinit var messageCrypt: MessageCrypt
     private lateinit var privateKey: String
     private lateinit var connectionId: String
-    private val webRtc = WebRtc()
+    private lateinit var webRtc: WebRtc
 
     private val shutdownRunnable = Runnable { stopSelf() }
     private val timeoutRunnable = Runnable {
@@ -91,7 +91,7 @@ class SocketService : Service() {
     }
 
     private var wasTryTurnSent = false
-    private var turnServerData: TurnServerData? = null
+    private var turnServers: List<TurnServer>? = null
 
     var errorListener: (() -> Unit)? = null
     var connectedListener: (() -> Unit)? = null
@@ -152,12 +152,13 @@ class SocketService : Service() {
         val encryptedMessage = JsonParser.fromJson(args[0] as JSONObject, OfferData::class.java).data
         val offer = JsonParser.fromJson(messageCrypt.decrypt(encryptedMessage)!!, Offer::class.java)
 
+        webRtc = WebRtc()
         webRtc.connectSuccessListener = ::onWebRtcConnectSuccess
         webRtc.connectErrorListener = ::onWebRtcConnectError
         webRtc.disconnectListener = ::onRtcDisconnected
         webRtc.dataListener = ::onRtcDataOpened
         webRtc.messageListener = { handleWebRtcMessages(webRtc, it) }
-        webRtc.connectWithOffer(this, offer, turnServerData?.data)
+        webRtc.connectWithOffer(this, offer, turnServers)
     }
 
     private fun onWebRtcConnectSuccess(offer: Offer) {
@@ -167,15 +168,18 @@ class SocketService : Service() {
     }
 
     private fun onWebRtcConnectError() {
+        MewLog.d(TAG, "onWebRtcConnectError")
         sendTryTurnOrThrowError()
     }
 
     private fun onRtcDisconnected() {
+        MewLog.d(TAG, "onRtcDisconnected")
         disconnect()
         disconnectListener?.invoke()
     }
 
     private fun onRtcDataOpened() {
+        MewLog.d(TAG, "onRtcDataOpened")
         socket?.emit(EMIT_RTC_CONNECTED)
     }
 
@@ -188,6 +192,7 @@ class SocketService : Service() {
             disconnect(false)
             handler.postDelayed(timeoutRunnable, CONNECT_TIMEOUT)
             socket?.emit(EMIT_TRY_TURN, JsonParser.toJsonObject(Cont(connectionId, true)))
+            MewLog.d(TAG, "Try turn")
         }
     }
 
@@ -197,6 +202,7 @@ class SocketService : Service() {
             val webRtcMessage = JsonParser.fromJson<WebRtcMessage<JsonElement>>(messageCrypt.decrypt(encryptedMessage)!!, object : TypeToken<WebRtcMessage<JsonElement>>() {}.type)
             when {
                 webRtcMessage.type == WebRtcMessage.Type.ADDRESS -> {
+                    MewLog.d(TAG, "Connected")
                     val message = messageCrypt.encrypt(WebRtcMessage(WebRtcMessage.Type.ADDRESS, Address(preferences.getCurrentWalletPreferences().getWalletAddress())))
                     webRtc.send(message)
                     connectedListener?.invoke()
@@ -260,7 +266,7 @@ class SocketService : Service() {
     @Suppress("UNUSED_PARAMETER")
     private fun onTurnToken(vararg args: Any) {
         MewLog.d(TAG, "onTurnToken")
-        turnServerData = JsonParser.fromJson(args[0] as JSONObject, TurnServerData::class.java)
+        turnServers = JsonParser.fromJson(args[0] as JSONObject, TurnServerData::class.java).data
     }
 
     @Suppress("UNUSED_PARAMETER")
@@ -279,11 +285,13 @@ class SocketService : Service() {
 
 
     fun disconnect(closeSocket: Boolean = true) {
+        MewLog.d(TAG, "disconnect")
         isConnected = false
         try {
             handler.removeCallbacks(timeoutRunnable)
             webRtc.disconnect()
             if (closeSocket) {
+                MewLog.d(TAG, "Close socket")
                 socket?.disconnect()
             }
         } catch (e: Exception) {
