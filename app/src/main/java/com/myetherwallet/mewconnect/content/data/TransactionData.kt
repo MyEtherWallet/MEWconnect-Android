@@ -19,7 +19,7 @@ data class TransactionData(
             if (data.length == 138) {
                 return TransactionData(
                         data.substring(0, 10),
-                        HexUtils.withPrefix(data.substring(10, 74).trimStart('0')),
+                        HexUtils.withPrefix(data.substring(34, 74)),
                         HexUtils.toBigInteger(data.substring(74)))
             } else {
                 return null
