@@ -10,12 +10,11 @@ import org.webrtc.*
 private const val TAG = "PeerConnectionObserver"
 
 class PeerConnectionObserver(
-        private val onIceCandidateListener: () -> Unit,
-        private val onIceConnectionChangeListener: (connectionState: PeerConnection.IceConnectionState) -> Unit) : PeerConnection.Observer {
+        private val onIceConnectionChangeListener: (connectionState: PeerConnection.IceConnectionState) -> Unit,
+        private val onIceGatheringStateListener: (connectionState: PeerConnection.IceGatheringState) -> Unit) : PeerConnection.Observer {
 
     override fun onIceCandidate(iceCandidate: IceCandidate) {
         MewLog.d(TAG, "PeerConnection.onIceCandidate")
-        onIceCandidateListener.invoke()
     }
 
     override fun onIceConnectionChange(connectionState: PeerConnection.IceConnectionState) {
@@ -31,8 +30,9 @@ class PeerConnectionObserver(
         MewLog.d(TAG, "PeerConnection.onIceConnectionReceivingChange")
     }
 
-    override fun onIceGatheringChange(p0: PeerConnection.IceGatheringState) {
+    override fun onIceGatheringChange(state: PeerConnection.IceGatheringState) {
         MewLog.d(TAG, "PeerConnection.onIceGatheringChange")
+        onIceGatheringStateListener.invoke(state)
     }
 
     override fun onAddStream(p0: MediaStream) {
