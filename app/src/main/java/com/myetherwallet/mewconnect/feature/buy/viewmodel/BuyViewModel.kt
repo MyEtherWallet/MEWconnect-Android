@@ -31,21 +31,25 @@ class BuyViewModel
         }
     }
 
-    private fun loadOrder(quote: BuyQuoteResult, address: String, installTime: Date, successCallback: (postRequest: PostRequest) -> Unit, failureCallback: () -> Unit) {
-        getBuyOrder.execute(GetBuyOrder.Params(quote, address, installTime)) {
-            it.either(
-                    { failureCallback() },
-                    {
-                        try {
-                            successCallback(createPostRequest(it.result))
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                            failureCallback()
-                        }
-                    })
+    private fun loadOrder(quote: BuyQuoteResult?, address: String, installTime: Date, successCallback: (postRequest: PostRequest) -> Unit, failureCallback: () -> Unit) {
+        if (quote?.userId != null) {
+            getBuyOrder.execute(GetBuyOrder.Params(quote, address, installTime)) {
+                it.either(
+                        { failureCallback() },
+                        {
+                            try {
+                                successCallback(createPostRequest(it.result))
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                                failureCallback()
+                            }
+                        })
+            }
+            saveHistoryItem.execute(SaveHistoryItem.Params(quote)) {}
+            getHistory.execute(GetHistory.Params()) {}
+        } else {
+            failureCallback()
         }
-        saveHistoryItem.execute(SaveHistoryItem.Params(quote)) {}
-        getHistory.execute(GetHistory.Params()) {}
     }
 
     private fun createPostRequest(data: Map<String, String>): PostRequest {
