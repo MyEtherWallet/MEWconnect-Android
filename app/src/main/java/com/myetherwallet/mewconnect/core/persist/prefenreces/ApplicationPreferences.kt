@@ -1,5 +1,6 @@
 package com.myetherwallet.mewconnect.core.persist.prefenreces
 
+import android.content.Context
 import android.content.SharedPreferences
 import com.myetherwallet.mewconnect.content.data.Network
 import com.myetherwallet.mewconnect.core.utils.crypto.KeystoreHelper
@@ -19,9 +20,9 @@ private const val RATE_VERSION = "rate_version"
 
 private const val RATE_VERSION_VALUE = 1
 
-class ApplicationPreferences(private val preferences: SharedPreferences) {
+class ApplicationPreferences(context: Context, private val preferences: SharedPreferences) {
 
-    private val keystoreHelper: KeystoreHelper = KeystoreHelper()
+    private val keystoreHelper: KeystoreHelper = KeystoreHelper(context)
 
     fun getWalletMnemonic(): String {
         return keystoreHelper.decrypt(preferences.getString(WALLET_MNEMONIC, "")!!)
