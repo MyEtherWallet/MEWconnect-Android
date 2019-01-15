@@ -56,7 +56,10 @@ class WebRtc {
             }
         }
         PeerConnectionFactory.initialize(PeerConnectionFactory.InitializationOptions.builder(context).createInitializationOptions())
-        val peerConnectionFactory = PeerConnectionFactory(PeerConnectionFactory.Options())
+
+        val peerConnectionFactory = PeerConnectionFactory.builder()
+                .setOptions(PeerConnectionFactory.Options())
+                .createPeerConnectionFactory()
         val rtcConfig = PeerConnection.RTCConfiguration(iceServersList)
 
         peerConnection = peerConnectionFactory.createPeerConnection(rtcConfig, mediaConstraints, PeerConnectionObserver(::handleIceConnectionChange, ::handleIceGatheringChange))

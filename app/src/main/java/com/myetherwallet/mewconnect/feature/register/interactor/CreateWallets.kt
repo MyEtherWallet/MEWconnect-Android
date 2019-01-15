@@ -12,10 +12,10 @@ import com.myetherwallet.mewconnect.core.utils.crypto.StorageCryptHelper
 import com.myetherwallet.mewconnect.feature.main.utils.WalletSizingUtils
 import org.bitcoinj.crypto.ChildNumber
 import org.bitcoinj.crypto.HDKeyDerivation
+import org.bitcoinj.crypto.MnemonicCode
 import org.bitcoinj.wallet.DeterministicSeed
 import org.web3j.crypto.ECKeyPair
 import org.web3j.crypto.Keys
-import org.web3j.crypto.MnemonicUtils
 import java.security.SecureRandom
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -37,7 +37,7 @@ class CreateWallets
         val creationTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis())
         mnemonic = if (params.mnemonic == null) {
             val entropy = generateNewEntropy()
-            MnemonicUtils.generateMnemonic(entropy)
+            MnemonicCode.INSTANCE.toMnemonic(entropy).joinToString(" ")
         } else {
             params.mnemonic
         }

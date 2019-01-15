@@ -58,4 +58,8 @@ class PeerConnectionObserver(
     override fun onAddTrack(p0: RtpReceiver, p1: Array<out MediaStream>) {
         MewLog.d(TAG, "PeerConnection.onAddTrack")
     }
+
+    override fun onTrack(transceiver: RtpTransceiver?) {
+        MewLog.d(TAG, "PeerConnection.onTrack")
+    }
 }

@@ -1,9 +1,9 @@
 package com.myetherwallet.mewconnect.core.platform
 
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.async
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.CommonPool
+import kotlinx.coroutines.android.UI
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 /**
  * Created by BArtWell on 16.07.2018.
