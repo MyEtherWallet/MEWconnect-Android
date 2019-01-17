@@ -82,10 +82,10 @@ class SocketService : Service() {
     private lateinit var messageCrypt: MessageCrypt
     private lateinit var privateKey: String
     private lateinit var connectionId: String
-    private lateinit var webRtc: WebRtc
+    private var webRtc: WebRtc? = null
 
     private val shutdownRunnable = Runnable { stopSelf() }
-    private var timeoutRunnable : Runnable? = null
+    private var timeoutRunnable: Runnable? = null
 
     private var wasTryTurnSent = false
     private var turnServers: List<TurnServer>? = null
@@ -149,21 +149,21 @@ class SocketService : Service() {
     private fun onOffer(vararg args: Any) {
         MewLog.d(TAG, "onOffer")
         val encryptedMessage = JsonParser.fromJson(args[0] as JSONObject, OfferData::class.java).data
-        val offer = JsonParser.fromJson(messageCrypt.decrypt(encryptedMessage)!!, Offer::class.java)
+        val offer = JsonParser.fromJson<Offer>(messageCrypt.decrypt(encryptedMessage)!!, Offer::class.java)
         if (offer.sdp == null || offer.type == null) {
             MewLog.d(TAG, "Wrong offer")
             errorListener?.invoke()
         } else {
             MewLog.d(TAG, "Create WebRTC")
             webRtc = WebRtc()
-            webRtc.disconnect()
-            webRtc.connectSuccessListener = ::onWebRtcConnectSuccess
-            webRtc.connectErrorListener = ::onWebRtcConnectError
-            webRtc.answerListener = ::onWebRtcAnswer
-            webRtc.disconnectListener = ::onRtcDisconnected
-            webRtc.dataListener = ::onRtcDataOpened
-            webRtc.messageListener = { handleWebRtcMessages(webRtc, it) }
-            webRtc.connectWithOffer(this, offer, turnServers)
+            webRtc?.disconnect()
+            webRtc?.connectSuccessListener = ::onWebRtcConnectSuccess
+            webRtc?.connectErrorListener = ::onWebRtcConnectError
+            webRtc?.answerListener = ::onWebRtcAnswer
+            webRtc?.disconnectListener = ::onRtcDisconnected
+            webRtc?.dataListener = ::onRtcDataOpened
+            webRtc?.messageListener = { handleWebRtcMessages(it) }
+            webRtc?.connectWithOffer(this, offer, turnServers)
         }
     }
 
@@ -211,7 +211,7 @@ class SocketService : Service() {
         }
     }
 
-    private fun handleWebRtcMessages(webRtc: WebRtc, json: String) {
+    private fun handleWebRtcMessages(json: String) {
         MewLog.d(TAG, "handleWebRtcMessages")
         if (!isConnected) {
             onRtcDataOpened()
@@ -222,7 +222,7 @@ class SocketService : Service() {
             when {
                 webRtcMessage.type == WebRtcMessage.Type.ADDRESS -> {
                     val message = messageCrypt.encrypt(WebRtcMessage(WebRtcMessage.Type.ADDRESS, Address(preferences.getCurrentWalletPreferences().getWalletAddress())))
-                    webRtc.send(message)
+                    webRtc?.send(message)
                 }
                 webRtcMessage.type == WebRtcMessage.Type.SIGN_TX -> {
                     val transaction = JsonParser.fromJson(webRtcMessage.data.asString as String, Transaction::class.java)
@@ -240,7 +240,7 @@ class SocketService : Service() {
     fun sendSignTx(signedMessage: ByteArray) {
         try {
             val message = WebRtcMessage(WebRtcMessage.Type.SIGN_TX, HexUtils.bytesToStringLowercase(signedMessage))
-            webRtc.send(messageCrypt.encrypt(message))
+            webRtc?.send(messageCrypt.encrypt(message))
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -249,7 +249,7 @@ class SocketService : Service() {
     fun sendMessage(address: String, signature: String) {
         try {
             val message = WebRtcMessage(WebRtcMessage.Type.SIGN_MESSAGE, MessageSignData(address, signature))
-            webRtc.send(messageCrypt.encrypt(message))
+            webRtc?.send(messageCrypt.encrypt(message))
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -309,9 +309,7 @@ class SocketService : Service() {
         isConnected = false
         try {
             stopTimeoutTimer()
-            if (::webRtc.isInitialized) {
-                webRtc.disconnect()
-            }
+            webRtc?.disconnect()
             if (closeSocket) {
                 MewLog.d(TAG, "Close socket")
                 socket?.disconnect()
@@ -322,7 +320,7 @@ class SocketService : Service() {
     }
 
     override fun onDestroy() {
-        socket?.disconnect()
+        disconnect()
         super.onDestroy()
     }
 

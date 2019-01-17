@@ -24,7 +24,7 @@ import javax.inject.Inject
  * Created by BArtWell on 29.08.2018.
  */
 
-private const val CONTRACT_ADDRESS = "0xdAFf2b3BdC710EB33A847CCb30A24789c0Ef9c5b"
+private const val CONTRACT_ADDRESS = "0x2783c0a4bfd3721961653a9e9939fc63687bf07f"
 private const val TRANSACTION_METHOD = "eth_call"
 private const val FUNCTION_METHOD = "getAllBalance"
 private const val NAME = true

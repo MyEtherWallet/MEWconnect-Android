@@ -1,6 +1,8 @@
 package com.myetherwallet.mewconnect.content.webrtc
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper.getMainLooper
 import com.myetherwallet.mewconnect.content.data.EncryptedMessage
 import com.myetherwallet.mewconnect.content.data.Offer
 import com.myetherwallet.mewconnect.content.data.TurnServer
@@ -21,18 +23,21 @@ private val GATHERING_TIMEOUT = TimeUnit.SECONDS.toMillis(1)
 
 class WebRtc {
 
-    lateinit var connectSuccessListener: () -> Unit
-    lateinit var connectErrorListener: () -> Unit
-    lateinit var answerListener: (offer: Offer) -> Unit
-    lateinit var dataListener: () -> Unit
-    lateinit var messageListener: (data: String) -> Unit
-    lateinit var disconnectListener: () -> Unit
+    var connectSuccessListener: (() -> Unit)? = null
+    var connectErrorListener: (() -> Unit)? = null
+    var answerListener: ((Offer) -> Unit)? = null
+    var dataListener: (() -> Unit)? = null
+    var messageListener: ((String) -> Unit)? = null
+    var disconnectListener: (() -> Unit)? = null
 
     private var peerConnection: PeerConnection? = null
+    private var peerConnectionFactory: PeerConnectionFactory? = null
     private var dataChannel: DataChannel? = null
     private val mediaConstraints = MediaConstraints()
-    private var isDataChannelOpened: Boolean = false
+    private var isDataChannelOpened = false
+    private var isAnswerGenerated = false
     private var gatheringTimer: Timer? = null
+    private val mainHandler = Handler(getMainLooper())
 
     fun connectWithOffer(context: Context, offer: Offer, turnServers: List<TurnServer>? = null) {
         val sessionDescription = offer.toSessionDescription()
@@ -57,14 +62,14 @@ class WebRtc {
         }
         PeerConnectionFactory.initialize(PeerConnectionFactory.InitializationOptions.builder(context).createInitializationOptions())
 
-        val peerConnectionFactory = PeerConnectionFactory.builder()
+        peerConnectionFactory = PeerConnectionFactory.builder()
                 .setOptions(PeerConnectionFactory.Options())
                 .createPeerConnectionFactory()
         val rtcConfig = PeerConnection.RTCConfiguration(iceServersList)
 
-        peerConnection = peerConnectionFactory.createPeerConnection(rtcConfig, mediaConstraints, PeerConnectionObserver(::handleIceConnectionChange, ::handleIceGatheringChange))
+        peerConnection = peerConnectionFactory?.createPeerConnection(rtcConfig, mediaConstraints, PeerConnectionObserver(::handleIceConnectionChange, ::handleIceGatheringChange))
         if (peerConnection == null) {
-            connectErrorListener()
+            connectErrorListener?.invoke()
         } else {
             peerConnection?.setRemoteDescription(WebRtcSdpObserver("setRemoteDescription", ::createAnswer, {}), sessionDescription)
         }
@@ -72,9 +77,9 @@ class WebRtc {
 
     private fun handleIceConnectionChange(connectionState: PeerConnection.IceConnectionState) {
         if (connectionState == PeerConnection.IceConnectionState.FAILED) {
-            connectErrorListener()
+            connectErrorListener?.invoke()
         } else if (connectionState == PeerConnection.IceConnectionState.CONNECTED) {
-            connectSuccessListener()
+            connectSuccessListener?.invoke()
             val init = DataChannel.Init()
             init.id = 1
             dataChannel = peerConnection?.createDataChannel(DATA_CHANNEL_ID, init)
@@ -83,19 +88,22 @@ class WebRtc {
         } else if (connectionState == PeerConnection.IceConnectionState.CLOSED) {
             disconnect()
         } else if (connectionState == PeerConnection.IceConnectionState.DISCONNECTED) {
-            disconnectListener()
+            disconnectListener?.invoke()
         }
     }
 
     private fun handleIceGatheringChange(iceGatheringState: PeerConnection.IceGatheringState) {
         if (iceGatheringState == PeerConnection.IceGatheringState.GATHERING) {
+            MewLog.d(TAG, "IceGatheringState.GATHERING")
             gatheringTimer = Timer()
             gatheringTimer?.schedule(object : TimerTask() {
                 override fun run() {
+                    MewLog.d(TAG, "Gathering timer")
                     generateAnswer(true)
                 }
             }, GATHERING_TIMEOUT)
         } else if (iceGatheringState == PeerConnection.IceGatheringState.COMPLETE) {
+            MewLog.d(TAG, "IceGatheringState.COMPLETE")
             gatheringTimer?.cancel()
             gatheringTimer = null
             generateAnswer(false)
@@ -103,11 +111,15 @@ class WebRtc {
     }
 
     private fun generateAnswer(force: Boolean) {
-        if (peerConnection != null &&
+        MewLog.d(TAG, "generateAnswer")
+        if (!isAnswerGenerated &&
+                peerConnection != null &&
                 peerConnection?.iceConnectionState() != PeerConnection.IceConnectionState.FAILED &&
                 peerConnection?.iceConnectionState() != PeerConnection.IceConnectionState.CONNECTED &&
                 (force || peerConnection?.iceGatheringState() == PeerConnection.IceGatheringState.COMPLETE)) {
-            answerListener(Offer(peerConnection!!.localDescription))
+            isAnswerGenerated = true
+            answerListener?.invoke(Offer(peerConnection!!.localDescription))
+            MewLog.d(TAG, "Answer generated")
         }
     }
 
@@ -115,7 +127,7 @@ class WebRtc {
     private fun onDataChannelStateChange() {
         if (dataChannel?.state() == DataChannel.State.OPEN) {
             isDataChannelOpened = true
-            dataListener()
+            dataListener?.invoke()
         } else if (dataChannel?.state() == DataChannel.State.CLOSED || dataChannel?.state() == DataChannel.State.CLOSING) {
             isDataChannelOpened = false
         }
@@ -130,19 +142,19 @@ class WebRtc {
         } else {
             val message = String(bytes)
             MewLog.d(TAG, "Message text: $message")
-            messageListener(String(bytes))
+            messageListener?.invoke(String(bytes))
         }
     }
 
     private fun createAnswer() {
-        peerConnection?.createAnswer(WebRtcSdpObserver("createAnswer", ::setLocalDescription, connectErrorListener::invoke), mediaConstraints)
+        peerConnection?.createAnswer(WebRtcSdpObserver("createAnswer", ::setLocalDescription) { connectErrorListener?.invoke() }, mediaConstraints)
     }
 
     private fun setLocalDescription(sessionDescription: SessionDescription?) {
         if (sessionDescription == null) {
-            connectErrorListener()
+            connectErrorListener?.invoke()
         } else {
-            peerConnection?.setLocalDescription(WebRtcSdpObserver("setLocalDescription", { _ -> }, connectErrorListener::invoke), sessionDescription)
+            peerConnection?.setLocalDescription(WebRtcSdpObserver("setLocalDescription", { _ -> }, { connectErrorListener?.invoke() }), sessionDescription)
         }
     }
 
@@ -155,18 +167,40 @@ class WebRtc {
     }
 
     fun disconnect() {
-        try {
-            if (isDataChannelOpened) {
-                isDataChannelOpened = false
-                dataChannel?.close()
-                dataChannel = null
+        MewLog.d(TAG, "disconnect")
+        gatheringTimer?.cancel()
+        gatheringTimer = null
+        connectSuccessListener = null
+        connectErrorListener = null
+        answerListener = null
+        dataListener = null
+        messageListener = null
+        disconnectListener = null
+        // To prevent issues with WebRTC disconnect
+        mainHandler.post {
+            try {
+                if (isDataChannelOpened) {
+                    isDataChannelOpened = false
+                    dataChannel?.close()
+                    dataChannel?.dispose()
+                    dataChannel = null
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-            peerConnection?.close()
-            peerConnection = null
-            gatheringTimer?.cancel()
-            gatheringTimer = null
-        } catch (e: Exception) {
-            e.printStackTrace()
+            try {
+                peerConnection?.close()
+                peerConnection?.dispose()
+                peerConnection = null
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            try {
+                peerConnectionFactory?.dispose()
+                peerConnectionFactory = null
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 }

@@ -74,6 +74,7 @@ class ScanFragment : BaseViewModelFragment() {
     private var footerColorGrey: Int = 0
     private val toolbarBackgroundBlue = R.drawable.scan_toolbar_background_blue
     private val toolbarBackgroundGrey = R.drawable.scan_toolbar_background_grey
+    private var isStarted = false
 
     private val permissionHelper = PermissionHelper(Manifest.permission.CAMERA, ::checkPermissionAndStart)
     private var cameraSource: CameraSource? = null
@@ -99,12 +100,6 @@ class ScanFragment : BaseViewModelFragment() {
             preview.start(cameraSource)
             changeScreenState(null)
         }
-
-        handler.postDelayed({ checkPermissionAndStart() }, 500)
-        val animation = AlphaAnimation(1f, 0f)
-        animation.duration = START_DELAY
-        animation.fillAfter = true
-        scan_animation_view.startAnimation(animation)
     }
 
     private fun checkPermissionAndStart(isPermissionsGranted: Boolean? = null) {
@@ -166,7 +161,20 @@ class ScanFragment : BaseViewModelFragment() {
 
     override fun onResume() {
         super.onResume()
-        startCameraSource()
+        if (isStarted) {
+            startCameraSource()
+        } else {
+            handler.postDelayed({
+                if (!isStateSaved) {
+                    isStarted = true
+                    checkPermissionAndStart()
+                }
+            }, 500)
+            val animation = AlphaAnimation(1f, 0f)
+            animation.duration = START_DELAY
+            animation.fillAfter = true
+            scan_animation_view.startAnimation(animation)
+        }
     }
 
     override fun onPause() {
@@ -228,7 +236,13 @@ class ScanFragment : BaseViewModelFragment() {
     private fun onBarCodeDetected(barcode: Barcode) {
         if (barcode.format == Barcode.QR_CODE) {
             MewLog.d(TAG, "QR detected")
-            viewModel.connectWithBarcode(barcode.rawValue) { activity?.runOnUiThread { changeScreenState(it) } }
+            viewModel.connectWithBarcode(barcode.rawValue) {
+                activity?.runOnUiThread {
+                    if (!isStateSaved) {
+                        changeScreenState(it)
+                    }
+                }
+            }
             VibrateUtils.vibrate(context)
             playSound(R.raw.peep_note)
             activity?.runOnUiThread {

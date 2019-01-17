@@ -39,8 +39,8 @@ class PeerConnectionObserver(
         MewLog.d(TAG, "PeerConnection.onAddStream")
     }
 
-    override fun onSignalingChange(p0: PeerConnection.SignalingState) {
-        MewLog.d(TAG, "PeerConnection.onSignalingChange")
+    override fun onSignalingChange(state: PeerConnection.SignalingState) {
+        MewLog.d(TAG, "PeerConnection.onSignalingChange $state")
     }
 
     override fun onIceCandidatesRemoved(p0: Array<out IceCandidate>) {

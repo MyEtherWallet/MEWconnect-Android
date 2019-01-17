@@ -1,6 +1,7 @@
 package com.myetherwallet.mewconnect.feature.main.fragment
 
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.view.ViewPager
 import android.view.View
 import com.myetherwallet.mewconnect.R
@@ -18,6 +19,8 @@ class IntroFragment : BaseFragment() {
 
         fun newInstance() = IntroFragment()
     }
+
+    private val handler = Handler()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,9 +42,11 @@ class IntroFragment : BaseFragment() {
             }
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                intro_animation.x = max(displayWidth - (positionOffsetPixels + displayWidth * position), 0).toFloat()
-                if (position > 0) {
-                    intro_animation.setProgress(positionOffsetPixels + displayWidth * (position - 1), position - 1)
+                handler.post {
+                    intro_animation.x = max(displayWidth - (positionOffsetPixels + displayWidth * position), 0).toFloat()
+                    if (position > 0) {
+                        intro_animation.setProgress(positionOffsetPixels + displayWidth * (position - 1), position - 1)
+                    }
                 }
             }
 
