@@ -20,7 +20,7 @@ private const val WALLET_DATA_CACHE = "wallet_data_cache"
 class WalletPreferences(context: Context, network: Network) {
 
     private val preferences = context.getSharedPreferences(PREFIX + network.name.toLowerCase(), Context.MODE_PRIVATE)
-    private val keystoreHelper: KeystoreHelper = KeystoreHelper()
+    private val keystoreHelper: KeystoreHelper = KeystoreHelper(context)
 
     fun getWalletPrivateKey(): String {
         return keystoreHelper.decrypt(preferences.getString(WALLET_PRIVATE_KEY, "")!!)

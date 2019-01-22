@@ -30,6 +30,11 @@ abstract class BaseFragment : Fragment() {
         (activity as MainActivity).addOrReplaceFragment(fragment, tag)
     }
 
+    protected fun close() {
+        KeyboardUtils.hideKeyboard(activity)
+        (activity as MainActivity).closeFragment()
+    }
+
     fun setLightStatusBar(enabled: Boolean) {
         val decorView = activity?.window?.decorView
         decorView?.let {
@@ -48,11 +53,6 @@ abstract class BaseFragment : Fragment() {
         } else {
             activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
         }
-    }
-
-    protected fun close() {
-        KeyboardUtils.hideKeyboard(activity)
-        fragmentManager?.popBackStackImmediate()
     }
 
     open fun onBackPressed() = false

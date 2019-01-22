@@ -16,7 +16,7 @@ class SaveHistoryItem
 @Inject constructor(private val buyHistoryDao: BuyHistoryDao) : BaseInteractor<Any, SaveHistoryItem.Params>() {
 
     override suspend fun run(params: Params): Either<Failure, Any> {
-        buyHistoryDao.insert(BuyHistoryItem(params.quote.userId))
+        buyHistoryDao.insert(BuyHistoryItem(params.quote.userId!!))
         return Either.Right(Any())
     }
 

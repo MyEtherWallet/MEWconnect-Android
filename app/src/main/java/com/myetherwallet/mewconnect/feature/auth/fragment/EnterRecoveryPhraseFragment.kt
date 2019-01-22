@@ -11,7 +11,11 @@ import com.myetherwallet.mewconnect.core.ui.fragment.BaseDiFragment
 import com.myetherwallet.mewconnect.core.utils.KeyboardStateObserver
 import com.myetherwallet.mewconnect.feature.register.fragment.password.PickPasswordFragment
 import kotlinx.android.synthetic.main.fragment_enter_recovery_phrase.*
-import org.web3j.crypto.MnemonicUtils
+import org.bitcoinj.crypto.ChildNumber
+import org.bitcoinj.crypto.HDKeyDerivation
+import org.bitcoinj.crypto.MnemonicCode
+import org.bitcoinj.wallet.DeterministicSeed
+import org.web3j.crypto.ECKeyPair
 
 
 /**
@@ -67,11 +71,21 @@ class EnterRecoveryPhraseFragment : BaseDiFragment() {
                 .trim()
                 .toLowerCase()
         val wordsCount = text.count { " ".contains(it) } + 1
-        if (wordsCount == WORDS_COUNT && MnemonicUtils.validateMnemonic(text)) {
+        if (wordsCount == WORDS_COUNT && validateMnemonic(text)) {
             addFragment(PickPasswordFragment.newInstance(text))
         } else {
             enter_recovery_phrase_layout.error = getString(R.string.enter_recovery_phrase_error)
         }
+    }
+
+    private fun validateMnemonic(mnemonic: String): Boolean {
+        try {
+            MnemonicCode.INSTANCE.check(ArrayList(mnemonic.split(" ")))
+            return true
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return false
     }
 
     override fun inject(appComponent: ApplicationComponent) {

@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
@@ -13,6 +11,7 @@ import com.myetherwallet.mewconnect.core.ui.activity.BaseDiActivity
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseFragment
 import com.myetherwallet.mewconnect.feature.auth.fragment.AuthFragment
 import com.myetherwallet.mewconnect.feature.main.fragment.IntroFragment
+import com.myetherwallet.mewconnect.feature.main.utils.FragmentTransactor
 import com.myetherwallet.mewconnect.feature.scan.service.SocketService
 import javax.inject.Inject
 
@@ -28,10 +27,13 @@ class MainActivity : BaseDiActivity() {
 
     @Inject
     lateinit var preferences: PreferencesManager
+    private lateinit var fragmentTransactor: FragmentTransactor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        fragmentTransactor = FragmentTransactor()
 
         if (preferences.getCurrentWalletPreferences().isWalletExists()) {
             replaceFragment(AuthFragment.newInstance())
@@ -52,39 +54,25 @@ class MainActivity : BaseDiActivity() {
         SocketService.shutdownDelayed(this)
     }
 
-    fun replaceFragment(fragment: Fragment) {
-        val fragmentManager = supportFragmentManager
-        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.main_fragment_container, fragment, fragment.toString())
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-        fragmentTransaction.commit()
+    override fun onPostResume() {
+        super.onPostResume()
+        fragmentTransactor.resume(supportFragmentManager)
     }
 
     fun addFragment(fragment: Fragment) {
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.main_fragment_container, fragment, fragment.toString())
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
+        fragmentTransactor.add(supportFragmentManager, fragment)
+    }
+
+    fun replaceFragment(fragment: Fragment) {
+        fragmentTransactor.replace(supportFragmentManager, fragment)
     }
 
     fun addOrReplaceFragment(fragment: Fragment, tag: String) {
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        val previous = fragmentManager.findFragmentByTag(tag)
-        if (previous == null) {
-            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-        } else {
-            fragmentManager.popBackStackImmediate(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-        }
-        fragmentTransaction.replace(R.id.main_fragment_container, fragment, tag)
-        fragmentTransaction.addToBackStack(tag)
-        fragmentTransaction.commit()
+        fragmentTransactor.addOrReplace(supportFragmentManager, fragment, tag)
+    }
+
+    fun closeFragment() {
+        fragmentTransactor.pop(supportFragmentManager)
     }
 
     override fun onBackPressed() {

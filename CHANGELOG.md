@@ -1,3 +1,15 @@
+### Release v1.0.1 (19011701)
+
+- Update version to 1.0.1
+- Connection improvements
+- Fix address truncation
+- Reset WebRTC connection before reconnect
+- Support for turn servers
+- Refactor fragments transactions
+- Fix crash on devices with Android 6 and Persian locale
+- Update WebRTC library, update Kotlin, Gradle, Firebase Vision
+- Bugfix, crash fix
+
 ### Release v1.0.0 (19010702)
 
 - Update version to 1.0.0

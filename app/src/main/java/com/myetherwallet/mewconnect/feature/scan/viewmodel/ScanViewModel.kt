@@ -5,7 +5,6 @@ import android.arch.lifecycle.AndroidViewModel
 import android.content.ComponentName
 import android.content.ServiceConnection
 import android.os.IBinder
-import com.myetherwallet.mewconnect.content.data.Transaction
 import com.myetherwallet.mewconnect.feature.scan.service.ServiceBinder
 import com.myetherwallet.mewconnect.feature.scan.service.SocketService
 import javax.inject.Inject
@@ -36,12 +35,14 @@ class ScanViewModel
     }
 
     fun connectWithBarcode(data: String, onStateChangedListener: (state: State) -> Unit) {
-        val (_, privateKey, connectionId) = data.split(DELIMITER)
-        service?.apply {
-            connectingListener = { onStateChangedListener(State.CONNECTING) }
-            connectedListener = { onStateChangedListener(State.CONNECTED) }
-            errorListener = { onStateChangedListener(State.ERROR) }
-            connect(privateKey, connectionId)
+        val parts = data.split(DELIMITER)
+        if (parts.size == 3) {
+            service?.apply {
+                connectingListener = { onStateChangedListener(State.CONNECTING) }
+                connectedListener = { onStateChangedListener(State.CONNECTED) }
+                errorListener = { onStateChangedListener(State.ERROR) }
+                connect(parts[1], parts[2])
+            }
         }
     }
 

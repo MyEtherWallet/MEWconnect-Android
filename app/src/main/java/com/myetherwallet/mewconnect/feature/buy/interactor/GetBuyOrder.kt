@@ -18,7 +18,7 @@ class GetBuyOrder
 
     override suspend fun run(params: Params): Either<Failure, BuyResponse<Map<String, String>>> {
         val request = BuyOrderRequest(
-                BuyOrderAccountDetails(params.quote.userId, params.installTime),
+                BuyOrderAccountDetails(params.quote.userId!!, params.installTime),
                 BuyOrderTransactionDetails(BuyOrderPaymentDetails(
                         Amount("USD", params.quote.fiatMoney.totalAmount),
                         Amount("ETH", params.quote.digitalMoney.amount),

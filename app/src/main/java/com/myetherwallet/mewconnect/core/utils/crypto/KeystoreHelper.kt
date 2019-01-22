@@ -1,5 +1,7 @@
 package com.myetherwallet.mewconnect.core.utils.crypto
 
+import android.content.Context
+import android.os.Build
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.text.TextUtils
@@ -24,7 +26,7 @@ private const val TYPE_RSA = "RSA"
 private const val TRANSFORMATION = "RSA/ECB/PKCS1Padding"
 private const val ALIAS = "MewWalletKeys"
 
-class KeystoreHelper {
+class KeystoreHelper(private val context: Context) {
 
     private var keyStore: KeyStore = KeyStore.getInstance(PROVIDER_ANDROID_KEYSTORE)
 
@@ -38,6 +40,12 @@ class KeystoreHelper {
     private fun isAliasExists() = Collections.list(keyStore.aliases()).contains(ALIAS)
 
     private fun createKeys() {
+        var initialLocale: Locale? = null
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
+            initialLocale = Locale.getDefault()
+            setLocale(Locale.ENGLISH)
+        }
+
         val keyPairGenerator = KeyPairGenerator.getInstance(TYPE_RSA, PROVIDER_ANDROID_KEYSTORE)
 
         val keyGenParameterSpec = KeyGenParameterSpec.Builder(ALIAS, KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
@@ -48,6 +56,10 @@ class KeystoreHelper {
         keyPairGenerator.initialize(keyGenParameterSpec)
 
         keyPairGenerator.generateKeyPair()
+
+        if (initialLocale != null) {
+            setLocale(initialLocale)
+        }
     }
 
     fun encrypt(encryptedText: String): String {
@@ -100,5 +112,15 @@ class KeystoreHelper {
             }
         }
         return ""
+    }
+
+    // Known issue: https://issuetracker.google.com/issues/37095309 (crash with Persian language)
+    // Force english locale
+    private fun setLocale(locale: Locale) {
+        Locale.setDefault(locale)
+        val resources = context.resources
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 }

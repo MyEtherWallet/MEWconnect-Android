@@ -15,7 +15,7 @@ class PreferencesManager(context: Context) {
 
     init {
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-        applicationPreferences = ApplicationPreferences(preferences)
+        applicationPreferences = ApplicationPreferences(context, preferences)
 
         for (network in Network.values()) {
             walletPreferences[network.name] = WalletPreferences(context, network)
