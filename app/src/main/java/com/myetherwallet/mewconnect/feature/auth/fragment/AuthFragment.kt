@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.myetherwallet.mewconnect.R
+import com.myetherwallet.mewconnect.content.data.Network
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.ui.callback.EmptyTextWatcher
@@ -14,6 +15,7 @@ import com.myetherwallet.mewconnect.feature.auth.callback.AuthCallback
 import com.myetherwallet.mewconnect.feature.main.fragment.WalletFragment
 import kotlinx.android.synthetic.main.fragment_auth.*
 import org.web3j.crypto.ECKeyPair
+import org.web3j.crypto.Keys
 import javax.inject.Inject
 
 /**
@@ -70,8 +72,11 @@ class AuthFragment : BaseDiFragment() {
     private fun checkPrivateKey(privateKey: ByteArray?): Boolean {
         privateKey?.let {
             val ecKeyPair = ECKeyPair.create(it)
-            if (ecKeyPair != null && ecKeyPair.publicKey != null) {
-                return true
+            if (ecKeyPair != null) {
+                val address = Keys.getAddress(ecKeyPair)
+                if (address == preferences.getWalletPreferences(Network.MAIN).getWalletAddress()) {
+                    return true
+                }
             }
         }
         return false
