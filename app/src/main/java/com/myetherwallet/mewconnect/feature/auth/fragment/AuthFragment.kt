@@ -1,6 +1,7 @@
 package com.myetherwallet.mewconnect.feature.auth.fragment
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.myetherwallet.mewconnect.R
@@ -12,6 +13,7 @@ import com.myetherwallet.mewconnect.core.ui.fragment.BaseDiFragment
 import com.myetherwallet.mewconnect.core.utils.KeyboardUtils
 import com.myetherwallet.mewconnect.core.utils.crypto.StorageCryptHelper
 import com.myetherwallet.mewconnect.feature.auth.callback.AuthCallback
+import com.myetherwallet.mewconnect.feature.auth.utils.AuthAttemptsHelper
 import com.myetherwallet.mewconnect.feature.main.fragment.WalletFragment
 import kotlinx.android.synthetic.main.fragment_auth.*
 import org.web3j.crypto.ECKeyPair
@@ -31,9 +33,23 @@ class AuthFragment : BaseDiFragment() {
 
     @Inject
     lateinit var preferences: PreferencesManager
+    private lateinit var attemptsHelper: AuthAttemptsHelper
+    private val handler = Handler()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        attemptsHelper = AuthAttemptsHelper(handler, preferences.applicationPreferences) { minute: Int, second: Int ->
+            if (minute == 0 && second == 0) {
+                auth_password_input_layout.isErrorEnabled = false
+                auth_password_input_layout.isEnabled = true
+            } else {
+                auth_password_input_layout.isErrorEnabled = false
+                auth_password_input_layout.isEnabled = false
+                auth_password_input_layout.error = getString(R.string.auth_incorrect_attempts, minute, second)
+            }
+        }
+
         auth_forgot_password.setOnClickListener { addFragment(ForgotPasswordFragment.newInstance()) }
 
         auth_password_text.addTextChangedListener(object : EmptyTextWatcher {
@@ -43,30 +59,44 @@ class AuthFragment : BaseDiFragment() {
         })
 
         auth_password_text.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                val password = auth_password_text.text.toString()
-                val privateKey = StorageCryptHelper.decrypt(preferences.getCurrentWalletPreferences().getWalletPrivateKey(), password)
-                if (checkPrivateKey(privateKey)) {
-                    if (targetFragment == null) {
-                        replaceFragment(WalletFragment.newInstance())
+            if (auth_password_input_layout.isEnabled) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    val password = auth_password_text.text.toString()
+                    val privateKey = StorageCryptHelper.decrypt(preferences.getCurrentWalletPreferences().getWalletPrivateKey(), password)
+                    if (checkPrivateKey(privateKey)) {
+                        attemptsHelper.reset()
+                        if (targetFragment == null) {
+                            replaceFragment(WalletFragment.newInstance())
+                        } else {
+                            val target = targetFragment
+                            if (target is AuthCallback) {
+                                target.onAuthResult(password)
+                            }
+                        }
                     } else {
-                        val target = targetFragment
-                        if (target is AuthCallback) {
-                            target.onAuthResult(password)
+                        if (!attemptsHelper.check()) {
+                            auth_password_input_layout.error = getString(R.string.auth_forgot_password_error)
                         }
                     }
-                } else {
-                    auth_password_input_layout.error = getString(R.string.auth_forgot_password_error)
+                    return@setOnEditorActionListener true
                 }
-                true
-            } else {
-                false
             }
+            false
         }
 
         if (targetFragment != null) {
             KeyboardUtils.showKeyboard(auth_password_text)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        attemptsHelper.resume()
+    }
+
+    override fun onStop() {
+        attemptsHelper.pause()
+        super.onStop()
     }
 
     private fun checkPrivateKey(privateKey: ByteArray?): Boolean {

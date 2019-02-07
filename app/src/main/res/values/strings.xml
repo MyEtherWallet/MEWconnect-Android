@@ -47,10 +47,10 @@
     <string name="intro_verify">Verify</string>
     <string name="intro_restore_wallet">Restore wallet</string>
     <string name="intro_setup">CREATE NEW WALLET</string>
-    <string name="intro_page_footer1">Finally, a ’hardware wallet’\nwithout all the hardware.\nOfficially by MyEtherWallet</string>
-    <string name="intro_page_footer2">Secure your every\nMyEtherWallet\ntransaction with two-\nfactor verification</string>
-    <string name="intro_page_footer3">Store your private keys\nsafely in a local isolated\nsecure vault on your\ndevice</string>
-    <string name="intro_page_footer4">Protect yourself from\nphishers and malware. No\none can obtain your\nprivate key.</string>
+    <string name="intro_page_footer1">Finally, a ‘hardware wallet’\nwithout all the hardware.\nOfficially by MyEtherWallet.</string>
+    <string name="intro_page_footer2"><b>Secure</b> your every\nMyEtherWallet\ntransaction with two-\nfactor verification.</string>
+    <string name="intro_page_footer3"><b>Store</b> your private keys\nsafely in a local isolated\nsecure vault on your\ndevice.</string>
+    <string name="intro_page_footer4"><b>Protect</b> yourself from\nphishers and malware.\nNo one can obtain\nyour private key.</string>
     <string name="intro_page_footer5">No data collection:\nMyEtherWallet can\'t\ncollect your personal data\neven if we wanted to.</string>
     <string name="intro_page_footer6">No centralized servers, no\ndatabases.\nMEWconnect and\nMyEtherWallet talk via\nP2P communication.</string>
     <string name="intro_page_footer7">Transparent, free and\nopen source. Audited by\nthe community.</string>
@@ -108,6 +108,7 @@
 
     <string name="auth_forgot_password">Forgot password?</string>
     <string name="auth_forgot_password_error">Wrong password</string>
+    <string name="auth_incorrect_attempts">5 incorrect attempts, please wait %d:%02d</string>
 
     <string name="forgot_password_title">Forgot password?</string>
     <string name="forgot_password_description">Unfortunately, as we mentioned when you were creating a password, there’s no ‘Restore Password’ button, however, if you created a backup for your wallet, you can restore your wallet using a backup passphrase and set a new password once it’s restored.</string>
