@@ -76,6 +76,9 @@ class ApplicationPreferences(context: Context, private val preferences: SharedPr
                 .remove(WALLET_IS_BACKED_UP)
                 .remove(BACKUP_WARNING_TIME)
                 .remove(CURRENT_NETWORK)
+                .remove(AUTH_FIRST_ATTEMPT_TIME)
+                .remove(AUTH_ATTEMPTS_COUNT)
+                .remove(AUTH_TIMER_TIME)
                 .apply()
     }
 
@@ -103,9 +106,11 @@ class ApplicationPreferences(context: Context, private val preferences: SharedPr
 
     fun incrementAuthAttemptsCount() = preferences.edit().putInt(AUTH_ATTEMPTS_COUNT, getAuthAttemptsCount() + 1).apply()
 
-    fun resetAuthAttemptsCount() = preferences.edit().putInt(AUTH_ATTEMPTS_COUNT, 0).apply()
+    fun resetAuthAttemptsCount() = preferences.edit().remove(AUTH_ATTEMPTS_COUNT).apply()
 
-    fun getAuthTimerTime() = preferences.getLong(AUTH_TIMER_TIME, 0L)
+    fun getAuthTimerTime() = preferences.getLong(AUTH_TIMER_TIME, 0)
 
     fun setAuthTimerTime(uptime: Long) = preferences.edit().putLong(AUTH_TIMER_TIME, uptime).apply()
+
+    fun resetAuthTimerTime() = preferences.edit().remove(AUTH_TIMER_TIME).apply()
 }

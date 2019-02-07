@@ -19,16 +19,15 @@ class AuthAttemptsHelper(
         private val callback: (minute: Int, second: Int) -> Unit
 ) {
 
-    private var isResumed = true
+    private var isResumed: Boolean? = null
 
     init {
-        if (getUptime() < preferences.getSavedUptime()) {
-            reset()
+        val savedUptime = preferences.getSavedUptime()
+        if (getUptime() < savedUptime || savedUptime == 0L) {
+            preferences.resetAuthTimerTime()
             preferences.setSavedUptime(getUptime())
         } else {
-            if (checkTimer()) {
-                startTimer()
-            }
+            startTimer()
         }
     }
 
@@ -53,8 +52,10 @@ class AuthAttemptsHelper(
     }
 
     fun resume() {
-        isResumed = true
-        startTimer()
+        if (isResumed == false) {
+            isResumed = true
+            startTimer()
+        }
     }
 
     fun pause() {
@@ -62,7 +63,7 @@ class AuthAttemptsHelper(
     }
 
     private fun startTimer() {
-        if (isResumed) {
+        if (isResumed != false) {
             if (checkTimer()) {
                 callTimerCallback()
                 handler.postDelayed({
@@ -80,7 +81,13 @@ class AuthAttemptsHelper(
         callback(minute, left - 60 * minute)
     }
 
-    private fun checkTimer() = preferences.getAuthTimerTime() + TIMER_TIMEOUT > getUptime()
+    private fun checkTimer(): Boolean {
+        val time = preferences.getAuthTimerTime()
+        if (time > 0) {
+            return time + TIMER_TIMEOUT > getUptime()
+        }
+        return false
+    }
 
     private fun getUptime() = SystemClock.elapsedRealtime()
 }
