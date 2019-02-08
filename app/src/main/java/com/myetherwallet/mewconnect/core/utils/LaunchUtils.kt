@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.text.TextUtils
+import com.myetherwallet.mewconnect.BuildConfig
 
 
 /**
@@ -58,8 +59,7 @@ object LaunchUtils {
 
     fun openMarket(context: Context?) {
         context?.let {
-            val packageName = context.packageName
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName"))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}"))
             val apps = context.packageManager.queryIntentActivities(intent, 0)
             for (app in apps) {
                 if (app.activityInfo.applicationInfo.packageName == "com.android.vending") {
@@ -73,7 +73,7 @@ object LaunchUtils {
                     return
                 }
             }
-            openWebSite(context, "https://play.google.com/store/apps/details?id=$packageName")
+            openWebSite(context, "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}")
         }
     }
 }

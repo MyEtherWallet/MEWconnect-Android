@@ -88,9 +88,7 @@ class ApplicationPreferences(context: Context, private val preferences: SharedPr
         preferences.edit().putInt(RATE_STARTS_COUNT, count).apply()
     }
 
-    fun disableRateDialog() {
-        preferences.edit().putInt(RATE_VERSION, RATE_VERSION_VALUE).apply()
-    }
+    fun disableRateDialog() = preferences.edit().putInt(RATE_VERSION, RATE_VERSION_VALUE).apply()
 
     fun isRateDialogEnabled() = preferences.getInt(RATE_VERSION, 0) != RATE_VERSION_VALUE
 

@@ -166,7 +166,7 @@
     <string name="address_copied">Address copied</string>
 
     <string name="rate_title">Enjoying our app so far?</string>
-    <string name="rate_text">Let us know how you feel, your feedback is important for us.</string>
+    <string name="rate_text">Let us know how you feel, your feedback is important to us.</string>
     <string name="rate_button_rate">Sure, I\'ll rate it</string>
     <string name="rate_button_feedback">I have feedback</string>
 </resources>
