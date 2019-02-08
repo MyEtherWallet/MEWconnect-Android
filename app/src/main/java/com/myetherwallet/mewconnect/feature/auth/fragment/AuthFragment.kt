@@ -62,7 +62,7 @@ class AuthFragment : BaseDiFragment() {
             if (auth_password_input_layout.isEnabled) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     val password = auth_password_text.text.toString()
-                    val privateKey = StorageCryptHelper.decrypt(preferences.getCurrentWalletPreferences().getWalletPrivateKey(), password)
+                    val privateKey = StorageCryptHelper.decrypt(preferences.getWalletPreferences(Network.MAIN).getWalletPrivateKey(), password)
                     if (checkPrivateKey(privateKey)) {
                         attemptsHelper.reset()
                         if (targetFragment == null) {
