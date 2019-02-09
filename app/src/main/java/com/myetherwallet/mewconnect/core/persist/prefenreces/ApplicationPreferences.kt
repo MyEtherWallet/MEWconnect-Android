@@ -17,8 +17,11 @@ private const val BACKUP_WARNING_TIME = "backup_warning_time"
 private const val INSTALL_TIME = "install_time"
 private const val RATE_STARTS_COUNT = "rate_starts_count"
 private const val RATE_VERSION = "rate_version"
-
 private const val RATE_VERSION_VALUE = 1
+private const val SAVED_UPTIME = "saved_uptime"
+private const val AUTH_FIRST_ATTEMPT_TIME = "auth_first_attempt_time"
+private const val AUTH_ATTEMPTS_COUNT = "auth_attempts_count"
+private const val AUTH_TIMER_TIME = "auth_timer_time"
 
 class ApplicationPreferences(context: Context, private val preferences: SharedPreferences) {
 
@@ -73,6 +76,9 @@ class ApplicationPreferences(context: Context, private val preferences: SharedPr
                 .remove(WALLET_IS_BACKED_UP)
                 .remove(BACKUP_WARNING_TIME)
                 .remove(CURRENT_NETWORK)
+                .remove(AUTH_FIRST_ATTEMPT_TIME)
+                .remove(AUTH_ATTEMPTS_COUNT)
+                .remove(AUTH_TIMER_TIME)
                 .apply()
     }
 
@@ -87,4 +93,24 @@ class ApplicationPreferences(context: Context, private val preferences: SharedPr
     }
 
     fun isRateDialogEnabled() = preferences.getInt(RATE_VERSION, 0) != RATE_VERSION_VALUE
+
+    fun getSavedUptime() = preferences.getLong(SAVED_UPTIME, 0L)
+
+    fun setSavedUptime(uptime: Long) = preferences.edit().putLong(SAVED_UPTIME, uptime).apply()
+
+    fun getAuthFirstAttemptTime() = preferences.getLong(AUTH_FIRST_ATTEMPT_TIME, 0L)
+
+    fun setAuthFirstAttemptTime(uptime: Long) = preferences.edit().putLong(AUTH_FIRST_ATTEMPT_TIME, uptime).apply()
+
+    fun getAuthAttemptsCount() = preferences.getInt(AUTH_ATTEMPTS_COUNT, 0)
+
+    fun incrementAuthAttemptsCount() = preferences.edit().putInt(AUTH_ATTEMPTS_COUNT, getAuthAttemptsCount() + 1).apply()
+
+    fun resetAuthAttemptsCount() = preferences.edit().remove(AUTH_ATTEMPTS_COUNT).apply()
+
+    fun getAuthTimerTime() = preferences.getLong(AUTH_TIMER_TIME, 0)
+
+    fun setAuthTimerTime(uptime: Long) = preferences.edit().putLong(AUTH_TIMER_TIME, uptime).apply()
+
+    fun resetAuthTimerTime() = preferences.edit().remove(AUTH_TIMER_TIME).apply()
 }

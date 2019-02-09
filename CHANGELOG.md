@@ -1,3 +1,8 @@
+### Release v1.0.2 (19020801)
+
+- Implement timeout if user entered password five times incorrectly
+- Fix key checkout issue
+
 ### Release v1.0.1 (19011701)
 
 - Update version to 1.0.1

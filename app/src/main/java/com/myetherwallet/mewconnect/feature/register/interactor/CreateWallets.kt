@@ -7,6 +7,7 @@ import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.platform.BaseInteractor
 import com.myetherwallet.mewconnect.core.platform.Either
 import com.myetherwallet.mewconnect.core.platform.Failure
+import com.myetherwallet.mewconnect.core.utils.ApplicationUtils
 import com.myetherwallet.mewconnect.core.utils.CardBackgroundHelper
 import com.myetherwallet.mewconnect.core.utils.crypto.StorageCryptHelper
 import com.myetherwallet.mewconnect.feature.main.utils.WalletSizingUtils
@@ -32,6 +33,7 @@ class CreateWallets
     private val secureRandom = SecureRandom()
 
     override suspend fun run(params: Params): Either<Failure, Any> {
+        ApplicationUtils.removeAllData(context, preferences)
 
         val mnemonic: String
         val creationTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis())
