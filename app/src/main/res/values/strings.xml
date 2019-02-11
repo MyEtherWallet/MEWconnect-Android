@@ -135,6 +135,7 @@
 
     <string name="reset_wallet_title">⚠ Warning: you can loose your account and funds forever</string>
     <string name="reset_wallet_message">Don\'t reset if you didn\'t make a backup, as there will be NO WAY to restore your account after you reset.</string>
+
     <string name="backup_warning_title">Action required: your funds are at risk</string>
     <string name="backup_warning_message">If your device gets lost or stolen your will loose all your funds forever. Please back up your account.</string>
 
@@ -142,6 +143,9 @@
     <string name="buy_button">Buy with credit card</string>
     <string name="buy_minimum_warning">$50 minimum purchase</string>
     <string name="buy_loading_error">Buy Ether failed</string>
+
+    <string name="buy_webview_upload_error">Unable to open file chooser</string>
+    <string name="buy_webview_rationale">Please enable files access for MEWconnect</string>
 
     <string name="history_title">Purchase history</string>
     <string name="history_total_amount_title">Total amount:</string>

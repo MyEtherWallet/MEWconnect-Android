@@ -4,19 +4,20 @@ import android.app.Dialog
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 
+
 /**
- * Created by BArtWell on 15.07.2018.
+ * Created by BArtWell on 11.02.2018.
  */
 
-private const val TAG = "SimpleTextDialogFragment"
+private const val TAG = "ConfirmDialog"
 private const val EXTRA_TITLE = "title"
 private const val EXTRA_TEXT = "text"
 
-class SimpleTextDialogFragment : BaseDialogFragment() {
+class ConfirmDialog : BaseDialogFragment() {
 
     companion object {
-        fun newInstance(text: String, title: String? = null): SimpleTextDialogFragment {
-            val fragment = SimpleTextDialogFragment()
+        fun newInstance(text: String, title: String? = null): ConfirmDialog {
+            val fragment = ConfirmDialog()
             val arguments = Bundle()
             if (title != null) {
                 arguments.putString(EXTRA_TITLE, title)
@@ -27,11 +28,16 @@ class SimpleTextDialogFragment : BaseDialogFragment() {
         }
     }
 
+    var listener: (() -> Unit)? = null
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle(arguments?.getString(EXTRA_TITLE))
         builder.setMessage(arguments?.getString(EXTRA_TEXT))
-        builder.setPositiveButton(android.R.string.ok, null)
+        builder.setPositiveButton(android.R.string.ok) { _, _ ->
+            listener?.invoke()
+        }
+        builder.setNegativeButton(android.R.string.cancel, null)
         return builder.create()
     }
 
