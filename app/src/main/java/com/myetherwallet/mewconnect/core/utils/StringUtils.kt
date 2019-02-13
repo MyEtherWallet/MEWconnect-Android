@@ -1,6 +1,8 @@
 package com.myetherwallet.mewconnect.core.utils
 
+import android.content.Context
 import android.os.Build
+import android.support.annotation.StringRes
 import android.text.Html
 import android.text.Spanned
 
@@ -11,4 +13,6 @@ object StringUtils {
     } else {
         Html.fromHtml(source)
     }
+
+    fun fromHtml(context: Context, @StringRes strRes: Int) = StringUtils.fromHtml(context.getString(strRes))
 }

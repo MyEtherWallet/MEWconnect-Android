@@ -143,6 +143,8 @@
     <string name="buy_button">Buy with credit card</string>
     <string name="buy_minimum_warning">$50 minimum purchase</string>
     <string name="buy_loading_error">Buy Ether failed</string>
+    <string name="buy_simplex_description_full"><![CDATA[Purchase will be done via <u>Simplex</u><br/>Approximate fee is already<br/>included in this rate]]></string>
+    <string name="buy_simplex_description_short"><![CDATA[Appox. <u>Simplex</u> fee included in rate]]></string>
 
     <string name="buy_webview_upload_error">Unable to open file chooser</string>
     <string name="buy_webview_rationale">Please enable files access for MEWconnect</string>

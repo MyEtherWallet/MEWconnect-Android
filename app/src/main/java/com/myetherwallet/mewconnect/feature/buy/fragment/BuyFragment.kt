@@ -1,5 +1,6 @@
 package com.myetherwallet.mewconnect.feature.buy.fragment
 
+import android.graphics.Rect
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.util.TypedValue
@@ -9,12 +10,13 @@ import android.view.View.VISIBLE
 import android.widget.Toast
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
-import com.myetherwallet.mewconnect.core.extenstion.formatMoney
-import com.myetherwallet.mewconnect.core.extenstion.toStringWithoutZeroes
-import com.myetherwallet.mewconnect.core.extenstion.viewModel
+import com.myetherwallet.mewconnect.core.extenstion.*
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseViewModelFragment
+import com.myetherwallet.mewconnect.core.utils.StringUtils
 import com.myetherwallet.mewconnect.feature.buy.activity.BuyWebViewActivity
+import com.myetherwallet.mewconnect.feature.buy.data.BuyQuoteResult
+import com.myetherwallet.mewconnect.feature.buy.data.BuyResponse
 import com.myetherwallet.mewconnect.feature.buy.viewmodel.BuyViewModel
 import kotlinx.android.synthetic.main.fragment_buy.*
 import java.math.BigDecimal
@@ -58,7 +60,10 @@ class BuyFragment : BaseViewModelFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = viewModel(viewModelFactory)
+        viewModel = viewModel(viewModelFactory) {
+            observe(data, ::onQuoteLoaded)
+        }
+        viewModel.loadQuote()
 
         textSizeMin = resources.getDimension(R.dimen.text_size_fixed_20sp)
         textSizeMax = resources.getDimension(R.dimen.text_size_fixed_48sp)
@@ -75,6 +80,18 @@ class BuyFragment : BaseViewModelFragment() {
                 false
             }
         })
+
+        buy_simplex_description.text = StringUtils.fromHtml(requireContext(), R.string.buy_simplex_description_full)
+        buy_keyboard_container.getSize { _, _, _ ->
+            val rect1 = Rect()
+            buy_amount_container.getGlobalVisibleRect(rect1)
+            val rect2 = Rect()
+            buy_keyboard_container.getGlobalVisibleRect(rect2)
+            if (rect1.bottom >= rect2.top) {
+                buy_simplex_description.text = StringUtils.fromHtml(requireContext(), R.string.buy_simplex_description_short)
+                buy_keyboard_margin.visibility = GONE
+            }
+        }
 
         price = arguments!!.getSerializable(EXTRA_STOCK_PRICE) as BigDecimal
 
@@ -106,7 +123,7 @@ class BuyFragment : BaseViewModelFragment() {
 
         buy_button.setOnClickListener {
             buy_loading.visibility = VISIBLE
-            viewModel.load(BigDecimal(getCurrentValue()),
+            viewModel.preparePostRequest(BigDecimal(getCurrentValue()),
                     if (isInUsd) CURRENCY_USD else CURRENCY_ETH,
                     preferences.getCurrentWalletPreferences().getWalletAddress(),
                     preferences.applicationPreferences.getInstallTime(),
@@ -119,8 +136,14 @@ class BuyFragment : BaseViewModelFragment() {
                         buy_loading.visibility = GONE
                     })
         }
-
         populateMainValue(BigDecimal.ZERO)
+    }
+
+    private fun onQuoteLoaded(data: BuyResponse<BuyQuoteResult>?) {
+        data?.let {
+            val quoteResult = it.result
+            price = quoteResult.fiatMoney.baseAmount
+        }
     }
 
     private fun populateMainValue(value: BigDecimal) {
@@ -135,10 +158,17 @@ class BuyFragment : BaseViewModelFragment() {
     private fun populateSecondValue() {
         val text = getCurrentValue()
         if (price > BigDecimal.ZERO) {
+            val amount = BigDecimal(text)
             if (isInUsd) {
-                buy_sum_2.text = BigDecimal(text).divide(price, ETH_DECIMALS, RoundingMode.HALF_UP).formatMoney(ETH_DECIMALS)
+                buy_sum_2.text = amount
+                        .minus(calculateFee(amount))
+                        .divide(price, ETH_DECIMALS, RoundingMode.HALF_UP)
+                        .formatMoney(ETH_DECIMALS)
             } else {
-                buy_sum_2.text = BigDecimal(text).multiply(price).formatMoney(2)
+                buy_sum_2.text = amount
+                        .multiply(price)
+                        .plus(calculateFee(amount * price))
+                        .formatMoney(2)
             }
         } else {
             buy_sum_2.text = "0"
@@ -147,6 +177,23 @@ class BuyFragment : BaseViewModelFragment() {
     }
 
     private fun getCurrentValue() = buy_sum_1.text.toString()
+
+    private fun calculateFee(amount: BigDecimal) =
+            if (amount.compareTo(BigDecimal.ZERO) == 0) {
+                BigDecimal.ZERO
+            } else {
+                if (amount < BigDecimal(210)) {
+                    (BigDecimal.TEN
+                            .divide(amount, 10, RoundingMode.HALF_UP)
+                            .minus(BigDecimal(0.08).divide(amount, 10, RoundingMode.HALF_UP))
+                            .plus(BigDecimal(0.01)))
+                            .multiply(amount)
+                            .minus(BigDecimal(0.03))
+//                    (BigDecimal.TEN / amount - BigDecimal(0.08) / amount + BigDecimal(0.01)) * amount - BigDecimal(0.03)
+                } else {
+                    BigDecimal(0.0566) * amount
+                }
+            }
 
     private fun populateCurrency() {
         if (isInUsd) {

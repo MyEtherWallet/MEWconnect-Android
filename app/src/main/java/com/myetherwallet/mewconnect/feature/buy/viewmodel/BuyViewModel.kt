@@ -2,7 +2,9 @@ package com.myetherwallet.mewconnect.feature.buy.viewmodel
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
+import android.arch.lifecycle.MutableLiveData
 import com.myetherwallet.mewconnect.feature.buy.data.BuyQuoteResult
+import com.myetherwallet.mewconnect.feature.buy.data.BuyResponse
 import com.myetherwallet.mewconnect.feature.buy.data.PostRequest
 import com.myetherwallet.mewconnect.feature.buy.interactor.GetBuyOrder
 import com.myetherwallet.mewconnect.feature.buy.interactor.GetBuyQuote
@@ -21,7 +23,15 @@ private const val KEY_URL = "payment_post_url"
 class BuyViewModel
 @Inject constructor(application: Application, private val getBuyInfo: GetBuyQuote, private val getBuyOrder: GetBuyOrder, private val saveHistoryItem: SaveHistoryItem, private val getHistory: GetHistory) : AndroidViewModel(application) {
 
-    fun load(amount: BigDecimal, currency: String, address: String, installTime: Date, successCallback: (postRequest: PostRequest) -> Unit, failureCallback: () -> Unit) {
+    var data: MutableLiveData<BuyResponse<BuyQuoteResult>> = MutableLiveData()
+
+    fun loadQuote() {
+        getBuyInfo.execute(GetBuyQuote.Params(BigDecimal.ONE, "ETH")) {
+            it.either({ }, { data.postValue(it) })
+        }
+    }
+
+    fun preparePostRequest(amount: BigDecimal, currency: String, address: String, installTime: Date, successCallback: (postRequest: PostRequest) -> Unit, failureCallback: () -> Unit) {
         getBuyInfo.execute(GetBuyQuote.Params(amount, currency)) {
             it.either(
                     { failureCallback() },

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/default_background">
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -13,24 +14,46 @@
         <com.myetherwallet.mewconnect.core.ui.view.StaticToolbar
             android:id="@+id/buy_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Space
+            android:id="@+id/generating_guideline1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/dimen_16dp"
+            app:layout_constraintBottom_toBottomOf="@id/buy_toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <FrameLayout
+            android:id="@+id/buy_amount_sizing_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            app:layout_constraintBottom_toTopOf="@id/buy_keyboard_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/generating_guideline1">
 
-            <LinearLayout
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/buy_amount_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/buy_amount1"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dimen_56dp"
                     android:layout_gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
                         android:id="@+id/buy_symbol_1"
@@ -47,6 +70,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
+                        android:includeFontPadding="false"
                         android:textColor="@color/colorAccent"
                         tools:text="123.12"
                         tools:textSize="48sp" />
@@ -57,8 +81,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
                         android:layout_marginStart="@dimen/dimen_8dp"
-                        android:textColor="@color/text_grey"
-                        android:textSize="@dimen/text_size_fixed_28sp"
+                        android:textColor="@color/battleship_grey"
+                        android:textSize="@dimen/text_size_fixed_16sp"
                         tools:text="ETH" />
                 </LinearLayout>
 
@@ -67,15 +91,23 @@
                     android:layout_width="@dimen/dimen_36dp"
                     android:layout_height="@dimen/dimen_36dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_margin="@dimen/dimen_16dp"
+                    android:layout_marginTop="@dimen/dimen_8dp"
                     android:contentDescription="@null"
-                    android:src="@drawable/buy_toggle_currency" />
+                    android:src="@drawable/buy_toggle_currency"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/buy_amount1" />
 
                 <LinearLayout
+                    android:id="@+id/buy_amount2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="@dimen/dimen_12dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/buy_toggle_currency">
 
                     <TextView
                         android:id="@+id/buy_symbol_2"
@@ -104,15 +136,38 @@
                         android:textSize="@dimen/text_size_16sp"
                         tools:text="ETH" />
                 </LinearLayout>
-            </LinearLayout>
+
+                <TextView
+                    android:id="@+id/buy_simplex_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:gravity="center_horizontal"
+                    android:letterSpacing="0.02"
+                    android:lineSpacingExtra="6sp"
+                    android:textSize="@dimen/text_size_fixed_14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/buy_amount2"
+                    tools:text="Purchase will be done via Simplex\nApproximate fee is already\nincluded in this rate" />
+            </android.support.constraint.ConstraintLayout>
         </FrameLayout>
 
         <LinearLayout
+            android:id="@+id/buy_keyboard_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/buy_keyboard_background"
             android:orientation="vertical"
-            android:paddingTop="@dimen/dimen_32dp">
+            app:layout_constraintBottom_toTopOf="@id/buy_button_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <View
+                android:id="@+id/buy_keyboard_margin"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_32dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -266,9 +321,13 @@
         </LinearLayout>
 
         <FrameLayout
+            android:id="@+id/buy_button_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/buy_keyboard_background">
+            android:background="@color/buy_keyboard_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <android.support.design.button.MaterialButton
                 android:id="@+id/buy_button"
@@ -282,7 +341,7 @@
                 android:paddingEnd="@dimen/dimen_24dp"
                 android:text="@string/buy_button" />
         </FrameLayout>
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
     <com.myetherwallet.mewconnect.core.ui.view.LoadingView
         android:id="@+id/buy_loading"
