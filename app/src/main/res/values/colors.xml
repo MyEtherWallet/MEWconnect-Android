@@ -5,6 +5,7 @@
     <color name="colorAccent">@color/blue</color>
 
     <color name="default_background">#ffffff</color>
+    <color name="pressed_background">#cccccc</color>
     <color name="status_bar_white">#66ffffff</color>
     <color name="status_bar_transparent">#01000000</color>
     <color name="disabled_button">#f0f1f2</color>
