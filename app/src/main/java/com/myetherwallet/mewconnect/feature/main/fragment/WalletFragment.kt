@@ -211,8 +211,7 @@ class WalletFragment : BaseViewModelFragment() {
             wallet_toolbar.setNetwork(preferences.applicationPreferences.getCurrentNetwork())
 
             wallet_toolbar.onBuyClickListener = {
-                val stockPrice = balance.stockPrice?.let { it } ?: BigDecimal.ZERO
-                addFragment(BuyFragment.newInstance(stockPrice))
+                addFragment(BuyFragment.newInstance())
             }
 
             showBackupWarning(balance.value)

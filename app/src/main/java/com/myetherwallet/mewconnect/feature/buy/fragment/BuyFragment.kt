@@ -33,19 +33,11 @@ private const val CURRENCY_ETH = "ETH"
 private const val ETH_DECIMALS = 8
 private val LIMIT_MIN = BigDecimal(50)
 private val LIMIT_MAX = BigDecimal(20000)
-private const val EXTRA_STOCK_PRICE = "stock_price"
 
 class BuyFragment : BaseViewModelFragment() {
 
     companion object {
-
-        fun newInstance(stockPrice: BigDecimal): BuyFragment {
-            val fragment = BuyFragment()
-            val arguments = Bundle()
-            arguments.putSerializable(EXTRA_STOCK_PRICE, stockPrice)
-            fragment.arguments = arguments
-            return fragment
-        }
+        fun newInstance() = BuyFragment()
     }
 
     @Inject
@@ -92,8 +84,6 @@ class BuyFragment : BaseViewModelFragment() {
                 buy_keyboard_margin.visibility = GONE
             }
         }
-
-        price = arguments!!.getSerializable(EXTRA_STOCK_PRICE) as BigDecimal
 
         buy_button_1.setOnClickListener { addDigit(1) }
         buy_button_2.setOnClickListener { addDigit(2) }
@@ -159,17 +149,23 @@ class BuyFragment : BaseViewModelFragment() {
         val text = getCurrentValue()
         if (price > BigDecimal.ZERO) {
             val amount = BigDecimal(text)
+            var second: BigDecimal
+            val decimals: Int
             if (isInUsd) {
-                buy_sum_2.text = amount
+                second = amount
                         .minus(calculateFee(amount))
                         .divide(price, ETH_DECIMALS, RoundingMode.HALF_UP)
-                        .formatMoney(ETH_DECIMALS)
+                decimals = ETH_DECIMALS
             } else {
-                buy_sum_2.text = amount
+                second = amount
                         .multiply(price)
                         .plus(calculateFee(amount * price))
-                        .formatMoney(2)
+                decimals = 2
             }
+            if (second < BigDecimal.ZERO) {
+                second = BigDecimal.ZERO
+            }
+            buy_sum_2.text = second.formatMoney(decimals)
         } else {
             buy_sum_2.text = "0"
         }
