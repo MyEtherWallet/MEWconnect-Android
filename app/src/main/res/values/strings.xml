@@ -59,7 +59,8 @@
 
     <string name="wallet_card_currency_eth">ETH</string>
     <string name="wallet_card_currency_usd">USD</string>
-    <string name="wallet_card_address_title">Your public Ethereum address</string>
+    <string name="wallet_card_address_title_eth">Your public Ethereum address</string>
+    <string name="wallet_card_address_title_ropsten">Your public Ropsten testnet address</string>
     <string name="wallet_card_stock_price">\@ %.2f/%s</string>
     <string name="wallet_card_test_network">Test network</string>
     <string name="wallet_card_backup_title">Action required: not backed up</string>
@@ -164,7 +165,8 @@
     <string name="message_sidned_title">Continue in your browser</string>
     <string name="message_sidned_description">The message is signed. Please continue in MyEtherWallet in your browser.</string>
 
-    <string name="address_title">Your public\nethereum address</string>
+    <string name="address_title_eth">Your public\nEthereum address</string>
+    <string name="address_title_ropsten">Your public Ropsten\ntestnet address</string>
     <string name="address_description">Share your public address to receive Ether and ERC-20 tokens</string>
     <string name="address_share">Share</string>
     <string name="address_share_title">Choose application</string>

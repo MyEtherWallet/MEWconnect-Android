@@ -24,11 +24,12 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/address_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_24dp"
                 android:layout_marginEnd="@dimen/dimen_24dp"
-                android:text="@string/address_title"
+                android:text="@string/address_title_eth"
                 android:textColor="@color/blue"
                 android:textSize="@dimen/text_size_34sp"
                 android:textStyle="bold" />

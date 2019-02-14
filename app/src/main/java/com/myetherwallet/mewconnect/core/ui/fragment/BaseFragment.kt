@@ -35,6 +35,11 @@ abstract class BaseFragment : Fragment() {
         (activity as MainActivity).closeFragment()
     }
 
+    protected fun closeToFirst() {
+        KeyboardUtils.hideKeyboard(activity)
+        (activity as MainActivity).closeFragmentsToFirst()
+    }
+
     fun setLightStatusBar(enabled: Boolean) {
         val decorView = activity?.window?.decorView
         decorView?.let {

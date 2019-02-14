@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
@@ -73,6 +74,10 @@ class MainActivity : BaseDiActivity() {
 
     fun closeFragment() {
         fragmentTransactor.pop(supportFragmentManager)
+    }
+
+    fun closeFragmentsToFirst() {
+        fragmentTransactor.popToFirst(supportFragmentManager)
     }
 
     override fun onBackPressed() {

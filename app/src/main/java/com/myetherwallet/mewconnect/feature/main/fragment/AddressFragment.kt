@@ -12,6 +12,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import com.google.zxing.EncodeHintType
 import com.myetherwallet.mewconnect.R
+import com.myetherwallet.mewconnect.content.data.Network
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseDiFragment
@@ -46,6 +47,12 @@ class AddressFragment : BaseDiFragment() {
         })
 
         val size = resources.getDimension(R.dimen.address_qr_size).toInt()
+
+        if (preferences.applicationPreferences.getCurrentNetwork() == Network.ROPSTEN) {
+            address_title.setText(R.string.address_title_ropsten)
+        } else {
+            address_title.setText(R.string.address_title_eth)
+        }
 
         address = HexUtils.withPrefix(preferences.getCurrentWalletPreferences().getWalletAddress())
         address_qr.setImageBitmap(QRCode.from(address).withHint(EncodeHintType.MARGIN, 0).withSize(size, size).bitmap())

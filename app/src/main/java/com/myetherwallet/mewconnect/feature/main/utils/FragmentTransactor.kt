@@ -1,5 +1,6 @@
 package com.myetherwallet.mewconnect.feature.main.utils
 
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
@@ -7,6 +8,7 @@ import com.myetherwallet.mewconnect.R
 
 class FragmentTransactor {
 
+    private val handler = Handler()
     private val actions = mutableListOf<Action>()
 
     fun resume(fragmentManager: FragmentManager) {
@@ -16,6 +18,7 @@ class FragmentTransactor {
                 ActionId.REPLACE -> replaceFragment(fragmentManager, action.fragment!!)
                 ActionId.ADD_OR_REPLACE -> addOrReplaceFragment(fragmentManager, action.fragment!!, action.tag!!)
                 ActionId.POP -> popFragment(fragmentManager)
+                ActionId.POP_TO_FIRST -> popFragmentToFirst(fragmentManager)
             }
             actions.remove(action)
         }
@@ -53,26 +56,35 @@ class FragmentTransactor {
         }
     }
 
+    fun popToFirst(fragmentManager: FragmentManager) {
+        if (fragmentManager.isStateSaved) {
+            actions.add(Action(ActionId.POP_TO_FIRST))
+        } else {
+            popFragmentToFirst(fragmentManager)
+        }
+    }
+
     private fun replaceFragment(fragmentManager: FragmentManager, fragment: Fragment) {
+        handler.post {
         fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.main_fragment_container, fragment, fragment.toString())
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
         fragmentTransaction.commit()
-    }
+    }}
 
     private fun addFragment(fragmentManager: FragmentManager, fragment: Fragment) {
-        val fragmentTransaction = fragmentManager.beginTransaction()
+        handler.post { val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.main_fragment_container, fragment, fragment.toString())
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
-    }
+    }}
 
     private fun addOrReplaceFragment(fragmentManager: FragmentManager, fragment: Fragment, tag: String) {
-        val fragmentTransaction = fragmentManager.beginTransaction()
+        handler.post {  val fragmentTransaction = fragmentManager.beginTransaction()
         val previous = fragmentManager.findFragmentByTag(tag)
         if (previous == null) {
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -85,15 +97,23 @@ class FragmentTransactor {
             fragmentTransaction.addToBackStack(tag)
         }
         fragmentTransaction.commit()
-    }
+    }}
 
     private fun popFragment(fragmentManager: FragmentManager) {
-        fragmentManager.popBackStackImmediate()
+        handler.post {
+            fragmentManager.popBackStackImmediate()
+        }
+    }
+
+    private fun popFragmentToFirst(fragmentManager: FragmentManager) {
+        handler.post {
+            fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        }
     }
 
     private data class Action(val id: ActionId, val fragment: Fragment? = null, val tag: String? = null)
 
     private enum class ActionId {
-        ADD, REPLACE, ADD_OR_REPLACE, POP
+        ADD, REPLACE, ADD_OR_REPLACE, POP, POP_TO_FIRST
     }
 }

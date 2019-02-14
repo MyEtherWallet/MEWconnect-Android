@@ -10,6 +10,7 @@ import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseDiFragment
+import com.myetherwallet.mewconnect.core.utils.MewLog
 import com.myetherwallet.mewconnect.core.utils.crypto.StorageCryptHelper
 import com.myetherwallet.mewconnect.feature.auth.callback.AuthCallback
 import com.myetherwallet.mewconnect.feature.auth.fragment.AuthFragment
@@ -72,6 +73,7 @@ class WriteTheseFragment : BaseDiFragment(), View.OnClickListener, Toolbar.OnMen
     }
 
     override fun onAuthResult(password: String) {
+        MewLog.d(TAG, "Auth success")
         this.password = password
         val mnemonicBytes = StorageCryptHelper.decrypt(preferences.applicationPreferences.getWalletMnemonic(), password)
         mnemonicBytes?.let {
@@ -82,6 +84,7 @@ class WriteTheseFragment : BaseDiFragment(), View.OnClickListener, Toolbar.OnMen
     }
 
     override fun onAuthCancel() {
+        MewLog.d(TAG, "Auth canceled")
         isAuthCanceled = true
         close()
     }

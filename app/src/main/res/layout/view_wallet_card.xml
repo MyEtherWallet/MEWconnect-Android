@@ -124,9 +124,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0.5"
-                android:text="@string/wallet_card_address_title"
+                android:text="@string/wallet_card_address_title_eth"
                 android:textColor="@color/text_white"
                 android:textSize="@dimen/text_size_fixed_12sp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView

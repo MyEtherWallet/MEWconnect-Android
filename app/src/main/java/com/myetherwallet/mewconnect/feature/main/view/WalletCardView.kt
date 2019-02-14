@@ -114,6 +114,7 @@ class WalletCardView @JvmOverloads constructor(
                 wallet_card_value_usd.text = context.getString(R.string.wallet_card_test_network)
                 wallet_card_stock_price.visibility = View.GONE
                 wallet_card_currency_usd.visibility = View.GONE
+                wallet_card_address_title.setText(R.string.wallet_card_address_title_ropsten)
             } else {
                 wallet_card_value_usd.text = valueUsd.formatUsd()
                 wallet_card_stock_price.text = context.getString(R.string.wallet_card_stock_price,
@@ -121,9 +122,8 @@ class WalletCardView @JvmOverloads constructor(
                         currency)
                 wallet_card_stock_price.visibility = View.VISIBLE
                 wallet_card_currency_usd.visibility = View.VISIBLE
+                wallet_card_address_title.setText(R.string.wallet_card_address_title_eth)
             }
-
-
         }
     }
 }
