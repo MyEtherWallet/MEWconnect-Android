@@ -13,10 +13,7 @@ import com.myetherwallet.mewconnect.feature.buy.fragment.BuyFragment
 import com.myetherwallet.mewconnect.feature.buy.fragment.HistoryFragment
 import com.myetherwallet.mewconnect.feature.main.activity.MainActivity
 import com.myetherwallet.mewconnect.feature.main.dialog.RateDialog
-import com.myetherwallet.mewconnect.feature.main.fragment.AddressFragment
-import com.myetherwallet.mewconnect.feature.main.fragment.InfoFragment
-import com.myetherwallet.mewconnect.feature.main.fragment.IntroFragment
-import com.myetherwallet.mewconnect.feature.main.fragment.WalletFragment
+import com.myetherwallet.mewconnect.feature.main.fragment.*
 import com.myetherwallet.mewconnect.feature.main.view.WalletCardView
 import com.myetherwallet.mewconnect.feature.register.fragment.GeneratingFragment
 import com.myetherwallet.mewconnect.feature.scan.fragment.*
@@ -44,6 +41,8 @@ interface ApplicationComponent {
     fun inject(fragment: AddressFragment)
 
     fun inject(fragment: InfoFragment)
+
+    fun inject(fragment: ViewRecoveryPhraseFragment)
 
     fun inject(fragment: IntroFragment)
 

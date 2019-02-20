@@ -115,21 +115,25 @@
     <string name="forgot_password_description">Unfortunately, as we mentioned when you were creating a password, there’s no ‘Restore Password’ button, however, if you created a backup for your wallet, you can restore your wallet using a backup passphrase and set a new password once it’s restored.</string>
     <string name="forgot_password_restore_wallet">Restore wallet</string>
 
+    <string name="mnemonic_list_subtitle">Here’s your recovery phrase:</string>
+    <string name="mnemonic_list_description">Resist temptation to email it to yourself or screenshot it. You will thank yourself later.\nThe order of words is important too.</string>
+
     <string name="write_these_title">Write these down</string>
-    <string name="write_these_subtitle">Here’s your recovery phrase:</string>
-    <string name="write_these_description">Resist temptation to email it to yourself or screenshot it. You will thank yourself later.\nThe order of words is important too.</string>
     <string name="write_these_screenshot_text">Please remember NOT to keep your passphrase anywhere digitally, otherwise you can lose all your funds. We strongly suggest to delete the screenshot you\'ve just taken and write down the passphrase using pen and paper.</string>
     <string name="write_these_screenshot_title">Oops! It looks like you\'ve just taken a screenshot.</string>
+
+    <string name="view_recovery_phrase_title">Your recovery phrase</string>
 
     <string name="back_up_wallet_title">Back up your  wallet</string>
     <string name="back_up_wallet_description">Your Ethereum address and private key are stored in a local secure vault on this device.\nBut, what happens if you loose this device? Well… unless you back up your wallet, you will loose all your funds forever.</string>
     <string name="back_up_wallet_now">Back up now</string>
 
     <string name="info_title">Info</string>
-    <string name="info_contact">Contact</string>
+    <string name="info_contact">Contact support</string>
     <string name="info_user_guide">User guide</string>
     <string name="info_knowledge_base">Knowledge base</string>
-    <string name="info_site">Myetherwallet.com</string>
+    <string name="info_site">MyEtherWallet.com</string>
+    <string name="info_view_recovery_phrase">View my recovery phrase</string>
     <string name="info_privacy_and_terms">Privacy and terms</string>
     <string name="info_copyright">Copyright 2018 MyEtherWallet Inc.</string>
     <string name="info_version">Version %s (%d)</string>

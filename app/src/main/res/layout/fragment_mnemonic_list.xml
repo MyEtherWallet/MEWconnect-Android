@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/default_background"
     android:orientation="vertical">
 
     <com.myetherwallet.mewconnect.core.ui.view.StaticToolbar
-        android:id="@+id/write_these_toolbar"
+        android:id="@+id/mnemonic_list_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -22,38 +23,38 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/write_these_title"
+                android:id="@+id/mnemonic_list_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="-8sp"
-                android:text="@string/write_these_title"
                 android:textColor="@color/blue"
                 android:textSize="@dimen/text_size_40sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="@string/write_these_title" />
 
             <TextView
-                android:id="@+id/write_these_subtitle"
+                android:id="@+id/mnemonic_list_subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_4dp"
-                android:text="@string/write_these_subtitle"
+                android:text="@string/mnemonic_list_subtitle"
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/text_size_16sp" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/write_these_words"
+                android:id="@+id/mnemonic_list_words"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_16dp" />
 
             <TextView
-                android:id="@+id/write_these_description"
+                android:id="@+id/mnemonic_list_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_8dp"
                 android:letterSpacing="0.03"
                 android:lineSpacingExtra="4sp"
-                android:text="@string/write_these_description"
+                android:text="@string/mnemonic_list_description"
                 android:textColor="@color/text_grey"
                 android:textSize="@dimen/text_size_12sp" />
         </LinearLayout>

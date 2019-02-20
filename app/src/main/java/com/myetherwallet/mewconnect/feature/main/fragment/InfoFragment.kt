@@ -38,6 +38,7 @@ class InfoFragment : BaseDiFragment(), Toolbar.OnMenuItemClickListener {
         info_knowledge_base.setOnClickListener { LaunchUtils.openWebSite(context, "https://myetherwallet.github.io/knowledge-base/") }
         info_privacy_and_terms.setOnClickListener { LaunchUtils.openWebSite(context, "https://www.myetherwallet.com/privacy-policy.html") }
         info_site.setOnClickListener { LaunchUtils.openWebSite(context, "https://www.myetherwallet.com") }
+        info_view_recovery_phrase.setOnClickListener { addFragment(ViewRecoveryPhraseFragment.newInstance()) }
 
         info_version.text = getString(R.string.info_version, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
 
