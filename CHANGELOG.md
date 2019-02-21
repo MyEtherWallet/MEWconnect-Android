@@ -1,3 +1,12 @@
+### Release v1.0.3 (19022101)
+
+- Take chainId from transaction
+- Allow the user to see the recovery phrase
+- Improve navigation between fragments
+- Add Simplex fee calculation
+- Add click effect to buttons on wallet screen
+- Fix upload issue
+
 ### Release v1.0.2 (19020801)
 
 - Implement timeout if user entered password five times incorrectly
