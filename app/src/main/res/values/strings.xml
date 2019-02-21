@@ -16,6 +16,24 @@
     <string name="enter_recovery_phrase_hint">Words separated by spaces</string>
     <string name="enter_recovery_phrase_error">Wrong recovery phrase</string>
 
+    <string name="restore_existing_wallet_title">Restore\nexisting wallet</string>
+    <string name="restore_existing_wallet_use">Use recovery phrase</string>
+    <string name="restore_existing_wallet_other">Other options</string>
+    <string name="restore_existing_wallet_note">i.e. keystore file, private key etc.</string>
+
+    <string name="do_you_have_phrase_title">Do you have your\nrecovery phrase\nhandy?</string>
+    <string name="do_you_have_phrase_text">Recovery phrase is a 24 word phrase that you wrote down when you backed up your wallet.</string>
+    <string name="do_you_have_phrase_continue">Continue</string>
+    <string name="do_you_have_phrase_other">Other options</string>
+    <string name="do_you_have_phrase_note">i.e. keystore file, private key etc.</string>
+
+    <string name="safety_priority_title">Your safety and\nsecurity is our\n#1 priority</string>
+    <string name="safety_priority_text1">We don’t support keystore file and private key imports in MEWconnect app, as they are highly unsafe.</string>
+    <string name="safety_priority_text2">(Note that keystore file and private key are still available methods of access on MyEtherWallet.com, but are not recommended unless using MEW offline)</string>
+    <string name="safety_priority_text3">Because MEWconnect is a ‘Hardware wallet’ without all the hardware, it\'s best to create a new wallet directly in MEWconnect app, same as if you just got a new hardware wallet. That way you can be sure your keys never leave your device.</string>
+    <string name="safety_priority_text4">If you want to access funds in one of your existing wallets via MEWconnect, the most secure way to do so would be transferring your ETH and tokens to your new MEWconnect wallet once it’s created.</string>
+    <string name="safety_priority_text5">Using your existing private key defeats the purpose of MEWconnect, and reduces your security considerably.</string>
+
     <string name="pick_password_title">Pick a\npassword</string>
     <string name="pick_password_description">So no one else but you can unlock your wallet.</string>
     <string name="pick_password_description2">Best passwords are long and contain letters, numbers and special characters.</string>

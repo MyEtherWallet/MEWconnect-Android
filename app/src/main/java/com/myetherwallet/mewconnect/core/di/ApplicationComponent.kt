@@ -5,9 +5,7 @@ import com.myetherwallet.mewconnect.core.di.viewmodel.ViewModelModule
 import com.myetherwallet.mewconnect.core.persist.database.DatabaseModule
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesModule
 import com.myetherwallet.mewconnect.core.ui.view.StaticToolbar
-import com.myetherwallet.mewconnect.feature.auth.fragment.AuthFragment
-import com.myetherwallet.mewconnect.feature.auth.fragment.EnterRecoveryPhraseFragment
-import com.myetherwallet.mewconnect.feature.auth.fragment.ForgotPasswordFragment
+import com.myetherwallet.mewconnect.feature.auth.fragment.*
 import com.myetherwallet.mewconnect.feature.backup.fragment.*
 import com.myetherwallet.mewconnect.feature.buy.fragment.BuyFragment
 import com.myetherwallet.mewconnect.feature.buy.fragment.HistoryFragment
@@ -63,6 +61,12 @@ interface ApplicationComponent {
     fun inject(fragment: AuthFragment)
 
     fun inject(fragment: ForgotPasswordFragment)
+
+    fun inject(fragment: RestoreExistingWalletFragment)
+
+    fun inject(fragment: DoYouHavePhraseFragment)
+
+    fun inject(fragment: SafetyPriorityFragment)
 
     fun inject(fragment: EnterRecoveryPhraseFragment)
 

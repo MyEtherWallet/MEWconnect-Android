@@ -93,14 +93,12 @@
 
                 <android.support.design.button.MaterialButton
                     android:id="@+id/address_copy"
-                    style="@style/Button"
+                    style="@style/Button.Light"
                     android:layout_width="@dimen/dimen_112dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_8dp"
                     android:layout_marginEnd="@dimen/dimen_8dp"
-                    android:backgroundTint="@color/address_copy_background"
-                    android:text="@string/address_copy"
-                    android:textColor="@color/colorAccent" />
+                    android:text="@string/address_copy" />
 
                 <android.support.design.button.MaterialButton
                     android:id="@+id/address_share"

@@ -215,7 +215,8 @@
                     android:backgroundTint="@color/red"
                     android:text="@string/decline"
                     app:layout_constraintEnd_toStartOf="@+id/confirm_transaction_ok"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <android.support.design.button.MaterialButton
                     android:id="@+id/confirm_transaction_ok"
@@ -224,7 +225,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/confirm"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/confirm_transaction_cancel" />
+                    app:layout_constraintStart_toEndOf="@+id/confirm_transaction_cancel"
+                    app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
