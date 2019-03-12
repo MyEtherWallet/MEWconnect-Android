@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/default_background"
@@ -8,19 +9,33 @@
     <com.myetherwallet.mewconnect.core.ui.view.StaticToolbar
         android:id="@+id/safety_priority_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Space
+        android:id="@+id/safety_priority_space"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_8dp"
+        app:layout_constraintBottom_toBottomOf="@id/safety_priority_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/safety_priority_scroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/safety_priority_space">
 
         <LinearLayout
             android:id="@+id/safety_priority_content_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_24dp"
-            android:layout_marginTop="@dimen/dimen_16dp"
             android:layout_marginEnd="@dimen/dimen_24dp"
             android:fitsSystemWindows="true"
             android:orientation="vertical">
@@ -39,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_16dp"
                 android:letterSpacing="0.03"
-                android:lineSpacingExtra="8sp"
+                android:lineSpacingExtra="4sp"
                 android:text="@string/safety_priority_text1"
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/text_size_16sp" />
@@ -49,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_16dp"
                 android:letterSpacing="0.03"
-                android:lineSpacingExtra="8sp"
+                android:lineSpacingExtra="4sp"
                 android:text="@string/safety_priority_text2"
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/text_size_16sp" />
@@ -59,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_16dp"
                 android:letterSpacing="0.03"
-                android:lineSpacingExtra="8sp"
+                android:lineSpacingExtra="4sp"
                 android:text="@string/safety_priority_text3"
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/text_size_16sp" />
@@ -69,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_16dp"
                 android:letterSpacing="0.03"
-                android:lineSpacingExtra="8sp"
+                android:lineSpacingExtra="4sp"
                 android:text="@string/safety_priority_text4"
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/text_size_16sp" />
@@ -80,10 +95,10 @@
                 android:layout_marginTop="@dimen/dimen_16dp"
                 android:layout_marginBottom="@dimen/dimen_16dp"
                 android:letterSpacing="0.03"
-                android:lineSpacingExtra="8sp"
+                android:lineSpacingExtra="4sp"
                 android:text="@string/safety_priority_text5"
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/text_size_16sp" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
