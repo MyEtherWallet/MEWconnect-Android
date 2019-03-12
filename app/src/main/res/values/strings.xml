@@ -121,9 +121,9 @@
     <string name="scan_error_try_again">Try again</string>
     <string name="scan_error_contact">Contact support</string>
     <string name="scan_connecting">Creating a local connection\nwith MyEtherWallet</string>
-    <string name="scan_manual_1"><![CDATA[Go to <b>MyEtherWallet.com</b> on your<br/>computer and choose <b>Send Ether and<br/>Tokens</b> option.]]></string>
-    <string name="scan_manual_2"><![CDATA[Select <b>MEWconnect</b> option on <b>How<br/>would you like to access your wallet</b><br/>screen.]]></string>
-    <string name="scan_manual_3"><![CDATA[Click <b>Access with MEWconnect</b> and scan<br/>the QR code on the screen that will follow.]]></string>
+    <string name="scan_manual_1"><![CDATA[Go to <b>MyEtherWallet.com</b> on your<br/>computer and choose <b>Access My Wallet</b><br/>option.]]></string>
+    <string name="scan_manual_2"><![CDATA[Select <b>MEWconnect</b> option on the screen<br/>that follows.]]></string>
+    <string name="scan_manual_3"><![CDATA[Scan the QR code.]]></string>
 
     <string name="auth_forgot_password">Forgot password?</string>
     <string name="auth_forgot_password_error">Wrong password</string>
