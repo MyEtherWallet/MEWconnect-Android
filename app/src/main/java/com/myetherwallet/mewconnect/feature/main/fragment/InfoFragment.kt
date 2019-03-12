@@ -11,6 +11,7 @@ import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseDiFragment
 import com.myetherwallet.mewconnect.core.utils.ApplicationUtils
 import com.myetherwallet.mewconnect.core.utils.LaunchUtils
+import com.myetherwallet.mewconnect.feature.backup.fragment.BackUpWalletFragment
 import com.myetherwallet.mewconnect.feature.main.dialog.ResetWalletDialog
 import kotlinx.android.synthetic.main.fragment_info.*
 import javax.inject.Inject
@@ -38,7 +39,13 @@ class InfoFragment : BaseDiFragment(), Toolbar.OnMenuItemClickListener {
         info_knowledge_base.setOnClickListener { LaunchUtils.openWebSite(context, "https://myetherwallet.github.io/knowledge-base/") }
         info_privacy_and_terms.setOnClickListener { LaunchUtils.openWebSite(context, "https://www.myetherwallet.com/privacy-policy.html") }
         info_site.setOnClickListener { LaunchUtils.openWebSite(context, "https://www.myetherwallet.com") }
-        info_view_recovery_phrase.setOnClickListener { addFragment(ViewRecoveryPhraseFragment.newInstance()) }
+        if (preferences.applicationPreferences.isBackedUp()) {
+            info_view_recovery_phrase.setOnClickListener { addFragment(ViewRecoveryPhraseFragment.newInstance()) }
+            info_view_recovery_phrase.setText(R.string.info_view_recovery_phrase)
+        } else {
+            info_view_recovery_phrase.setOnClickListener { addFragment(BackUpWalletFragment.newInstance()) }
+            info_view_recovery_phrase.setText(R.string.info_back_up)
+        }
 
         info_version.text = getString(R.string.info_version, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
 

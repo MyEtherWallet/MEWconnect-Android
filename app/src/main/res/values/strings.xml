@@ -152,6 +152,7 @@
     <string name="info_knowledge_base">Knowledge base</string>
     <string name="info_site">MyEtherWallet.com</string>
     <string name="info_view_recovery_phrase">View my recovery phrase</string>
+    <string name="info_back_up">Back up my wallet</string>
     <string name="info_privacy_and_terms">Privacy and terms</string>
     <string name="info_copyright">Copyright 2018 MyEtherWallet Inc.</string>
     <string name="info_version">Version %s (%d)</string>
