@@ -27,7 +27,6 @@ private const val WORDS_COUNT = 24
 class EnterRecoveryPhraseFragment : BaseDiFragment() {
 
     companion object {
-
         fun newInstance() = EnterRecoveryPhraseFragment()
     }
 
