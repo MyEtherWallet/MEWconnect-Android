@@ -16,6 +16,7 @@ import com.myetherwallet.mewconnect.core.utils.HexUtils
 import com.myetherwallet.mewconnect.feature.main.data.WalletBalance
 import com.myetherwallet.mewconnect.feature.main.utils.WalletSizingUtils
 import kotlinx.android.synthetic.main.view_wallet_card.view.*
+import org.web3j.crypto.Keys
 import java.math.BigDecimal
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -92,7 +93,7 @@ class WalletCardView @JvmOverloads constructor(
 
     fun setAddress(address: String) {
         val fieldWidth = resources.getDimension(R.dimen.wallet_card_address_width)
-        var text = HexUtils.withPrefix(address.toLowerCase())
+        var text = HexUtils.withPrefix(Keys.toChecksumAddress(address))
         val paint = wallet_card_address.paint
         do {
             text = text.replace(ADDRESS_ELLIPSIS, "")

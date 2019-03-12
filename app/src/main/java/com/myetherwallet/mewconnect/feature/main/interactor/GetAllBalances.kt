@@ -37,7 +37,7 @@ class GetAllBalances
 
     override suspend fun run(params: Params): Either<Failure, List<Balance>> {
         val function = Function(FUNCTION_METHOD,
-                Arrays.asList(Address(HexUtils.withPrefix(params.address)),
+                Arrays.asList(Address(HexUtils.withPrefixLowerCase(params.address)),
                         Bool(NAME),
                         Bool(WEBSITE),
                         Bool(EMAIL),

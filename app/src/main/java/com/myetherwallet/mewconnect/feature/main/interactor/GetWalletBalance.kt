@@ -21,7 +21,7 @@ class GetWalletBalance
 @Inject constructor(private val repository: MewApiRepository) : BaseInteractor<BigDecimal, GetWalletBalance.Params>() {
 
     override suspend fun run(params: Params): Either<Failure, BigDecimal> {
-        val address = HexUtils.withPrefix(params.address)
+        val address = HexUtils.withPrefixLowerCase(params.address)
         val request = JsonRpcRequest(METHOD, listOf(address, PERIOD))
         return repository.getWalletBalance(params.network.apiMethod, request)
     }

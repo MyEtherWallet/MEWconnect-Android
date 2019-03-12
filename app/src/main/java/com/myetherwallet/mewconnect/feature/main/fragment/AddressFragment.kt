@@ -19,6 +19,7 @@ import com.myetherwallet.mewconnect.core.ui.fragment.BaseDiFragment
 import com.myetherwallet.mewconnect.core.utils.HexUtils
 import kotlinx.android.synthetic.main.fragment_address.*
 import net.glxn.qrgen.android.QRCode
+import org.web3j.crypto.Keys
 import javax.inject.Inject
 
 /**
@@ -35,7 +36,6 @@ class AddressFragment : BaseDiFragment() {
 
     @Inject
     lateinit var preferences: PreferencesManager
-    private lateinit var address: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,14 +54,14 @@ class AddressFragment : BaseDiFragment() {
             address_title.setText(R.string.address_title_eth)
         }
 
-        address = HexUtils.withPrefix(preferences.getCurrentWalletPreferences().getWalletAddress())
+        val address = HexUtils.withPrefix(Keys.toChecksumAddress(preferences.getCurrentWalletPreferences().getWalletAddress()))
         address_qr.setImageBitmap(QRCode.from(address).withHint(EncodeHintType.MARGIN, 0).withSize(size, size).bitmap())
         address_text.text = address
 
         address_share.setOnClickListener {
             val intent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, HexUtils.withPrefix(address.toLowerCase()))
+                putExtra(Intent.EXTRA_TEXT, address)
                 type = "text/plain"
             }
             startActivityForResult(Intent.createChooser(intent, resources.getText(R.string.address_share_title)), CHOOSER_REQUEST_CODE)

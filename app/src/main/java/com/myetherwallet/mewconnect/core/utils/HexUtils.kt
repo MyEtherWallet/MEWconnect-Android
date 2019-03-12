@@ -22,8 +22,10 @@ object HexUtils {
         return address
     }
 
+    fun withPrefixLowerCase(address: String) = withPrefix(address.toLowerCase())
+
     fun withPrefix(address: String): String {
-        var result = address.toLowerCase()
+        var result = address
         if (!result.startsWith(PREFIX)) {
             result = PREFIX + result
         }
