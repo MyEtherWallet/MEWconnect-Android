@@ -297,7 +297,7 @@ class WalletFragment : BaseViewModelFragment() {
         dialog.show(childFragmentManager)
     }
 
-    private fun onScrollStateChanged(state: Int, position: Int) {
+    private fun onScrollStateChanged(recyclerView: RecyclerView, state: Int, position: Int) {
         // Auto open/close card view
         if (state == RecyclerView.SCROLL_STATE_IDLE) {
             if (shouldScrollToThreshold) {
@@ -306,9 +306,9 @@ class WalletFragment : BaseViewModelFragment() {
             } else {
                 if (position in 1..(scrollThreshold - 1)) {
                     if (position < scrollThreshold / 2) {
-                        wallet_list.smoothScrollBy(0, -position)
+                        recyclerView.smoothScrollBy(0, -position)
                     } else if (position > scrollThreshold / 2 && position < scrollThreshold) {
-                        wallet_list.smoothScrollBy(0, scrollThreshold - position)
+                        recyclerView.smoothScrollBy(0, scrollThreshold - position)
                     }
                 }
             }
