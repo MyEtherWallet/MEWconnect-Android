@@ -84,9 +84,7 @@ class AuthFragment : BaseDiFragment() {
             false
         }
 
-        if (targetFragment != null) {
-            KeyboardUtils.showKeyboard(auth_password_text)
-        }
+        KeyboardUtils.showKeyboard(auth_password_text)
     }
 
     override fun onStart() {
