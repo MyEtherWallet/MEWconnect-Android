@@ -46,7 +46,7 @@ class BuyFragment : BaseViewModelFragment() {
 
     private var textSizeMin = 0f
     private var textSizeMax = 0f
-    private var isInUsd = false
+    private var isInUsd = true
     private var price = BigDecimal.ZERO
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -126,13 +126,14 @@ class BuyFragment : BaseViewModelFragment() {
                         buy_loading.visibility = GONE
                     })
         }
-        populateMainValue(BigDecimal.ZERO)
+        populateMainValue(BigDecimal(100))
     }
 
     private fun onQuoteLoaded(data: BuyResponse<BuyQuoteResult>?) {
         data?.let {
             val quoteResult = it.result
             price = quoteResult.fiatMoney.baseAmount
+            populateSecondValue()
         }
     }
 
