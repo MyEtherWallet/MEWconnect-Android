@@ -17,6 +17,22 @@ androidExtensions {
     experimental = true
 }
 
+def getWhatsNew = { ->
+    def text = file('../CHANGELOG.md').text
+    def start = text.indexOf(")") + 1
+    def end = text.indexOf("###", 3)
+    text = text
+            .substring(start, end)
+            .trim()
+    println "--- What's new ---"
+    println text
+    println "------------------"
+    text = text
+            .replace("\r", "")
+            .replace("\n", "\\n")
+    return text
+}
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -35,6 +51,8 @@ android {
         buildConfigField "String", "APICCSWAP_API_KEY", "\"" + secretsProperties['apiccswapApiKey'] + "\""
         buildConfigField "String", "APICCSWAP_REFERER", "\"" + secretsProperties['apiccswapReferer'] + "\""
         buildConfigField "String", "RATES_API_END_POINT", "\"https://cryptorates.mewapi.io/\""
+
+        resValue "string", "whats_new", getWhatsNew()
     }
     buildTypes {
         release {
@@ -91,3 +109,4 @@ kotlin {
         coroutines "enable"
     }
 }
+

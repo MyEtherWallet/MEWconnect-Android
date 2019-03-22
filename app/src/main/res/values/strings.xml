@@ -200,4 +200,6 @@
     <string name="rate_text">Let us know how you feel, your feedback is important to us.</string>
     <string name="rate_button_rate">Sure, I\'ll rate it</string>
     <string name="rate_button_feedback">I have feedback</string>
+
+    <string name="whats_new_title">What\'s new</string>
 </resources>
