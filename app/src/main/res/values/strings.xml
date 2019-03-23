@@ -119,6 +119,7 @@
     <string name="scan_toolbar_subtitle">To connect to MyEtherWallet</string>
     <string name="scan_error">Something went wrong</string>
     <string name="scan_error_try_again">Try again</string>
+    <string name="scan_offline">No internet connection</string>
     <string name="scan_error_contact">Contact support</string>
     <string name="scan_connecting">Creating a local connection\nwith MyEtherWallet</string>
     <string name="scan_manual_1"><![CDATA[Go to <b>MyEtherWallet.com</b> on your<br/>computer and choose <b>Access My Wallet</b><br/>option.]]></string>

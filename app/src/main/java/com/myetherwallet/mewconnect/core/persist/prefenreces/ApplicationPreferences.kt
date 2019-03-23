@@ -115,8 +115,8 @@ class ApplicationPreferences(context: Context, private val preferences: SharedPr
     fun resetAuthTimerTime() = preferences.edit().remove(AUTH_TIMER_TIME).apply()
 
     fun shouldShowWhatsNewDialog(): Boolean {
-        val current = preferences.getInt(WHATS_NEW_DIALOG_VERSION, 0)
+        val current = preferences.getInt(WHATS_NEW_DIALOG_VERSION, BuildConfig.VERSION_CODE)
         preferences.edit().putInt(WHATS_NEW_DIALOG_VERSION, BuildConfig.VERSION_CODE).apply()
-        return current != 0 && current != BuildConfig.VERSION_CODE
+        return current != BuildConfig.VERSION_CODE
     }
 }

@@ -86,7 +86,7 @@
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:visibility="visible"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -116,6 +116,27 @@
         </FrameLayout>
 
         <FrameLayout
+            android:id="@+id/scan_offline_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/scan_background_grey"
+            android:gravity="center_horizontal"
+            android:visibility="visible"
+            tools:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center_horizontal"
+                android:letterSpacing="0.01"
+                android:text="@string/scan_offline"
+                android:textColor="@color/text_white"
+                android:textSize="@dimen/text_size_fixed_20sp" />
+        </FrameLayout>
+
+        <FrameLayout
             android:id="@+id/scan_error_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -123,7 +144,7 @@
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:visibility="gone"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
