@@ -78,4 +78,7 @@
     <dimen name="wallet_card_address_width">264dp</dimen>
 
     <dimen name="address_qr_size">156dp</dimen>
+
+    <dimen name="intro_margin_top">96dp</dimen>
+    <dimen name="intro_text_size">24dp</dimen>
 </resources>
