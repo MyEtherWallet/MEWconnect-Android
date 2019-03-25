@@ -186,8 +186,7 @@ class WalletFragment : BaseViewModelFragment() {
             wallet_header.visibility = VISIBLE
 
             if (data.items.isEmpty()) {
-                adapter.items.clear()
-                adapter.notifyDataSetChanged()
+                adapter.reset()
                 wallet_empty.visibility = VISIBLE
                 wallet_header.setBalance(BigDecimal.ZERO)
                 wallet_header.setSearchVisible(false)
@@ -287,14 +286,11 @@ class WalletFragment : BaseViewModelFragment() {
         val dialog = ChooseNetworkDialog()
         dialog.listener = {
             preferences.applicationPreferences.setCurrentNetwork(it)
-            if (preferences.getCurrentWalletPreferences().isWalletExists()) {
-                wallet_header.clearSearch()
-                viewModel.disconnect()
-                setConnectedStatus()
-                init()
-            } else {
-                replaceFragment(IntroFragment.newInstance())
-            }
+            wallet_header.clearSearch()
+            adapter.reset()
+            viewModel.disconnect()
+            setConnectedStatus()
+            init()
         }
         dialog.show(childFragmentManager)
     }
