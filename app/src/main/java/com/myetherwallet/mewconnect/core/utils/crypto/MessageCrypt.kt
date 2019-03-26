@@ -11,7 +11,6 @@ import org.spongycastle.crypto.params.ParametersWithIV
 import org.spongycastle.jce.ECNamedCurveTable
 import org.spongycastle.jce.spec.ECPrivateKeySpec
 import org.spongycastle.jce.spec.ECPublicKeySpec
-import org.spongycastle.math.ec.ECPoint
 import org.web3j.crypto.ECKeyPair
 import org.web3j.crypto.Sign
 import java.math.BigInteger
@@ -91,9 +90,7 @@ class MessageCrypt(private val privateKey: String) {
 
     private fun publicKeyFromPrivateWithControl(privateKeySource: String): ByteArray {
         val privateKey = BigInteger(privateKeySource, 16)
-        val method = Sign::class.java.getDeclaredMethod("publicPointFromPrivate", BigInteger::class.java)
-        method.isAccessible = true
-        val point = method.invoke(null, privateKey) as ECPoint
+        val point = Sign.publicPointFromPrivate(privateKey)
         return point.getEncoded(false)
     }
 

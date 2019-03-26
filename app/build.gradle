@@ -94,7 +94,14 @@ dependencies {
     }
     implementation 'com.madgag.spongycastle:prov:1.58.0.0'
 
-    implementation 'org.web3j:core:4.2.0-android'
+    // https://github.com/web3j/web3j/pull/903
+    // Fix for supporting long Chain ID
+    implementation('org.web3j:rlp:4.2.0-android')
+    implementation files('libs/crypto-4.2.0.jar')
+    implementation('org.web3j:core:4.2.0-android') {
+        exclude group: 'org.web3j', module: 'crypto'
+        exclude group: 'org.web3j', module: 'rlp'
+    }
 
     implementation 'org.bitcoinj:bitcoinj-core:0.14.7'
     implementation 'org.webrtc:google-webrtc:1.0.24064'
