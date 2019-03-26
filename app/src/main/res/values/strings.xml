@@ -112,6 +112,7 @@
     <string name="confirm_transaction_unknown_token">Unknown Token</string>
     <string name="confirm_transaction_amount_title">Check the amount:</string>
     <string name="confirm_transaction_description">If your computer is compromised, attackers might replace ‘Send to’ address with their own, before sending your transaction. That’s why it’s important to check it in MEWconnect.</string>
+    <string name="confirm_transaction_network_title">Check network:</string>
 
     <string name="scan_connected">Connected to MyEtherWallet</string>
     <string name="scan_connected2">Via encrypted peer-to-peer connection</string>
@@ -203,4 +204,26 @@
     <string name="rate_button_feedback">I have feedback</string>
 
     <string name="whats_new_title">What\'s new</string>
+
+    <string name="transaction_network_unknown">Unknown network</string>
+    <string name="transaction_network_eth">Ethereum</string>
+    <string name="transaction_network_exp">Expanse</string>
+    <string name="transaction_network_ropsten_eth">Ethereum Ropsten</string>
+    <string name="transaction_network_rin">Rinkeby</string>
+    <string name="transaction_network_ubq">Ubiq</string>
+    <string name="transaction_network_eosc">EOS-Classic</string>
+    <string name="transaction_network_etsc">EthereumSocial</string>
+    <string name="transaction_network_kov">Kovan</string>
+    <string name="transaction_network_go">GoChain</string>
+    <string name="transaction_network_etc">Ethereum Classic</string>
+    <string name="transaction_network_ella">Ellaism</string>
+    <string name="transaction_network_poa">Proof of Authority</string>
+    <string name="transaction_network_clo">Callisto</string>
+    <string name="transaction_network_egem">EtherGem</string>
+    <string name="transaction_network_esn">EtherSocial</string>
+    <string name="transaction_network_tomo">Tomo Coin</string>
+    <string name="transaction_network_aka">Akroma</string>
+    <string name="transaction_network_etho">Ether1</string>
+    <string name="transaction_network_music">Music Coin</string>
+    <string name="transaction_network_pirl">Pirl</string>
 </resources>
