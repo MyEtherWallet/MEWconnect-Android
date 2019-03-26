@@ -162,8 +162,9 @@
     <string name="reset_wallet_title">⚠ Warning: you can loose your account and funds forever</string>
     <string name="reset_wallet_message">Don\'t reset if you didn\'t make a backup, as there will be NO WAY to restore your account after you reset.</string>
 
-    <string name="backup_warning_title">Action required: your funds are at risk</string>
-    <string name="backup_warning_message">If your device gets lost or stolen your will loose all your funds forever. Please back up your account.</string>
+    <string name="backup_warning_title">Action required: please back up your wallet</string>
+    <string name="backup_warning_message">If you don\'t back up, you can loose all your funds forever once you uninstall the app, or if your device gets lost or stolen.</string>
+    <string name="backup_warning_button">Backup now</string>
 
     <string name="buy_title">Buy Ether</string>
     <string name="buy_button">Buy with credit card</string>

@@ -26,7 +26,7 @@ class BackupWarningDialog : BaseDialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val alertDialog = AlertDialog.Builder(requireContext())
                 .setView(R.layout.dialog_backup_warning)
-                .setPositiveButton(R.string.back_up) { _, _ ->
+                .setPositiveButton(R.string.backup_warning_button) { _, _ ->
                     listener?.invoke()
                     dialog.dismiss()
                 }
