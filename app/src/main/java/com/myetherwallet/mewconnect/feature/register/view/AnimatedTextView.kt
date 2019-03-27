@@ -9,6 +9,7 @@ import android.graphics.Typeface
 import android.os.Handler
 import android.support.annotation.ColorInt
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.AppCompatTextView
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
@@ -16,7 +17,6 @@ import android.text.style.ImageSpan
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.animation.LinearInterpolator
-import android.widget.TextView
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.ui.callback.EmptyAnimatorListener
 import com.myetherwallet.mewconnect.core.utils.StringUtils
@@ -28,7 +28,7 @@ private const val CARET_ANIMATION_REPEAT = 3
 
 class AnimatedTextView @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : TextView(context, attrs, defStyleAttr) {
+) : AppCompatTextView(context, attrs, defStyleAttr) {
 
     private val caretDrawable = ContextCompat.getDrawable(context, R.drawable.generating_caret)!!
 

@@ -103,7 +103,7 @@ class KeystoreHelper(private val context: Context) {
 
                 val bytes = ByteArray(values.size)
                 for (i in bytes.indices) {
-                    bytes[i] = values.get(i)
+                    bytes[i] = values[i]
                 }
 
                 return String(bytes, 0, bytes.size, Charset.forName("UTF-8"))

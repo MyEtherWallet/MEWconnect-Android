@@ -52,6 +52,7 @@ class ConfirmTransactionFragment : BaseViewModelFragment(), AuthCallback {
     @Inject
     lateinit var preferences: PreferencesManager
     private lateinit var viewModel: ConfirmTransactionViewModel
+    private var shouldConfirmNetwork = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -81,11 +82,18 @@ class ConfirmTransactionFragment : BaseViewModelFragment(), AuthCallback {
             }
             confirm_transaction_amount.text = amount.formatMoney(5, currency)
             confirm_transaction_wallet_address.text = to
-            confirm_transaction_network.setText(TransactionNetwork.findByChaidId(transaction.chainId)?.title
-                    ?: R.string.transaction_network_unknown)
+
+            shouldConfirmNetwork = transaction.chainId != preferences.applicationPreferences.getCurrentNetwork().chainId.toLong()
+            if (shouldConfirmNetwork) {
+                confirm_transaction_network_container.visibility = VISIBLE
+                confirm_transaction_network.setText(TransactionNetwork.findByChaidId(transaction.chainId)?.title
+                        ?: R.string.transaction_network_unknown)
+            } else {
+                confirm_transaction_network_container.visibility = GONE
+            }
 
             confirm_transaction_wallet_emoticon.setImageBitmap(EmoticonHelper.draw(to, resources.getDimension(R.dimen.dimen_32dp).toInt()))
-            confirm_transaction_ok.setOnClickListener { _ ->
+            confirm_transaction_ok.setOnClickListener {
                 val authFragment = AuthFragment.newInstance()
                 authFragment.setTargetFragment(this, AUTH_REQUEST_CODE)
                 addFragment(authFragment)
@@ -132,7 +140,7 @@ class ConfirmTransactionFragment : BaseViewModelFragment(), AuthCallback {
     }
 
     private fun updateOkButtonState() {
-        val isAllChecked = confirm_transaction_network_checkbox.isChecked && confirm_transaction_wallet_checkbox.isChecked && confirm_transaction_amount_checkbox.isChecked
+        val isAllChecked = (!shouldConfirmNetwork || confirm_transaction_network_checkbox.isChecked) && confirm_transaction_wallet_checkbox.isChecked && confirm_transaction_amount_checkbox.isChecked
         confirm_transaction_ok.isEnabled = isAllChecked
     }
 
