@@ -294,7 +294,15 @@ class ScanFragment : BaseViewModelFragment() {
     }
 
     private fun setConnectedStatus() {
-        scan_offline_container.visibility = if (networkHandler.isConnected == true) GONE else VISIBLE
+        if (networkHandler.isConnected == true) {
+            MewLog.d(TAG, "Connected")
+            startCameraSource()
+            scan_offline_container.visibility = GONE
+        } else {
+            MewLog.d(TAG, "Disconnected")
+            scan_offline_container.visibility = VISIBLE
+            preview.stop()
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
