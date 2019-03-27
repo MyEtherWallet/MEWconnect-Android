@@ -1,5 +1,19 @@
-### Release v1.0.3 (19022101)
+### Release v1.0.3 (19032801)
 
+- Update backup warning dialog
+- Veriry transaction network checkbox
+- Fix wallet card scroll on network without tokens
+- Update WebRTC and web3j libraries versions
+- Fix sizes on in Intro screen for devices with small screen
+- New UI for offline mode
+- Pre-populate amount for Buy Ether screen to $100
+- Show keyboard on authentication screen by default
+- What's new dialog
+- Prevent some crashes
+- Update scan texts
+- Show address in checksummed form
+- Support passphrases with 12, 15, 18, 21 words
+- Updated restore wallet flow
 - Take chainId from transaction
 - Allow the user to see the recovery phrase
 - Improve navigation between fragments
