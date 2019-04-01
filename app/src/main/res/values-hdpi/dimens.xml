@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="wallet_card_address_text_size">16dp</dimen>
+    <dimen name="wallet_card_backup_container_height">60dp</dimen>
+    <dimen name="wallet_card_backup_text_size">10dp</dimen>
+    <dimen name="wallet_card_value_eth_text_size">26dp</dimen>
+    <dimen name="wallet_card_currency_eth_text_size">16dp</dimen>
+
+    <dimen name="intro_margin_top">64dp</dimen>
+    <dimen name="intro_text_size">16dp</dimen>
+</resources>

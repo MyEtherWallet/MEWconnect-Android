@@ -22,7 +22,7 @@ class GetBuyOrder
                 BuyOrderTransactionDetails(BuyOrderPaymentDetails(
                         Amount("USD", params.quote.fiatMoney.totalAmount),
                         Amount("ETH", params.quote.digitalMoney.amount),
-                        BuyOrderPaymentDetailsAddress("ETH", HexUtils.withPrefix(params.address))
+                        BuyOrderPaymentDetailsAddress("ETH", HexUtils.withPrefixLowerCase(params.address))
                 ))
         )
         return repository.getBuyOrder(request)

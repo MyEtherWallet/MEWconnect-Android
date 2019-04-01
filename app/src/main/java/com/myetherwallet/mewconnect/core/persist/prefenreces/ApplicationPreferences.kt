@@ -2,6 +2,7 @@ package com.myetherwallet.mewconnect.core.persist.prefenreces
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.myetherwallet.mewconnect.BuildConfig
 import com.myetherwallet.mewconnect.content.data.Network
 import com.myetherwallet.mewconnect.core.utils.crypto.KeystoreHelper
 import java.util.*
@@ -22,6 +23,7 @@ private const val SAVED_UPTIME = "saved_uptime"
 private const val AUTH_FIRST_ATTEMPT_TIME = "auth_first_attempt_time"
 private const val AUTH_ATTEMPTS_COUNT = "auth_attempts_count"
 private const val AUTH_TIMER_TIME = "auth_timer_time"
+private const val WHATS_NEW_DIALOG_VERSION = "whats_new_dialog_version"
 
 class ApplicationPreferences(context: Context, private val preferences: SharedPreferences) {
 
@@ -88,9 +90,7 @@ class ApplicationPreferences(context: Context, private val preferences: SharedPr
         preferences.edit().putInt(RATE_STARTS_COUNT, count).apply()
     }
 
-    fun disableRateDialog() {
-        preferences.edit().putInt(RATE_VERSION, RATE_VERSION_VALUE).apply()
-    }
+    fun disableRateDialog() = preferences.edit().putInt(RATE_VERSION, RATE_VERSION_VALUE).apply()
 
     fun isRateDialogEnabled() = preferences.getInt(RATE_VERSION, 0) != RATE_VERSION_VALUE
 
@@ -113,4 +113,10 @@ class ApplicationPreferences(context: Context, private val preferences: SharedPr
     fun setAuthTimerTime(uptime: Long) = preferences.edit().putLong(AUTH_TIMER_TIME, uptime).apply()
 
     fun resetAuthTimerTime() = preferences.edit().remove(AUTH_TIMER_TIME).apply()
+
+    fun shouldShowWhatsNewDialog(): Boolean {
+        val current = preferences.getInt(WHATS_NEW_DIALOG_VERSION, 0)
+        preferences.edit().putInt(WHATS_NEW_DIALOG_VERSION, BuildConfig.VERSION_CODE).apply()
+        return current != BuildConfig.VERSION_CODE
+    }
 }

@@ -6,19 +6,28 @@
     android:layout_height="@dimen/wallet_toolbar_height"
     tools:background="#ddd">
 
-    <com.myetherwallet.mewconnect.core.ui.view.FixedFontTextView
-        android:id="@+id/wallet_toolbar_info"
-        android:layout_width="@dimen/dimen_20dp"
-        android:layout_height="@dimen/dimen_20dp"
-        android:layout_marginStart="@dimen/dimen_16dp"
-        android:gravity="center"
-        android:text="i"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/text_size_fixed_13sp"
+    <FrameLayout
+        android:id="@+id/wallet_toolbar_info_container"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.myetherwallet.mewconnect.core.ui.view.FixedFontTextView
+            android:id="@+id/wallet_toolbar_info"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/dimen_16dp"
+            android:layout_marginEnd="@dimen/dimen_16dp"
+            android:gravity="center"
+            android:text="i"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_size_fixed_13sp"
+            tools:background="#33ff0000"
+            tools:ignore="HardcodedText" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/wallet_toolbar_title"
@@ -64,6 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:background="?attr/selectableItemBackground"
             android:drawableEnd="@drawable/wallet_toolbar_network"
             android:drawablePadding="@dimen/dimen_4dp"
             android:ellipsize="end"
@@ -71,25 +81,34 @@
             android:gravity="center_horizontal"
             android:includeFontPadding="false"
             android:maxLines="1"
+            android:paddingStart="@dimen/dimen_8dp"
+            android:paddingEnd="@dimen/dimen_8dp"
             android:textColor="@color/text_grey"
             android:textSize="@dimen/text_size_fixed_12sp"
             tools:text="Ropsten" />
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/wallet_toolbar_buy"
-        android:layout_width="@dimen/dimen_84dp"
-        android:layout_height="@dimen/dimen_20dp"
-        android:layout_marginEnd="@dimen/dimen_16dp"
-        android:background="@drawable/wallet_toolbar_buy_background"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="center"
-        android:letterSpacing="0.09"
-        android:text="@string/wallet_toolbar_buy_ether"
-        android:textAllCaps="true"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/text_size_fixed_11sp"
+    <FrameLayout
+        android:id="@+id/wallet_toolbar_buy_container"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/wallet_toolbar_buy"
+            android:layout_width="@dimen/dimen_84dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/dimen_16dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:letterSpacing="0.09"
+            android:text="@string/wallet_toolbar_buy_ether"
+            android:textAllCaps="true"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_size_fixed_11sp"
+            tools:background="#33ff0000" />
+    </FrameLayout>
 </android.support.constraint.ConstraintLayout>

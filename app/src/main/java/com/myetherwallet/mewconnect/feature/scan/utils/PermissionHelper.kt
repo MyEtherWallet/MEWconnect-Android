@@ -1,7 +1,9 @@
 package com.myetherwallet.mewconnect.feature.scan.utils
 
+import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import java.util.*
@@ -35,6 +37,14 @@ class PermissionHelper {
         }
     }
 
+    fun requestPermissions(activity: Activity) {
+        if (checkPermission(activity)) {
+            callback(true)
+        } else {
+            activity.requestPermissions(permissions, REQUEST_CODE)
+        }
+    }
+
     fun checkPermission(context: Context): Boolean {
         for (permission in permissions) {
             if (ContextCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
@@ -53,8 +63,21 @@ class PermissionHelper {
         return false
     }
 
-    fun shouldShowRequestPermissionRationale(fragment: Fragment, permission: String): Boolean {
+    private fun shouldShowRequestPermissionRationale(fragment: Fragment, permission: String): Boolean {
         return fragment.shouldShowRequestPermissionRationale(permission)
+    }
+
+    fun shouldShowRequestPermissionsRationale(activity: Activity): Boolean {
+        for (permission in permissions) {
+            if (shouldShowRequestPermissionRationale(activity, permission)) {
+                return true
+            }
+        }
+        return false
+    }
+
+    private fun shouldShowRequestPermissionRationale(activity: Activity, permission: String): Boolean {
+        return ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)
     }
 
     fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {

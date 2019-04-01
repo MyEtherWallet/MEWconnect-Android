@@ -17,7 +17,7 @@ data class Transaction(
         val to: String,
         val value: BigInteger,
         val data: String,
-        val chainId: Byte,
+        val chainId: Long,
         val currency: TransactionCurrency?
 ) : BaseMessage(), Parcelable {
 

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.content.data.Transaction
 import com.myetherwallet.mewconnect.content.data.TransactionData
+import com.myetherwallet.mewconnect.content.data.TransactionNetwork
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
 import com.myetherwallet.mewconnect.core.extenstion.formatMoney
 import com.myetherwallet.mewconnect.core.extenstion.formatUsd
@@ -51,6 +52,7 @@ class ConfirmTransactionFragment : BaseViewModelFragment(), AuthCallback {
     @Inject
     lateinit var preferences: PreferencesManager
     private lateinit var viewModel: ConfirmTransactionViewModel
+    private var shouldConfirmNetwork = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -81,8 +83,17 @@ class ConfirmTransactionFragment : BaseViewModelFragment(), AuthCallback {
             confirm_transaction_amount.text = amount.formatMoney(5, currency)
             confirm_transaction_wallet_address.text = to
 
+            shouldConfirmNetwork = transaction.chainId != preferences.applicationPreferences.getCurrentNetwork().chainId.toLong()
+            if (shouldConfirmNetwork) {
+                confirm_transaction_network_container.visibility = VISIBLE
+                confirm_transaction_network.setText(TransactionNetwork.findByChaidId(transaction.chainId)?.title
+                        ?: R.string.transaction_network_unknown)
+            } else {
+                confirm_transaction_network_container.visibility = GONE
+            }
+
             confirm_transaction_wallet_emoticon.setImageBitmap(EmoticonHelper.draw(to, resources.getDimension(R.dimen.dimen_32dp).toInt()))
-            confirm_transaction_ok.setOnClickListener { _ ->
+            confirm_transaction_ok.setOnClickListener {
                 val authFragment = AuthFragment.newInstance()
                 authFragment.setTargetFragment(this, AUTH_REQUEST_CODE)
                 addFragment(authFragment)
@@ -100,9 +111,16 @@ class ConfirmTransactionFragment : BaseViewModelFragment(), AuthCallback {
             confirm_transaction_amount_price.visibility = VISIBLE
         }
 
+        updateCheckBoxState(confirm_transaction_network_container, false)
         updateCheckBoxState(confirm_transaction_wallet_container, false)
         updateCheckBoxState(confirm_transaction_amount_container, false)
         updateOkButtonState()
+
+        confirm_transaction_network_clickable.setOnClickListener {
+            confirm_transaction_network_checkbox.isChecked = !confirm_transaction_network_checkbox.isChecked
+            updateCheckBoxState(confirm_transaction_network_container, confirm_transaction_network_checkbox.isChecked)
+            updateOkButtonState()
+        }
 
         confirm_transaction_wallet_clickable.setOnClickListener {
             confirm_transaction_wallet_checkbox.isChecked = !confirm_transaction_wallet_checkbox.isChecked
@@ -122,7 +140,7 @@ class ConfirmTransactionFragment : BaseViewModelFragment(), AuthCallback {
     }
 
     private fun updateOkButtonState() {
-        val isAllChecked = confirm_transaction_wallet_checkbox.isChecked && confirm_transaction_amount_checkbox.isChecked
+        val isAllChecked = (!shouldConfirmNetwork || confirm_transaction_network_checkbox.isChecked) && confirm_transaction_wallet_checkbox.isChecked && confirm_transaction_amount_checkbox.isChecked
         confirm_transaction_ok.isEnabled = isAllChecked
     }
 

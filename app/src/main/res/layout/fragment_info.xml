@@ -100,6 +100,19 @@
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/text_size_16sp" />
 
+            <TextView
+                android:id="@+id/info_view_recovery_phrase"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_48dp"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:letterSpacing="0.03"
+                android:paddingStart="@dimen/dimen_24dp"
+                android:paddingEnd="@dimen/dimen_24dp"
+                android:text="@string/info_view_recovery_phrase"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_size_16sp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/separator_size"

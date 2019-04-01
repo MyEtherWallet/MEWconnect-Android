@@ -87,7 +87,7 @@ class CardBackgroundHelper(private val context: Context) {
 
         canvas.restore()
 
-        val randSeed = seedFromAddress(HexUtils.withPrefix(address))
+        val randSeed = seedFromAddress(HexUtils.withPrefixLowerCase(address))
 
         val x = (((nextFromSeed(randSeed) + nextFromSeed(randSeed)) * 40) + 10) / 100.0
         val y = (((nextFromSeed(randSeed) + nextFromSeed(randSeed)) * 45) + 5) / 100.0

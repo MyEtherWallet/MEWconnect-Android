@@ -64,4 +64,10 @@ class WalletListAdapter : BaseRecyclerAdapter<WalletListBaseHolder>(), Filterabl
     }
 
     override fun getFilter() = filter
+
+    fun reset() {
+        filter = null
+        items.clear()
+        notifyDataSetChanged()
+    }
 }

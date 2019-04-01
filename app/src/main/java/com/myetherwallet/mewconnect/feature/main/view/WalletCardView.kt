@@ -9,6 +9,7 @@ import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.content.data.Network
 import com.myetherwallet.mewconnect.core.extenstion.formatMoney
 import com.myetherwallet.mewconnect.core.extenstion.formatUsd
+import com.myetherwallet.mewconnect.core.extenstion.getSize
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.utils.ApplicationUtils
 import com.myetherwallet.mewconnect.core.utils.CardBackgroundHelper
@@ -16,6 +17,7 @@ import com.myetherwallet.mewconnect.core.utils.HexUtils
 import com.myetherwallet.mewconnect.feature.main.data.WalletBalance
 import com.myetherwallet.mewconnect.feature.main.utils.WalletSizingUtils
 import kotlinx.android.synthetic.main.view_wallet_card.view.*
+import org.web3j.crypto.Keys
 import java.math.BigDecimal
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -91,16 +93,17 @@ class WalletCardView @JvmOverloads constructor(
     }
 
     fun setAddress(address: String) {
-        val fieldWidth = resources.getDimension(R.dimen.wallet_card_address_width)
-        var text = HexUtils.withPrefix(address.toLowerCase())
-        val paint = wallet_card_address.paint
-        do {
-            text = text.replace(ADDRESS_ELLIPSIS, "")
-            val half = text.length / 2
-            text = text.substring(0, half) + ADDRESS_ELLIPSIS + text.substring(half + 1)
-        } while (paint.measureText(text) > fieldWidth && text.length > 5)
-        wallet_card_address.text = text
-        wallet_card_address_icon.setOnClickListener { onShareClickListener?.invoke() }
+        wallet_card_address.getSize { _, fieldWidth, _ ->
+            var text = HexUtils.withPrefix(Keys.toChecksumAddress(address))
+            val paint = wallet_card_address.paint
+            do {
+                text = text.replace(ADDRESS_ELLIPSIS, "")
+                val half = text.length / 2
+                text = text.substring(0, half) + ADDRESS_ELLIPSIS + text.substring(half + 1)
+            } while (paint.measureText(text) > fieldWidth && text.length > 5)
+            wallet_card_address.text = text
+            wallet_card_address_icon.setOnClickListener { onShareClickListener?.invoke() }
+        }
     }
 
     fun isEmpty() = wallet_card_value_eth.text.isEmpty()
@@ -114,6 +117,7 @@ class WalletCardView @JvmOverloads constructor(
                 wallet_card_value_usd.text = context.getString(R.string.wallet_card_test_network)
                 wallet_card_stock_price.visibility = View.GONE
                 wallet_card_currency_usd.visibility = View.GONE
+                wallet_card_address_title.setText(R.string.wallet_card_address_title_ropsten)
             } else {
                 wallet_card_value_usd.text = valueUsd.formatUsd()
                 wallet_card_stock_price.text = context.getString(R.string.wallet_card_stock_price,
@@ -121,9 +125,8 @@ class WalletCardView @JvmOverloads constructor(
                         currency)
                 wallet_card_stock_price.visibility = View.VISIBLE
                 wallet_card_currency_usd.visibility = View.VISIBLE
+                wallet_card_address_title.setText(R.string.wallet_card_address_title_eth)
             }
-
-
         }
     }
 }

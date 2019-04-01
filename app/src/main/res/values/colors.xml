@@ -5,10 +5,12 @@
     <color name="colorAccent">@color/blue</color>
 
     <color name="default_background">#ffffff</color>
+    <color name="pressed_background">#cccccc</color>
     <color name="status_bar_white">#66ffffff</color>
     <color name="status_bar_transparent">#01000000</color>
     <color name="disabled_button">#f0f1f2</color>
     <color name="disabled_button_text">#336e7384</color>
+    <color name="light_button">#ebf1fc</color>
     <color name="separator">#1e000000</color>
 
     <color name="text_black">#de000000</color>
@@ -43,6 +45,4 @@
 
     <color name="buy_toggle_currency_background">#eaf0fc</color>
     <color name="buy_keyboard_background">#f9f9f9</color>
-
-    <color name="address_copy_background">#ebf1fc</color>
 </resources>

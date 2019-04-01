@@ -45,10 +45,12 @@ class RateDialog : BaseDialogFragment() {
         val alertDialog = AlertDialog.Builder(requireContext())
                 .setView(view)
                 .setPositiveButton(R.string.rate_button_rate) { _, _ ->
+                    disableRateDialog()
                     LaunchUtils.openMarket(context)
                     dialog.dismiss()
                 }
                 .setNegativeButton(R.string.rate_button_feedback) { dialog, _ ->
+                    disableRateDialog()
                     LaunchUtils.openMailApp(context, EMAIL, String.format(SUBJECT_FORMAT, BuildConfig.VERSION_NAME))
                     dialog.dismiss()
                 }
@@ -67,9 +69,13 @@ class RateDialog : BaseDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         (dialog as AlertDialog).setView(view)
         view.rate_close.setOnClickListener {
-            preferences.applicationPreferences.disableRateDialog()
+            disableRateDialog()
             dialog.dismiss()
         }
+    }
+
+    private fun disableRateDialog() {
+        preferences.applicationPreferences.disableRateDialog()
     }
 
     override fun getFragmentTag() = TAG

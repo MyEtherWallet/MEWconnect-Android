@@ -34,6 +34,75 @@
                 android:textStyle="bold" />
 
             <android.support.constraint.ConstraintLayout
+                android:id="@+id/confirm_transaction_network_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_112dp"
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:layout_marginEnd="@dimen/dimen_16dp"
+                android:background="@drawable/confirm_transaction_item_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingStart="@dimen/dimen_16dp"
+                android:paddingEnd="@dimen/dimen_16dp">
+
+                <CheckBox
+                    android:id="@+id/confirm_transaction_network_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/confirm_transaction_checkbox"
+                    android:clickable="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/confirm_transaction_network_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_2dp"
+                    android:letterSpacing="0.02"
+                    android:lineSpacingExtra="6sp"
+                    android:text="@string/confirm_transaction_network_title"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_size_14sp"
+                    app:layout_constraintBottom_toTopOf="@+id/confirm_transaction_network"
+                    app:layout_constraintEnd_toEndOf="@id/confirm_transaction_network"
+                    app:layout_constraintStart_toStartOf="@id/confirm_transaction_network"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/confirm_transaction_network"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.03"
+                    android:lineSpacingExtra="8sp"
+                    android:maxLines="2"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_size_16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/confirm_transaction_network_checkbox"
+                    app:layout_constraintTop_toBottomOf="@id/confirm_transaction_network_title"
+                    tools:text="Ethereum Classic" />
+
+                <View
+                    android:id="@+id/confirm_transaction_network_clickable"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
                 android:id="@+id/confirm_transaction_wallet_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_112dp"
@@ -215,7 +284,8 @@
                     android:backgroundTint="@color/red"
                     android:text="@string/decline"
                     app:layout_constraintEnd_toStartOf="@+id/confirm_transaction_ok"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <android.support.design.button.MaterialButton
                     android:id="@+id/confirm_transaction_ok"
@@ -224,7 +294,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/confirm"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/confirm_transaction_cancel" />
+                    app:layout_constraintStart_toEndOf="@+id/confirm_transaction_cancel"
+                    app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>
     </ScrollView>

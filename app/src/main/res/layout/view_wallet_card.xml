@@ -124,20 +124,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0.5"
-                android:text="@string/wallet_card_address_title"
+                android:text="@string/wallet_card_address_title_eth"
                 android:textColor="@color/text_white"
                 android:textSize="@dimen/text_size_fixed_12sp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/wallet_card_address"
-                android:layout_width="@dimen/wallet_card_address_width"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:letterSpacing="0.02"
                 android:maxLines="1"
                 android:textColor="@color/text_white"
-                android:textSize="@dimen/text_size_fixed_22sp"
+                android:textSize="@dimen/wallet_card_address_text_size"
+                android:layout_marginEnd="@dimen/dimen_8dp"
+                app:layout_constraintEnd_toStartOf="@id/wallet_card_address_icon"
+                app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/wallet_card_address_title"
                 tools:text="0x97d2b2422372b24223709c53b" />
@@ -198,7 +202,7 @@
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/wallet_card_backup_container"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_68dp"
+                android:layout_height="@dimen/wallet_card_backup_container_height"
                 android:layout_marginStart="@dimen/dimen_8dp"
                 android:layout_marginTop="@dimen/dimen_4dp"
                 android:layout_marginEnd="@dimen/dimen_8dp"
@@ -219,7 +223,7 @@
                     android:letterSpacing="0.03"
                     android:text="@string/wallet_card_backup_title"
                     android:textColor="@color/text_white"
-                    android:textSize="@dimen/text_size_fixed_12sp"
+                    android:textSize="@dimen/wallet_card_backup_text_size"
                     app:layout_constraintEnd_toStartOf="@id/wallet_card_back_up"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -232,7 +236,7 @@
                     android:letterSpacing="0.03"
                     android:text="@string/wallet_card_backup_description"
                     android:textColor="@color/wallet_card_backup_description"
-                    android:textSize="@dimen/text_size_fixed_12sp"
+                    android:textSize="@dimen/wallet_card_backup_text_size"
                     app:layout_constraintEnd_toStartOf="@id/wallet_card_back_up"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/wallet_card_backup_title" />

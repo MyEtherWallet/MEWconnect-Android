@@ -13,6 +13,7 @@ import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseDiFragment
 import com.myetherwallet.mewconnect.core.utils.crypto.StorageCryptHelper
 import com.myetherwallet.mewconnect.feature.backup.adapter.DoubleCheckAdapter
+import com.myetherwallet.mewconnect.feature.main.activity.MainActivity
 import kotlinx.android.synthetic.main.fragment_double_check.*
 import javax.inject.Inject
 
@@ -74,7 +75,8 @@ class DoubleCheckFragment : BaseDiFragment(), View.OnClickListener, Toolbar.OnMe
     override fun onMenuItemClick(menuItem: MenuItem): Boolean {
         preferences.applicationPreferences.setBackedUp(true)
         getString(EXTRA_PASSWORD)?.let { password ->
-            replaceFragment(WalletBackedUpFragment.newInstance(password))
+            closeToFirst()
+            addFragment(WalletBackedUpFragment.newInstance())
         }
         return true
     }

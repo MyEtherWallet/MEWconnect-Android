@@ -26,7 +26,7 @@ interface RatesApiRepository {
                 true -> request(service.getTickerData(filter)) {
                     val result = mutableMapOf<String, BigDecimal>()
                     for (entry in it.data) {
-                        result.put(entry.value.symbol, entry.value.quotes.usd.price)
+                        result[entry.value.symbol] = entry.value.quotes.usd.price
                     }
                     result
                 }

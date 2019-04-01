@@ -186,8 +186,7 @@ class WalletFragment : BaseViewModelFragment() {
             wallet_header.visibility = VISIBLE
 
             if (data.items.isEmpty()) {
-                adapter.items.clear()
-                adapter.notifyDataSetChanged()
+                adapter.reset()
                 wallet_empty.visibility = VISIBLE
                 wallet_header.setBalance(BigDecimal.ZERO)
                 wallet_header.setSearchVisible(false)
@@ -211,8 +210,7 @@ class WalletFragment : BaseViewModelFragment() {
             wallet_toolbar.setNetwork(preferences.applicationPreferences.getCurrentNetwork())
 
             wallet_toolbar.onBuyClickListener = {
-                val stockPrice = balance.stockPrice?.let { it } ?: BigDecimal.ZERO
-                addFragment(BuyFragment.newInstance(stockPrice))
+                addFragment(BuyFragment.newInstance())
             }
 
             showBackupWarning(balance.value)
@@ -254,7 +252,8 @@ class WalletFragment : BaseViewModelFragment() {
             networkHandler.isConnected != true -> {
                 wallet_status_container.visibility = GONE
                 wallet_offline_container.visibility = VISIBLE
-                wallet_scan_to_connect.visibility = GONE
+                wallet_scan_to_connect.setBackgroundResource(R.drawable.wallet_scan_to_connect_background_grey)
+                wallet_scan_to_connect.visibility = VISIBLE
             }
             viewModel.checkConnected() -> {
                 viewModel.setOnTransactionListener { activity?.runOnUiThread { openConfirmFragment(it) } }
@@ -266,6 +265,7 @@ class WalletFragment : BaseViewModelFragment() {
             else -> {
                 wallet_status_container.visibility = GONE
                 wallet_offline_container.visibility = GONE
+                wallet_scan_to_connect.setBackgroundResource(R.drawable.wallet_scan_to_connect_background_blue)
                 wallet_scan_to_connect.visibility = VISIBLE
             }
         }
@@ -286,19 +286,16 @@ class WalletFragment : BaseViewModelFragment() {
         val dialog = ChooseNetworkDialog()
         dialog.listener = {
             preferences.applicationPreferences.setCurrentNetwork(it)
-            if (preferences.getCurrentWalletPreferences().isWalletExists()) {
-                wallet_header.clearSearch()
-                viewModel.disconnect()
-                setConnectedStatus()
-                init()
-            } else {
-                replaceFragment(IntroFragment.newInstance())
-            }
+            wallet_header.clearSearch()
+            adapter.reset()
+            viewModel.disconnect()
+            setConnectedStatus()
+            init()
         }
         dialog.show(childFragmentManager)
     }
 
-    private fun onScrollStateChanged(state: Int, position: Int) {
+    private fun onScrollStateChanged(recyclerView: RecyclerView, state: Int, position: Int) {
         // Auto open/close card view
         if (state == RecyclerView.SCROLL_STATE_IDLE) {
             if (shouldScrollToThreshold) {
@@ -307,9 +304,9 @@ class WalletFragment : BaseViewModelFragment() {
             } else {
                 if (position in 1..(scrollThreshold - 1)) {
                     if (position < scrollThreshold / 2) {
-                        wallet_list.smoothScrollBy(0, -position)
+                        recyclerView.smoothScrollBy(0, -position)
                     } else if (position > scrollThreshold / 2 && position < scrollThreshold) {
-                        wallet_list.smoothScrollBy(0, scrollThreshold - position)
+                        recyclerView.smoothScrollBy(0, scrollThreshold - position)
                     }
                 }
             }

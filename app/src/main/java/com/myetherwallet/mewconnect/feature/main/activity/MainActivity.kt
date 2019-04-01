@@ -10,6 +10,7 @@ import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.ui.activity.BaseDiActivity
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseFragment
 import com.myetherwallet.mewconnect.feature.auth.fragment.AuthFragment
+import com.myetherwallet.mewconnect.feature.main.dialog.WhatsNewDialog
 import com.myetherwallet.mewconnect.feature.main.fragment.IntroFragment
 import com.myetherwallet.mewconnect.feature.main.utils.FragmentTransactor
 import com.myetherwallet.mewconnect.feature.scan.service.SocketService
@@ -42,6 +43,10 @@ class MainActivity : BaseDiActivity() {
         }
 
         setStatusBarColor()
+
+        if (preferences.applicationPreferences.shouldShowWhatsNewDialog()) {
+            WhatsNewDialog.newInstance().show(supportFragmentManager)
+        }
     }
 
     override fun onResume() {
@@ -73,6 +78,10 @@ class MainActivity : BaseDiActivity() {
 
     fun closeFragment() {
         fragmentTransactor.pop(supportFragmentManager)
+    }
+
+    fun closeFragmentsToFirst() {
+        fragmentTransactor.popToFirst(supportFragmentManager)
     }
 
     override fun onBackPressed() {

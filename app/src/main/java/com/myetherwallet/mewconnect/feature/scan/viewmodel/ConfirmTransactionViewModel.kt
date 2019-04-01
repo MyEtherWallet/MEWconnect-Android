@@ -46,10 +46,9 @@ class ConfirmTransactionViewModel
 
     fun confirmTransaction(preferences: PreferencesManager, password: String) {
         val privateKey = StorageCryptHelper.decrypt(preferences.getCurrentWalletPreferences().getWalletPrivateKey(), password)
-        val chainId = preferences.applicationPreferences.getCurrentNetwork().chainId
         val credentials = Credentials.create(HexUtils.bytesToStringLowercase(privateKey))
         val rawTransaction = transaction.toRawTransaction()
-        val signedMessage = TransactionEncoder.signMessage(rawTransaction, chainId, credentials)
+        val signedMessage = TransactionEncoder.signMessage(rawTransaction, transaction.chainId, credentials)
         service?.sendSignTx(signedMessage)
     }
 }

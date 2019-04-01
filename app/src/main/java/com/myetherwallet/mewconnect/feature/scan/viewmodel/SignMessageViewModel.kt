@@ -55,9 +55,9 @@ class SignMessageViewModel
         val privateKey = StorageCryptHelper.decrypt(preferences.getCurrentWalletPreferences().getWalletPrivateKey(), password)
         val signatureData = Sign.signMessage(Hex.stringToBytes(messageToSign.hash), ECKeyPair.create(privateKey), false)
         val v = (signatureData.v - 27).toString(16).padStart(2, '0')
-        val signature = HexUtils.withPrefix(HexUtils.bytesToStringLowercase(signatureData.r) + HexUtils.bytesToStringLowercase(signatureData.s) + v)
+        val signature = HexUtils.withPrefixLowerCase(HexUtils.bytesToStringLowercase(signatureData.r) + HexUtils.bytesToStringLowercase(signatureData.s) + v)
 
-        val address = HexUtils.withPrefix(preferences.getCurrentWalletPreferences().getWalletAddress())
+        val address = HexUtils.withPrefixLowerCase(preferences.getCurrentWalletPreferences().getWalletAddress())
         service?.sendMessage(address, signature)
     }
 }

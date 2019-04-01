@@ -18,7 +18,7 @@ class ScrollWatcher {
 
     private lateinit var recyclerView: RecyclerView
     var scrollPositionListener: ((position: Int) -> Unit)? = null
-    var scrollStateListener: ((state: Int, position: Int) -> Unit)? = null
+    var scrollStateListener: ((recyclerView: RecyclerView, state: Int, position: Int) -> Unit)? = null
 
     var scrollPosition = 0
     var scrollState = RecyclerView.SCROLL_STATE_IDLE
@@ -38,7 +38,7 @@ class ScrollWatcher {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 scrollState = newState
-                scrollStateListener?.invoke(newState, scrollPosition)
+                scrollStateListener?.invoke(recyclerView, newState, scrollPosition)
             }
         })
     }
@@ -46,7 +46,7 @@ class ScrollWatcher {
     fun request(): Int {
         scrollPosition = calculateCurrentScrollPosition()
         scrollPositionListener?.invoke(scrollPosition)
-        scrollStateListener?.invoke(RecyclerView.SCROLL_STATE_IDLE, scrollPosition)
+        scrollStateListener?.invoke(recyclerView, RecyclerView.SCROLL_STATE_IDLE, scrollPosition)
         return scrollPosition
     }
 

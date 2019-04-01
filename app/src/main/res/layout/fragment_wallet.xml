@@ -95,7 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dimen_48dp"
         android:layout_marginBottom="@dimen/dimen_16dp"
-        android:background="@drawable/wallet_scan_to_connect_background"
+        android:background="@drawable/wallet_scan_to_connect_background_blue"
         android:drawableStart="@drawable/wallet_scan_to_connect"
         android:drawablePadding="@dimen/dimen_8dp"
         android:fontFamily="sans-serif-medium"
@@ -108,7 +108,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_14sp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/wallet_offline_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

@@ -149,21 +149,23 @@ class SocketService : Service() {
     private fun onOffer(vararg args: Any) {
         MewLog.d(TAG, "onOffer")
         val encryptedMessage = JsonParser.fromJson(args[0] as JSONObject, OfferData::class.java).data
-        val offer = JsonParser.fromJson<Offer>(messageCrypt.decrypt(encryptedMessage)!!, Offer::class.java)
-        if (offer.sdp == null || offer.type == null) {
-            MewLog.d(TAG, "Wrong offer")
-            errorListener?.invoke()
-        } else {
-            MewLog.d(TAG, "Create WebRTC")
-            webRtc = WebRtc()
-            webRtc?.disconnect()
-            webRtc?.connectSuccessListener = ::onWebRtcConnectSuccess
-            webRtc?.connectErrorListener = ::onWebRtcConnectError
-            webRtc?.answerListener = ::onWebRtcAnswer
-            webRtc?.disconnectListener = ::onRtcDisconnected
-            webRtc?.dataListener = ::onRtcDataOpened
-            webRtc?.messageListener = { handleWebRtcMessages(it) }
-            webRtc?.connectWithOffer(this, offer, turnServers)
+        messageCrypt.decrypt(encryptedMessage)?.let { decryptedMessage ->
+            val offer = JsonParser.fromJson(decryptedMessage, Offer::class.java)
+            if (offer.sdp == null || offer.type == null) {
+                MewLog.d(TAG, "Wrong offer")
+                errorListener?.invoke()
+            } else {
+                MewLog.d(TAG, "Create WebRTC")
+                webRtc = WebRtc()
+                webRtc?.disconnect()
+                webRtc?.connectSuccessListener = ::onWebRtcConnectSuccess
+                webRtc?.connectErrorListener = ::onWebRtcConnectError
+                webRtc?.answerListener = ::onWebRtcAnswer
+                webRtc?.disconnectListener = ::onRtcDisconnected
+                webRtc?.dataListener = ::onRtcDataOpened
+                webRtc?.messageListener = { handleWebRtcMessages(it) }
+                webRtc?.connectWithOffer(this, offer, turnServers)
+            }
         }
     }
 

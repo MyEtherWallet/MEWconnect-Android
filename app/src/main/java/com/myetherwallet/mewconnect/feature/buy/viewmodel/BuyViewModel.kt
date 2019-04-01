@@ -2,7 +2,9 @@ package com.myetherwallet.mewconnect.feature.buy.viewmodel
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
+import android.arch.lifecycle.MutableLiveData
 import com.myetherwallet.mewconnect.feature.buy.data.BuyQuoteResult
+import com.myetherwallet.mewconnect.feature.buy.data.BuyResponse
 import com.myetherwallet.mewconnect.feature.buy.data.PostRequest
 import com.myetherwallet.mewconnect.feature.buy.interactor.GetBuyOrder
 import com.myetherwallet.mewconnect.feature.buy.interactor.GetBuyQuote
@@ -21,7 +23,15 @@ private const val KEY_URL = "payment_post_url"
 class BuyViewModel
 @Inject constructor(application: Application, private val getBuyInfo: GetBuyQuote, private val getBuyOrder: GetBuyOrder, private val saveHistoryItem: SaveHistoryItem, private val getHistory: GetHistory) : AndroidViewModel(application) {
 
-    fun load(amount: BigDecimal, currency: String, address: String, installTime: Date, successCallback: (postRequest: PostRequest) -> Unit, failureCallback: () -> Unit) {
+    var data: MutableLiveData<BuyResponse<BuyQuoteResult>> = MutableLiveData()
+
+    fun loadQuote() {
+        getBuyInfo.execute(GetBuyQuote.Params(BigDecimal.ONE, "ETH")) {
+            it.either({ }, { data.postValue(it) })
+        }
+    }
+
+    fun preparePostRequest(amount: BigDecimal, currency: String, address: String, installTime: Date, successCallback: (postRequest: PostRequest) -> Unit, failureCallback: () -> Unit) {
         getBuyInfo.execute(GetBuyQuote.Params(amount, currency)) {
             it.either(
                     { failureCallback() },
@@ -53,21 +63,21 @@ class BuyViewModel
     }
 
     private fun createPostRequest(data: Map<String, String>): PostRequest {
-        val url = data[KEY_URL]!!
+        val url = data.getValue(KEY_URL)
         val postData = mutableMapOf<String, String>()
-        postData.put("version", data.getValue("version"))
-        postData.put("partner", data.getValue("partner"))
-        postData.put("payment_flow_type", "wallet")
-        postData.put("return_url", data.getValue("return_url"))
-        postData.put("quote_id", data.getValue("quote_id"))
-        postData.put("payment_id", data.getValue("payment_id"))
-        postData.put("user_id", data.getValue("user_id"))
-        postData.put("destination_wallet[address]", data.getValue("destination_wallet_address"))
-        postData.put("destination_wallet[currency]", data.getValue("destination_wallet_currency"))
-        postData.put("fiat_total_amount[amount]", data.getValue("fiat_total_amount_amount"))
-        postData.put("fiat_total_amount[currency]", data.getValue("fiat_total_amount_currency"))
-        postData.put("digital_total_amount[amount]", data.getValue("digital_total_amount_amount"))
-        postData.put("digital_total_amount[currency]", data.getValue("digital_total_amount_currency"))
+        postData["version"] = data.getValue("version")
+        postData["partner"] = data.getValue("partner")
+        postData["payment_flow_type"] = "wallet"
+        postData["return_url"] = data.getValue("return_url")
+        postData["quote_id"] = data.getValue("quote_id")
+        postData["payment_id"] = data.getValue("payment_id")
+        postData["user_id"] = data.getValue("user_id")
+        postData["destination_wallet[address]"] = data.getValue("destination_wallet_address")
+        postData["destination_wallet[currency]"] = data.getValue("destination_wallet_currency")
+        postData["fiat_total_amount[amount]"] = data.getValue("fiat_total_amount_amount")
+        postData["fiat_total_amount[currency]"] = data.getValue("fiat_total_amount_currency")
+        postData["digital_total_amount[amount]"] = data.getValue("digital_total_amount_amount")
+        postData["digital_total_amount[currency]"] = data.getValue("digital_total_amount_currency")
         return PostRequest(url, postData)
     }
 }

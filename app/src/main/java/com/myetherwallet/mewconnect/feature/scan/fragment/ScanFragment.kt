@@ -35,11 +35,13 @@ import com.myetherwallet.mewconnect.BuildConfig
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
 import com.myetherwallet.mewconnect.core.extenstion.viewModel
+import com.myetherwallet.mewconnect.core.platform.NetworkHandler
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseViewModelFragment
 import com.myetherwallet.mewconnect.core.utils.LaunchUtils
 import com.myetherwallet.mewconnect.core.utils.MewLog
 import com.myetherwallet.mewconnect.core.utils.StringUtils
 import com.myetherwallet.mewconnect.feature.main.activity.MainActivity
+import com.myetherwallet.mewconnect.feature.main.receiver.NetworkStateReceiver
 import com.myetherwallet.mewconnect.feature.scan.utils.BarcodeTrackerFactory
 import com.myetherwallet.mewconnect.feature.scan.utils.PermissionHelper
 import com.myetherwallet.mewconnect.feature.scan.utils.VibrateUtils
@@ -48,6 +50,7 @@ import com.myetherwallet.mewconnect.feature.scan.viewmodel.ScanViewModel
 import kotlinx.android.synthetic.main.fragment_scan.*
 import kotlinx.android.synthetic.main.fragment_scan.view.*
 import java.io.IOException
+import javax.inject.Inject
 
 /**
  * Created by BArtWell on 11.07.2018.
@@ -67,6 +70,8 @@ class ScanFragment : BaseViewModelFragment() {
         fun newInstance() = ScanFragment()
     }
 
+    @Inject
+    lateinit var networkHandler: NetworkHandler
     private lateinit var preview: CameraSourcePreview
     private lateinit var viewModel: ScanViewModel
 
@@ -77,6 +82,7 @@ class ScanFragment : BaseViewModelFragment() {
     private var isStarted = false
 
     private val permissionHelper = PermissionHelper(Manifest.permission.CAMERA, ::checkPermissionAndStart)
+    private val networkStateReceiver = NetworkStateReceiver(::setConnectedStatus)
     private var cameraSource: CameraSource? = null
     private var handler = Handler()
 
@@ -175,11 +181,14 @@ class ScanFragment : BaseViewModelFragment() {
             animation.fillAfter = true
             scan_animation_view.startAnimation(animation)
         }
+        setConnectedStatus()
+        networkStateReceiver.register(requireContext())
     }
 
     override fun onPause() {
-        super.onPause()
+        networkStateReceiver.unregister(requireContext())
         preview.stop()
+        super.onPause()
     }
 
     override fun onDestroy() {
@@ -282,6 +291,18 @@ class ScanFragment : BaseViewModelFragment() {
 
     private fun playSound(@RawRes resId: Int) {
         MediaPlayer.create(context, resId).start()
+    }
+
+    private fun setConnectedStatus() {
+        if (networkHandler.isConnected == true) {
+            MewLog.d(TAG, "Connected")
+            startCameraSource()
+            scan_offline_container.visibility = GONE
+        } else {
+            MewLog.d(TAG, "Disconnected")
+            scan_offline_container.visibility = VISIBLE
+            preview.stop()
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {

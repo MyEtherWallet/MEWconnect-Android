@@ -15,7 +15,6 @@ private const val EXTRA_TEXT = "text"
 class SimpleTextDialogFragment : BaseDialogFragment() {
 
     companion object {
-
         fun newInstance(text: String, title: String? = null): SimpleTextDialogFragment {
             val fragment = SimpleTextDialogFragment()
             val arguments = Bundle()
