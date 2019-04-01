@@ -1,25 +1,16 @@
 ### Release v1.0.3 (19032801)
 
-- Update backup warning dialog
-- Veriry transaction network checkbox
-- Fix wallet card scroll on network without tokens
-- Update WebRTC and web3j libraries versions
-- Fix sizes on in Intro screen for devices with small screen
-- New UI for offline mode
-- Pre-populate amount for Buy Ether screen to $100
-- Show keyboard on authentication screen by default
-- What's new dialog
-- Prevent some crashes
-- Update scan texts
-- Show address in checksummed form
-- Support passphrases with 12, 15, 18, 21 words
-- Updated restore wallet flow
-- Take chainId from transaction
-- Allow the user to see the recovery phrase
-- Improve navigation between fragments
-- Add Simplex fee calculation
-- Add click effect to buttons on wallet screen
-- Fix upload issue
+- Additional backup reminders (don’t forget to back up your wallet, otherwise you might loose your funds if you accidentally delete the app or lose your phone.)
+- Additional confirmation if active network in MEW is not matching active network in MEWconnect
+- You can now use MEWconnect to sign transactions for all network supported by MyEtherWallet.com
+- Improved connection process in some cases
+- Backup phrases of 12, 15, 18 and 21 words of length are now accepted in addition to the standard 24 word backup phrase. 
+- Backup phrase can now be viewed in Info section in the app at any time (password protected). 
+- Fixed document browse/upload button for BuyEther scenario
+- What’s new alert so you can keep up with the latest changes
+- Checksummed format for public addresses
+- ‘No internet connection’ scenario
+- Multiple minor bug fixes and improvements
 
 ### Release v1.0.2 (19020801)
 
