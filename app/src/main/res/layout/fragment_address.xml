@@ -52,7 +52,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1">
 
-                <LinearLayout
+                <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -65,11 +65,24 @@
                         android:layout_gravity="center_horizontal"
                         android:contentDescription="@null"
                         android:scaleType="fitXY"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         tools:src="@tools:sample/avatars[2]" />
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_60dp"
+                        android:layout_height="@dimen/dimen_60dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/address_qr_logo"
+                        app:layout_constraintBottom_toBottomOf="@id/address_qr"
+                        app:layout_constraintEnd_toEndOf="@id/address_qr"
+                        app:layout_constraintStart_toStartOf="@id/address_qr"
+                        app:layout_constraintTop_toTopOf="@id/address_qr" />
 
                     <TextView
                         android:id="@+id/address_text"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginStart="@dimen/dimen_48dp"
@@ -81,8 +94,11 @@
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/text_size_14sp"
                         android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/address_qr"
                         tools:text="0x20D901fD3934A161CE07AF4A7226c3d21d8664c3" />
-                </LinearLayout>
+                </android.support.constraint.ConstraintLayout>
             </FrameLayout>
 
             <LinearLayout

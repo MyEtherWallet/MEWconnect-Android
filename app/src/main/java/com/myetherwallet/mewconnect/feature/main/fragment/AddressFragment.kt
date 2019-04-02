@@ -11,6 +11,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import com.google.zxing.EncodeHintType
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.content.data.Network
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
@@ -55,7 +56,7 @@ class AddressFragment : BaseDiFragment() {
         }
 
         val address = HexUtils.withPrefix(Keys.toChecksumAddress(preferences.getCurrentWalletPreferences().getWalletAddress()))
-        address_qr.setImageBitmap(QRCode.from(address).withHint(EncodeHintType.MARGIN, 0).withSize(size, size).bitmap())
+        address_qr.setImageBitmap(QRCode.from(address).withHint(EncodeHintType.MARGIN, 0).withErrorCorrection(ErrorCorrectionLevel.H).withSize(size, size).bitmap())
         address_text.text = address
 
         address_share.setOnClickListener {
