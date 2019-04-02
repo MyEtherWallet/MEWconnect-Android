@@ -110,6 +110,14 @@
                     app:layout_constraintTop_toBottomOf="@id/buy_toggle_currency">
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="≈"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/text_size_16sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
                         android:id="@+id/buy_symbol_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
