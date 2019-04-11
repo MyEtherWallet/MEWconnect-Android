@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".MewApplication"
@@ -28,15 +29,14 @@
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".feature.main.activity.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-
         <activity
             android:name=".feature.buy.activity.BuyWebViewActivity"
             android:screenOrientation="portrait" />
@@ -45,5 +45,11 @@
             android:name=".feature.scan.service.SocketService"
             android:enabled="true"
             android:exported="false" />
+
+        <receiver
+            android:name=".feature.scan.receiver.SocketServiceReceiver"
+            android:enabled="true"
+            android:exported="false" />
     </application>
+
 </manifest>

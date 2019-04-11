@@ -61,15 +61,22 @@ class SocketService : Service() {
         fun getIntent(context: Context) = Intent(context, SocketService::class.java)
 
         fun start(context: Context) {
+            MewLog.d(TAG, "Start")
             val intent = getIntent(context)
             intent.putExtra(EXTRA_START, true)
             context.startService(intent)
         }
 
         fun shutdownDelayed(context: Context) {
+            MewLog.d(TAG, "Stop delayed")
             val intent = getIntent(context)
             intent.putExtra(EXTRA_SHUTDOWN_DELAYED, true)
             context.startService(intent)
+        }
+
+        fun shutdown(context: Context) {
+            MewLog.d(TAG, "Stop")
+            context.stopService(getIntent(context))
         }
     }
 
@@ -99,7 +106,11 @@ class SocketService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+
         (application as MewApplication).appComponent.inject(this)
+
+        val notificationHelper = ServiceNotificationHelper()
+        startForeground(1, notificationHelper.create(this))
     }
 
     override fun onBind(intent: Intent) = binder
@@ -112,7 +123,7 @@ class SocketService : Service() {
                 handler.removeCallbacks(shutdownRunnable)
             }
         }
-        return START_STICKY
+        return START_NOT_STICKY
     }
 
     fun connect(privateKey: String, connectionId: String) {
@@ -322,6 +333,7 @@ class SocketService : Service() {
     }
 
     override fun onDestroy() {
+        MewLog.d(TAG, "onDestroy")
         disconnect()
         super.onDestroy()
     }

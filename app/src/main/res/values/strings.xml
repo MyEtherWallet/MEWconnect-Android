@@ -227,4 +227,10 @@
     <string name="transaction_network_etho">Ether1</string>
     <string name="transaction_network_music">Music Coin</string>
     <string name="transaction_network_pirl">Pirl</string>
+
+    <string name="service_notification_channel_name">MEWconnect connection service</string>
+    <string name="service_notification_title">MEWconnect</string>
+    <string name="service_notification_text">Connected</string>
+    <string name="service_notification_disconnect">Disconnect</string>
+    <string name="service_notification_channel_description">Shown while application is connected</string>
 </resources>
