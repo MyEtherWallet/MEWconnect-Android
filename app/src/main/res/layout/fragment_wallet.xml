@@ -52,13 +52,13 @@
         android:id="@+id/wallet_loading"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        tools:layout_marginTop="400dp"
         android:background="@color/wallet_background"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_marginTop="400dp">
 
         <ProgressBar
             android:layout_width="wrap_content"
