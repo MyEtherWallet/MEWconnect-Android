@@ -45,7 +45,7 @@ class SignMessageFragment : BaseViewModelFragment(), AuthCallback {
 
         viewModel = viewModel()
 
-        sign_message_text.setText(arguments?.getParcelable<MessageToSign>(EXTRA_MESSAGE)?.text)
+        sign_message_text.text = arguments?.getParcelable<MessageToSign>(EXTRA_MESSAGE)?.text
 
         sign_message_cancel.setOnClickListener { close() }
 
