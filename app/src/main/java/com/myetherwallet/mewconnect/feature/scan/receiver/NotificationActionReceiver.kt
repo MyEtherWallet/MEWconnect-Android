@@ -5,9 +5,13 @@ import android.content.Context
 import android.content.Intent
 import com.myetherwallet.mewconnect.feature.scan.service.SocketService
 
-class SocketServiceReceiver : BroadcastReceiver() {
+/**
+ * Created by BArtWell on 11.04.2019.
+ */
+
+class NotificationActionReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        SocketService.shutdown(context)
+        SocketService.stop(context)
     }
 }

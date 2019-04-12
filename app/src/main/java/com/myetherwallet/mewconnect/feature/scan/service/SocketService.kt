@@ -15,6 +15,7 @@ import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.utils.HexUtils
 import com.myetherwallet.mewconnect.core.utils.MewLog
 import com.myetherwallet.mewconnect.core.utils.crypto.MessageCrypt
+import com.myetherwallet.mewconnect.feature.scan.receiver.ServiceAlarmReceiver
 import io.socket.client.IO
 import io.socket.client.Socket
 import org.json.JSONObject
@@ -30,9 +31,6 @@ import javax.inject.Inject
 private const val TAG = "SocketService"
 
 private const val VERSION = "0.0.1"
-
-private const val EXTRA_START = "start"
-private const val EXTRA_SHUTDOWN_DELAYED = "shutdown_delayed"
 
 private const val EVENT_HANDSHAKE = "handshake"
 private const val EVENT_OFFER = "offer"
@@ -52,7 +50,6 @@ class SocketService : Service() {
     companion object {
 
         private val CONNECT_TIMEOUT = TimeUnit.SECONDS.toMillis(10)
-        private val SHUTDOWN_DELAY = TimeUnit.MINUTES.toMillis(5)
 
         init {
             Security.addProvider(BouncyCastleProvider())
@@ -62,19 +59,10 @@ class SocketService : Service() {
 
         fun start(context: Context) {
             MewLog.d(TAG, "Start")
-            val intent = getIntent(context)
-            intent.putExtra(EXTRA_START, true)
-            context.startService(intent)
+            context.startService(getIntent(context))
         }
 
-        fun shutdownDelayed(context: Context) {
-            MewLog.d(TAG, "Stop delayed")
-            val intent = getIntent(context)
-            intent.putExtra(EXTRA_SHUTDOWN_DELAYED, true)
-            context.startService(intent)
-        }
-
-        fun shutdown(context: Context) {
+        fun stop(context: Context) {
             MewLog.d(TAG, "Stop")
             context.stopService(getIntent(context))
         }
@@ -91,7 +79,6 @@ class SocketService : Service() {
     private lateinit var connectionId: String
     private var webRtc: WebRtc? = null
 
-    private val shutdownRunnable = Runnable { stopSelf() }
     private var timeoutRunnable: Runnable? = null
 
     private var wasTryTurnSent = false
@@ -116,13 +103,6 @@ class SocketService : Service() {
     override fun onBind(intent: Intent) = binder
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        intent?.let {
-            if (it.hasExtra(EXTRA_SHUTDOWN_DELAYED)) {
-                handler.postDelayed(shutdownRunnable, SHUTDOWN_DELAY)
-            } else {
-                handler.removeCallbacks(shutdownRunnable)
-            }
-        }
         return START_NOT_STICKY
     }
 
@@ -335,6 +315,7 @@ class SocketService : Service() {
     override fun onDestroy() {
         MewLog.d(TAG, "onDestroy")
         disconnect()
+        ServiceAlarmReceiver.cancel(this)
         super.onDestroy()
     }
 

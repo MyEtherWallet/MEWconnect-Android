@@ -33,10 +33,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".feature.main.activity.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".feature.buy.activity.BuyWebViewActivity"
             android:screenOrientation="portrait" />
@@ -47,9 +49,13 @@
             android:exported="false" />
 
         <receiver
-            android:name=".feature.scan.receiver.SocketServiceReceiver"
+            android:name=".feature.scan.receiver.NotificationActionReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <receiver
+            android:name=".feature.scan.receiver.ServiceAlarmReceiver"
             android:enabled="true"
             android:exported="false" />
     </application>
-
 </manifest>

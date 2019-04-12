@@ -12,7 +12,7 @@ import android.support.v4.content.ContextCompat
 import com.myetherwallet.mewconnect.BuildConfig
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.feature.main.activity.MainActivity
-import com.myetherwallet.mewconnect.feature.scan.receiver.SocketServiceReceiver
+import com.myetherwallet.mewconnect.feature.scan.receiver.NotificationActionReceiver
 
 
 /**
@@ -59,7 +59,7 @@ class ServiceNotificationHelper {
     }
 
     private fun getServicePendingIntent(context: Context): PendingIntent {
-        val intent = Intent(context, SocketServiceReceiver::class.java)
+        val intent = Intent(context, NotificationActionReceiver::class.java)
         return PendingIntent.getBroadcast(context, NOTIFICATION_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 }
