@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_24dp"
         android:layout_marginEnd="@dimen/dimen_24dp"
-        android:text="@string/message_sidned_title"
+        android:text="@string/message_signed_title"
         android:textColor="@color/blue"
         android:textSize="@dimen/text_size_40sp"
         android:textStyle="bold" />
@@ -28,7 +28,7 @@
         android:layout_marginEnd="@dimen/dimen_24dp"
         android:letterSpacing="0.03"
         android:lineSpacingExtra="@dimen/text_size_12sp"
-        android:text="@string/message_sidned_description"
+        android:text="@string/message_signed_description"
         android:textColor="@color/text_black"
         android:textSize="@dimen/text_size_16sp" />
 

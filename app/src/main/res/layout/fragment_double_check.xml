@@ -33,17 +33,6 @@
                 android:id="@+id/double_check_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_24dp"
-                android:layout_marginBottom="@dimen/dimen_24dp"
-                android:letterSpacing="0.03"
-                android:lineSpacingExtra="4sp"
-                android:text="@string/lets_double_check_description"
-                android:textColor="@color/text_grey"
-                android:textSize="@dimen/text_size_12sp" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
