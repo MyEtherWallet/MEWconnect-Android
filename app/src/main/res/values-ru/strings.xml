@@ -164,13 +164,13 @@
     <string name="message_signed_description" comment="'Message signed' screen - description">Сообщение подписано. Пожалуйста, продолжите на сайте MyEtherWallet.</string>
     <string name="address_title_eth" comment="Address screen - title">Ваш\nEthereum адрес</string>
     <string name="address_title_ropsten" comment="Address screen - title">Ваш Ropsten\ntestnet адрес</string>
-    <string name="address_description" comment="Address screen - description">Share your public address to receive Ether and ERC-20 tokens</string>
-    <string name="address_share" comment="Address screen - button">Share</string>
-    <string name="address_share_title" comment="Address screen - chooser title">Choose application</string>
-    <string name="address_copy" comment="Address screen - button">Copy</string>
-    <string name="address_copied" comment="Address screen - toast message">Address copied</string>
-    <string name="rate_title" comment="Rater dialog - title">Enjoying our app so far?</string>
-    <string name="rate_text" comment="Rater dialog - text">Let us know how you feel, your feedback is important to us.</string>
+    <string name="address_description" comment="Address screen - description">Поделитесь Вашим адресом, чтобы получать Ether и ERC-20 токены</string>
+    <string name="address_share" comment="Address screen - button">Поделиться</string>
+    <string name="address_share_title" comment="Address screen - chooser title">Выберите приложение</string>
+    <string name="address_copy" comment="Address screen - button">Скопировать</string>
+    <string name="address_copied" comment="Address screen - toast message">Адрес скопирован</string>
+    <string name="rate_title" comment="Rater dialog - title">Нравится наше приложение?</string>
+    <string name="rate_text" comment="Rater dialog - text">Для нас очень важно знать, что Вы думаете о нашем приложении.</string>
     <string name="rate_button_rate" comment="Rater dialog - button">Sure, I\'ll rate it</string>
     <string name="rate_button_feedback" comment="Rater dialog - button">I have feedback</string>
     <string name="whats_new_title" comment="'What's new' dialog - title">What\'s new</string>
