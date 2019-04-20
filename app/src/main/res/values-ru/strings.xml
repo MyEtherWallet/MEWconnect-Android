@@ -161,9 +161,9 @@
     <string name="sign_message_description" comment="'Sign message' screen - description">Please remember to include your nickname and a specific reason for the message, so someone else cannot re-use it for a different purpose.</string>
     <string name="sign_message_confirm" comment="'Sign message' screen - button">Подписать</string>
     <string name="message_signed_title" comment="'Message signed' screen - title">Продолжите в Вашем браузере</string>
-    <string name="message_signed_description" comment="'Message signed' screen - description">The message is signed. Please continue in MyEtherWallet in your browser.</string>
-    <string name="address_title_eth" comment="Address screen - title">Your public\nEthereum address</string>
-    <string name="address_title_ropsten" comment="Address screen - title">Your public Ropsten\ntestnet address</string>
+    <string name="message_signed_description" comment="'Message signed' screen - description">Сообщение подписано. Пожалуйста, продолжите на сайте MyEtherWallet.</string>
+    <string name="address_title_eth" comment="Address screen - title">Ваш\nEthereum адрес</string>
+    <string name="address_title_ropsten" comment="Address screen - title">Ваш Ropsten\ntestnet адрес</string>
     <string name="address_description" comment="Address screen - description">Share your public address to receive Ether and ERC-20 tokens</string>
     <string name="address_share" comment="Address screen - button">Share</string>
     <string name="address_share_title" comment="Address screen - chooser title">Choose application</string>
