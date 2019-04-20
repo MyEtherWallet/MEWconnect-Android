@@ -159,8 +159,8 @@
     <string name="history_status_in_progress" comment="'Purchases history' screen - progress message">In progress</string>
     <string name="sign_message_title" comment="'Sign message' screen - title">Sign message</string>
     <string name="sign_message_description" comment="'Sign message' screen - description">Please remember to include your nickname and a specific reason for the message, so someone else cannot re-use it for a different purpose.</string>
-    <string name="sign_message_confirm" comment="'Sign message' screen - button">Sign</string>
-    <string name="message_signed_title" comment="'Message signed' screen - title">Continue in your browser</string>
+    <string name="sign_message_confirm" comment="'Sign message' screen - button">Подписать</string>
+    <string name="message_signed_title" comment="'Message signed' screen - title">Продолжите в Вашем браузере</string>
     <string name="message_signed_description" comment="'Message signed' screen - description">The message is signed. Please continue in MyEtherWallet in your browser.</string>
     <string name="address_title_eth" comment="Address screen - title">Your public\nEthereum address</string>
     <string name="address_title_ropsten" comment="Address screen - title">Your public Ropsten\ntestnet address</string>
