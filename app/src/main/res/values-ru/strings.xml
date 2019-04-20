@@ -100,7 +100,7 @@
     <string name="scan_offline" comment="Scan screen - offline screen">No internet connection</string>
     <string name="scan_error_contact" comment="Scan screen - button">Contact support</string>
     <string name="scan_connecting" comment="Scan screen - connecting screen title">Creating a local connection\nwith MyEtherWallet</string>
-    <string name="scan_manual_1" comment="Scan screen - paragraph 1"><![CDATA[Go to <b>MyEtherWallet.com</b> on your<br/>computer and choose <b>Access My Wallet</b><br/>option.]]></string>
+    <string name="scan_manual_1" comment="Scan screen - paragraph 1"><![CDATA[Откройте <b>MyEtherWallet.com</b><br/>на Вашем компьютере и выберите <b>Access My Wallet</b><br/>.]]></string>
     <string name="scan_manual_2" comment="Scan screen - paragraph 2"><![CDATA[Select <b>MEWconnect</b> option on the screen<br/>that follows.]]></string>
     <string name="scan_manual_3" comment="Scan screen - paragraph 3"><![CDATA[Scan the QR code.]]></string>
     <string name="transaction_confirmed_title" comment="'Transaction confirmed' screen - title">Continue in your browser</string>
