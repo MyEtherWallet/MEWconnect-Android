@@ -171,10 +171,10 @@
     <string name="address_copied" comment="Address screen - toast message">Адрес скопирован</string>
     <string name="rate_title" comment="Rater dialog - title">Нравится наше приложение?</string>
     <string name="rate_text" comment="Rater dialog - text">Для нас очень важно знать, что Вы думаете о нашем приложении.</string>
-    <string name="rate_button_rate" comment="Rater dialog - button">Sure, I\'ll rate it</string>
-    <string name="rate_button_feedback" comment="Rater dialog - button">I have feedback</string>
-    <string name="whats_new_title" comment="'What's new' dialog - title">What\'s new</string>
-    <string name="transaction_network_unknown" comment="Networks names list item">Unknown network</string>
+    <string name="rate_button_rate" comment="Rater dialog - button">Да, оценить</string>
+    <string name="rate_button_feedback" comment="Rater dialog - button">Я хочу оставить отзыв</string>
+    <string name="whats_new_title" comment="'What's new' dialog - title">Что нового</string>
+    <string name="transaction_network_unknown" comment="Networks names list item">Неизвестная сеть</string>
     <string name="transaction_network_eth" comment="Networks names list item">Ethereum</string>
     <string name="transaction_network_exp" comment="Networks names list item">Expanse</string>
     <string name="transaction_network_ropsten_eth" comment="Networks names list item">Ethereum Ropsten</string>
@@ -198,6 +198,6 @@
     <string name="service_notification_channel_name" comment="Service notification - channel name (system settings)">MEWconnect connection service</string>
     <string name="service_notification_channel_description" comment="Service notification - channel description (system settings)">Shown while application is connected</string>
     <string name="service_notification_title" comment="Service notification - title">MEWconnect</string>
-    <string name="service_notification_text" comment="Service notification - text">Connected</string>
-    <string name="service_notification_disconnect" comment="Service notification - button">Disconnect</string>
+    <string name="service_notification_text" comment="Service notification - text">Подключиться</string>
+    <string name="service_notification_disconnect" comment="Service notification - button">Отключиться</string>
 </resources>
