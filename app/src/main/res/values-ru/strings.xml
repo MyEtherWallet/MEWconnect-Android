@@ -195,7 +195,7 @@
     <string name="transaction_network_etho" comment="Networks names list item">Ether1</string>
     <string name="transaction_network_music" comment="Networks names list item">Music Coin</string>
     <string name="transaction_network_pirl" comment="Networks names list item">Pirl</string>
-    <string name="service_notification_channel_name" comment="Service notification - channel name (system settings)">MEWconnect connection service</string>
+    <string name="service_notification_channel_name" comment="Service notification - channel name (system settings)">Сервис подключения MEWconnect</string>
     <string name="service_notification_channel_description" comment="Service notification - channel description (system settings)">Shown while application is connected</string>
     <string name="service_notification_title" comment="Service notification - title">MEWconnect</string>
     <string name="service_notification_text" comment="Service notification - text">Подключиться</string>
