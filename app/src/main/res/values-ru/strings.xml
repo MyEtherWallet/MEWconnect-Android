@@ -3,9 +3,9 @@
 <resources>
     <string name="app_name" comment="Application name for launcher, title on wallet screen">MEWсonnect</string>
     <string name="password" comment="Hint in password input fields">Пароль</string>
-    <string name="decline" comment="Decline button text (transaction)">Decline</string>
-    <string name="confirm" comment="Confirm button text (transaction or message sign)">Confirm</string>
-    <string name="done" comment="Button to close window after some action like backup or transaction confirmation">Done</string>
+    <string name="decline" comment="Decline button text (transaction)">Отклонить</string>
+    <string name="confirm" comment="Confirm button text (transaction or message sign)">Подтвердить</string>
+    <string name="done" comment="Button to close window after some action like backup or transaction confirmation">Готово</string>
     <string name="next" comment="Go to next screen">Next</string>
     <string name="close" comment="Close current screen or dialog">Close</string>
     <string name="cancel" comment="Cancel some action (wallet reset or message signing)">Cancel</string>
