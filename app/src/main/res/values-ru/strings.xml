@@ -16,9 +16,9 @@
     <string name="enter_recovery_phrase_hint" comment="'Enter recovery phrase' screen - hint">Напишите слова через пробел</string>
     <string name="enter_recovery_phrase_error" comment="'Enter recovery phrase' screen - error">Некорректный список слов</string>
     <string name="restore_existing_wallet_title" comment="'Restore existing wallet' screen - title">Восстановить\nсуществующий кошелёк</string>
-    <string name="restore_existing_wallet_use" comment="'Restore existing wallet' screen - button">Use recovery phrase</string>
-    <string name="restore_existing_wallet_other" comment="'Restore existing wallet' screen - button">Other options</string>
-    <string name="restore_existing_wallet_note" comment="'Restore existing wallet' screen - note">i.e. keystore file, private key etc.</string>
+    <string name="restore_existing_wallet_use" comment="'Restore existing wallet' screen - button">Перейти к вводу слов</string>
+    <string name="restore_existing_wallet_other" comment="'Restore existing wallet' screen - button">Другие варианты</string>
+    <string name="restore_existing_wallet_note" comment="'Restore existing wallet' screen - note">например, keystore файл, закрытый ключ и т.д.</string>
     <string name="do_you_have_phrase_title" comment="'Do you have phrase' screen - title">Do you have your\nrecovery phrase\nhandy?</string>
     <string name="do_you_have_phrase_text" comment="'Do you have phrase' screen - description">Recovery phrase is a 24 word phrase that you wrote down when you backed up your wallet.</string>
     <string name="do_you_have_phrase_continue" comment="'Do you have phrase' screen - button">Continue</string>
