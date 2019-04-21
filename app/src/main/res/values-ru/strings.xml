@@ -6,12 +6,12 @@
     <string name="decline" comment="Decline button text (transaction)">Отклонить</string>
     <string name="confirm" comment="Confirm button text (transaction or message sign)">Подтвердить</string>
     <string name="done" comment="Button to close window after some action like backup or transaction confirmation">Готово</string>
-    <string name="next" comment="Go to next screen">Next</string>
-    <string name="close" comment="Close current screen or dialog">Close</string>
-    <string name="cancel" comment="Cancel some action (wallet reset or message signing)">Cancel</string>
+    <string name="next" comment="Go to next screen">Далее</string>
+    <string name="close" comment="Close current screen or dialog">Закрыть</string>
+    <string name="cancel" comment="Cancel some action (wallet reset or message signing)">Отменить</string>
     <string name="back_up" comment="Button to make a backup (should be short)">Back up</string>
-    <string name="reset_wallet" comment="Button to remove wallet from this device">Reset wallet</string>
-    <string name="words_loading_error" comment="Application cannot show mnemonic, error">Cannot load words list</string>
+    <string name="reset_wallet" comment="Button to remove wallet from this device">Сброс кошелька</string>
+    <string name="words_loading_error" comment="Application cannot show mnemonic, error">Не удается загрузить список слов</string>
     <string name="enter_recovery_phrase_title" comment="'Enter recovery phrase' screen - title">Enter your\nrecovery phrase</string>
     <string name="enter_recovery_phrase_hint" comment="'Enter recovery phrase' screen - hint">Words separated by spaces</string>
     <string name="enter_recovery_phrase_error" comment="'Enter recovery phrase' screen - error">Wrong recovery phrase</string>
