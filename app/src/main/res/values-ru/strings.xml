@@ -29,10 +29,10 @@
     <string name="safety_priority_text2" comment="'Safety priority' screen - paragraph 2">(Note that keystore file and private key are still available methods of access on MyEtherWallet.com, but are not recommended unless using MEW offline)</string>
     <string name="safety_priority_text3" comment="'Safety priority' screen - paragraph 3">Поскольку MEWconnect — это «Аппаратный кошелек» без дополнительного оборудования, рекомендуем создать новый кошелек прямо в приложении MEWconnect. Таким образом, Вы получаете совершенно новый аппаратный кошелек на вашем устройстве и Вы можете быть уверены, что ваши ключи никогда не покинут ваше устройство.</string>
     <string name="safety_priority_text4" comment="'Safety priority' screen - paragraph 4">Если вы хотите получить доступ к средствам в одном из существующих кошельков через MEWconnect, наиболее безопасный способ сделать это - перевести ваш ETH и токены на ваш новый кошелек MEWconnect после его создания.</string>
-    <string name="safety_priority_text5" comment="'Safety priority' screen - paragraph 5">Using your existing private key defeats the purpose of MEWconnect, and reduces your security considerably.</string>
-    <string name="pick_password_title" comment="'Pick password' screen - title">Pick a\npassword</string>
-    <string name="pick_password_description" comment="'Pick password' screen - description part 1">So no one else but you can unlock your wallet.</string>
-    <string name="pick_password_description2" comment="'Pick password' screen - description part 2">Best passwords are long and contain letters, numbers and special characters.</string>
+    <string name="safety_priority_text5" comment="'Safety priority' screen - paragraph 5">Использование Вашего старого закрытого ключа противоречит предназначению MEWconnect и существенно снижает безопасность ваших данных.</string>
+    <string name="pick_password_title" comment="'Pick password' screen - title">Создайте\nпароль</string>
+    <string name="pick_password_description" comment="'Pick password' screen - description part 1">Чтобы никто не имел доступа к вашему кошельку.</string>
+    <string name="pick_password_description2" comment="'Pick password' screen - description part 2">Рекомендуем использовать длинные пароли, содержащие буквы, цифры и символы.</string>
     <string name="pick_password_strength_weak" comment="'Pick password' screen - password strength">Weak</string>
     <string name="pick_password_strength_so_so" comment="'Pick password' screen - password strength">So-so</string>
     <string name="pick_password_strength_good" comment="'Pick password' screen - password strength">Good</string>
