@@ -24,8 +24,8 @@
     <string name="do_you_have_phrase_continue" comment="'Do you have phrase' screen - button">Продолжить</string>
     <string name="do_you_have_phrase_other" comment="'Do you have phrase' screen - button">Другие варианты</string>
     <string name="do_you_have_phrase_note" comment="'Do you have phrase' screen - note">например, keystore файл, закрытый ключ и т.д.</string>
-    <string name="safety_priority_title" comment="'Safety priority' screen - title">Your safety and\nsecurity is our\n#1 priority</string>
-    <string name="safety_priority_text1" comment="'Safety priority' screen - paragraph 1">We don’t support keystore file and private key imports in MEWconnect app, as they are highly unsafe.</string>
+    <string name="safety_priority_title" comment="'Safety priority' screen - title">Сохранность и\nбезопасность Ваших\nданных - наш приоритет</string>
+    <string name="safety_priority_text1" comment="'Safety priority' screen - paragraph 1">Мы не поддерживаем импорт keystore файлов и закрытых ключей в приложении MEWconnect, так как они очень небезопасны.</string>
     <string name="safety_priority_text2" comment="'Safety priority' screen - paragraph 2">(Note that keystore file and private key are still available methods of access on MyEtherWallet.com, but are not recommended unless using MEW offline)</string>
     <string name="safety_priority_text3" comment="'Safety priority' screen - paragraph 3">Because MEWconnect is a ‘Hardware wallet’ without all the hardware, it\'s best to create a new wallet directly in MEWconnect app, same as if you just got a new hardware wallet. That way you can be sure your keys never leave your device.</string>
     <string name="safety_priority_text4" comment="'Safety priority' screen - paragraph 4">If you want to access funds in one of your existing wallets via MEWconnect, the most secure way to do so would be transferring your ETH and tokens to your new MEWconnect wallet once it’s created.</string>
