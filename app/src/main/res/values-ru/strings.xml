@@ -21,9 +21,9 @@
     <string name="restore_existing_wallet_note" comment="'Restore existing wallet' screen - note">например, keystore файл, закрытый ключ и т.д.</string>
     <string name="do_you_have_phrase_title" comment="'Do you have phrase' screen - title">Do you have your\nrecovery phrase\nhandy?</string>
     <string name="do_you_have_phrase_text" comment="'Do you have phrase' screen - description">Recovery phrase is a 24 word phrase that you wrote down when you backed up your wallet.</string>
-    <string name="do_you_have_phrase_continue" comment="'Do you have phrase' screen - button">Continue</string>
-    <string name="do_you_have_phrase_other" comment="'Do you have phrase' screen - button">Other options</string>
-    <string name="do_you_have_phrase_note" comment="'Do you have phrase' screen - note">i.e. keystore file, private key etc.</string>
+    <string name="do_you_have_phrase_continue" comment="'Do you have phrase' screen - button">Продолжить</string>
+    <string name="do_you_have_phrase_other" comment="'Do you have phrase' screen - button">Другие варианты</string>
+    <string name="do_you_have_phrase_note" comment="'Do you have phrase' screen - note">например, keystore файл, закрытый ключ и т.д.</string>
     <string name="safety_priority_title" comment="'Safety priority' screen - title">Your safety and\nsecurity is our\n#1 priority</string>
     <string name="safety_priority_text1" comment="'Safety priority' screen - paragraph 1">We don’t support keystore file and private key imports in MEWconnect app, as they are highly unsafe.</string>
     <string name="safety_priority_text2" comment="'Safety priority' screen - paragraph 2">(Note that keystore file and private key are still available methods of access on MyEtherWallet.com, but are not recommended unless using MEW offline)</string>
