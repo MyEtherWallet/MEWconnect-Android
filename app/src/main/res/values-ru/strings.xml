@@ -33,13 +33,13 @@
     <string name="pick_password_title" comment="'Pick password' screen - title">Создайте\nпароль</string>
     <string name="pick_password_description" comment="'Pick password' screen - description part 1">Чтобы никто не имел доступа к вашему кошельку.</string>
     <string name="pick_password_description2" comment="'Pick password' screen - description part 2">Рекомендуем использовать длинные пароли, содержащие буквы, цифры и символы.</string>
-    <string name="pick_password_strength_weak" comment="'Pick password' screen - password strength">Weak</string>
-    <string name="pick_password_strength_so_so" comment="'Pick password' screen - password strength">So-so</string>
-    <string name="pick_password_strength_good" comment="'Pick password' screen - password strength">Good</string>
-    <string name="pick_password_strength_great" comment="'Pick password' screen - password strength">Great</string>
-    <string name="password_again_title" comment="'Type password again' screen - title">Type your\npassword again</string>
+    <string name="pick_password_strength_weak" comment="'Pick password' screen - password strength">Слабый</string>
+    <string name="pick_password_strength_so_so" comment="'Pick password' screen - password strength">Средний</string>
+    <string name="pick_password_strength_good" comment="'Pick password' screen - password strength">Хороший</string>
+    <string name="pick_password_strength_great" comment="'Pick password' screen - password strength">Отличный</string>
+    <string name="password_again_title" comment="'Type password again' screen - title">Повторите\nпароль</string>
     <string name="password_again_description" comment="'Type password again' screen - description"><![CDATA[There will be <u>NO ‘Restore password’</u> button. Make sure you remember it.]]></string>
-    <string name="password_again_error" comment="'Type password again' screen - error">Wrong password</string>
+    <string name="password_again_error" comment="'Type password again' screen - error">Неверный пароль</string>
     <string name="lets_double_check_title" comment="'Lets double check' screen - title">Let’s double\ncheck it</string>
     <string name="lets_double_check_description" comment="'Lets double check' screen - description">Once you finish, you won’t be able to view your recovery phrase again.</string>
     <string name="lets_double_check_item_title" comment="'Lets double check' screen - row title">Select word #%d</string>
