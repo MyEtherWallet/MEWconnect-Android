@@ -51,8 +51,8 @@
     <string name="intro_restore_wallet" comment="Intro screen - button">Восстановить кошелек</string>
     <string name="intro_setup" comment="Intro screen - button">СОЗДАТЬ НОВЫЙ КОШЕЛЕК</string>
     <string name="intro_page_footer1" comment="Intro screen - description">‘Аппаратный кошелек’\nбез дополнительного оборудования.\nОфициально от MyEtherWallet.</string>
-    <string name="intro_page_footer2" comment="Intro screen - description"><b>Secure</b> your every\nMyEtherWallet\ntransaction with two-\nfactor verification.</string>
-    <string name="intro_page_footer3" comment="Intro screen - description"><b>Store</b> your private keys\nsafely in a local isolated\nsecure vault on your\ndevice.</string>
+    <string name="intro_page_footer2" comment="Intro screen - description"><b>Обезопасьте</b> каждую Вашу \nMyEtherWallet\nтранзакцию с помощью\nдвухфакторного подтверждения.</string>
+    <string name="intro_page_footer3" comment="Intro screen - description"><b>Храните</b> Ваши закрытые ключи\nбезопасно\nв локальном изолированном\nзащищенном хранилище\nна вашем устройстве.</string>
     <string name="intro_page_footer4" comment="Intro screen - description"><b>Protect</b> yourself from\nphishers and malware.\nNo one can obtain\nyour private key.</string>
     <string name="intro_page_footer5" comment="Intro screen - description">No data collection:\nMyEtherWallet can\'t\ncollect your personal data\neven if we wanted to.</string>
     <string name="intro_page_footer6" comment="Intro screen - description">No centralized servers, no\ndatabases.\nMEWconnect and\nMyEtherWallet talk via\nP2P communication.</string>
