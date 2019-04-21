@@ -12,10 +12,10 @@
     <string name="back_up" comment="Button to make a backup (should be short)">Back up</string>
     <string name="reset_wallet" comment="Button to remove wallet from this device">Сброс кошелька</string>
     <string name="words_loading_error" comment="Application cannot show mnemonic, error">Не удается загрузить список слов</string>
-    <string name="enter_recovery_phrase_title" comment="'Enter recovery phrase' screen - title">Enter your\nrecovery phrase</string>
-    <string name="enter_recovery_phrase_hint" comment="'Enter recovery phrase' screen - hint">Words separated by spaces</string>
-    <string name="enter_recovery_phrase_error" comment="'Enter recovery phrase' screen - error">Wrong recovery phrase</string>
-    <string name="restore_existing_wallet_title" comment="'Restore existing wallet' screen - title">Restore\nexisting wallet</string>
+    <string name="enter_recovery_phrase_title" comment="'Enter recovery phrase' screen - title">Введите Ваш\nсписок слов</string>
+    <string name="enter_recovery_phrase_hint" comment="'Enter recovery phrase' screen - hint">Напишите слова через пробел</string>
+    <string name="enter_recovery_phrase_error" comment="'Enter recovery phrase' screen - error">Некорректный список слов</string>
+    <string name="restore_existing_wallet_title" comment="'Restore existing wallet' screen - title">Восстановить\nсуществующий кошелёк</string>
     <string name="restore_existing_wallet_use" comment="'Restore existing wallet' screen - button">Use recovery phrase</string>
     <string name="restore_existing_wallet_other" comment="'Restore existing wallet' screen - button">Other options</string>
     <string name="restore_existing_wallet_note" comment="'Restore existing wallet' screen - note">i.e. keystore file, private key etc.</string>
