@@ -40,10 +40,10 @@
     <string name="password_again_title" comment="'Type password again' screen - title">Повторите\nпароль</string>
     <string name="password_again_description" comment="'Type password again' screen - description"><![CDATA[There will be <u>NO ‘Restore password’</u> button. Make sure you remember it.]]></string>
     <string name="password_again_error" comment="'Type password again' screen - error">Неверный пароль</string>
-    <string name="lets_double_check_title" comment="'Lets double check' screen - title">Let’s double\ncheck it</string>
+    <string name="lets_double_check_title" comment="'Lets double check' screen - title">Давайте\nпроверим еще раз</string>
     <string name="lets_double_check_description" comment="'Lets double check' screen - description">Once you finish, you won’t be able to view your recovery phrase again.</string>
-    <string name="lets_double_check_item_title" comment="'Lets double check' screen - row title">Select word #%d</string>
-    <string name="prepare_write_title" comment="'Prepare to write down' screen - title">Prepare to write down your recovery phrase</string>
+    <string name="lets_double_check_item_title" comment="'Lets double check' screen - row title">Выберите слово №%d</string>
+    <string name="prepare_write_title" comment="'Prepare to write down' screen - title">Подготовьтесь записать Ваш список слов</string>
     <string name="prepare_write_description" comment="'Prepare to write down' screen - description">If your device gets lost or stolen, you can restore your wallet using your recovery phrase. Get pen and paper before you start.</string>
     <string name="prepare_write_confirm" comment="'Prepare to write down' screen - button">Start</string>
     <string name="intro_by_mew_label" comment="Intro screen - company">by MyEtherWallet</string>
