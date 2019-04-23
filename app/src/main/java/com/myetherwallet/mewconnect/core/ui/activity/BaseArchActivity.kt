@@ -1,9 +1,9 @@
 package com.myetherwallet.mewconnect.core.ui.activity
 
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.support.annotation.CallSuper
+import androidx.annotation.CallSuper
 import com.myetherwallet.mewconnect.MewApplication
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
 import javax.inject.Inject

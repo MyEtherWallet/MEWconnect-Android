@@ -2,7 +2,7 @@ package com.myetherwallet.mewconnect.feature.buy.fragment
 
 import android.graphics.Rect
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 import android.util.TypedValue
 import android.view.View
 import android.view.View.GONE

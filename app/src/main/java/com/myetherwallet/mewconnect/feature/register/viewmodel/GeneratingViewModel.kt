@@ -1,7 +1,7 @@
 package com.myetherwallet.mewconnect.feature.register.viewmodel
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
+import androidx.lifecycle.AndroidViewModel
 import com.myetherwallet.mewconnect.feature.register.interactor.CreateWallets
 import javax.inject.Inject
 

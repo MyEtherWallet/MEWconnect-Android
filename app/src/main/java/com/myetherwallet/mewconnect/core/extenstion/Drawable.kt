@@ -4,7 +4,7 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.ShapeDrawable
-import android.support.annotation.ColorInt
+import androidx.annotation.ColorInt
 
 /**
  * Created by BArtWell on 22.08.2018.

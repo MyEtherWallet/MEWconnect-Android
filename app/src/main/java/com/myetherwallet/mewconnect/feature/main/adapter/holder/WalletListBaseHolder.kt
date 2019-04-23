@@ -1,7 +1,7 @@
 package com.myetherwallet.mewconnect.feature.main.adapter.holder
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import com.myetherwallet.mewconnect.feature.main.data.WalletListItem
 
 /**

@@ -1,7 +1,7 @@
 package com.myetherwallet.mewconnect.feature.main.view
 
 import android.content.Context
-import android.support.v7.widget.CardView
+import androidx.cardview.widget.CardView
 import android.util.AttributeSet
 import android.view.View
 import com.myetherwallet.mewconnect.MewApplication
@@ -31,7 +31,7 @@ private const val ADDRESS_ELLIPSIS = "\u22ef"
 
 class WalletCardView @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : CardView(context, attrs, defStyleAttr), WalletScrollable {
+) : androidx.cardview.widget.CardView(context, attrs, defStyleAttr), WalletScrollable {
 
     @Inject
     lateinit var preferences: PreferencesManager

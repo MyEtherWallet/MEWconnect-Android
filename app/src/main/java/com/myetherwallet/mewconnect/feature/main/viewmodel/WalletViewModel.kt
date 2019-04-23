@@ -1,8 +1,8 @@
 package com.myetherwallet.mewconnect.feature.main.viewmodel
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import android.content.ComponentName
 import android.content.ServiceConnection
 import android.os.IBinder

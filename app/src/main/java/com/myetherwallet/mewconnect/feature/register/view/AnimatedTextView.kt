@@ -7,9 +7,9 @@ import android.animation.ValueAnimator.REVERSE
 import android.content.Context
 import android.graphics.Typeface
 import android.os.Handler
-import android.support.annotation.ColorInt
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.AppCompatTextView
+import androidx.annotation.ColorInt
+import androidx.core.content.ContextCompat
+import androidx.appcompat.widget.AppCompatTextView
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder

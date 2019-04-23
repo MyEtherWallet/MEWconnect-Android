@@ -1,11 +1,11 @@
 package com.myetherwallet.mewconnect.core.ui.view
 
 import android.content.Context
-import android.support.annotation.DrawableRes
-import android.support.annotation.MenuRes
-import android.support.annotation.StringRes
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.Toolbar
+import androidx.annotation.DrawableRes
+import androidx.annotation.MenuRes
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
+import androidx.appcompat.widget.Toolbar
 import android.util.AttributeSet
 import android.view.Menu
 import android.view.View

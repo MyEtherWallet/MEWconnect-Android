@@ -68,12 +68,12 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dimen_16dp">
 
-            <android.support.design.button.MaterialButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/sign_message_cancel"
                 style="@style/Button"
                 android:layout_width="@dimen/dimen_128dp"
@@ -83,7 +83,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/sign_message_confirm"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <android.support.design.button.MaterialButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/sign_message_confirm"
                 style="@style/Button"
                 android:layout_width="@dimen/dimen_168dp"
@@ -91,6 +91,6 @@
                 android:text="@string/sign_message_confirm"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/sign_message_cancel" />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </LinearLayout>

@@ -2,12 +2,12 @@ package com.myetherwallet.mewconnect.feature.main.fragment
 
 import android.os.Bundle
 import android.os.Handler
-import android.support.design.widget.CoordinatorLayout
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.myetherwallet.mewconnect.MewApplication
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.content.data.MessageToSign

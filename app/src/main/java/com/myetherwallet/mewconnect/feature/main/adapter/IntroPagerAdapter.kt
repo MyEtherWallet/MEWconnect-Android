@@ -1,15 +1,15 @@
 package com.myetherwallet.mewconnect.feature.main.adapter
 
-import android.support.annotation.LayoutRes
-import android.support.annotation.StringRes
-import android.support.v4.view.PagerAdapter
+import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
+import androidx.viewpager.widget.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.myetherwallet.mewconnect.R
 import kotlinx.android.synthetic.main.layout_intro_page_mew_connect.view.*
 
-class IntroPagerAdapter : PagerAdapter() {
+class IntroPagerAdapter : androidx.viewpager.widget.PagerAdapter() {
 
     override fun instantiateItem(collection: ViewGroup, position: Int): Any {
         val layout = createView(collection, Item.values()[position])

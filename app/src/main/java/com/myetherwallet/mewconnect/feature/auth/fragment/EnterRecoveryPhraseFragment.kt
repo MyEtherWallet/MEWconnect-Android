@@ -1,7 +1,7 @@
 package com.myetherwallet.mewconnect.feature.auth.fragment
 
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 import android.view.MotionEvent
 import android.view.View
 import com.myetherwallet.mewconnect.R

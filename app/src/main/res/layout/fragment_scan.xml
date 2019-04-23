@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -46,7 +46,7 @@
             app:layout_constraintEnd_toEndOf="@id/scan_toolbar_title"
             app:layout_constraintStart_toStartOf="@id/scan_toolbar_title"
             tools:textColor="@color/text_black" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -169,7 +169,7 @@
                     android:textColor="@color/text_white"
                     android:textSize="@dimen/text_size_fixed_20sp" />
 
-                <android.support.design.button.MaterialButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/scan_error_try_again"
                     style="@style/Button"
                     android:layout_width="wrap_content"
@@ -245,7 +245,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_248dp">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/scan_manual_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -324,7 +324,7 @@
                 app:layout_constraintStart_toEndOf="@id/scan_number_3"
                 app:layout_constraintTop_toBottomOf="@id/scan_manual_2"
                 app:layout_constraintTop_toTopOf="@id/scan_number_3" />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </FrameLayout>

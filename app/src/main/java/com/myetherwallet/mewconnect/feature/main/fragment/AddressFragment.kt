@@ -5,8 +5,8 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.content.ContextCompat.getSystemService
-import android.support.v7.widget.Toolbar
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.appcompat.widget.Toolbar
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast

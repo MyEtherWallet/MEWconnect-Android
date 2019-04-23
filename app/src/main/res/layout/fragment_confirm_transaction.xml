@@ -33,7 +33,7 @@
                 android:textSize="@dimen/text_size_40sp"
                 android:textStyle="bold" />
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/confirm_transaction_network_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_112dp"
@@ -100,9 +100,9 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/confirm_transaction_wallet_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_112dp"
@@ -175,9 +175,9 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/confirm_transaction_amount_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_112dp"
@@ -252,7 +252,7 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/confirm_transaction_description"
@@ -271,12 +271,12 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_84dp"
                 android:orientation="horizontal">
 
-                <android.support.design.button.MaterialButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/confirm_transaction_cancel"
                     style="@style/Button"
                     android:layout_width="@dimen/dimen_128dp"
@@ -287,7 +287,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <android.support.design.button.MaterialButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/confirm_transaction_ok"
                     style="@style/Button"
                     android:layout_width="@dimen/dimen_168dp"
@@ -296,7 +296,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/confirm_transaction_cancel"
                     app:layout_constraintTop_toTopOf="parent" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

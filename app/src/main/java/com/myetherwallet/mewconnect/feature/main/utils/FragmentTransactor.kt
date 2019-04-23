@@ -1,9 +1,9 @@
 package com.myetherwallet.mewconnect.feature.main.utils
 
 import android.os.Handler
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.myetherwallet.mewconnect.R
 
 class FragmentTransactor {
@@ -66,38 +66,43 @@ class FragmentTransactor {
 
     private fun replaceFragment(fragmentManager: FragmentManager, fragment: Fragment) {
         handler.post {
-        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.main_fragment_container, fragment, fragment.toString())
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-        fragmentTransaction.commit()
-    }}
-
-    private fun addFragment(fragmentManager: FragmentManager, fragment: Fragment) {
-        handler.post { val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.main_fragment_container, fragment, fragment.toString())
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
-    }}
-
-    private fun addOrReplaceFragment(fragmentManager: FragmentManager, fragment: Fragment, tag: String) {
-        handler.post {  val fragmentTransaction = fragmentManager.beginTransaction()
-        val previous = fragmentManager.findFragmentByTag(tag)
-        if (previous == null) {
+            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.main_fragment_container, fragment, fragment.toString())
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-            fragmentTransaction.add(R.id.main_fragment_container, fragment, tag)
-            fragmentTransaction.addToBackStack(tag)
-        } else {
-            fragmentManager.popBackStackImmediate(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-            fragmentTransaction.replace(R.id.main_fragment_container, fragment, tag)
-            fragmentTransaction.addToBackStack(tag)
+            fragmentTransaction.commit()
         }
-        fragmentTransaction.commit()
-    }}
+    }
+
+    private fun addFragment(fragmentManager: FragmentManager, fragment: Fragment) {
+        handler.post {
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.main_fragment_container, fragment, fragment.toString())
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
+        }
+    }
+
+    private fun addOrReplaceFragment(fragmentManager: FragmentManager, fragment: Fragment, tag: String) {
+        handler.post {
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            val previous = fragmentManager.findFragmentByTag(tag)
+            if (previous == null) {
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                fragmentTransaction.add(R.id.main_fragment_container, fragment, tag)
+                fragmentTransaction.addToBackStack(tag)
+            } else {
+                fragmentManager.popBackStackImmediate(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                fragmentTransaction.replace(R.id.main_fragment_container, fragment, tag)
+                fragmentTransaction.addToBackStack(tag)
+            }
+            fragmentTransaction.commit()
+        }
+    }
 
     private fun popFragment(fragmentManager: FragmentManager) {
         handler.post {

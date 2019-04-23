@@ -21,7 +21,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/wallet_card_gradient" />
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/wallet_card_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -108,7 +108,7 @@
             app:layout_constraintStart_toEndOf="@id/wallet_card_currency_usd"
             tools:text="\@ 731.13/ETH" />
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/wallet_card_address_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -161,7 +161,7 @@
                     android:contentDescription="@null"
                     android:src="@drawable/wallet_card_address" />
             </FrameLayout>
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <FrameLayout
             android:id="@+id/wallet_card_backup_info_container"
@@ -199,7 +199,7 @@
                     android:textSize="@dimen/text_size_fixed_12sp" />
             </LinearLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/wallet_card_backup_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/wallet_card_backup_container_height"
@@ -255,7 +255,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

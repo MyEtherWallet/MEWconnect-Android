@@ -1,7 +1,7 @@
 package com.myetherwallet.mewconnect.feature.scan.viewmodel
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
+import androidx.lifecycle.AndroidViewModel
 import android.content.ComponentName
 import android.content.ServiceConnection
 import android.os.IBinder

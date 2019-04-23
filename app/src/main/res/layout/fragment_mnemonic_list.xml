@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -41,7 +41,7 @@
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/text_size_16sp" />
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mnemonic_list_words"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,5 +58,5 @@
                 android:textColor="@color/text_grey"
                 android:textSize="@dimen/text_size_12sp" />
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

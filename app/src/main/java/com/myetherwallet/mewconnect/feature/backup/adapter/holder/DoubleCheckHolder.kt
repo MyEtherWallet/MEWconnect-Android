@@ -1,7 +1,7 @@
 package com.myetherwallet.mewconnect.feature.backup.adapter.holder
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.ui.view.ButtonGroupItem
 import com.myetherwallet.mewconnect.feature.backup.adapter.DoubleCheckAdapter

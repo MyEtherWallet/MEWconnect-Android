@@ -52,7 +52,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1">
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -98,7 +98,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/address_qr"
                         tools:text="0x20D901fD3934A161CE07AF4A7226c3d21d8664c3" />
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </FrameLayout>
 
             <LinearLayout
@@ -107,7 +107,7 @@
                 android:layout_gravity="center_horizontal"
                 android:orientation="horizontal">
 
-                <android.support.design.button.MaterialButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/address_copy"
                     style="@style/Button.Light"
                     android:layout_width="@dimen/dimen_112dp"
@@ -116,7 +116,7 @@
                     android:layout_marginEnd="@dimen/dimen_8dp"
                     android:text="@string/address_copy" />
 
-                <android.support.design.button.MaterialButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/address_share"
                     style="@style/Button"
                     android:layout_width="@dimen/dimen_184dp"
