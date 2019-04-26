@@ -121,7 +121,7 @@
     <string name="transaction_confirmed_description" comment="'Transaction confirmed' screen - description">Transaction is generated and signed. Please continue in MyEtherWallet in your browser in order to send it.</string>
 
     <string name="transaction_declined_title" comment="'Transaction declined' screen - title">Transaction declined</string>
-    <string name="transaction_declined_description" comment="'Transaction declined' screen - description"><![CDATA[You declined the transaction and it was cancelled. If you have security concerns, please contact <a href="mail:support@myetherwallet.com" comment="'' screen - ">MEW Support</a>]]></string>
+    <string name="transaction_declined_description" comment="'Transaction declined' screen - description"><![CDATA[You declined the transaction and it was cancelled. If you have security concerns, please contact <a href="mail:support@myetherwallet.com">MEW Support</a>]]></string>
 
     <string name="confirm_transaction_title" comment="'Confirm transaction' screen - title">Verify\ntransaction</string>
     <string name="confirm_transaction_wallet_title" comment="'Confirm transaction' screen - wallet field title">Check address you’re sending to:</string>
