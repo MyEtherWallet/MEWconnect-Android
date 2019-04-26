@@ -94,10 +94,6 @@ class ApplicationPreferences(context: Context, private val preferences: SharedPr
 
     fun isRateDialogEnabled() = preferences.getInt(RATE_VERSION, 0) != RATE_VERSION_VALUE
 
-    fun getSavedUptime() = preferences.getLong(SAVED_UPTIME, 0L)
-
-    fun setSavedUptime(uptime: Long) = preferences.edit().putLong(SAVED_UPTIME, uptime).apply()
-
     fun getAuthFirstAttemptTime() = preferences.getLong(AUTH_FIRST_ATTEMPT_TIME, 0L)
 
     fun setAuthFirstAttemptTime(uptime: Long) = preferences.edit().putLong(AUTH_FIRST_ATTEMPT_TIME, uptime).apply()
