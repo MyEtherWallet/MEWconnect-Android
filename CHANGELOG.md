@@ -1,3 +1,13 @@
+### Release v1.0.4 (19050101)
+
+- Fix message signing for hex strings and change ‘Sign message’ screen
+- Incorrect password timer should not reset by reboot
+- Show notification while application is connected
+- Prevent the device from going to sleep while it on foreground
+- Add approximately equal sign on Buy screen
+- Add logo on QR code
+- Fix empty list label on purchase history screen
+
 ### Release v1.0.3 (19032801)
 
 - Additional backup reminders (don’t forget to back up your wallet, otherwise you might loose your funds if you accidentally delete the app or lose your phone.)
