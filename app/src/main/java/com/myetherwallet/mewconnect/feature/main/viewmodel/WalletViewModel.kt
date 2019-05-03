@@ -1,11 +1,12 @@
 package com.myetherwallet.mewconnect.feature.main.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
 import android.content.ComponentName
+import android.content.Context
 import android.content.ServiceConnection
 import android.os.IBinder
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import com.myetherwallet.mewconnect.MewApplication
 import com.myetherwallet.mewconnect.content.data.MessageToSign
 import com.myetherwallet.mewconnect.content.data.Network
@@ -33,12 +34,16 @@ private const val USD_SYMBOL = "ETH"
 class WalletViewModel
 @Inject constructor(application: Application, private val getWalletBalance: GetWalletBalance, private val getAllBalances: GetAllBalances, private val getTickerData: GetTickerData) : AndroidViewModel(application) {
 
-    private var serviceConnection: ServiceConnection
+    private var serviceConnection: ServiceConnection? = null
     private var service: SocketService? = null
 
     var walletData: MutableLiveData<WalletData> = MutableLiveData()
 
     init {
+        bindService()
+    }
+
+    fun bindService() {
         serviceConnection = object : ServiceConnection {
             override fun onServiceConnected(name: ComponentName, binder: IBinder) {
                 service = (binder as ServiceBinder<SocketService>).service
@@ -48,7 +53,8 @@ class WalletViewModel
                 service = null
             }
         }
-        application.bindService(SocketService.getIntent(application.applicationContext), serviceConnection, 0)
+        val context: Context = getApplication()
+        context.bindService(SocketService.getIntent(context), serviceConnection, 0)
     }
 
     fun setOnTransactionListener(onTransactionListener: (transaction: Transaction) -> Unit) {
@@ -66,7 +72,7 @@ class WalletViewModel
     fun checkConnected() = service?.isConnected ?: false
 
     fun disconnect() {
-        service?.disconnect()
+        SocketService.stop(getApplication())
     }
 
     override fun onCleared() {

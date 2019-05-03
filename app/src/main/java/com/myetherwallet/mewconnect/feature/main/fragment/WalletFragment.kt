@@ -110,7 +110,10 @@ class WalletFragment : BaseViewModelFragment() {
         wallet_list.layoutManager = layoutManager
         wallet_list.adapter = adapter
 
-        wallet_scan_to_connect.setOnClickListener { addFragment(ScanFragment.newInstance()) }
+        wallet_scan_to_connect.setOnClickListener {
+            viewModel.bindService()
+            addFragment(ScanFragment.newInstance())
+        }
         wallet_status_disconnect.setOnClickListener {
             viewModel.disconnect()
             setConnectedStatus()
@@ -231,6 +234,7 @@ class WalletFragment : BaseViewModelFragment() {
 
     override fun onResume() {
         super.onResume()
+        viewModel.bindService()
         wallet_list.smoothScrollBy(0, 0)
         setConnectedStatus()
         networkStateReceiver.register(requireContext())
@@ -263,6 +267,7 @@ class WalletFragment : BaseViewModelFragment() {
                 wallet_scan_to_connect.visibility = GONE
             }
             else -> {
+                viewModel.bindService()
                 wallet_status_container.visibility = GONE
                 wallet_offline_container.visibility = GONE
                 wallet_scan_to_connect.setBackgroundResource(R.drawable.wallet_scan_to_connect_background_blue)

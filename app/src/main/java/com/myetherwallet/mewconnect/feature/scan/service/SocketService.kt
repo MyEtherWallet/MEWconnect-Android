@@ -21,6 +21,7 @@ import io.socket.client.Socket
 import org.json.JSONObject
 import org.spongycastle.jce.provider.BouncyCastleProvider
 import java.security.Security
+import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -111,8 +112,15 @@ class SocketService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent?.action == ACTION_STOP) {
+            MewLog.d(TAG, "Stop received")
             disconnect()
-            stopSelf()
+            Timer().schedule(object : TimerTask() {
+                override fun run() {
+                    MewLog.d(TAG, "Service stop delay fired")
+                    stopForeground(true)
+                    stopSelf()
+                }
+            }, 500L)
         }
         return START_NOT_STICKY
     }
