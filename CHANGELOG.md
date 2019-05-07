@@ -1,6 +1,6 @@
 ### Release v1.0.4 (19050101)
 
-- Updated 'Sign Message' screen
+- Updated ‘Sign Message’ screen
 - Tweaks to brute-force protection behavior
 - Connection status is now visible in notifications drawer
 - Phone will not go to sleep if the app is on the foreground
