@@ -2,12 +2,12 @@ package com.myetherwallet.mewconnect.feature.main.fragment
 
 import android.os.Bundle
 import android.os.Handler
-import android.support.design.widget.CoordinatorLayout
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.myetherwallet.mewconnect.MewApplication
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.content.data.MessageToSign
@@ -110,7 +110,10 @@ class WalletFragment : BaseViewModelFragment() {
         wallet_list.layoutManager = layoutManager
         wallet_list.adapter = adapter
 
-        wallet_scan_to_connect.setOnClickListener { addFragment(ScanFragment.newInstance()) }
+        wallet_scan_to_connect.setOnClickListener {
+            viewModel.bindService()
+            addFragment(ScanFragment.newInstance())
+        }
         wallet_status_disconnect.setOnClickListener {
             viewModel.disconnect()
             setConnectedStatus()
@@ -231,6 +234,7 @@ class WalletFragment : BaseViewModelFragment() {
 
     override fun onResume() {
         super.onResume()
+        viewModel.bindService()
         wallet_list.smoothScrollBy(0, 0)
         setConnectedStatus()
         networkStateReceiver.register(requireContext())
@@ -263,6 +267,7 @@ class WalletFragment : BaseViewModelFragment() {
                 wallet_scan_to_connect.visibility = GONE
             }
             else -> {
+                viewModel.bindService()
                 wallet_status_container.visibility = GONE
                 wallet_offline_container.visibility = GONE
                 wallet_scan_to_connect.setBackgroundResource(R.drawable.wallet_scan_to_connect_background_blue)

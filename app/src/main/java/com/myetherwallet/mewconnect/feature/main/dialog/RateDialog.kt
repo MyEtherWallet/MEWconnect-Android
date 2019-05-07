@@ -2,12 +2,12 @@ package com.myetherwallet.mewconnect.feature.main.dialog
 
 import android.app.Dialog
 import android.os.Bundle
-import android.support.v4.app.FragmentManager
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentManager
 import com.myetherwallet.mewconnect.BuildConfig
 import com.myetherwallet.mewconnect.MewApplication
 import com.myetherwallet.mewconnect.R

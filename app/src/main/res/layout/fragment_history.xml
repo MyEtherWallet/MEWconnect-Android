@@ -17,7 +17,7 @@
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/history_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -34,7 +34,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:text="@string/history_empty" />
+                android:text="@string/history_empty"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_16sp" />
         </FrameLayout>
 
         <com.myetherwallet.mewconnect.core.ui.view.LoadingView
@@ -42,6 +44,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
-            tools:visibility="visible" />
+            tools:visibility="gone" />
     </FrameLayout>
 </LinearLayout>

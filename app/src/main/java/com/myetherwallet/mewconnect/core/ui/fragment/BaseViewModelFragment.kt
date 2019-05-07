@@ -1,6 +1,6 @@
 package com.myetherwallet.mewconnect.core.ui.fragment
 
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider
 import javax.inject.Inject
 
 abstract class BaseViewModelFragment : BaseDiFragment() {

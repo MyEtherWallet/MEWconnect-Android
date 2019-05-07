@@ -3,8 +3,8 @@ package com.myetherwallet.mewconnect.core.ui.view
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.support.annotation.DrawableRes
-import android.support.v4.content.ContextCompat
+import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import android.widget.RadioGroup
 import com.myetherwallet.mewconnect.R

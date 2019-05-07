@@ -1,7 +1,7 @@
 package com.myetherwallet.mewconnect.core.di.viewmodel
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.myetherwallet.mewconnect.feature.buy.viewmodel.BuyViewModel
 import com.myetherwallet.mewconnect.feature.buy.viewmodel.HistoryViewModel
 import com.myetherwallet.mewconnect.feature.main.viewmodel.WalletViewModel

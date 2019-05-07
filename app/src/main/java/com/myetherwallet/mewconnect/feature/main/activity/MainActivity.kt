@@ -3,7 +3,7 @@ package com.myetherwallet.mewconnect.feature.main.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
@@ -13,7 +13,7 @@ import com.myetherwallet.mewconnect.feature.auth.fragment.AuthFragment
 import com.myetherwallet.mewconnect.feature.main.dialog.WhatsNewDialog
 import com.myetherwallet.mewconnect.feature.main.fragment.IntroFragment
 import com.myetherwallet.mewconnect.feature.main.utils.FragmentTransactor
-import com.myetherwallet.mewconnect.feature.scan.service.SocketService
+import com.myetherwallet.mewconnect.feature.scan.receiver.ServiceAlarmReceiver
 import javax.inject.Inject
 
 /**
@@ -51,12 +51,12 @@ class MainActivity : BaseDiActivity() {
 
     override fun onResume() {
         super.onResume()
-        SocketService.start(this)
+        ServiceAlarmReceiver.cancel(this)
     }
 
     override fun onPause() {
         super.onPause()
-        SocketService.shutdownDelayed(this)
+        ServiceAlarmReceiver.schedule(this)
     }
 
     override fun onPostResume() {

@@ -3,11 +3,11 @@ package com.myetherwallet.mewconnect.feature.main.view.behavior
 import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.design.widget.CoordinatorLayout
-import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.recyclerview.widget.RecyclerView
 import com.myetherwallet.mewconnect.feature.main.utils.WalletSizingUtils
 import com.myetherwallet.mewconnect.feature.main.view.WalletScrollable
 import com.myetherwallet.mewconnect.feature.register.utils.ScrollWatcher
@@ -65,7 +65,7 @@ class WalletScrollBehavior(context: Context, attrs: AttributeSet?, private val s
     }
 
     private fun notifyViews() {
-        if (!views.isEmpty()) {
+        if (views.isNotEmpty()) {
             var ratio = 1 - scrollWatcher.scrollPosition / scrollThreshold.toFloat()
             if (ratio < 0) {
                 ratio = 0f

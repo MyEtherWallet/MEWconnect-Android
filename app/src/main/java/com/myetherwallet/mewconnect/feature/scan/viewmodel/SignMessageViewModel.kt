@@ -1,7 +1,7 @@
 package com.myetherwallet.mewconnect.feature.scan.viewmodel
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
+import androidx.lifecycle.AndroidViewModel
 import android.content.ComponentName
 import android.content.ServiceConnection
 import android.os.IBinder
@@ -48,7 +48,13 @@ class SignMessageViewModel
     }
 
     fun signMessage(messageToSign: MessageToSign, preferences: PreferencesManager, password: String) {
-        if (HexUtils.bytesToStringLowercase(MessageCrypt.formatKeyWithPrefix(messageToSign.text)) != messageToSign.hash) {
+        val hash = if (HexUtils.isStringHexWithPrefix(messageToSign.text)) {
+            MessageCrypt.formatKeyWithPrefix(Hex.stringToBytes(HexUtils.removePrefix(messageToSign.text)))
+        } else {
+            MessageCrypt.formatKeyWithPrefix(messageToSign.text)
+        }
+
+        if (HexUtils.bytesToStringLowercase(hash) != messageToSign.hash) {
             return
         }
 

@@ -1,10 +1,10 @@
 package com.myetherwallet.mewconnect.feature.buy.fragment
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
 import com.myetherwallet.mewconnect.core.extenstion.observe
@@ -47,18 +47,21 @@ class HistoryFragment : BaseViewModelFragment() {
 
     private fun onDataLoaded(statuses: List<PurchaseStatus>?) {
         statuses?.let {
-            if (it.isEmpty()) {
+            val filtered = it.filter { purchaseStatus ->
+                PurchaseStatus.STATUS_IN_PROGRESS.contains(purchaseStatus.status) ||
+                        PurchaseStatus.STATUS_APPROVED.contains(purchaseStatus.status) ||
+                        PurchaseStatus.STATUS_DECLINED.contains(purchaseStatus.status)
+            }
+            if (filtered.isEmpty()) {
                 adapter.items = listOf()
+                history_list.visibility = GONE
                 history_empty.visibility = VISIBLE
             } else {
-                adapter.items = it.filter { purchaseStatus ->
-                    PurchaseStatus.STATUS_IN_PROGRESS.contains(purchaseStatus.status) ||
-                            PurchaseStatus.STATUS_APPROVED.contains(purchaseStatus.status) ||
-                            PurchaseStatus.STATUS_DECLINED.contains(purchaseStatus.status)
-                }
+                adapter.items = filtered
+                history_list.visibility = VISIBLE
                 history_empty.visibility = GONE
-                adapter.notifyDataSetChanged()
             }
+            adapter.notifyDataSetChanged()
         }
         history_loading.visibility = GONE
     }

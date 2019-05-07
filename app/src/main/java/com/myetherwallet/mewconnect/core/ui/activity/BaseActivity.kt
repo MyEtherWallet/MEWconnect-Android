@@ -1,8 +1,8 @@
 package com.myetherwallet.mewconnect.core.ui.activity
 
-import android.support.annotation.ColorRes
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.view.WindowManager
 import com.myetherwallet.mewconnect.R

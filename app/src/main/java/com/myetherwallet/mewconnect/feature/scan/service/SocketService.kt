@@ -15,11 +15,13 @@ import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.utils.HexUtils
 import com.myetherwallet.mewconnect.core.utils.MewLog
 import com.myetherwallet.mewconnect.core.utils.crypto.MessageCrypt
+import com.myetherwallet.mewconnect.feature.scan.receiver.ServiceAlarmReceiver
 import io.socket.client.IO
 import io.socket.client.Socket
 import org.json.JSONObject
 import org.spongycastle.jce.provider.BouncyCastleProvider
 import java.security.Security
+import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -31,8 +33,8 @@ private const val TAG = "SocketService"
 
 private const val VERSION = "0.0.1"
 
-private const val EXTRA_START = "start"
-private const val EXTRA_SHUTDOWN_DELAYED = "shutdown_delayed"
+private const val ACTION_START = "${BuildConfig.APPLICATION_ID}.$TAG.ACTION_START"
+private const val ACTION_STOP = "${BuildConfig.APPLICATION_ID}.$TAG.ACTION_STOP"
 
 private const val EVENT_HANDSHAKE = "handshake"
 private const val EVENT_OFFER = "offer"
@@ -52,7 +54,6 @@ class SocketService : Service() {
     companion object {
 
         private val CONNECT_TIMEOUT = TimeUnit.SECONDS.toMillis(10)
-        private val SHUTDOWN_DELAY = TimeUnit.MINUTES.toMillis(5)
 
         init {
             Security.addProvider(BouncyCastleProvider())
@@ -61,14 +62,16 @@ class SocketService : Service() {
         fun getIntent(context: Context) = Intent(context, SocketService::class.java)
 
         fun start(context: Context) {
+            MewLog.d(TAG, "Start")
             val intent = getIntent(context)
-            intent.putExtra(EXTRA_START, true)
+            intent.action = ACTION_START
             context.startService(intent)
         }
 
-        fun shutdownDelayed(context: Context) {
+        fun stop(context: Context) {
+            MewLog.d(TAG, "Stop")
             val intent = getIntent(context)
-            intent.putExtra(EXTRA_SHUTDOWN_DELAYED, true)
+            intent.action = ACTION_STOP
             context.startService(intent)
         }
     }
@@ -84,7 +87,6 @@ class SocketService : Service() {
     private lateinit var connectionId: String
     private var webRtc: WebRtc? = null
 
-    private val shutdownRunnable = Runnable { stopSelf() }
     private var timeoutRunnable: Runnable? = null
 
     private var wasTryTurnSent = false
@@ -99,20 +101,28 @@ class SocketService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+
         (application as MewApplication).appComponent.inject(this)
+
+        val notificationHelper = ServiceNotificationHelper()
+        startForeground(1, notificationHelper.create(this))
     }
 
     override fun onBind(intent: Intent) = binder
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        intent?.let {
-            if (it.hasExtra(EXTRA_SHUTDOWN_DELAYED)) {
-                handler.postDelayed(shutdownRunnable, SHUTDOWN_DELAY)
-            } else {
-                handler.removeCallbacks(shutdownRunnable)
-            }
+        if (intent?.action == ACTION_STOP) {
+            MewLog.d(TAG, "Stop received")
+            disconnect()
+            Timer().schedule(object : TimerTask() {
+                override fun run() {
+                    MewLog.d(TAG, "Service stop delay fired")
+                    stopForeground(true)
+                    stopSelf()
+                }
+            }, 500L)
         }
-        return START_STICKY
+        return START_NOT_STICKY
     }
 
     fun connect(privateKey: String, connectionId: String) {
@@ -309,6 +319,7 @@ class SocketService : Service() {
     fun disconnect(closeSocket: Boolean = true) {
         MewLog.d(TAG, "disconnect")
         isConnected = false
+        ServiceAlarmReceiver.cancel(this)
         try {
             stopTimeoutTimer()
             webRtc?.disconnect()
@@ -322,6 +333,7 @@ class SocketService : Service() {
     }
 
     override fun onDestroy() {
+        MewLog.d(TAG, "onDestroy")
         disconnect()
         super.onDestroy()
     }

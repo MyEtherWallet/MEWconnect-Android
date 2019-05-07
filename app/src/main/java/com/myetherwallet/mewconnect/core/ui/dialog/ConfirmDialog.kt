@@ -2,7 +2,7 @@ package com.myetherwallet.mewconnect.core.ui.dialog
 
 import android.app.Dialog
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 
 
 /**

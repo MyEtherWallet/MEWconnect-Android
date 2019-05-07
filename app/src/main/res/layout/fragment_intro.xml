@@ -22,7 +22,7 @@
             android:layout_marginTop="@dimen/intro_margin_top"
             android:layout_weight="1">
 
-            <android.support.v4.view.ViewPager
+            <androidx.viewpager.widget.ViewPager
                 android:id="@+id/intro_pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
@@ -34,7 +34,7 @@
 
         </FrameLayout>
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/intro_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             app:tabGravity="center"
             app:tabIndicatorHeight="0dp" />
 
-        <android.support.design.button.MaterialButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/intro_setup"
             style="@style/Button"
             android:layout_width="match_parent"

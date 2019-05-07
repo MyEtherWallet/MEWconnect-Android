@@ -2,8 +2,8 @@ package com.myetherwallet.mewconnect.core.ui.view
 
 import android.content.Context
 import android.graphics.Typeface
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.AppCompatRadioButton
+import androidx.core.content.ContextCompat
+import androidx.appcompat.widget.AppCompatRadioButton
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity

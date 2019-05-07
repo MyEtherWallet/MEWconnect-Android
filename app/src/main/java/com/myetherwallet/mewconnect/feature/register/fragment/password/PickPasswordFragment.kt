@@ -1,7 +1,7 @@
 package com.myetherwallet.mewconnect.feature.register.fragment.password
 
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.extenstion.getString
 

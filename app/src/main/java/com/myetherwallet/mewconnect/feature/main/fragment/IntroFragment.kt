@@ -2,8 +2,8 @@ package com.myetherwallet.mewconnect.feature.main.fragment
 
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.view.ViewPager
 import android.view.View
+import androidx.viewpager.widget.ViewPager
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseFragment
 import com.myetherwallet.mewconnect.core.utils.ApplicationUtils

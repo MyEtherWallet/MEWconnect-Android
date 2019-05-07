@@ -29,11 +29,13 @@ private const val KEY_PREFIX_FORMAT = "\u0019Ethereum Signed Message:\n%d"
 class MessageCrypt(private val privateKey: String) {
 
     companion object {
+        fun formatKeyWithPrefix(text: String): ByteArray {
+            return formatKeyWithPrefix(text.toByteArray())
+        }
 
-        fun formatKeyWithPrefix(data: String): ByteArray {
-            val keyData = data.toByteArray()
-            val keyWithPrefix = String.format(KEY_PREFIX_FORMAT, keyData.size) + data
-            return CryptoUtils.keccak256Bytes(keyWithPrefix.toByteArray())
+        fun formatKeyWithPrefix(data: ByteArray): ByteArray {
+            val keyWithPrefix = String.format(KEY_PREFIX_FORMAT, data.size).toByteArray()
+            return CryptoUtils.keccak256Bytes(keyWithPrefix + data)
         }
     }
 

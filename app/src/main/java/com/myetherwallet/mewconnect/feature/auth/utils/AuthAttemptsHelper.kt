@@ -1,7 +1,6 @@
 package com.myetherwallet.mewconnect.feature.auth.utils
 
 import android.os.Handler
-import android.os.SystemClock
 import com.myetherwallet.mewconnect.core.persist.prefenreces.ApplicationPreferences
 import java.util.concurrent.TimeUnit
 
@@ -19,28 +18,19 @@ class AuthAttemptsHelper(
         private val callback: (minute: Int, second: Int) -> Unit
 ) {
 
-    private var isResumed: Boolean? = null
-
-    init {
-        val savedUptime = preferences.getSavedUptime()
-        if (getUptime() < savedUptime || savedUptime == 0L) {
-            preferences.resetAuthTimerTime()
-            preferences.setSavedUptime(getUptime())
-        } else {
-            startTimer()
-        }
-    }
+    private var isResumed = false
 
     fun check(): Boolean {
-        if (preferences.getAuthFirstAttemptTime() + ATTEMPTS_TIMEOUT > getUptime()) {
+        if (preferences.getAuthFirstAttemptTime() + ATTEMPTS_TIMEOUT > getCurrentTime()) {
             if (preferences.getAuthAttemptsCount() + 1 >= ATTEMPTS_LIMIT) {
                 reset()
-                preferences.setAuthTimerTime(getUptime())
+                preferences.setAuthTimerTime(getCurrentTime())
                 startTimer()
                 return true
             }
         } else {
-            preferences.setAuthFirstAttemptTime(getUptime())
+            preferences.resetAuthAttemptsCount()
+            preferences.setAuthFirstAttemptTime(getCurrentTime())
         }
         preferences.incrementAuthAttemptsCount()
         return false
@@ -52,7 +42,7 @@ class AuthAttemptsHelper(
     }
 
     fun resume() {
-        if (isResumed == false) {
+        if (!isResumed) {
             isResumed = true
             startTimer()
         }
@@ -63,7 +53,7 @@ class AuthAttemptsHelper(
     }
 
     private fun startTimer() {
-        if (isResumed != false) {
+        if (isResumed) {
             if (checkTimer()) {
                 callTimerCallback()
                 handler.postDelayed({
@@ -76,7 +66,7 @@ class AuthAttemptsHelper(
     }
 
     private fun callTimerCallback() {
-        val left = ((TIMER_TIMEOUT - (getUptime() - preferences.getAuthTimerTime())) / 1000).toInt()
+        val left = ((TIMER_TIMEOUT - (getCurrentTime() - preferences.getAuthTimerTime())) / 1000).toInt()
         val minute = left / 60
         callback(minute, left - 60 * minute)
     }
@@ -84,10 +74,10 @@ class AuthAttemptsHelper(
     private fun checkTimer(): Boolean {
         val time = preferences.getAuthTimerTime()
         if (time > 0) {
-            return time + TIMER_TIMEOUT > getUptime()
+            return time + TIMER_TIMEOUT > getCurrentTime()
         }
         return false
     }
 
-    private fun getUptime() = SystemClock.elapsedRealtime()
+    private fun getCurrentTime() = System.currentTimeMillis()
 }

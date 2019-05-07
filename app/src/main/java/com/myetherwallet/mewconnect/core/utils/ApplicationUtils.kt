@@ -5,7 +5,7 @@ import android.content.res.Resources
 import android.os.Build
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
-import android.support.annotation.AttrRes
+import androidx.annotation.AttrRes
 import android.util.DisplayMetrics
 import android.util.Size
 import android.util.TypedValue

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/default_background">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -38,7 +38,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/generating_guideline1">
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/buy_amount_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -110,6 +110,14 @@
                     app:layout_constraintTop_toBottomOf="@id/buy_toggle_currency">
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="≈"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/text_size_16sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
                         android:id="@+id/buy_symbol_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -151,7 +159,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/buy_amount2"
                     tools:text="Purchase will be done via Simplex\nApproximate fee is already\nincluded in this rate" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
 
         <LinearLayout
@@ -329,7 +337,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <android.support.design.button.MaterialButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/buy_button"
                 style="@style/Button"
                 android:layout_width="wrap_content"
@@ -341,7 +349,7 @@
                 android:paddingEnd="@dimen/dimen_24dp"
                 android:text="@string/buy_button" />
         </FrameLayout>
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.myetherwallet.mewconnect.core.ui.view.LoadingView
         android:id="@+id/buy_loading"

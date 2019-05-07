@@ -75,7 +75,7 @@ class AuthFragment : BaseDiFragment() {
                         }
                     } else {
                         if (!attemptsHelper.check()) {
-                            auth_password_input_layout.error = getString(R.string.auth_forgot_password_error)
+                            auth_password_input_layout.error = getString(R.string.auth_wrong_password_error)
                         }
                     }
                     return@setOnEditorActionListener true

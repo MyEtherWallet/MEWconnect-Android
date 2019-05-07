@@ -1,7 +1,7 @@
 package com.myetherwallet.mewconnect.feature.register.utils
 
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.feature.main.utils.WalletSizingUtils
 import kotlin.math.abs
@@ -51,7 +51,8 @@ class ScrollWatcher {
     }
 
     private fun calculateCurrentScrollPosition(): Int {
-        val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+        val layoutManager = recyclerView.layoutManager as
+                LinearLayoutManager
         val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
         val firstVisibleView = layoutManager.findViewByPosition(firstVisibleItemPosition)
         return if (firstVisibleItemPosition > 0) {

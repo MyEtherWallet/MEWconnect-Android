@@ -1,230 +1,238 @@
 <resources>
-    <string name="app_name">MEWсonnect</string>
+    <string name="app_name" comment="Application name for launcher, title on wallet screen">MEWсonnect</string>
 
-    <string name="password">Password</string>
-    <string name="decline">Decline</string>
-    <string name="confirm">Confirm</string>
-    <string name="done">Done</string>
-    <string name="next">Next</string>
-    <string name="close">Close</string>
-    <string name="cancel">Cancel</string>
-    <string name="back_up">Back up</string>
-    <string name="reset_wallet">Reset wallet</string>
-    <string name="words_loading_error">Cannot load words list</string>
+    <string name="password" comment="Hint in password input fields">Password</string>
+    <string name="decline" comment="Decline button text (transaction)">Decline</string>
+    <string name="confirm" comment="Confirm button text (transaction or message sign)">Confirm</string>
+    <string name="done" comment="Button to close window after some action like backup or transaction confirmation">Done</string>
+    <string name="next" comment="Go to next screen">Next</string>
+    <string name="close" comment="Close current screen or dialog">Close</string>
+    <string name="cancel" comment="Cancel some action (wallet reset or message signing)">Cancel</string>
+    <string name="back_up" comment="Button to make a backup (should be short)">Back up</string>
+    <string name="reset_wallet" comment="Button to remove wallet from this device">Reset wallet</string>
+    <string name="words_loading_error" comment="Application cannot show mnemonic, error">Cannot load words list</string>
 
-    <string name="enter_recovery_phrase_title">Enter your\nrecovery phrase</string>
-    <string name="enter_recovery_phrase_hint">Words separated by spaces</string>
-    <string name="enter_recovery_phrase_error">Wrong recovery phrase</string>
+    <string name="enter_recovery_phrase_title" comment="'Enter recovery phrase' screen - title">Enter your\nrecovery phrase</string>
+    <string name="enter_recovery_phrase_hint" comment="'Enter recovery phrase' screen - hint">Words separated by spaces</string>
+    <string name="enter_recovery_phrase_error" comment="'Enter recovery phrase' screen - error">Wrong recovery phrase</string>
 
-    <string name="restore_existing_wallet_title">Restore\nexisting wallet</string>
-    <string name="restore_existing_wallet_use">Use recovery phrase</string>
-    <string name="restore_existing_wallet_other">Other options</string>
-    <string name="restore_existing_wallet_note">i.e. keystore file, private key etc.</string>
+    <string name="restore_existing_wallet_title" comment="'Restore existing wallet' screen - title">Restore\nexisting wallet</string>
+    <string name="restore_existing_wallet_use" comment="'Restore existing wallet' screen - button">Use recovery phrase</string>
+    <string name="restore_existing_wallet_other" comment="'Restore existing wallet' screen - button">Other options</string>
+    <string name="restore_existing_wallet_note" comment="'Restore existing wallet' screen - note">i.e. keystore file, private key etc.</string>
 
-    <string name="do_you_have_phrase_title">Do you have your\nrecovery phrase\nhandy?</string>
-    <string name="do_you_have_phrase_text">Recovery phrase is a 24 word phrase that you wrote down when you backed up your wallet.</string>
-    <string name="do_you_have_phrase_continue">Continue</string>
-    <string name="do_you_have_phrase_other">Other options</string>
-    <string name="do_you_have_phrase_note">i.e. keystore file, private key etc.</string>
+    <string name="do_you_have_phrase_title" comment="'Do you have phrase' screen - title">Do you have your\nrecovery phrase\nhandy?</string>
+    <string name="do_you_have_phrase_text" comment="'Do you have phrase' screen - description">Recovery phrase is a 24 word phrase that you wrote down when you backed up your wallet.</string>
+    <string name="do_you_have_phrase_continue" comment="'Do you have phrase' screen - button">Continue</string>
+    <string name="do_you_have_phrase_other" comment="'Do you have phrase' screen - button">Other options</string>
+    <string name="do_you_have_phrase_note" comment="'Do you have phrase' screen - note">i.e. keystore file, private key etc.</string>
 
-    <string name="safety_priority_title">Your safety and\nsecurity is our\n#1 priority</string>
-    <string name="safety_priority_text1">We don’t support keystore file and private key imports in MEWconnect app, as they are highly unsafe.</string>
-    <string name="safety_priority_text2">(Note that keystore file and private key are still available methods of access on MyEtherWallet.com, but are not recommended unless using MEW offline)</string>
-    <string name="safety_priority_text3">Because MEWconnect is a ‘Hardware wallet’ without all the hardware, it\'s best to create a new wallet directly in MEWconnect app, same as if you just got a new hardware wallet. That way you can be sure your keys never leave your device.</string>
-    <string name="safety_priority_text4">If you want to access funds in one of your existing wallets via MEWconnect, the most secure way to do so would be transferring your ETH and tokens to your new MEWconnect wallet once it’s created.</string>
-    <string name="safety_priority_text5">Using your existing private key defeats the purpose of MEWconnect, and reduces your security considerably.</string>
+    <string name="safety_priority_title" comment="'Safety priority' screen - title">Your safety and\nsecurity is our\n#1 priority</string>
+    <string name="safety_priority_text1" comment="'Safety priority' screen - paragraph 1">We don’t support keystore file and private key imports in MEWconnect app, as they are highly unsafe.</string>
+    <string name="safety_priority_text2" comment="'Safety priority' screen - paragraph 2">(Note that keystore file and private key are still available methods of access on MyEtherWallet.com, but are not recommended unless using MEW offline)</string>
+    <string name="safety_priority_text3" comment="'Safety priority' screen - paragraph 3">Because MEWconnect is a ‘Hardware wallet’ without all the hardware, it\'s best to create a new wallet directly in MEWconnect app, same as if you just got a new hardware wallet. That way you can be sure your keys never leave your device.</string>
+    <string name="safety_priority_text4" comment="'Safety priority' screen - paragraph 4">If you want to access funds in one of your existing wallets via MEWconnect, the most secure way to do so would be transferring your ETH and tokens to your new MEWconnect wallet once it’s created.</string>
+    <string name="safety_priority_text5" comment="'Safety priority' screen - paragraph 5">Using your existing private key defeats the purpose of MEWconnect, and reduces your security considerably.</string>
 
-    <string name="pick_password_title">Pick a\npassword</string>
-    <string name="pick_password_description">So no one else but you can unlock your wallet.</string>
-    <string name="pick_password_description2">Best passwords are long and contain letters, numbers and special characters.</string>
-    <string name="pick_password_strength_weak">Weak</string>
-    <string name="pick_password_strength_so_so">So-so</string>
-    <string name="pick_password_strength_good">Good</string>
-    <string name="pick_password_strength_great">Great</string>
+    <string name="pick_password_title" comment="'Pick password' screen - title">Pick a\npassword</string>
+    <string name="pick_password_description" comment="'Pick password' screen - description part 1">So no one else but you can unlock your wallet.</string>
+    <string name="pick_password_description2" comment="'Pick password' screen - description part 2">Best passwords are long and contain letters, numbers and special characters.</string>
+    <string name="pick_password_strength_weak" comment="'Pick password' screen - password strength">Weak</string>
+    <string name="pick_password_strength_so_so" comment="'Pick password' screen - password strength">So-so</string>
+    <string name="pick_password_strength_good" comment="'Pick password' screen - password strength">Good</string>
+    <string name="pick_password_strength_great" comment="'Pick password' screen - password strength">Great</string>
 
-    <string name="password_again_title">Type your\npassword again</string>
-    <string name="password_again_description"><![CDATA[There will be <u>NO ‘Restore password’</u> button. Make sure you remember it.]]></string>
-    <string name="password_again_error">Wrong password</string>
+    <string name="password_again_title" comment="'Type password again' screen - title">Type your\npassword again</string>
+    <string name="password_again_description" comment="'Type password again' screen - description"><![CDATA[There will be <u>NO ‘Restore password’</u> button. Make sure you remember it.]]></string>
+    <string name="password_again_error" comment="'Type password again' screen - error">Wrong password</string>
 
-    <string name="lets_double_check_title">Let’s double\ncheck it</string>
-    <string name="lets_double_check_description">Once you finish, you won’t be able to view your recovery phrase again.</string>
-    <string name="lets_double_check_item_title">Select word #%d</string>
+    <string name="lets_double_check_title" comment="'Lets double check' screen - title">Let’s double\ncheck it</string>
+    <string name="lets_double_check_description" comment="'Lets double check' screen - description">Once you finish, you won’t be able to view your recovery phrase again.</string>
+    <string name="lets_double_check_item_title" comment="'Lets double check' screen - row title">Select word #%d</string>
 
-    <string name="prepare_write_title">Prepare to write down your recovery phrase</string>
-    <string name="prepare_write_description">If your device gets lost or stolen, you can restore your wallet using your recovery phrase. Get pen and paper before you start.</string>
-    <string name="prepare_write_confirm">Start</string>
+    <string name="prepare_write_title" comment="'Prepare to write down' screen - title">Prepare to write down your recovery phrase</string>
+    <string name="prepare_write_description" comment="'Prepare to write down' screen - description">If your device gets lost or stolen, you can restore your wallet using your recovery phrase. Get pen and paper before you start.</string>
+    <string name="prepare_write_confirm" comment="'Prepare to write down' screen - button">Start</string>
 
-    <string name="wallet_backed_up_title">Your wallet is\nnow backed up</string>
-    <string name="wallet_backed_up_description">Protect your recovery phrase like a million dollars your account might once be worth. In a de-centralized world your safety and security is your own responsibility.  Stay safe out there!</string>
-    <string name="wallet_status_connected">Connected to MyEtherWallet</string>
-    <string name="wallet_status_disconnect">Disconnect</string>
-    <string name="wallet_header_search_hint">Search %d tokens</string>
-    <string name="wallet_empty">This address currently\ndoesn\'t own any tokens</string>
+    <string name="intro_by_mew_label" comment="Intro screen - company">by MyEtherWallet</string>
+    <string name="intro_verify" comment="Intro screen - button">Verify</string>
+    <string name="intro_restore_wallet" comment="Intro screen - button">Restore wallet</string>
+    <string name="intro_setup" comment="Intro screen - button">CREATE NEW WALLET</string>
+    <string name="intro_page_footer1" comment="Intro screen - description">Finally, a ‘hardware wallet’\nwithout all the hardware.\nOfficially by MyEtherWallet.</string>
+    <string name="intro_page_footer2" comment="Intro screen - description"><b>Secure</b> your every\nMyEtherWallet\ntransaction with two-\nfactor verification.</string>
+    <string name="intro_page_footer3" comment="Intro screen - description"><b>Store</b> your private keys\nsafely in a local isolated\nsecure vault on your\ndevice.</string>
+    <string name="intro_page_footer4" comment="Intro screen - description"><b>Protect</b> yourself from\nphishers and malware.\nNo one can obtain\nyour private key.</string>
+    <string name="intro_page_footer5" comment="Intro screen - description">No data collection:\nMyEtherWallet can\'t\ncollect your personal data\neven if we wanted to.</string>
+    <string name="intro_page_footer6" comment="Intro screen - description">No centralized servers, no\ndatabases.\nMEWconnect and\nMyEtherWallet talk via\nP2P communication.</string>
+    <string name="intro_page_footer7" comment="Intro screen - description">Transparent, free and\nopen source. Audited by\nthe community.</string>
 
-    <string name="intro_by_mew_label">by MyEtherWallet</string>
-    <string name="intro_verify">Verify</string>
-    <string name="intro_restore_wallet">Restore wallet</string>
-    <string name="intro_setup">CREATE NEW WALLET</string>
-    <string name="intro_page_footer1">Finally, a ‘hardware wallet’\nwithout all the hardware.\nOfficially by MyEtherWallet.</string>
-    <string name="intro_page_footer2"><b>Secure</b> your every\nMyEtherWallet\ntransaction with two-\nfactor verification.</string>
-    <string name="intro_page_footer3"><b>Store</b> your private keys\nsafely in a local isolated\nsecure vault on your\ndevice.</string>
-    <string name="intro_page_footer4"><b>Protect</b> yourself from\nphishers and malware.\nNo one can obtain\nyour private key.</string>
-    <string name="intro_page_footer5">No data collection:\nMyEtherWallet can\'t\ncollect your personal data\neven if we wanted to.</string>
-    <string name="intro_page_footer6">No centralized servers, no\ndatabases.\nMEWconnect and\nMyEtherWallet talk via\nP2P communication.</string>
-    <string name="intro_page_footer7">Transparent, free and\nopen source. Audited by\nthe community.</string>
+    <string name="generating_start_animation_text1" comment="'Generating animation' screen - text"><![CDATA[Generating your<br/><font color="#064dd6">Ethereum address</font>]]></string>
+    <string name="generating_start_animation_text2" comment="'Generating animation' screen - text"><![CDATA[Encrypting your<br/><font color="#064dd6">private key</font> using<br/>your password]]></string>
+    <string name="generating_start_animation_text3" comment="'Generating animation' screen - text"><![CDATA[Saving your<br/>encrypted keys to a<br/><font color="#064dd6">local secure vault</font><br/>on this device]]></string>
+    <string name="generating_start_animation_text4" comment="'Generating animation' screen - text"><![CDATA[<font color="#064dd6">All done!</font>]]></string>
+    <string name="generating_start_using" comment="'Generating animation' screen - button">Start using MEWconnect</string>
 
-    <string name="generating_start_using">Start using MEWconnect</string>
+    <string name="wallet_toolbar_buy_ether" comment="Wallet card - toolbar button hint">Buy ether</string>
+    <string name="wallet_header_balances_title" comment="Wallet card - tokens list header">Tokens</string>
+    <string name="wallet_network_title" comment="Network selection dialog title">Select network</string>
+    <string name="wallet_network_main_full" comment="Network selection dialog item">Main Ethereum Network</string>
+    <string name="wallet_network_ropsten_full" comment="Network selection dialog item">Ropsten Test Network</string>
+    <string name="wallet_network_main_short" comment="Wallet screen toolbar - network">Mainnet</string>
+    <string name="wallet_network_ropsten_short" comment="Wallet screen - network">Ropsten</string>
+    <string name="wallet_network_main_currency" comment="Wallet card - balance currency">ETH</string>
+    <string name="wallet_network_ropsten_currency" comment="Wallet card - balance currency">ROPSTEN ETH</string>
+    <string name="wallet_scan_to_connect" comment="Wallet screen - button">Scan to connect</string>
+    <string name="wallet_offline" comment="Wallet card - status badge">No internet connection</string>
+    <string name="wallet_status_connected" comment="Wallet screen - status badge">Connected to MyEtherWallet</string>
+    <string name="wallet_status_disconnect" comment="Wallet screen - status badge button">Disconnect</string>
+    <string name="wallet_header_search_hint" comment="Wallet screen - search hint">Search %d tokens</string>
+    <string name="wallet_empty" comment="Wallet screen - no tokens">This address currently\ndoesn\'t own any tokens</string>
+    <string name="wallet_backed_up_title" comment="'Wallet backed up' screen - title">Your wallet is\nnow backed up</string>
+    <string name="wallet_backed_up_description" comment="'Wallet backed up' screen - description">Protect your recovery phrase like a million dollars your account might once be worth. In a de-centralized world your safety and security is your own responsibility.  Stay safe out there!</string>
 
-    <string name="wallet_card_currency_eth">ETH</string>
-    <string name="wallet_card_currency_usd">USD</string>
-    <string name="wallet_card_address_title_eth">Your public Ethereum address</string>
-    <string name="wallet_card_address_title_ropsten">Your public Ropsten testnet address</string>
-    <string name="wallet_card_stock_price">\@ %.2f/%s</string>
-    <string name="wallet_card_test_network">Test network</string>
-    <string name="wallet_card_backup_title">Action required: not backed up</string>
-    <string name="wallet_card_backup_description">If you lose this device you will lose your account and all your funds forever.</string>
-    <string name="wallet_card_backed_up">Backed up</string>
-    <string name="wallet_toolbar_buy_ether">Buy ether</string>
-    <string name="wallet_header_balances_title">Tokens</string>
-    <string name="wallet_network_title">Select network</string>
-    <string name="wallet_network_main_full">Main Ethereum Network</string>
-    <string name="wallet_network_ropsten_full">Ropsten Test Network</string>
-    <string name="wallet_network_main_short">Mainnet</string>
-    <string name="wallet_network_ropsten_short">Ropsten</string>
-    <string name="wallet_network_main_currency">ETH</string>
-    <string name="wallet_network_ropsten_currency">ROPSTEN ETH</string>
-    <string name="wallet_scan_to_connect">Scan to connect</string>
-    <string name="wallet_offline">No internet connection</string>
+    <string name="wallet_card_currency_eth" comment="Wallet card - label">ETH</string>
+    <string name="wallet_card_currency_usd" comment="Wallet card - label">USD</string>
+    <string name="wallet_card_address_title_eth" comment="Wallet card - label for Main network">Your public Ethereum address</string>
+    <string name="wallet_card_address_title_ropsten" comment="Wallet card - label for Ropsten network">Your public Ropsten testnet address</string>
+    <string name="wallet_card_stock_price" comment="Wallet card - price format" translatable="false">\@ %.2f/%s</string>
+    <string name="wallet_card_test_network" comment="Wallet card - note for Ropsten network">Test network</string>
+    <string name="wallet_card_backup_title" comment="Wallet card - warning">Action required: not backed up</string>
+    <string name="wallet_card_backup_description" comment="Wallet card - warning description">If you lose this device you will lose your account and all your funds forever.</string>
+    <string name="wallet_card_backed_up" comment="Wallet card - backup status">Backed up</string>
 
-    <string name="scan_camera_permission_rationale_settings">Please enable camera access for\nMEWconnect in Settings</string>
-    <string name="scan_camera_permission_rationale_dialog">Please enable camera access for\nMEWconnect</string>
-    <string name="scan_low_storage_error">Not enough free space</string>
-    <string name="scan_camera_source_error">Unable to start camera</string>
+    <string name="scan_connected" comment="Scan screen - connected screen title">Connected to MyEtherWallet</string>
+    <string name="scan_connected2" comment="Scan screen - connected screen note">Via encrypted peer-to-peer connection</string>
+    <string name="scan_toolbar_title" comment="Scan screen - title">Scan QR code</string>
+    <string name="scan_toolbar_subtitle" comment="Scan screen - subtitle">To connect to MyEtherWallet</string>
+    <string name="scan_camera_permission_rationale_settings" comment="Scan screen - camera permission rationale">Please enable camera access for\nMEWconnect in Settings</string>
+    <string name="scan_camera_permission_rationale_dialog" comment="Scan screen - camera permission rationale in dialog">Please enable camera access for\nMEWconnect</string>
+    <string name="scan_low_storage_error" comment="Scan screen - error">Not enough free space</string>
+    <string name="scan_camera_source_error" comment="Scan screen - error">Unable to start camera</string>
+    <string name="scan_error" comment="Scan screen - scan error">Something went wrong</string>
+    <string name="scan_error_try_again" comment="Scan screen - button">Try again</string>
+    <string name="scan_offline" comment="Scan screen - offline screen">No internet connection</string>
+    <string name="scan_error_contact" comment="Scan screen - button">Contact support</string>
+    <string name="scan_connecting" comment="Scan screen - connecting screen title">Creating a local connection\nwith MyEtherWallet</string>
+    <string name="scan_manual_1" comment="Scan screen - paragraph 1"><![CDATA[Go to <b>MyEtherWallet.com</b> on your<br/>computer and choose <b>Access My Wallet</b><br/>option.]]></string>
+    <string name="scan_manual_2" comment="Scan screen - paragraph 2"><![CDATA[Select <b>MEWconnect</b> option on the screen<br/>that follows.]]></string>
+    <string name="scan_manual_3" comment="Scan screen - paragraph 3"><![CDATA[Scan the QR code.]]></string>
 
-    <string name="transaction_confirmed_title">Continue in your browser</string>
-    <string name="transaction_confirmed_description">Transaction is generated and signed. Please continue in MyEtherWallet in your browser in order to send it.</string>
+    <string name="transaction_confirmed_title" comment="'Transaction confirmed' screen - title">Continue in your browser</string>
+    <string name="transaction_confirmed_description" comment="'Transaction confirmed' screen - description">Transaction is generated and signed. Please continue in MyEtherWallet in your browser in order to send it.</string>
 
-    <string name="transaction_declined_title">Transaction declined</string>
-    <string name="transaction_declined_description"><![CDATA[You declined the transaction and it was cancelled. If you have security concerns, please contact <a href="mail:support@myetherwallet.com">MEW Support</a>]]></string>
+    <string name="transaction_declined_title" comment="'Transaction declined' screen - title">Transaction declined</string>
+    <string name="transaction_declined_description" comment="'Transaction declined' screen - description"><![CDATA[You declined the transaction and it was cancelled. If you have security concerns, please contact <a href="mail:support@myetherwallet.com">MEW Support</a>]]></string>
 
-    <string name="confirm_transaction_title">Verify\ntransaction</string>
-    <string name="confirm_transaction_wallet_title">Check address you’re sending to:</string>
-    <string name="confirm_transaction_unknown_token">Unknown Token</string>
-    <string name="confirm_transaction_amount_title">Check the amount:</string>
-    <string name="confirm_transaction_description">If your computer is compromised, attackers might replace ‘Send to’ address with their own, before sending your transaction. That’s why it’s important to check it in MEWconnect.</string>
-    <string name="confirm_transaction_network_title">Check network:</string>
+    <string name="confirm_transaction_title" comment="'Confirm transaction' screen - title">Verify\ntransaction</string>
+    <string name="confirm_transaction_wallet_title" comment="'Confirm transaction' screen - wallet field title">Check address you’re sending to:</string>
+    <string name="confirm_transaction_unknown_token" comment="'Confirm transaction' screen - placeholder">Unknown Token</string>
+    <string name="confirm_transaction_amount_title" comment="'Confirm transaction' screen - amount field title">Check the amount:</string>
+    <string name="confirm_transaction_network_title" comment="'Confirm transaction' screen - network field title">Check network:</string>
+    <string name="confirm_transaction_description" comment="'Confirm transaction' screen - description">If your computer is compromised, attackers might replace ‘Send to’ address with their own, before sending your transaction. That’s why it’s important to check it in MEWconnect.</string>
 
-    <string name="scan_connected">Connected to MyEtherWallet</string>
-    <string name="scan_connected2">Via encrypted peer-to-peer connection</string>
-    <string name="scan_toolbar_title">Scan QR code</string>
-    <string name="scan_toolbar_subtitle">To connect to MyEtherWallet</string>
-    <string name="scan_error">Something went wrong</string>
-    <string name="scan_error_try_again">Try again</string>
-    <string name="scan_offline">No internet connection</string>
-    <string name="scan_error_contact">Contact support</string>
-    <string name="scan_connecting">Creating a local connection\nwith MyEtherWallet</string>
-    <string name="scan_manual_1"><![CDATA[Go to <b>MyEtherWallet.com</b> on your<br/>computer and choose <b>Access My Wallet</b><br/>option.]]></string>
-    <string name="scan_manual_2"><![CDATA[Select <b>MEWconnect</b> option on the screen<br/>that follows.]]></string>
-    <string name="scan_manual_3"><![CDATA[Scan the QR code.]]></string>
+    <string name="auth_forgot_password" comment="Authentication screen - button">Forgot password?</string>
+    <string name="auth_wrong_password_error" comment="Authentication screen - error">Wrong password</string>
+    <string name="auth_incorrect_attempts" comment="Authentication screen - countdown timer message">5 incorrect attempts, please wait %d:%02d</string>
 
-    <string name="auth_forgot_password">Forgot password?</string>
-    <string name="auth_forgot_password_error">Wrong password</string>
-    <string name="auth_incorrect_attempts">5 incorrect attempts, please wait %d:%02d</string>
+    <string name="forgot_password_title" comment="'Forgot password' screen - title">Forgot password?</string>
+    <string name="forgot_password_description" comment="'Forgot password' screen - description">Unfortunately, as we mentioned when you were creating a password, there’s no ‘Restore Password’ button, however, if you created a backup for your wallet, you can restore your wallet using a backup passphrase and set a new password once it’s restored.</string>
+    <string name="forgot_password_restore_wallet" comment="'Forgot password' screen - button">Restore wallet</string>
 
-    <string name="forgot_password_title">Forgot password?</string>
-    <string name="forgot_password_description">Unfortunately, as we mentioned when you were creating a password, there’s no ‘Restore Password’ button, however, if you created a backup for your wallet, you can restore your wallet using a backup passphrase and set a new password once it’s restored.</string>
-    <string name="forgot_password_restore_wallet">Restore wallet</string>
+    <string name="mnemonic_list_subtitle" comment="'Mnemonic list' screen - title">Here’s your recovery phrase:</string>
+    <string name="mnemonic_list_description" comment="'Mnemonic list' screen - description">Resist temptation to email it to yourself or screenshot it. You will thank yourself later.\nThe order of words is important too.</string>
 
-    <string name="mnemonic_list_subtitle">Here’s your recovery phrase:</string>
-    <string name="mnemonic_list_description">Resist temptation to email it to yourself or screenshot it. You will thank yourself later.\nThe order of words is important too.</string>
+    <string name="write_these_title" comment="'Write mnemonic' screen - title">Write these down</string>
+    <string name="write_these_screenshot_text" comment="'Write mnemonic' screen - description">Please remember NOT to keep your passphrase anywhere digitally, otherwise you can lose all your funds. We strongly suggest to delete the screenshot you\'ve just taken and write down the passphrase using pen and paper.</string>
 
-    <string name="write_these_title">Write these down</string>
-    <string name="write_these_screenshot_text">Please remember NOT to keep your passphrase anywhere digitally, otherwise you can lose all your funds. We strongly suggest to delete the screenshot you\'ve just taken and write down the passphrase using pen and paper.</string>
-    <string name="write_these_screenshot_title">Oops! It looks like you\'ve just taken a screenshot.</string>
+    <string name="view_recovery_phrase_title" comment="'View recovery phrase' screen - title">Your recovery phrase</string>
 
-    <string name="view_recovery_phrase_title">Your recovery phrase</string>
+    <string name="back_up_wallet_title" comment="'Back up wallet' screen - title">Back up your  wallet</string>
+    <string name="back_up_wallet_description" comment="'Back up wallet' screen - description">Your Ethereum address and private key are stored in a local secure vault on this device.\nBut, what happens if you loose this device? Well… unless you back up your wallet, you will loose all your funds forever.</string>
+    <string name="back_up_wallet_now" comment="'Back up wallet' screen - button">Back up now</string>
 
-    <string name="back_up_wallet_title">Back up your  wallet</string>
-    <string name="back_up_wallet_description">Your Ethereum address and private key are stored in a local secure vault on this device.\nBut, what happens if you loose this device? Well… unless you back up your wallet, you will loose all your funds forever.</string>
-    <string name="back_up_wallet_now">Back up now</string>
+    <string name="info_title" comment="Info screen - title">Info</string>
+    <string name="info_contact" comment="Info screen - button">Contact support</string>
+    <string name="info_user_guide" comment="Info screen - button">User guide</string>
+    <string name="info_knowledge_base" comment="Info screen - button">Knowledge base</string>
+    <string name="info_site" comment="Info screen - button">MyEtherWallet.com</string>
+    <string name="info_view_recovery_phrase" comment="Info screen - button">View my recovery phrase</string>
+    <string name="info_back_up" comment="Info screen - button">Back up my wallet</string>
+    <string name="info_privacy_and_terms" comment="Info screen - button">Privacy and terms</string>
+    <string name="info_copyright" comment="Info screen - copyright">Copyright 2018 MyEtherWallet Inc.</string>
+    <string name="info_version" comment="Info screen - version">Version %s (%d)</string>
 
-    <string name="info_title">Info</string>
-    <string name="info_contact">Contact support</string>
-    <string name="info_user_guide">User guide</string>
-    <string name="info_knowledge_base">Knowledge base</string>
-    <string name="info_site">MyEtherWallet.com</string>
-    <string name="info_view_recovery_phrase">View my recovery phrase</string>
-    <string name="info_back_up">Back up my wallet</string>
-    <string name="info_privacy_and_terms">Privacy and terms</string>
-    <string name="info_copyright">Copyright 2018 MyEtherWallet Inc.</string>
-    <string name="info_version">Version %s (%d)</string>
+    <string name="reset_wallet_title" comment="'Reset wallet' screen - dialog title">⚠ Warning: you can loose your account and funds forever</string>
+    <string name="reset_wallet_message" comment="'Reset wallet' screen - dialog text">Don\'t reset if you didn\'t make a backup, as there will be NO WAY to restore your account after you reset.</string>
 
-    <string name="reset_wallet_title">⚠ Warning: you can loose your account and funds forever</string>
-    <string name="reset_wallet_message">Don\'t reset if you didn\'t make a backup, as there will be NO WAY to restore your account after you reset.</string>
+    <string name="backup_warning_title" comment="'Backup warning' screen - dialog title">Action required: please back up your wallet</string>
+    <string name="backup_warning_message" comment="'Backup warning' screen - dialog text">If you don\'t back up, you can loose all your funds forever once you uninstall the app, or if your device gets lost or stolen.</string>
+    <string name="backup_warning_button" comment="'Backup warning' screen - dialog button">Backup now</string>
 
-    <string name="backup_warning_title">Action required: please back up your wallet</string>
-    <string name="backup_warning_message">If you don\'t back up, you can loose all your funds forever once you uninstall the app, or if your device gets lost or stolen.</string>
-    <string name="backup_warning_button">Backup now</string>
+    <string name="buy_title" comment="'Buy title' screen - title">Buy Ether</string>
+    <string name="buy_button" comment="'Buy title' screen - button">Buy with credit card</string>
+    <string name="buy_minimum_warning" comment="'Buy title' screen - note">$50 minimum purchase</string>
+    <string name="buy_loading_error" comment="'Buy title' screen - error">Buy Ether failed</string>
+    <string name="buy_simplex_description_full" comment="'Buy title' screen - description for large screen"><![CDATA[Purchase will be done via <u>Simplex</u><br/>Approximate fee is already<br/>included in this rate]]></string>
+    <string name="buy_simplex_description_short" comment="'Buy title' screen - description for small screen"><![CDATA[Appox. <u>Simplex</u> fee included in rate]]></string>
 
-    <string name="buy_title">Buy Ether</string>
-    <string name="buy_button">Buy with credit card</string>
-    <string name="buy_minimum_warning">$50 minimum purchase</string>
-    <string name="buy_loading_error">Buy Ether failed</string>
-    <string name="buy_simplex_description_full"><![CDATA[Purchase will be done via <u>Simplex</u><br/>Approximate fee is already<br/>included in this rate]]></string>
-    <string name="buy_simplex_description_short"><![CDATA[Appox. <u>Simplex</u> fee included in rate]]></string>
+    <string name="buy_webview_upload_error" comment="'Buy browser' screen - error">Unable to open file chooser</string>
+    <string name="buy_webview_rationale" comment="'Buy browser' screen - files permission rationale">Please enable files access for MEWconnect</string>
 
-    <string name="buy_webview_upload_error">Unable to open file chooser</string>
-    <string name="buy_webview_rationale">Please enable files access for MEWconnect</string>
+    <string name="history_title" comment="'Purchases history' screen - title">Purchase history</string>
+    <string name="history_total_amount_title" comment="'Purchases history' screen - label">Total amount:</string>
+    <string name="history_date" comment="'Purchases history' screen - date">%1$tB %2$te via Simplex</string>
+    <string name="history_empty" comment="'Purchases history' screen - shown when transactions list is empty">Your credit card purchases\nwill be displayed here</string>
+    <string name="history_status_approved" comment="'Purchases history' screen - success message">Successful</string>
+    <string name="history_status_declined" comment="'Purchases history' screen - error message">Failed</string>
+    <string name="history_status_in_progress" comment="'Purchases history' screen - progress message">In progress</string>
 
-    <string name="history_title">Purchase history</string>
-    <string name="history_total_amount_title">Total amount:</string>
-    <string name="history_date">%1$tB %2$te via Simplex</string>
-    <string name="history_empty">Your credit card purchases\nwill be displayed here</string>
-    <string name="history_status_approved">Successful</string>
-    <string name="history_status_declined">Failed</string>
-    <string name="history_status_in_progress">In progress</string>
+    <string name="sign_message_title" comment="'Sign message' screen - title">Sign message</string>
+    <string name="sign_message_description" comment="'Sign message' screen - description">Please remember to include your nickname and a specific reason for the message, so someone else cannot re-use it for a different purpose.</string>
+    <string name="sign_message_confirm" comment="'Sign message' screen - button">Sign</string>
 
-    <string name="sign_message_title">Sign message</string>
-    <string name="sign_message_description">Please remember to include your nickname and a specific reason for the message, so someone else cannot re-use it for a different purpose.</string>
-    <string name="sign_message_confirm">Sign</string>
+    <string name="message_signed_title" comment="'Message signed' screen - title">Continue in your browser</string>
+    <string name="message_signed_description" comment="'Message signed' screen - description">The message is signed. Please continue in MyEtherWallet in your browser.</string>
 
-    <string name="message_sidned_title">Continue in your browser</string>
-    <string name="message_sidned_description">The message is signed. Please continue in MyEtherWallet in your browser.</string>
+    <string name="address_title_eth" comment="Address screen - title">Your public\nEthereum address</string>
+    <string name="address_title_ropsten" comment="Address screen - title">Your public Ropsten\ntestnet address</string>
+    <string name="address_description" comment="Address screen - description">Share your public address to receive Ether and ERC-20 tokens</string>
+    <string name="address_share" comment="Address screen - button">Share</string>
+    <string name="address_share_title" comment="Address screen - chooser title">Choose application</string>
+    <string name="address_copy" comment="Address screen - button">Copy</string>
+    <string name="address_copied" comment="Address screen - toast message">Address copied</string>
 
-    <string name="address_title_eth">Your public\nEthereum address</string>
-    <string name="address_title_ropsten">Your public Ropsten\ntestnet address</string>
-    <string name="address_description">Share your public address to receive Ether and ERC-20 tokens</string>
-    <string name="address_share">Share</string>
-    <string name="address_share_title">Choose application</string>
-    <string name="address_copy">Copy</string>
-    <string name="address_copied">Address copied</string>
+    <string name="rate_title" comment="Rater dialog - title">Enjoying our app so far?</string>
+    <string name="rate_text" comment="Rater dialog - text">Let us know how you feel, your feedback is important to us.</string>
+    <string name="rate_button_rate" comment="Rater dialog - button">Sure, I\'ll rate it</string>
+    <string name="rate_button_feedback" comment="Rater dialog - button">I have feedback</string>
 
-    <string name="rate_title">Enjoying our app so far?</string>
-    <string name="rate_text">Let us know how you feel, your feedback is important to us.</string>
-    <string name="rate_button_rate">Sure, I\'ll rate it</string>
-    <string name="rate_button_feedback">I have feedback</string>
+    <string name="whats_new_title" comment="'What's new' dialog - title">What\'s new</string>
 
-    <string name="whats_new_title">What\'s new</string>
+    <string name="transaction_network_unknown" comment="Networks names list item">Unknown network</string>
+    <string name="transaction_network_eth" comment="Networks names list item">Ethereum</string>
+    <string name="transaction_network_exp" comment="Networks names list item">Expanse</string>
+    <string name="transaction_network_ropsten_eth" comment="Networks names list item">Ethereum Ropsten</string>
+    <string name="transaction_network_rin" comment="Networks names list item">Rinkeby</string>
+    <string name="transaction_network_ubq" comment="Networks names list item">Ubiq</string>
+    <string name="transaction_network_eosc" comment="Networks names list item">EOS-Classic</string>
+    <string name="transaction_network_etsc" comment="Networks names list item">EthereumSocial</string>
+    <string name="transaction_network_kov" comment="Networks names list item">Kovan</string>
+    <string name="transaction_network_go" comment="Networks names list item">GoChain</string>
+    <string name="transaction_network_etc" comment="Networks names list item">Ethereum Classic</string>
+    <string name="transaction_network_ella" comment="Networks names list item">Ellaism</string>
+    <string name="transaction_network_poa" comment="Networks names list item">Proof of Authority</string>
+    <string name="transaction_network_clo" comment="Networks names list item">Callisto</string>
+    <string name="transaction_network_egem" comment="Networks names list item">EtherGem</string>
+    <string name="transaction_network_esn" comment="Networks names list item">EtherSocial</string>
+    <string name="transaction_network_tomo" comment="Networks names list item">Tomo Coin</string>
+    <string name="transaction_network_aka" comment="Networks names list item">Akroma</string>
+    <string name="transaction_network_etho" comment="Networks names list item">Ether1</string>
+    <string name="transaction_network_music" comment="Networks names list item">Music Coin</string>
+    <string name="transaction_network_pirl" comment="Networks names list item">Pirl</string>
 
-    <string name="transaction_network_unknown">Unknown network</string>
-    <string name="transaction_network_eth">Ethereum</string>
-    <string name="transaction_network_exp">Expanse</string>
-    <string name="transaction_network_ropsten_eth">Ethereum Ropsten</string>
-    <string name="transaction_network_rin">Rinkeby</string>
-    <string name="transaction_network_ubq">Ubiq</string>
-    <string name="transaction_network_eosc">EOS-Classic</string>
-    <string name="transaction_network_etsc">EthereumSocial</string>
-    <string name="transaction_network_kov">Kovan</string>
-    <string name="transaction_network_go">GoChain</string>
-    <string name="transaction_network_etc">Ethereum Classic</string>
-    <string name="transaction_network_ella">Ellaism</string>
-    <string name="transaction_network_poa">Proof of Authority</string>
-    <string name="transaction_network_clo">Callisto</string>
-    <string name="transaction_network_egem">EtherGem</string>
-    <string name="transaction_network_esn">EtherSocial</string>
-    <string name="transaction_network_tomo">Tomo Coin</string>
-    <string name="transaction_network_aka">Akroma</string>
-    <string name="transaction_network_etho">Ether1</string>
-    <string name="transaction_network_music">Music Coin</string>
-    <string name="transaction_network_pirl">Pirl</string>
+    <string name="service_notification_channel_name" comment="Service notification - channel name (system settings)">MEWconnect connection service</string>
+    <string name="service_notification_channel_description" comment="Service notification - channel description (system settings)">Shown while application is connected</string>
+    <string name="service_notification_title" comment="Service notification - title">MEWconnect</string>
+    <string name="service_notification_text" comment="Service notification - text">Connected</string>
+    <string name="service_notification_disconnect" comment="Service notification - button">Disconnect</string>
 </resources>

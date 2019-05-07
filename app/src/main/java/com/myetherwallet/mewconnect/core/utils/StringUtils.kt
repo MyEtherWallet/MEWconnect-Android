@@ -2,7 +2,7 @@ package com.myetherwallet.mewconnect.core.utils
 
 import android.content.Context
 import android.os.Build
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 import android.text.Html
 import android.text.Spanned
 

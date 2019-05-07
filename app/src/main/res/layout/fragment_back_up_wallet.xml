@@ -56,7 +56,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-            <android.support.design.button.MaterialButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/back_up_wallet_confirm"
                 style="@style/Button"
                 android:layout_width="match_parent"

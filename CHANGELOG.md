@@ -1,3 +1,12 @@
+### Release v1.0.4 (19050101)
+
+- Updated 'Sign Message' screen
+- Tweaks to brute-force protection behavior
+- Connection status is now visible in notifications drawer
+- Phone will not go to sleep if the app is on the foreground
+- Added MEW logo in QR code
+- Some visual improvements
+
 ### Release v1.0.3 (19032801)
 
 - Additional backup reminders (don’t forget to back up your wallet, otherwise you might loose your funds if you accidentally delete the app or lose your phone.)

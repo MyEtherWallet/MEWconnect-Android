@@ -1,7 +1,7 @@
 package com.myetherwallet.mewconnect.feature.buy.adapter.holder
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.extenstion.formatUsd
 import com.myetherwallet.mewconnect.feature.buy.data.PurchaseStatus

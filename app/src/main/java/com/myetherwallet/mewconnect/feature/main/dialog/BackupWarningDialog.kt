@@ -2,8 +2,8 @@ package com.myetherwallet.mewconnect.feature.main.dialog
 
 import android.app.Dialog
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AlertDialog
+import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AlertDialog
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.ui.dialog.BaseDialogFragment
 
