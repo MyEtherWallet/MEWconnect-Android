@@ -12,8 +12,8 @@ import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.ui.callback.EmptyTextWatcher
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseDiFragment
 import com.myetherwallet.mewconnect.core.utils.KeyboardUtils
-import com.myetherwallet.mewconnect.core.utils.crypto.keystore.encrypt.BaseEncryptHelper
 import com.myetherwallet.mewconnect.core.utils.crypto.keystore.BiometricKeystoreHelper
+import com.myetherwallet.mewconnect.core.utils.crypto.keystore.encrypt.BaseEncryptHelper
 import com.myetherwallet.mewconnect.core.utils.crypto.keystore.encrypt.PasswordKeystoreHelper
 import com.myetherwallet.mewconnect.feature.auth.callback.AuthCallback
 import com.myetherwallet.mewconnect.feature.auth.utils.AuthAttemptsHelper
@@ -28,20 +28,30 @@ import javax.inject.Inject
  * Created by BArtWell on 13.08.2018.
  */
 
+private const val EXTRA_ALLOW_BIOMETRIC = "allow_biometric"
+
 class AuthFragment : BaseDiFragment() {
 
     companion object {
-
-        fun newInstance() = AuthFragment()
+        fun newInstance(allowBiometric: Boolean = true): AuthFragment {
+            val fragment = AuthFragment()
+            val arguments = Bundle()
+            arguments.putBoolean(EXTRA_ALLOW_BIOMETRIC, allowBiometric)
+            fragment.arguments = arguments
+            return fragment
+        }
     }
 
     @Inject
     lateinit var preferences: PreferencesManager
     private lateinit var attemptsHelper: AuthAttemptsHelper
     private val handler = Handler()
+    private var isBiometricAllowed = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        isBiometricAllowed = arguments?.getBoolean(EXTRA_ALLOW_BIOMETRIC) ?: true
 
         attemptsHelper = AuthAttemptsHelper(handler, preferences.applicationPreferences) { minute: Int, second: Int ->
             if (minute == 0 && second == 0) {
@@ -73,20 +83,21 @@ class AuthFragment : BaseDiFragment() {
             false
         }
 
-        handler.postDelayed({
-            try {
-                BiometricUtils.authenticate(requireActivity()) { cipher ->
-                    cipher?.let {
-                        requireActivity().runOnUiThread {
-                            handleResult(BiometricKeystoreHelper(requireContext(), cipher), KeyStore.BIOMETRIC)
+        if (isBiometricAllowed && BiometricUtils.isAvailable(requireContext()) && BiometricUtils.isEnabled(requireContext(), preferences)) {
+            handler.postDelayed({
+                try {
+                    BiometricUtils.authenticate(requireActivity()) { cipher ->
+                        cipher?.let {
+                            requireActivity().runOnUiThread {
+                                handleResult(BiometricKeystoreHelper(requireContext(), cipher), KeyStore.BIOMETRIC)
+                            }
                         }
                     }
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }, 500L)
-
+            }, 300L)
+        }
         KeyboardUtils.showKeyboard(auth_password_text)
     }
 

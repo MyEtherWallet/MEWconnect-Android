@@ -37,11 +37,15 @@ class WalletPreferences(context: Context, network: Network) : IvPreferences {
     }
 
     fun getWalletPrivateKey(keyStore: KeyStore): String {
-        return keystoreHelper.decrypt(preferences.getString(keyStore.privateKey, "")!!, keyStore.mnemonic)
+        return keystoreHelper.decrypt(preferences.getString(keyStore.privateKey, "")!!, keyStore.privateKey)
     }
 
     fun setWalletPrivateKey(keyStore: KeyStore, privateKey: String) {
-        preferences.edit().putString(keyStore.privateKey, keystoreHelper.encrypt(privateKey, keyStore.mnemonic)).apply()
+        preferences.edit().putString(keyStore.privateKey, keystoreHelper.encrypt(privateKey, keyStore.privateKey)).apply()
+    }
+
+    fun removeWalletPrivateKey(keyStore: KeyStore) {
+        preferences.edit().remove(keyStore.privateKey).apply()
     }
 
     private fun getDeprecatedWalletPrivateKey(context: Context): String {

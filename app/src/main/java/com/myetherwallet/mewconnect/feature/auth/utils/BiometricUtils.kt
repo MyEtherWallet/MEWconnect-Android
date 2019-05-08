@@ -1,9 +1,14 @@
 package com.myetherwallet.mewconnect.feature.auth.utils
 
 import android.content.Context
+import android.security.keystore.KeyPermanentlyInvalidatedException
+import android.text.TextUtils
 import androidx.biometric.BiometricPrompt
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import androidx.fragment.app.FragmentActivity
+import com.myetherwallet.mewconnect.content.data.Network
+import com.myetherwallet.mewconnect.core.persist.prefenreces.KeyStore
+import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.utils.MewLog
 import com.myetherwallet.mewconnect.core.utils.crypto.keystore.BiometricKeystoreHelper
 import java.util.concurrent.Executors
@@ -48,5 +53,26 @@ object BiometricUtils {
         val cryptoObject = BiometricPrompt.CryptoObject(BiometricKeystoreHelper(activity).getDecryptCipher())
         val biometricPrompt = BiometricPrompt(activity, Executors.newSingleThreadExecutor(), callback)
         biometricPrompt.authenticate(promptInfo, cryptoObject)
+    }
+
+    fun isEnabled(context: Context, preferences: PreferencesManager): Boolean {
+        val isEnabled = !TextUtils.isEmpty(preferences.applicationPreferences.getWalletMnemonic(KeyStore.BIOMETRIC))
+        if (isEnabled) {
+            try {
+                BiometricKeystoreHelper(context).getEncryptCipher()
+                return true
+            } catch (e: KeyPermanentlyInvalidatedException) {
+                MewLog.w(TAG, "KeyPermanentlyInvalidatedException")
+                BiometricKeystoreHelper(context).removeKey()
+            }
+        }
+        return false
+    }
+
+    fun disable(preferences: PreferencesManager) {
+        preferences.applicationPreferences.removeWalletMnemonic(KeyStore.BIOMETRIC)
+        for (network in Network.values()) {
+            preferences.getWalletPreferences(network).removeWalletPrivateKey(KeyStore.BIOMETRIC)
+        }
     }
 }

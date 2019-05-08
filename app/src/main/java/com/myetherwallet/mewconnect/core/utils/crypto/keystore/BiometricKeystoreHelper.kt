@@ -33,17 +33,9 @@ class BiometricKeystoreHelper(context: Context) : BaseRsaKeystoreHelper(context)
 
     override fun getDecryptCipher() = signedDecryptCipher ?: super.getDecryptCipher()
 
-    override fun decryptToBytes(text: String): ByteArray? {
-        return getDecryptCipher().doFinal(Base64.decode(text, Base64.NO_WRAP))
-    }
-
-    fun deleteInvalidKey() {
-        try {
-            keyStore.deleteEntry(getAlias())
-        } catch (e: KeyStoreException) {
-            MewLog.i(TAG, "", e)
-        }
-    }
+//    override fun decryptToBytes(text: String): ByteArray? {
+//        return getDecryptCipher().doFinal(Base64.decode(text, Base64.NO_WRAP))
+//    }
 
     override fun getEncryptCipher(): Cipher {
         val key = keyStore.getCertificate(getAlias()).publicKey
@@ -62,8 +54,17 @@ class BiometricKeystoreHelper(context: Context) : BaseRsaKeystoreHelper(context)
     override fun getKeyGenParameterSpec(builder: KeyGenParameterSpec.Builder): KeyGenParameterSpec = builder
             .setDigests(KeyProperties.DIGEST_SHA256, KeyProperties.DIGEST_SHA512)
             .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_RSA_OAEP)
-            .setUserAuthenticationRequired(true)
+//            .setUserAuthenticationRequired(true)
+//            .setUserAuthenticationValidityDurationSeconds(10)
             .build()
+
+    fun removeKey() {
+        try {
+            keyStore.deleteEntry(getAlias())
+        } catch (e: KeyStoreException) {
+            MewLog.i(TAG, "", e)
+        }
+    }
 
     override fun getProvider() = PROVIDER_ANDROID_KEYSTORE
 

@@ -1,7 +1,6 @@
 package com.myetherwallet.mewconnect.feature.main.fragment
 
 import android.os.Bundle
-import android.util.Base64
 import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
@@ -9,6 +8,7 @@ import android.view.View.VISIBLE
 import androidx.appcompat.widget.Toolbar
 import com.myetherwallet.mewconnect.BuildConfig
 import com.myetherwallet.mewconnect.R
+import com.myetherwallet.mewconnect.content.data.Network
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
 import com.myetherwallet.mewconnect.core.persist.prefenreces.KeyStore
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
@@ -24,9 +24,6 @@ import com.myetherwallet.mewconnect.feature.auth.utils.BiometricUtils
 import com.myetherwallet.mewconnect.feature.backup.fragment.BackUpWalletFragment
 import com.myetherwallet.mewconnect.feature.main.dialog.ResetWalletDialog
 import kotlinx.android.synthetic.main.fragment_info.*
-import java.io.ByteArrayOutputStream
-import javax.crypto.Cipher
-import javax.crypto.CipherOutputStream
 import javax.inject.Inject
 
 
@@ -68,13 +65,13 @@ class InfoFragment : BaseDiFragment(), Toolbar.OnMenuItemClickListener, AuthCall
         info_version.text = getString(R.string.info_version, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
 
         if (BiometricUtils.isAvailable(requireContext())) {
-            info_view_biometric_checkbox.isChecked = preferences.applicationPreferences.isBiometricEnabled()
+            info_view_biometric_switch.isChecked = BiometricUtils.isEnabled(requireContext(), preferences)
             info_view_biometric_container.setOnClickListener {
-                if (preferences.applicationPreferences.isBiometricEnabled()) {
-                    preferences.applicationPreferences.setBiometricEnabled(false)
-                    info_view_biometric_checkbox.isChecked = false
+                if (BiometricUtils.isEnabled(requireContext(), preferences)) {
+                    BiometricUtils.disable(preferences)
+                    info_view_biometric_switch.isChecked = false
                 } else {
-                    val authFragment = AuthFragment.newInstance()
+                    val authFragment = AuthFragment.newInstance(false)
                     authFragment.setTargetFragment(this, AUTH_REQUEST_CODE)
                     addFragment(authFragment)
                 }
@@ -97,33 +94,21 @@ class InfoFragment : BaseDiFragment(), Toolbar.OnMenuItemClickListener, AuthCall
     override fun onAuthResult(helper: BaseEncryptHelper, keyStore: KeyStore) {
         MewLog.d(TAG, "Auth success")
         close()
-        val mnemonic = helper.decryptToBytes(preferences.applicationPreferences.getWalletMnemonic(keyStore))
-        val privateKey = helper.decryptToBytes(preferences.getCurrentWalletPreferences().getWalletPrivateKey(keyStore))
-        if (mnemonic != null && privateKey != null) {
+        helper.decryptToBytes(preferences.applicationPreferences.getWalletMnemonic(keyStore))?.let { mnemonic ->
             val biometricKeystoreHelper = BiometricKeystoreHelper(requireContext())
             preferences.applicationPreferences.setWalletMnemonic(KeyStore.BIOMETRIC, biometricKeystoreHelper.encrypt(mnemonic))
-            preferences.getCurrentWalletPreferences().setWalletPrivateKey(KeyStore.BIOMETRIC, biometricKeystoreHelper.encrypt(privateKey))
-            preferences.applicationPreferences.setBiometricEnabled(true)
-
-//        val cryptoObject = BiometricPrompt.CryptoObject(BiometricKeystoreHelper(activity).getDecryptCipher())
-//            val biometricPrompt = BiometricPrompt(requireActivity(), Executors.newSingleThreadExecutor(), object : BiometricPrompt.AuthenticationCallback() {
-//                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-//                    val biometricKeystoreHelper = BiometricKeystoreHelper(requireContext())
-//                    val mnemonic2 = Base64.encodeToString(result.cryptoObject?.cipher!!.doFinal(mnemonic), Base64.DEFAULT)
-//                    preferences.applicationPreferences.setWalletMnemonic(KeyStore.BIOMETRIC, mnemonic2/*encrypt(mnemonic, result.cryptoObject?.cipher!!)*/)
-//                    val privateKey2 = Base64.encodeToString(result.cryptoObject?.cipher!!.doFinal(privateKey), Base64.DEFAULT)
-//                    preferences.getCurrentWalletPreferences().setWalletPrivateKey(KeyStore.BIOMETRIC, privateKey2/*encrypt(privateKey, result.cryptoObject?.cipher!!)*/)
-//                    preferences.applicationPreferences.setBiometricEnabled(true)
-//                }
-//            })
-//            biometricPrompt.authenticate(promptInfo, cryptoObject)
-
-
+            for (network in Network.values()) {
+                val walletPreferences = preferences.getWalletPreferences(network)
+                helper.decryptToBytes(walletPreferences.getWalletPrivateKey(keyStore))?.let { privateKey ->
+                    walletPreferences.setWalletPrivateKey(KeyStore.BIOMETRIC, biometricKeystoreHelper.encrypt(privateKey))
+                }
+            }
+            addOnResumeListener { info_view_biometric_switch.isChecked = true }
         }
     }
 
     override fun onAuthCancel() {
-        info_view_biometric_checkbox.isChecked = false
+        addOnResumeListener { info_view_biometric_switch.isChecked = false }
     }
 
     override fun onMenuItemClick(menuItem: MenuItem): Boolean {

@@ -20,12 +20,10 @@ private const val INSTALL_TIME = "install_time"
 private const val RATE_STARTS_COUNT = "rate_starts_count"
 private const val RATE_VERSION = "rate_version"
 private const val RATE_VERSION_VALUE = 1
-private const val SAVED_UPTIME = "saved_uptime"
 private const val AUTH_FIRST_ATTEMPT_TIME = "auth_first_attempt_time"
 private const val AUTH_ATTEMPTS_COUNT = "auth_attempts_count"
 private const val AUTH_TIMER_TIME = "auth_timer_time"
 private const val WHATS_NEW_DIALOG_VERSION = "whats_new_dialog_version"
-private const val IS_BIOMETRIC_ENABLED = "is_biometric_enabled"
 
 private const val DEPRECATED_WALLET_MNEMONIC = "wallet_mnemonic"
 
@@ -52,11 +50,15 @@ class ApplicationPreferences(context: Context, private val preferences: SharedPr
         preferences.edit().putString(keyStore.mnemonic, keystoreHelper.encrypt(mnemonic, keyStore.mnemonic)).apply()
     }
 
+    fun removeWalletMnemonic(keyStore: KeyStore) {
+        preferences.edit().remove(keyStore.mnemonic).apply()
+    }
+
     private fun getDeprecatedWalletMnemonic(context: Context): String {
         return DeprecatedStorageKeystoreHelper(context).decrypt(preferences.getString(DEPRECATED_WALLET_MNEMONIC, "")!!)
     }
 
-    fun removeDeprecatedWalletMnemonic() {
+    private fun removeDeprecatedWalletMnemonic() {
         preferences.edit().remove(DEPRECATED_WALLET_MNEMONIC).apply()
     }
 
@@ -140,12 +142,6 @@ class ApplicationPreferences(context: Context, private val preferences: SharedPr
         val current = preferences.getInt(WHATS_NEW_DIALOG_VERSION, 0)
         preferences.edit().putInt(WHATS_NEW_DIALOG_VERSION, BuildConfig.VERSION_CODE).apply()
         return current != BuildConfig.VERSION_CODE
-    }
-
-    fun isBiometricEnabled() = preferences.getBoolean(IS_BIOMETRIC_ENABLED, false)
-
-    fun setBiometricEnabled(isEnabled: Boolean) {
-        preferences.edit().putBoolean(IS_BIOMETRIC_ENABLED, isEnabled).apply()
     }
 
     override fun getSharedPreferences() = preferences
