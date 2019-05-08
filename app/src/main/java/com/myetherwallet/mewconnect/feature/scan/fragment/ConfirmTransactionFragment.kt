@@ -14,8 +14,10 @@ import com.myetherwallet.mewconnect.core.extenstion.formatMoney
 import com.myetherwallet.mewconnect.core.extenstion.formatUsd
 import com.myetherwallet.mewconnect.core.extenstion.toEthValue
 import com.myetherwallet.mewconnect.core.extenstion.viewModel
+import com.myetherwallet.mewconnect.core.persist.prefenreces.KeyStore
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseViewModelFragment
+import com.myetherwallet.mewconnect.core.utils.crypto.keystore.encrypt.BaseEncryptHelper
 import com.myetherwallet.mewconnect.feature.auth.callback.AuthCallback
 import com.myetherwallet.mewconnect.feature.auth.fragment.AuthFragment
 import com.myetherwallet.mewconnect.feature.register.utils.EmoticonHelper
@@ -144,8 +146,8 @@ class ConfirmTransactionFragment : BaseViewModelFragment(), AuthCallback {
         confirm_transaction_ok.isEnabled = isAllChecked
     }
 
-    override fun onAuthResult(password: String) {
-        viewModel.confirmTransaction(preferences, password)
+    override fun onAuthResult(helper: BaseEncryptHelper, keyStore: KeyStore) {
+        viewModel.confirmTransaction(preferences, helper, keyStore)
         addOrReplaceFragment(TransactionConfirmedFragment.newInstance(), TAG)
     }
 

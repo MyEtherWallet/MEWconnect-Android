@@ -1,19 +1,19 @@
 package com.myetherwallet.mewconnect.feature.backup.fragment
 
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.appcompat.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
 import com.myetherwallet.mewconnect.core.extenstion.getString
+import com.myetherwallet.mewconnect.core.persist.prefenreces.KeyStore
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseDiFragment
-import com.myetherwallet.mewconnect.core.utils.crypto.StorageCryptHelper
+import com.myetherwallet.mewconnect.core.utils.crypto.keystore.encrypt.PasswordKeystoreHelper
 import com.myetherwallet.mewconnect.feature.backup.adapter.DoubleCheckAdapter
-import com.myetherwallet.mewconnect.feature.main.activity.MainActivity
 import kotlinx.android.synthetic.main.fragment_double_check.*
 import javax.inject.Inject
 
@@ -48,7 +48,7 @@ class DoubleCheckFragment : BaseDiFragment(), View.OnClickListener, Toolbar.OnMe
 
         var mnemonicBytes: ByteArray? = null
         getString(EXTRA_PASSWORD)?.let { password ->
-            mnemonicBytes = StorageCryptHelper.decrypt(preferences.applicationPreferences.getWalletMnemonic(), password)
+            mnemonicBytes = PasswordKeystoreHelper(password).decryptToBytes(preferences.applicationPreferences.getWalletMnemonic(KeyStore.PASSWORD))
         }
 
         setDoneButtonEnabled(false)
@@ -74,10 +74,8 @@ class DoubleCheckFragment : BaseDiFragment(), View.OnClickListener, Toolbar.OnMe
 
     override fun onMenuItemClick(menuItem: MenuItem): Boolean {
         preferences.applicationPreferences.setBackedUp(true)
-        getString(EXTRA_PASSWORD)?.let { password ->
-            closeToFirst()
-            addFragment(WalletBackedUpFragment.newInstance())
-        }
+        closeToFirst()
+        addFragment(WalletBackedUpFragment.newInstance())
         return true
     }
 

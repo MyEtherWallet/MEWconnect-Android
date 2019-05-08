@@ -107,6 +107,9 @@ dependencies {
     implementation 'org.webrtc:google-webrtc:1.0.27225'
     implementation "com.github.gnosis.bivrost-kotlin:bivrost-solidity-types:v0.5.4"
     implementation 'com.github.gnosis.svalinn-kotlin:blockies:v0.5.4'
+
+    implementation 'androidx.biometric:biometric:1.0.0-alpha04'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'

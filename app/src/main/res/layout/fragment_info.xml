@@ -113,6 +113,34 @@
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/text_size_16sp" />
 
+            <LinearLayout
+                android:id="@+id/info_view_biometric_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_48dp"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dimen_24dp"
+                android:paddingEnd="@dimen/dimen_24dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:letterSpacing="0.03"
+                    android:text="@string/info_view_biometric"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <CheckBox
+                    android:id="@+id/info_view_biometric_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:clickable="false"
+                    android:focusable="false" />
+            </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/separator_size"

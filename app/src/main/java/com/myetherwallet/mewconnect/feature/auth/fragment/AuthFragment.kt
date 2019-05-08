@@ -7,13 +7,17 @@ import android.view.inputmethod.EditorInfo
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.content.data.Network
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
+import com.myetherwallet.mewconnect.core.persist.prefenreces.KeyStore
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.ui.callback.EmptyTextWatcher
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseDiFragment
 import com.myetherwallet.mewconnect.core.utils.KeyboardUtils
-import com.myetherwallet.mewconnect.core.utils.crypto.StorageCryptHelper
+import com.myetherwallet.mewconnect.core.utils.crypto.keystore.encrypt.BaseEncryptHelper
+import com.myetherwallet.mewconnect.core.utils.crypto.keystore.BiometricKeystoreHelper
+import com.myetherwallet.mewconnect.core.utils.crypto.keystore.encrypt.PasswordKeystoreHelper
 import com.myetherwallet.mewconnect.feature.auth.callback.AuthCallback
 import com.myetherwallet.mewconnect.feature.auth.utils.AuthAttemptsHelper
+import com.myetherwallet.mewconnect.feature.auth.utils.BiometricUtils
 import com.myetherwallet.mewconnect.feature.main.fragment.WalletFragment
 import kotlinx.android.synthetic.main.fragment_auth.*
 import org.web3j.crypto.ECKeyPair
@@ -62,29 +66,47 @@ class AuthFragment : BaseDiFragment() {
             if (auth_password_input_layout.isEnabled) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     val password = auth_password_text.text.toString()
-                    val privateKey = StorageCryptHelper.decrypt(preferences.getWalletPreferences(Network.MAIN).getWalletPrivateKey(), password)
-                    if (checkPrivateKey(privateKey)) {
-                        attemptsHelper.reset()
-                        if (targetFragment == null) {
-                            replaceFragment(WalletFragment.newInstance())
-                        } else {
-                            val target = targetFragment
-                            if (target is AuthCallback) {
-                                target.onAuthResult(password)
-                            }
-                        }
-                    } else {
-                        if (!attemptsHelper.check()) {
-                            auth_password_input_layout.error = getString(R.string.auth_wrong_password_error)
-                        }
-                    }
+                    handleResult(PasswordKeystoreHelper(password), KeyStore.PASSWORD)
                     return@setOnEditorActionListener true
                 }
             }
             false
         }
 
+        handler.postDelayed({
+            try {
+                BiometricUtils.authenticate(requireActivity()) { cipher ->
+                    cipher?.let {
+                        requireActivity().runOnUiThread {
+                            handleResult(BiometricKeystoreHelper(requireContext(), cipher), KeyStore.BIOMETRIC)
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }, 500L)
+
         KeyboardUtils.showKeyboard(auth_password_text)
+    }
+
+    private fun handleResult(keystoreHelper: BaseEncryptHelper, keyStore: KeyStore) {
+        val privateKey = keystoreHelper.decryptToBytes(preferences.getWalletPreferences(Network.MAIN).getWalletPrivateKey(keyStore))
+        if (checkPrivateKey(privateKey)) {
+            attemptsHelper.reset()
+            if (targetFragment == null) {
+                replaceFragment(WalletFragment.newInstance())
+            } else {
+                val target = targetFragment
+                if (target is AuthCallback) {
+                    target.onAuthResult(keystoreHelper, keyStore)
+                }
+            }
+        } else {
+            if (!attemptsHelper.check()) {
+                auth_password_input_layout.error = getString(R.string.auth_wrong_password_error)
+            }
+        }
     }
 
     override fun onStart() {

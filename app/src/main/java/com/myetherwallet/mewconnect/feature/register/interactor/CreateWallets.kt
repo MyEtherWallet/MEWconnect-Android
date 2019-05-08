@@ -3,13 +3,14 @@ package com.myetherwallet.mewconnect.feature.register.interactor
 import android.content.Context
 import com.myetherwallet.mewconnect.content.data.Network
 import com.myetherwallet.mewconnect.core.extenstion.toBytes
+import com.myetherwallet.mewconnect.core.persist.prefenreces.KeyStore
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.platform.BaseInteractor
 import com.myetherwallet.mewconnect.core.platform.Either
 import com.myetherwallet.mewconnect.core.platform.Failure
 import com.myetherwallet.mewconnect.core.utils.ApplicationUtils
 import com.myetherwallet.mewconnect.core.utils.CardBackgroundHelper
-import com.myetherwallet.mewconnect.core.utils.crypto.StorageCryptHelper
+import com.myetherwallet.mewconnect.core.utils.crypto.keystore.encrypt.PasswordKeystoreHelper
 import com.myetherwallet.mewconnect.feature.main.utils.WalletSizingUtils
 import org.bitcoinj.crypto.ChildNumber
 import org.bitcoinj.crypto.HDKeyDerivation
@@ -45,8 +46,8 @@ class CreateWallets
         }
         val deterministicSeed = DeterministicSeed(mnemonic.split(" "), null, WALLET_PASSWORD, creationTime)
 
-        val encryptedMnemonic = StorageCryptHelper.encrypt(mnemonic.toByteArray(), params.password)
-        preferences.applicationPreferences.setWalletMnemonic(encryptedMnemonic)
+        val encryptedMnemonic = PasswordKeystoreHelper(params.password).encrypt(mnemonic)
+        preferences.applicationPreferences.setWalletMnemonic(KeyStore.PASSWORD, encryptedMnemonic)
 
         for (network in Network.values()) {
             val walletPreferences = preferences.getWalletPreferences(network)
@@ -55,7 +56,7 @@ class CreateWallets
             val ecKeyPair = createEthWallet(deterministicSeed, path)
 
             val address = Keys.getAddress(ecKeyPair)
-            walletPreferences.setWalletPrivateKey(StorageCryptHelper.encrypt(ecKeyPair.privateKey.toBytes(), params.password))
+            walletPreferences.setWalletPrivateKey(KeyStore.PASSWORD, PasswordKeystoreHelper(params.password).encrypt(ecKeyPair.privateKey.toBytes()))
             walletPreferences.setWalletAddress(address)
             CardBackgroundHelper(context).draw(address, network, params.displayWidth, WalletSizingUtils.calculateCardHeight(context))
         }
