@@ -47,7 +47,6 @@ class ServiceAlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         MewLog.d(TAG, "Receive at " + DateFormat.format("dd/MM/yyyy HH:mm:ss", System.currentTimeMillis()))
-        ServiceAlarmReceiver.cancel(context)
         SocketService.stop(context)
     }
 }
