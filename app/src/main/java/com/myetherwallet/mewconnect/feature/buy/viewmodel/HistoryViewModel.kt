@@ -45,7 +45,7 @@ class HistoryViewModel
 
     private fun onStatusLoaded(response: BuyResponse<PurchaseStatus>) {
         loaded++
-        statuses.add(response.result)
+        response.result?.let { statuses.add(it) }
         if (loaded >= count) {
             data.postValue(statuses.filter { it.status != "unknown" })
         }

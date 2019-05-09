@@ -6,6 +6,7 @@ import com.myetherwallet.mewconnect.core.platform.Failure
 import com.myetherwallet.mewconnect.core.repository.ApiccswapApiRepository
 import com.myetherwallet.mewconnect.core.utils.HexUtils
 import com.myetherwallet.mewconnect.feature.buy.data.*
+import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 
@@ -20,7 +21,7 @@ class GetBuyOrder
         val request = BuyOrderRequest(
                 BuyOrderAccountDetails(params.quote.userId!!, params.installTime),
                 BuyOrderTransactionDetails(BuyOrderPaymentDetails(
-                        Amount("USD", params.quote.fiatMoney.totalAmount),
+                        Amount("USD", params.quote.fiatMoney?.totalAmount ?: BigDecimal.ZERO),
                         Amount("ETH", params.quote.digitalMoney.amount),
                         BuyOrderPaymentDetailsAddress("ETH", HexUtils.withPrefixLowerCase(params.address))
                 ))

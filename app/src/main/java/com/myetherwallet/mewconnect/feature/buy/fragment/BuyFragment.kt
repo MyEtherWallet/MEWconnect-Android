@@ -130,9 +130,8 @@ class BuyFragment : BaseViewModelFragment() {
     }
 
     private fun onQuoteLoaded(data: BuyResponse<BuyQuoteResult>?) {
-        data?.let {
-            val quoteResult = it.result
-            price = quoteResult.fiatMoney.baseAmount
+        data?.result?.fiatMoney?.baseAmount?.let {
+            price = it
             populateSecondValue()
         }
     }

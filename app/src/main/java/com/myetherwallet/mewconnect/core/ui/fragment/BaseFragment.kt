@@ -17,27 +17,36 @@ abstract class BaseFragment : Fragment() {
 
     protected fun replaceFragment(fragment: Fragment) {
         KeyboardUtils.hideKeyboard(activity)
-        (activity as MainActivity).replaceFragment(fragment)
+        getMainActivity()?.replaceFragment(fragment)
     }
 
     protected fun addFragment(fragment: Fragment) {
         KeyboardUtils.hideKeyboard(activity)
-        (activity as MainActivity).addFragment(fragment)
+        getMainActivity()?.addFragment(fragment)
     }
 
     protected fun addOrReplaceFragment(fragment: Fragment, tag: String) {
         KeyboardUtils.hideKeyboard(activity)
-        (activity as MainActivity).addOrReplaceFragment(fragment, tag)
+        getMainActivity()?.addOrReplaceFragment(fragment, tag)
     }
 
     protected fun close() {
         KeyboardUtils.hideKeyboard(activity)
-        (activity as MainActivity).closeFragment()
+        getMainActivity()?.closeFragment()
     }
 
     protected fun closeToFirst() {
         KeyboardUtils.hideKeyboard(activity)
-        (activity as MainActivity).closeFragmentsToFirst()
+        getMainActivity()?.closeFragmentsToFirst()
+    }
+
+    private fun getMainActivity(): MainActivity? {
+        val activityToCheck = activity
+        return if (activityToCheck is MainActivity) {
+            activityToCheck
+        } else {
+            null
+        }
     }
 
     fun setLightStatusBar(enabled: Boolean) {
@@ -53,10 +62,11 @@ abstract class BaseFragment : Fragment() {
     }
 
     fun setWindowSecure(enabled: Boolean) {
+        val window = activity?.window
         if (enabled) {
-            activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
+            window?.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
         } else {
-            activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+            window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
         }
     }
 

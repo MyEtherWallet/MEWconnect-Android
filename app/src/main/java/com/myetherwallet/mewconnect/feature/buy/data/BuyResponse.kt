@@ -9,5 +9,5 @@ data class BuyResponse<T>(
         @SerializedName("error")
         val error: Boolean,
         @SerializedName("result")
-        val result: T
+        val result: T?
 )

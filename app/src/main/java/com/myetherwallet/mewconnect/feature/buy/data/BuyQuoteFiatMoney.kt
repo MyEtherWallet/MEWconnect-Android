@@ -7,7 +7,7 @@ data class BuyQuoteFiatMoney(
         @SerializedName("currency")
         val currency: String,
         @SerializedName("base_amount")
-        val baseAmount: BigDecimal,
+        val baseAmount: BigDecimal?,
         @SerializedName("total_amount")
         val totalAmount: BigDecimal
 )
