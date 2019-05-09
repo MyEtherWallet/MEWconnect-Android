@@ -1,3 +1,7 @@
+### Release v1.0.5 (19050901)
+
+- Fix crashes
+
 ### Release v1.0.4 (19050101)
 
 - Updated ‘Sign Message’ screen
