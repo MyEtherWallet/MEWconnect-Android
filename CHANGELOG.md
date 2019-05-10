@@ -1,8 +1,10 @@
-### Release v1.0.5 (19050901)
+### Release 1.0.5 (19050901)
 
 - Fix crashes
+- Fix User guide URL
+- Fix ENS confirmation issue
 
-### Release v1.0.4 (19050101)
+### Release 1.0.4 (19050101)
 
 - Updated ‘Sign Message’ screen
 - Tweaks to brute-force protection behavior
@@ -11,7 +13,7 @@
 - Added MEW logo in QR code
 - Some visual improvements
 
-### Release v1.0.3 (19032801)
+### Release 1.0.3 (19032801)
 
 - Additional backup reminders (don’t forget to back up your wallet, otherwise you might loose your funds if you accidentally delete the app or lose your phone.)
 - Additional confirmation if active network in MEW is not matching active network in MEWconnect
@@ -25,12 +27,12 @@
 - ‘No internet connection’ scenario
 - Multiple minor bug fixes and improvements
 
-### Release v1.0.2 (19020801)
+### Release 1.0.2 (19020801)
 
 - Implement timeout if user entered password five times incorrectly
 - Fix key checkout issue
 
-### Release v1.0.1 (19011701)
+### Release 1.0.1 (19011701)
 
 - Update version to 1.0.1
 - Connection improvements
@@ -42,7 +44,7 @@
 - Update WebRTC library, update Kotlin, Gradle, Firebase Vision
 - Bugfix, crash fix
 
-### Release v1.0.0 (19010702)
+### Release 1.0.0 (19010702)
 
 - Update version to 1.0.0
 - Fix amount in 'get buy order' request
@@ -56,7 +58,7 @@
 - Change wallet creation process
 - Update application icon
 
-### Release v1.0 (19010401)
+### Release 1.0 (19010401)
 
 - Update version to 1.0
 - Check for absent currency
@@ -67,7 +69,7 @@
 - Remove beta icons
 - Note: please remove beta application before install
 
-### Release v1.0.0.beta.4 (18120901)
+### Release 1.0.0.beta.4 (18120901)
 
 ### Devop
 
@@ -75,37 +77,37 @@
 - Change rates URL
 - Fix Travis repo_slug
 
-### Release v1.0.0.beta.2 (18112601)
+### Release 1.0.0.beta.2 (18112601)
 
 ### Bugs
 
 - Fix wallet balance for Ropsten
 
-### Release v1.0.0.beta.1 (18102501)
+### Release 1.0.0.beta.1 (18102501)
 
 ### Bugs
 
 - Fix text size on backup screen
 
-### Release v1.0.0.alpha.11
+### Release 1.0.0.alpha.11
 
 - Production package signature (remove previous build before install)
 - Change version name format
 - Show build number in Info
 - Make sign message non-editable
 
-### Release v1.0.0.alpha.10
+### Release 1.0.0.alpha.10
 
 - Fix message signing on production
 - Remove logging from production builds
 
-### Release v1.0.0.alpha.9
+### Release 1.0.0.alpha.9
 
 - Message signing
 - Bugfix
 - Note: please re-install application
 
-### Release v1.0.0.alpha.8
+### Release 1.0.0.alpha.8
 
 - Prevent multiple transaction confirmation windows
 - Fix service destroying when application paused
@@ -116,11 +118,11 @@
 - Add contact info on scan screen
 - Bugfix, UI improvements
 
-### Release v1.0.0.alpha.7
+### Release 1.0.0.alpha.7
 
 - Bugfix, UI improvements
 
-### Release v1.1.0.0.alpha.2
+### Release 1.1.0.0.alpha.2
 
 - Change app icon
 - Change build number format
@@ -130,7 +132,7 @@
 - Change data storaging and generating
 - UI improvements
 
-### Release v1.0.0.alpha.1
+### Release 1.0.0.alpha.1
 
 - Ask password after application minimized on backup screen
 - Hide content from task manager on backup screen
