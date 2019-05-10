@@ -13,7 +13,14 @@ object HexUtils {
 
     fun bytesToStringLowercase(bytes: ByteArray?) = Hex.bytesToStringUppercase(bytes).toLowerCase()
 
-    fun toBigInteger(address: String) = BigInteger(removePrefix(address), 16)
+    fun toBigInteger(data: String) = BigInteger(removePrefix(normalizeBigInteger(data)), 16)
+
+    private fun normalizeBigInteger(data: String) =
+            if (data == PREFIX) {
+                "0x0"
+            } else {
+                data
+            }
 
     fun removePrefix(address: String): String {
         if (address.startsWith(PREFIX)) {
