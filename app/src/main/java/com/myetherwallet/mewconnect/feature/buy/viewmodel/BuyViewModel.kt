@@ -47,11 +47,16 @@ class BuyViewModel
                 it.either(
                         { failureCallback() },
                         {
-                            try {
-                                successCallback(createPostRequest(it.result))
-                            } catch (e: Exception) {
-                                e.printStackTrace()
+                            val result = it.result
+                            if (result == null) {
                                 failureCallback()
+                            } else {
+                                try {
+                                    successCallback(createPostRequest(result))
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                    failureCallback()
+                                }
                             }
                         })
             }

@@ -6,7 +6,7 @@ apply plugin: 'org.jetbrains.kotlin.android.extensions'
 
 int MAJOR_VERSION = 1
 int MINOR_VERSION = 0
-int MICRO_VERSION = 4
+int MICRO_VERSION = 5
 int BUILD_FOR_TODAY = 1
 
 def secretsPropertiesFile = rootProject.file("secrets.properties")
@@ -29,6 +29,7 @@ def getWhatsNew = { ->
     println "------------------"
     text = text
             .replace("\r", "")
+            .replace("'", "\\'")
             .replace("\n", "\\n")
     return text
 }

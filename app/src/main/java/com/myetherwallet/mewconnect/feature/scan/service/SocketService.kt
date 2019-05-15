@@ -4,6 +4,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
+import androidx.core.content.ContextCompat
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.myetherwallet.mewconnect.BuildConfig
@@ -65,14 +66,14 @@ class SocketService : Service() {
             MewLog.d(TAG, "Start")
             val intent = getIntent(context)
             intent.action = ACTION_START
-            context.startService(intent)
+            ContextCompat.startForegroundService(context, intent)
         }
 
         fun stop(context: Context) {
             MewLog.d(TAG, "Stop")
             val intent = getIntent(context)
             intent.action = ACTION_STOP
-            context.startService(intent)
+            ContextCompat.startForegroundService(context, intent)
         }
     }
 
@@ -117,8 +118,7 @@ class SocketService : Service() {
             Timer().schedule(object : TimerTask() {
                 override fun run() {
                     MewLog.d(TAG, "Service stop delay fired")
-                    stopForeground(true)
-                    stopSelf()
+                    stopService()
                 }
             }, 500L)
         }
@@ -201,6 +201,7 @@ class SocketService : Service() {
         MewLog.d(TAG, "onRtcDisconnected")
         disconnect()
         disconnectListener?.invoke()
+        stopService()
     }
 
     private fun onRtcDataOpened() {
@@ -313,10 +314,11 @@ class SocketService : Service() {
     private fun onDisconnected(vararg args: Any) {
         MewLog.d(TAG, "onDisconnected")
         disconnectListener?.invoke()
+        stopService()
     }
 
 
-    fun disconnect(closeSocket: Boolean = true) {
+    private fun disconnect(closeSocket: Boolean = true) {
         MewLog.d(TAG, "disconnect")
         isConnected = false
         ServiceAlarmReceiver.cancel(this)
@@ -330,6 +332,11 @@ class SocketService : Service() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    private fun stopService() {
+        stopForeground(true)
+        stopSelf()
     }
 
     override fun onDestroy() {

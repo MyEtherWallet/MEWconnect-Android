@@ -10,5 +10,5 @@ data class BuyQuoteResult(
         @SerializedName("digital_money")
         val digitalMoney: BuyQuoteDigitalMoney,
         @SerializedName("fiat_money")
-        val fiatMoney: BuyQuoteFiatMoney
+        val fiatMoney: BuyQuoteFiatMoney?
 )

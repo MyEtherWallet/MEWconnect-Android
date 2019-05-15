@@ -12,6 +12,7 @@ import com.myetherwallet.mewconnect.feature.scan.service.SocketService
 class NotificationActionReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
+        ServiceAlarmReceiver.cancel(context)
         SocketService.stop(context)
     }
 }

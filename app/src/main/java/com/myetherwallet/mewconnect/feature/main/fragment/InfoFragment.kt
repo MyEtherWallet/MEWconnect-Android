@@ -35,7 +35,7 @@ class InfoFragment : BaseDiFragment(), Toolbar.OnMenuItemClickListener {
         info_toolbar.setOnMenuItemClickListener(this)
 
         info_contact.setOnClickListener { LaunchUtils.openMailApp(context, "support@myetherwallet.com") }
-        info_user_guide.setOnClickListener { LaunchUtils.openWebSite(context, "https://kb.myetherwallet.com/getting-started/mew-connect-user-guide.html") }
+        info_user_guide.setOnClickListener { LaunchUtils.openWebSite(context, "https://kb.myetherwallet.com/posts/mewconnect/mewconnect-user-guide/") }
         info_knowledge_base.setOnClickListener { LaunchUtils.openWebSite(context, "https://myetherwallet.github.io/knowledge-base/") }
         info_privacy_and_terms.setOnClickListener { LaunchUtils.openWebSite(context, "https://www.myetherwallet.com/privacy-policy.html") }
         info_site.setOnClickListener { LaunchUtils.openWebSite(context, "https://www.myetherwallet.com") }
