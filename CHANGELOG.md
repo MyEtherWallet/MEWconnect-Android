@@ -1,8 +1,8 @@
 ### Release 1.0.5 (19050901)
 
-- Fix crashes
-- Fix User guide URL
-- Fix ENS confirmation issue
+- Fixed crashes
+- Fixed ‘User guide’ URL
+- Fixed ENS confirmation issue
 
 ### Release 1.0.4 (19050101)
 
