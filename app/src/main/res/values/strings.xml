@@ -147,7 +147,7 @@
     <string name="view_recovery_phrase_title" comment="'View recovery phrase' screen - title">Your recovery phrase</string>
 
     <string name="back_up_wallet_title" comment="'Back up wallet' screen - title">Back up your  wallet</string>
-    <string name="back_up_wallet_description" comment="'Back up wallet' screen - description">Your Ethereum address and private key are stored in a local secure vault on this device.\nBut, what happens if you loose this device? Well… unless you back up your wallet, you will loose all your funds forever.</string>
+    <string name="back_up_wallet_description" comment="'Back up wallet' screen - description">Your Ethereum address and private key are stored in a local secure vault on this device.\nBut, what happens if you lose this device? Well… unless you back up your wallet, you will lose all your funds forever.</string>
     <string name="back_up_wallet_now" comment="'Back up wallet' screen - button">Back up now</string>
 
     <string name="info_title" comment="Info screen - title">Info</string>
@@ -161,11 +161,11 @@
     <string name="info_copyright" comment="Info screen - copyright">Copyright 2018 MyEtherWallet Inc.</string>
     <string name="info_version" comment="Info screen - version">Version %s (%d)</string>
 
-    <string name="reset_wallet_title" comment="'Reset wallet' screen - dialog title">⚠ Warning: you can loose your account and funds forever</string>
+    <string name="reset_wallet_title" comment="'Reset wallet' screen - dialog title">⚠ Warning: you can lose your account and funds forever</string>
     <string name="reset_wallet_message" comment="'Reset wallet' screen - dialog text">Don\'t reset if you didn\'t make a backup, as there will be NO WAY to restore your account after you reset.</string>
 
     <string name="backup_warning_title" comment="'Backup warning' screen - dialog title">Action required: please back up your wallet</string>
-    <string name="backup_warning_message" comment="'Backup warning' screen - dialog text">If you don\'t back up, you can loose all your funds forever once you uninstall the app, or if your device gets lost or stolen.</string>
+    <string name="backup_warning_message" comment="'Backup warning' screen - dialog text">If you don\'t back up, you can lose all your funds forever once you uninstall the app, or if your device gets lost or stolen.</string>
     <string name="backup_warning_button" comment="'Backup warning' screen - dialog button">Backup now</string>
 
     <string name="buy_title" comment="'Buy title' screen - title">Buy Ether</string>
