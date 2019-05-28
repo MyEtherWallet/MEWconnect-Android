@@ -57,7 +57,7 @@ class CreateWallets
             val address = Keys.getAddress(ecKeyPair)
             walletPreferences.setWalletPrivateKey(StorageCryptHelper.encrypt(ecKeyPair.privateKey.toBytes(), params.password))
             walletPreferences.setWalletAddress(address)
-            CardBackgroundHelper(context).draw(address, network, params.displayWidth, WalletSizingUtils.calculateCardHeight(context))
+            CardBackgroundHelper(context).draw(address, network, params.displayWidth, WalletSizingUtils.calculateCardHeight())
         }
 
         if (params.mnemonic != null) {
