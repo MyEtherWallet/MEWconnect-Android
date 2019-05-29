@@ -102,8 +102,7 @@ class AuthFragment : BaseDiFragment() {
     }
 
     private fun handleResult(keystoreHelper: BaseEncryptHelper, keyStore: KeyStore) {
-        val privateKey = keystoreHelper.decryptToBytes(preferences.getWalletPreferences(Network.MAIN).getWalletPrivateKey(keyStore))
-        if (checkPrivateKey(privateKey)) {
+        if (keyStore == KeyStore.BIOMETRIC || checkPrivateKey(keystoreHelper, keyStore)) {
             attemptsHelper.reset()
             if (targetFragment == null) {
                 replaceFragment(WalletFragment.newInstance())
@@ -130,8 +129,8 @@ class AuthFragment : BaseDiFragment() {
         super.onStop()
     }
 
-    private fun checkPrivateKey(privateKey: ByteArray?): Boolean {
-        privateKey?.let {
+    private fun checkPrivateKey(keystoreHelper: BaseEncryptHelper, keyStore: KeyStore): Boolean {
+        keystoreHelper.decryptToBytes(preferences.getWalletPreferences(Network.MAIN).getWalletPrivateKey(keyStore))?.let {
             val ecKeyPair = ECKeyPair.create(it)
             if (ecKeyPair != null) {
                 val address = Keys.getAddress(ecKeyPair)

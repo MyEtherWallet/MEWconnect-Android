@@ -8,7 +8,6 @@ import android.view.View.VISIBLE
 import androidx.appcompat.widget.Toolbar
 import com.myetherwallet.mewconnect.BuildConfig
 import com.myetherwallet.mewconnect.R
-import com.myetherwallet.mewconnect.content.data.Network
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
 import com.myetherwallet.mewconnect.core.persist.prefenreces.KeyStore
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
@@ -16,7 +15,6 @@ import com.myetherwallet.mewconnect.core.ui.fragment.BaseDiFragment
 import com.myetherwallet.mewconnect.core.utils.ApplicationUtils
 import com.myetherwallet.mewconnect.core.utils.LaunchUtils
 import com.myetherwallet.mewconnect.core.utils.MewLog
-import com.myetherwallet.mewconnect.core.utils.crypto.keystore.BiometricKeystoreHelper
 import com.myetherwallet.mewconnect.core.utils.crypto.keystore.encrypt.BaseEncryptHelper
 import com.myetherwallet.mewconnect.feature.auth.callback.AuthCallback
 import com.myetherwallet.mewconnect.feature.auth.fragment.AuthFragment
@@ -94,15 +92,7 @@ class InfoFragment : BaseDiFragment(), Toolbar.OnMenuItemClickListener, AuthCall
     override fun onAuthResult(helper: BaseEncryptHelper, keyStore: KeyStore) {
         MewLog.d(TAG, "Auth success")
         close()
-        helper.decryptToBytes(preferences.applicationPreferences.getWalletMnemonic(keyStore))?.let { mnemonic ->
-            val biometricKeystoreHelper = BiometricKeystoreHelper(requireContext())
-            preferences.applicationPreferences.setWalletMnemonic(KeyStore.BIOMETRIC, biometricKeystoreHelper.encrypt(mnemonic))
-            for (network in Network.values()) {
-                val walletPreferences = preferences.getWalletPreferences(network)
-                helper.decryptToBytes(walletPreferences.getWalletPrivateKey(keyStore))?.let { privateKey ->
-                    walletPreferences.setWalletPrivateKey(KeyStore.BIOMETRIC, biometricKeystoreHelper.encrypt(privateKey))
-                }
-            }
+        if (BiometricUtils.encryptData(requireContext(), helper, keyStore, preferences)) {
             addOnResumeListener { info_view_biometric_switch.isChecked = true }
         }
     }

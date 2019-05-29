@@ -21,15 +21,15 @@ import javax.inject.Inject
  * Created by BArtWell on 15.08.2018.
  */
 
-private const val EXTRA_PASSWORD = "password"
+private const val EXTRA_MNEMONIC = "mnemonic"
 
 class DoubleCheckFragment : BaseDiFragment(), View.OnClickListener, Toolbar.OnMenuItemClickListener {
 
     companion object {
-        fun newInstance(password: String): DoubleCheckFragment {
+        fun newInstance(mnemonic: String): DoubleCheckFragment {
             val fragment = DoubleCheckFragment()
             val arguments = Bundle()
-            arguments.putString(EXTRA_PASSWORD, password)
+            arguments.putString(EXTRA_MNEMONIC, mnemonic)
             fragment.arguments = arguments
             return fragment
         }
@@ -46,11 +46,6 @@ class DoubleCheckFragment : BaseDiFragment(), View.OnClickListener, Toolbar.OnMe
         double_check_toolbar.inflateMenu(R.menu.done)
         double_check_toolbar.setOnMenuItemClickListener(this)
 
-        var mnemonicBytes: ByteArray? = null
-        getString(EXTRA_PASSWORD)?.let { password ->
-            mnemonicBytes = PasswordKeystoreHelper(password).decryptToBytes(preferences.applicationPreferences.getWalletMnemonic(KeyStore.PASSWORD))
-        }
-
         setDoneButtonEnabled(false)
 
         val layoutManager = LinearLayoutManager(context)
@@ -60,8 +55,7 @@ class DoubleCheckFragment : BaseDiFragment(), View.OnClickListener, Toolbar.OnMe
         double_check_list.isNestedScrollingEnabled = false
         double_check_list.setHasFixedSize(false)
 
-        mnemonicBytes?.let {
-            val mnemonic = String(it)
+        getString(EXTRA_MNEMONIC)?.let {mnemonic ->
             adapter.setItems(mnemonic.split(" "))
         } ?: Toast.makeText(context, R.string.words_loading_error, Toast.LENGTH_LONG).show()
     }

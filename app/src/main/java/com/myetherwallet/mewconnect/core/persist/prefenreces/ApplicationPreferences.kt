@@ -24,6 +24,7 @@ private const val AUTH_FIRST_ATTEMPT_TIME = "auth_first_attempt_time"
 private const val AUTH_ATTEMPTS_COUNT = "auth_attempts_count"
 private const val AUTH_TIMER_TIME = "auth_timer_time"
 private const val WHATS_NEW_DIALOG_VERSION = "whats_new_dialog_version"
+private const val IS_BIOMETRIC_PROMO_SHOWN = "is_biometric_promo_shown"
 
 private const val DEPRECATED_WALLET_MNEMONIC = "wallet_mnemonic"
 
@@ -143,6 +144,10 @@ class ApplicationPreferences(context: Context, private val preferences: SharedPr
         preferences.edit().putInt(WHATS_NEW_DIALOG_VERSION, BuildConfig.VERSION_CODE).apply()
         return current != BuildConfig.VERSION_CODE
     }
+
+    fun isBiometricPromoShown() = preferences.getBoolean(IS_BIOMETRIC_PROMO_SHOWN, false)
+
+    fun setBiometricPromoShown(shown: Boolean) = preferences.edit().putBoolean(IS_BIOMETRIC_PROMO_SHOWN, shown).apply()
 
     override fun getSharedPreferences() = preferences
 }

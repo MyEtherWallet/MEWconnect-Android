@@ -84,6 +84,10 @@ interface ApplicationComponent {
 
     fun inject(fragment: HistoryFragment)
 
+    fun inject(fragment: FingerprintAvailableFragment)
+
+    fun inject(fragment: FingerprintEnabledFragment)
+
     fun inject(dialog: RateDialog)
 
     fun inject(view: WalletCardView)
