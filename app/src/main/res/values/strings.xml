@@ -156,6 +156,7 @@
     <string name="info_knowledge_base" comment="Info screen - button">Knowledge base</string>
     <string name="info_site" comment="Info screen - button">MyEtherWallet.com</string>
     <string name="info_view_recovery_phrase" comment="Info screen - button">View my recovery phrase</string>
+    <string name="info_view_biometric" comment="Info screen - button">Use biometric authentication</string>
     <string name="info_back_up" comment="Info screen - button">Back up my wallet</string>
     <string name="info_privacy_and_terms" comment="Info screen - button">Privacy and terms</string>
     <string name="info_copyright" comment="Info screen - copyright">Copyright 2018 MyEtherWallet Inc.</string>
@@ -235,4 +236,10 @@
     <string name="service_notification_title" comment="Service notification - title">MEWconnect</string>
     <string name="service_notification_text" comment="Service notification - text">Connected</string>
     <string name="service_notification_disconnect" comment="Service notification - button">Disconnect</string>
+    <string name="fingerprint_available_title">Fingerprint unlock is now available</string>
+    <string name="fingerprint_available_description1">We added biometric authentication to MEWconnect, so you can access your account much faster, and with the same level of security.</string>
+    <string name="fingerprint_available_description2">You can enable it now or set it up later in Info section of the app.</string>
+    <string name="fingerprint_available_enable">Enable Fingerprint Unlock</string>
+    <string name="fingerprint_available_set_up_later">Set up later</string>
+    <string name="fingerprint_enabled_title">Fingerprint unlock is now enabled</string>
 </resources>

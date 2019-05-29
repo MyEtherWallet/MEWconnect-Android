@@ -6,8 +6,10 @@ import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.content.data.MessageToSign
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
 import com.myetherwallet.mewconnect.core.extenstion.viewModel
+import com.myetherwallet.mewconnect.core.persist.prefenreces.KeyStore
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseViewModelFragment
+import com.myetherwallet.mewconnect.core.utils.crypto.keystore.encrypt.BaseEncryptHelper
 import com.myetherwallet.mewconnect.feature.auth.callback.AuthCallback
 import com.myetherwallet.mewconnect.feature.auth.fragment.AuthFragment
 import com.myetherwallet.mewconnect.feature.scan.viewmodel.SignMessageViewModel
@@ -54,9 +56,9 @@ class SignMessageFragment : BaseViewModelFragment(), AuthCallback {
         }
     }
 
-    override fun onAuthResult(password: String) {
+    override fun onAuthResult(helper: BaseEncryptHelper, keyStore: KeyStore) {
         arguments?.getParcelable<MessageToSign>(EXTRA_MESSAGE)?.let {
-            viewModel.signMessage(it, preferences, password)
+            viewModel.signMessage(it, preferences, helper, keyStore)
             addOrReplaceFragment(MessageSignedFragment.newInstance(), TAG)
         }
     }

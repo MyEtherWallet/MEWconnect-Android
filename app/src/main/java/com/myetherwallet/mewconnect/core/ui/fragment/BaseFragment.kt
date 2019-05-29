@@ -11,7 +11,17 @@ import com.myetherwallet.mewconnect.feature.main.activity.MainActivity
 
 abstract class BaseFragment : Fragment() {
 
+    private val onResumeListeners = mutableListOf<() -> Unit>()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(layoutId(), container, false)
+
+    override fun onResume() {
+        super.onResume()
+        for (listener in onResumeListeners) {
+            listener()
+        }
+        onResumeListeners.clear()
+    }
 
     abstract fun layoutId(): Int
 
@@ -68,6 +78,10 @@ abstract class BaseFragment : Fragment() {
         } else {
             window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
         }
+    }
+
+    fun addOnResumeListener(listener: () -> Unit) {
+        onResumeListeners.add(listener)
     }
 
     open fun onBackPressed() = false

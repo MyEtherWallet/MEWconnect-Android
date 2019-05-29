@@ -1,19 +1,19 @@
 package com.myetherwallet.mewconnect.feature.backup.fragment
 
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.appcompat.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
 import com.myetherwallet.mewconnect.core.extenstion.getString
+import com.myetherwallet.mewconnect.core.persist.prefenreces.KeyStore
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseDiFragment
-import com.myetherwallet.mewconnect.core.utils.crypto.StorageCryptHelper
+import com.myetherwallet.mewconnect.core.utils.crypto.keystore.encrypt.PasswordKeystoreHelper
 import com.myetherwallet.mewconnect.feature.backup.adapter.DoubleCheckAdapter
-import com.myetherwallet.mewconnect.feature.main.activity.MainActivity
 import kotlinx.android.synthetic.main.fragment_double_check.*
 import javax.inject.Inject
 
@@ -21,15 +21,15 @@ import javax.inject.Inject
  * Created by BArtWell on 15.08.2018.
  */
 
-private const val EXTRA_PASSWORD = "password"
+private const val EXTRA_MNEMONIC = "mnemonic"
 
 class DoubleCheckFragment : BaseDiFragment(), View.OnClickListener, Toolbar.OnMenuItemClickListener {
 
     companion object {
-        fun newInstance(password: String): DoubleCheckFragment {
+        fun newInstance(mnemonic: String): DoubleCheckFragment {
             val fragment = DoubleCheckFragment()
             val arguments = Bundle()
-            arguments.putString(EXTRA_PASSWORD, password)
+            arguments.putString(EXTRA_MNEMONIC, mnemonic)
             fragment.arguments = arguments
             return fragment
         }
@@ -46,11 +46,6 @@ class DoubleCheckFragment : BaseDiFragment(), View.OnClickListener, Toolbar.OnMe
         double_check_toolbar.inflateMenu(R.menu.done)
         double_check_toolbar.setOnMenuItemClickListener(this)
 
-        var mnemonicBytes: ByteArray? = null
-        getString(EXTRA_PASSWORD)?.let { password ->
-            mnemonicBytes = StorageCryptHelper.decrypt(preferences.applicationPreferences.getWalletMnemonic(), password)
-        }
-
         setDoneButtonEnabled(false)
 
         val layoutManager = LinearLayoutManager(context)
@@ -60,8 +55,7 @@ class DoubleCheckFragment : BaseDiFragment(), View.OnClickListener, Toolbar.OnMe
         double_check_list.isNestedScrollingEnabled = false
         double_check_list.setHasFixedSize(false)
 
-        mnemonicBytes?.let {
-            val mnemonic = String(it)
+        getString(EXTRA_MNEMONIC)?.let {mnemonic ->
             adapter.setItems(mnemonic.split(" "))
         } ?: Toast.makeText(context, R.string.words_loading_error, Toast.LENGTH_LONG).show()
     }
@@ -74,10 +68,8 @@ class DoubleCheckFragment : BaseDiFragment(), View.OnClickListener, Toolbar.OnMe
 
     override fun onMenuItemClick(menuItem: MenuItem): Boolean {
         preferences.applicationPreferences.setBackedUp(true)
-        getString(EXTRA_PASSWORD)?.let { password ->
-            closeToFirst()
-            addFragment(WalletBackedUpFragment.newInstance())
-        }
+        closeToFirst()
+        addFragment(WalletBackedUpFragment.newInstance())
         return true
     }
 

@@ -7,13 +7,17 @@ import android.view.inputmethod.EditorInfo
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.content.data.Network
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
+import com.myetherwallet.mewconnect.core.persist.prefenreces.KeyStore
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.ui.callback.EmptyTextWatcher
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseDiFragment
 import com.myetherwallet.mewconnect.core.utils.KeyboardUtils
-import com.myetherwallet.mewconnect.core.utils.crypto.StorageCryptHelper
+import com.myetherwallet.mewconnect.core.utils.crypto.keystore.BiometricKeystoreHelper
+import com.myetherwallet.mewconnect.core.utils.crypto.keystore.encrypt.BaseEncryptHelper
+import com.myetherwallet.mewconnect.core.utils.crypto.keystore.encrypt.PasswordKeystoreHelper
 import com.myetherwallet.mewconnect.feature.auth.callback.AuthCallback
 import com.myetherwallet.mewconnect.feature.auth.utils.AuthAttemptsHelper
+import com.myetherwallet.mewconnect.feature.auth.utils.BiometricUtils
 import com.myetherwallet.mewconnect.feature.main.fragment.WalletFragment
 import kotlinx.android.synthetic.main.fragment_auth.*
 import org.web3j.crypto.ECKeyPair
@@ -24,20 +28,30 @@ import javax.inject.Inject
  * Created by BArtWell on 13.08.2018.
  */
 
+private const val EXTRA_ALLOW_BIOMETRIC = "allow_biometric"
+
 class AuthFragment : BaseDiFragment() {
 
     companion object {
-
-        fun newInstance() = AuthFragment()
+        fun newInstance(allowBiometric: Boolean = true): AuthFragment {
+            val fragment = AuthFragment()
+            val arguments = Bundle()
+            arguments.putBoolean(EXTRA_ALLOW_BIOMETRIC, allowBiometric)
+            fragment.arguments = arguments
+            return fragment
+        }
     }
 
     @Inject
     lateinit var preferences: PreferencesManager
     private lateinit var attemptsHelper: AuthAttemptsHelper
     private val handler = Handler()
+    private var isBiometricAllowed = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        isBiometricAllowed = arguments?.getBoolean(EXTRA_ALLOW_BIOMETRIC) ?: true
 
         attemptsHelper = AuthAttemptsHelper(handler, preferences.applicationPreferences) { minute: Int, second: Int ->
             if (minute == 0 && second == 0) {
@@ -62,29 +76,47 @@ class AuthFragment : BaseDiFragment() {
             if (auth_password_input_layout.isEnabled) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     val password = auth_password_text.text.toString()
-                    val privateKey = StorageCryptHelper.decrypt(preferences.getWalletPreferences(Network.MAIN).getWalletPrivateKey(), password)
-                    if (checkPrivateKey(privateKey)) {
-                        attemptsHelper.reset()
-                        if (targetFragment == null) {
-                            replaceFragment(WalletFragment.newInstance())
-                        } else {
-                            val target = targetFragment
-                            if (target is AuthCallback) {
-                                target.onAuthResult(password)
-                            }
-                        }
-                    } else {
-                        if (!attemptsHelper.check()) {
-                            auth_password_input_layout.error = getString(R.string.auth_wrong_password_error)
-                        }
-                    }
+                    handleResult(PasswordKeystoreHelper(password), KeyStore.PASSWORD)
                     return@setOnEditorActionListener true
                 }
             }
             false
         }
 
+        if (isBiometricAllowed && BiometricUtils.isAvailable(requireContext()) && BiometricUtils.isEnabled(requireContext(), preferences)) {
+            handler.postDelayed({
+                try {
+                    BiometricUtils.authenticate(requireActivity()) { cipher ->
+                        cipher?.let {
+                            requireActivity().runOnUiThread {
+                                handleResult(BiometricKeystoreHelper(requireContext(), cipher), KeyStore.BIOMETRIC)
+                            }
+                        }
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }, 300L)
+        }
         KeyboardUtils.showKeyboard(auth_password_text)
+    }
+
+    private fun handleResult(keystoreHelper: BaseEncryptHelper, keyStore: KeyStore) {
+        if (keyStore == KeyStore.BIOMETRIC || checkPrivateKey(keystoreHelper, keyStore)) {
+            attemptsHelper.reset()
+            if (targetFragment == null) {
+                replaceFragment(WalletFragment.newInstance())
+            } else {
+                val target = targetFragment
+                if (target is AuthCallback) {
+                    target.onAuthResult(keystoreHelper, keyStore)
+                }
+            }
+        } else {
+            if (!attemptsHelper.check()) {
+                auth_password_input_layout.error = getString(R.string.auth_wrong_password_error)
+            }
+        }
     }
 
     override fun onStart() {
@@ -97,8 +129,8 @@ class AuthFragment : BaseDiFragment() {
         super.onStop()
     }
 
-    private fun checkPrivateKey(privateKey: ByteArray?): Boolean {
-        privateKey?.let {
+    private fun checkPrivateKey(keystoreHelper: BaseEncryptHelper, keyStore: KeyStore): Boolean {
+        keystoreHelper.decryptToBytes(preferences.getWalletPreferences(Network.MAIN).getWalletPrivateKey(keyStore))?.let {
             val ecKeyPair = ECKeyPair.create(it)
             if (ecKeyPair != null) {
                 val address = Keys.getAddress(ecKeyPair)

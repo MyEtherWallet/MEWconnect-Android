@@ -2,16 +2,17 @@ package com.myetherwallet.mewconnect.core.persist.prefenreces
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.text.TextUtils
 import com.myetherwallet.mewconnect.BuildConfig
 import com.myetherwallet.mewconnect.content.data.Network
-import com.myetherwallet.mewconnect.core.utils.crypto.KeystoreHelper
+import com.myetherwallet.mewconnect.core.utils.crypto.keystore.DeprecatedStorageKeystoreHelper
+import com.myetherwallet.mewconnect.core.utils.crypto.keystore.StorageKeystoreHelper
 import java.util.*
 
 /**
  * Created by BArtWell on 10.07.2018.
  */
 
-private const val WALLET_MNEMONIC = "wallet_mnemonic"
 private const val WALLET_IS_BACKED_UP = "wallet_is_backed_up"
 private const val CURRENT_NETWORK = "current_network"
 private const val BACKUP_WARNING_TIME = "backup_warning_time"
@@ -19,22 +20,47 @@ private const val INSTALL_TIME = "install_time"
 private const val RATE_STARTS_COUNT = "rate_starts_count"
 private const val RATE_VERSION = "rate_version"
 private const val RATE_VERSION_VALUE = 1
-private const val SAVED_UPTIME = "saved_uptime"
 private const val AUTH_FIRST_ATTEMPT_TIME = "auth_first_attempt_time"
 private const val AUTH_ATTEMPTS_COUNT = "auth_attempts_count"
 private const val AUTH_TIMER_TIME = "auth_timer_time"
 private const val WHATS_NEW_DIALOG_VERSION = "whats_new_dialog_version"
+private const val IS_BIOMETRIC_PROMO_SHOWN = "is_biometric_promo_shown"
 
-class ApplicationPreferences(context: Context, private val preferences: SharedPreferences) {
+private const val DEPRECATED_WALLET_MNEMONIC = "wallet_mnemonic"
 
-    private val keystoreHelper: KeystoreHelper = KeystoreHelper(context)
+class ApplicationPreferences(context: Context, private val preferences: SharedPreferences) : IvPreferences {
 
-    fun getWalletMnemonic(): String {
-        return keystoreHelper.decrypt(preferences.getString(WALLET_MNEMONIC, "")!!)
+    private val keystoreHelper = StorageKeystoreHelper(context, this)
+
+    init {
+        // With biometric authentication introduction, key and mnemonic storage was refactored
+        // If old key and mnemonic storage is found on device
+        // we should copy data to new storage and remove old storage
+        val old = getDeprecatedWalletMnemonic(context)
+        if (!TextUtils.isEmpty(old)) {
+            setWalletMnemonic(KeyStore.PASSWORD, old)
+            removeDeprecatedWalletMnemonic()
+        }
     }
 
-    fun setWalletMnemonic(mnemonic: String) {
-        preferences.edit().putString(WALLET_MNEMONIC, keystoreHelper.encrypt(mnemonic)).apply()
+    fun getWalletMnemonic(keyStore: KeyStore): String {
+        return keystoreHelper.decrypt(preferences.getString(keyStore.mnemonic, "")!!, keyStore.mnemonic)
+    }
+
+    fun setWalletMnemonic(keyStore: KeyStore, mnemonic: String) {
+        preferences.edit().putString(keyStore.mnemonic, keystoreHelper.encrypt(mnemonic, keyStore.mnemonic)).apply()
+    }
+
+    fun removeWalletMnemonic(keyStore: KeyStore) {
+        preferences.edit().remove(keyStore.mnemonic).apply()
+    }
+
+    private fun getDeprecatedWalletMnemonic(context: Context): String {
+        return DeprecatedStorageKeystoreHelper(context).decrypt(preferences.getString(DEPRECATED_WALLET_MNEMONIC, "")!!)
+    }
+
+    private fun removeDeprecatedWalletMnemonic() {
+        preferences.edit().remove(DEPRECATED_WALLET_MNEMONIC).apply()
     }
 
     fun isBackedUp() = preferences.getBoolean(WALLET_IS_BACKED_UP, false)
@@ -73,15 +99,18 @@ class ApplicationPreferences(context: Context, private val preferences: SharedPr
     }
 
     fun removeWalletData() {
-        preferences.edit()
-                .remove(WALLET_MNEMONIC)
-                .remove(WALLET_IS_BACKED_UP)
-                .remove(BACKUP_WARNING_TIME)
-                .remove(CURRENT_NETWORK)
-                .remove(AUTH_FIRST_ATTEMPT_TIME)
-                .remove(AUTH_ATTEMPTS_COUNT)
-                .remove(AUTH_TIMER_TIME)
-                .apply()
+        preferences.edit().apply {
+            for (value in KeyStore.values()) {
+                remove(value.mnemonic)
+            }
+            remove(WALLET_IS_BACKED_UP)
+            remove(BACKUP_WARNING_TIME)
+            remove(CURRENT_NETWORK)
+            remove(AUTH_FIRST_ATTEMPT_TIME)
+            remove(AUTH_ATTEMPTS_COUNT)
+            remove(AUTH_TIMER_TIME)
+            apply()
+        }
     }
 
     fun getRateStartsCount() = preferences.getInt(RATE_STARTS_COUNT, 0)
@@ -115,4 +144,10 @@ class ApplicationPreferences(context: Context, private val preferences: SharedPr
         preferences.edit().putInt(WHATS_NEW_DIALOG_VERSION, BuildConfig.VERSION_CODE).apply()
         return current != BuildConfig.VERSION_CODE
     }
+
+    fun isBiometricPromoShown() = preferences.getBoolean(IS_BIOMETRIC_PROMO_SHOWN, false)
+
+    fun setBiometricPromoShown(shown: Boolean) = preferences.edit().putBoolean(IS_BIOMETRIC_PROMO_SHOWN, shown).apply()
+
+    override fun getSharedPreferences() = preferences
 }

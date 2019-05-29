@@ -1,15 +1,17 @@
 package com.myetherwallet.mewconnect.core.ui.fragment
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
 import com.myetherwallet.mewconnect.R
+import com.myetherwallet.mewconnect.core.persist.prefenreces.KeyStore
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.utils.MewLog
-import com.myetherwallet.mewconnect.core.utils.crypto.StorageCryptHelper
+import com.myetherwallet.mewconnect.core.utils.crypto.keystore.encrypt.BaseEncryptHelper
 import com.myetherwallet.mewconnect.feature.auth.callback.AuthCallback
 import com.myetherwallet.mewconnect.feature.auth.fragment.AuthFragment
 import com.myetherwallet.mewconnect.feature.backup.adapter.WriteTheseWordsAdapter
@@ -34,7 +36,7 @@ abstract class BaseMnemonicListFragment : BaseDiFragment(), View.OnClickListener
 
     @Inject
     lateinit var preferences: PreferencesManager
-    private var password: String? = null
+    private var mnemonic: String? = null
     private var isAuthCanceled = false
     val adapter = WriteTheseWordsAdapter()
 
@@ -59,7 +61,7 @@ abstract class BaseMnemonicListFragment : BaseDiFragment(), View.OnClickListener
             return
         }
         setWindowSecure(true)
-        if (password == null) {
+        if (mnemonic == null) {
             val authFragment = AuthFragment.newInstance()
             authFragment.setTargetFragment(this, AUTH_REQUEST_CODE)
             addFragment(authFragment)
@@ -67,20 +69,23 @@ abstract class BaseMnemonicListFragment : BaseDiFragment(), View.OnClickListener
     }
 
     override fun onPause() {
-        password = null
+        mnemonic = null
         setWindowSecure(false)
         super.onPause()
     }
 
-    override fun onAuthResult(password: String) {
+    override fun onAuthResult(helper: BaseEncryptHelper, keyStore: KeyStore) {
         MewLog.d(TAG, "Auth success")
-        this.password = password
-        val mnemonicBytes = StorageCryptHelper.decrypt(preferences.applicationPreferences.getWalletMnemonic(), password)
-        mnemonicBytes?.let {
-            val mnemonic = String(it)
-            adapter.setItems(mnemonic.split(" "))
-        } ?: Toast.makeText(context, R.string.words_loading_error, Toast.LENGTH_LONG).show()
-        close()
+        mnemonic = helper.decrypt(preferences.applicationPreferences.getWalletMnemonic(keyStore))
+
+        requireActivity().runOnUiThread {
+            if (TextUtils.isEmpty(mnemonic)) {
+                Toast.makeText(context, R.string.words_loading_error, Toast.LENGTH_LONG).show()
+            } else {
+                adapter.setItems(mnemonic!!.split(" "))
+            }
+            close()
+        }
     }
 
     override fun onAuthCancel() {
@@ -90,7 +95,7 @@ abstract class BaseMnemonicListFragment : BaseDiFragment(), View.OnClickListener
     }
 
     override fun onMenuItemClick(menuItem: MenuItem): Boolean {
-        password?.let {
+        mnemonic?.let {
             addFragment(DoubleCheckFragment.newInstance(it))
         }
         return true
