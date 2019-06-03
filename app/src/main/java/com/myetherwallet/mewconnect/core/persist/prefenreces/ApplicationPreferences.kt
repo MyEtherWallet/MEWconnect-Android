@@ -109,6 +109,7 @@ class ApplicationPreferences(context: Context, private val preferences: SharedPr
             remove(AUTH_FIRST_ATTEMPT_TIME)
             remove(AUTH_ATTEMPTS_COUNT)
             remove(AUTH_TIMER_TIME)
+            remove(IS_BIOMETRIC_PROMO_SHOWN)
             apply()
         }
     }
