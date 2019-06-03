@@ -5,6 +5,7 @@ import android.os.Handler
 import android.view.animation.AnimationUtils
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.ui.activity.BaseActivity
+import com.myetherwallet.mewconnect.core.utils.DisplaySizeHelper
 import kotlinx.android.synthetic.main.activity_splash.*
 import kotlin.math.PI
 import kotlin.math.cos
@@ -24,6 +25,7 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        DisplaySizeHelper.init(window.decorView)
     }
 
     override fun onResume() {

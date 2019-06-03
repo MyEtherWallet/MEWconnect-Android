@@ -6,6 +6,7 @@ import android.text.TextUtils
 import androidx.biometric.BiometricPrompt
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import androidx.fragment.app.FragmentActivity
+import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.content.data.Network
 import com.myetherwallet.mewconnect.core.persist.prefenreces.KeyStore
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
@@ -46,10 +47,9 @@ object BiometricUtils {
         }
 
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Set the title to display.")
-                .setSubtitle("Set the subtitle to display.")
-                .setDescription("Set the description to display")
-                .setNegativeButtonText("Negative Button")
+                .setTitle(activity.getString(R.string.app_name))
+                .setDescription(activity.getString(R.string.fingerprint_prompt_description))
+                .setNegativeButtonText(activity.getString(R.string.cancel))
                 .build()
         val cryptoObject = BiometricPrompt.CryptoObject(BiometricKeystoreHelper(activity).getDecryptCipher())
         val biometricPrompt = BiometricPrompt(activity, Executors.newSingleThreadExecutor(), callback)

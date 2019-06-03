@@ -23,6 +23,8 @@ private const val AUTH_REQUEST_CODE = 103
 class FingerprintAvailableFragment : BaseDiFragment(), AuthCallback {
 
     companion object {
+        const val FINGERPRINT_FRAGMENTS_TAG = "fingerprint"
+
         fun newInstance() = FingerprintAvailableFragment()
     }
 
@@ -43,7 +45,9 @@ class FingerprintAvailableFragment : BaseDiFragment(), AuthCallback {
     override fun onAuthResult(helper: BaseEncryptHelper, keyStore: KeyStore) {
         close()
         if (BiometricUtils.encryptData(requireContext(), helper, keyStore, preferences)) {
-            addOnResumeListener { replaceFragment(FingerprintEnabledFragment.newInstance()) }
+            addOnResumeListener {
+                addOrReplaceFragment(FingerprintEnabledFragment.newInstance(), FINGERPRINT_FRAGMENTS_TAG)
+            }
         }
     }
 

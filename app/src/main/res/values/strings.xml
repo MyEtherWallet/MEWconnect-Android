@@ -173,8 +173,8 @@
     <string name="buy_button" comment="'Buy title' screen - button">Buy with credit card</string>
     <string name="buy_minimum_warning" comment="'Buy title' screen - note">$50 minimum purchase</string>
     <string name="buy_loading_error" comment="'Buy title' screen - error">Buy Ether failed</string>
-    <string name="buy_simplex_description_full" comment="'Buy title' screen - description for large screen"><![CDATA[Purchase will be done via <u>Simplex</u><br/>Approximate fee is already<br/>included in this rate]]></string>
-    <string name="buy_simplex_description_short" comment="'Buy title' screen - description for small screen"><![CDATA[Appox. <u>Simplex</u> fee included in rate]]></string>
+    <string name="buy_simplex_description_full" comment="'Buy title' screen - description for large screen"><![CDATA[Purchase will be done via <u>Simplex</u><br/>with a %s fee, which is already<br/>included in this rate]]></string>
+    <string name="buy_simplex_description_short" comment="'Buy title' screen - description for small screen"><![CDATA[%s <u>Simplex</u> fee is already included in rate]]></string>
 
     <string name="buy_webview_upload_error" comment="'Buy browser' screen - error">Unable to open file chooser</string>
     <string name="buy_webview_rationale" comment="'Buy browser' screen - files permission rationale">Please enable files access for MEWconnect</string>
@@ -236,10 +236,14 @@
     <string name="service_notification_title" comment="Service notification - title">MEWconnect</string>
     <string name="service_notification_text" comment="Service notification - text">Connected</string>
     <string name="service_notification_disconnect" comment="Service notification - button">Disconnect</string>
+
+    <string name="fingerprint_prompt_description">Touch the fingerprint sensor</string>
     <string name="fingerprint_available_title">Fingerprint unlock is now available</string>
     <string name="fingerprint_available_description1">We added biometric authentication to MEWconnect, so you can access your account much faster, and with the same level of security.</string>
     <string name="fingerprint_available_description2">You can enable it now or set it up later in Info section of the app.</string>
     <string name="fingerprint_available_enable">Enable Fingerprint Unlock</string>
     <string name="fingerprint_available_set_up_later">Set up later</string>
     <string name="fingerprint_enabled_title">Fingerprint unlock is now enabled</string>
+    <string name="auth_fingerprint_description">To open your wallet</string>
+
 </resources>

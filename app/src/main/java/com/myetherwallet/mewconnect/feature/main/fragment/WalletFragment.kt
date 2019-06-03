@@ -91,8 +91,9 @@ class WalletFragment : BaseViewModelFragment() {
 
         if (BiometricUtils.isAvailable(requireContext()) &&
                 !preferences.applicationPreferences.isBiometricPromoShown() &&
+                preferences.getCurrentWalletPreferences().isWalletExists() &&
                 !BiometricUtils.isEnabled(requireContext(), preferences)) {
-            addFragment(FingerprintAvailableFragment.newInstance())
+            addOrReplaceFragment(FingerprintAvailableFragment.newInstance(), FingerprintAvailableFragment.FINGERPRINT_FRAGMENTS_TAG)
             preferences.applicationPreferences.setBiometricPromoShown(true)
         }
 
