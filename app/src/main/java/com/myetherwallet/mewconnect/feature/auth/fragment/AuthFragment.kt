@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.content.data.Network
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
@@ -53,32 +55,35 @@ class AuthFragment : BaseDiFragment() {
 
         isBiometricAllowed = arguments?.getBoolean(EXTRA_ALLOW_BIOMETRIC) ?: true
 
+        setEnterButtonEnabled(false)
+
         attemptsHelper = AuthAttemptsHelper(handler, preferences.applicationPreferences) { minute: Int, second: Int ->
             if (minute == 0 && second == 0) {
                 auth_password_input_layout.isErrorEnabled = false
                 auth_password_input_layout.isEnabled = true
+                setEnterButtonEnabled(auth_password_text.length() > 0)
             } else {
                 auth_password_input_layout.isErrorEnabled = false
                 auth_password_input_layout.isEnabled = false
+                setEnterButtonEnabled(false)
                 auth_password_input_layout.error = getString(R.string.auth_incorrect_attempts, minute, second)
             }
         }
 
-        auth_forgot_password.setOnClickListener { addFragment(ForgotPasswordFragment.newInstance()) }
-
         auth_password_text.addTextChangedListener(object : EmptyTextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 auth_password_input_layout.isErrorEnabled = false
+                setEnterButtonEnabled(auth_password_text.length() > 0)
             }
         })
 
+        auth_forgot_password.setOnClickListener { addFragment(ForgotPasswordFragment.newInstance()) }
+        auth_enter_container.setOnClickListener { doAuth() }
+
         auth_password_text.setOnEditorActionListener { _, actionId, _ ->
-            if (auth_password_input_layout.isEnabled) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    val password = auth_password_text.text.toString()
-                    handleResult(PasswordKeystoreHelper(password), KeyStore.PASSWORD)
-                    return@setOnEditorActionListener true
-                }
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                doAuth()
+                return@setOnEditorActionListener true
             }
             false
         }
@@ -99,6 +104,22 @@ class AuthFragment : BaseDiFragment() {
             }, 300L)
         }
         KeyboardUtils.showKeyboard(auth_password_text)
+    }
+
+    private fun setEnterButtonEnabled(enabled: Boolean) {
+        auth_enter_container.isEnabled = enabled
+        val color = if (enabled) R.color.blue else R.color.auth_enter_disabled
+        val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.auth_enter)
+        val drawableWrap = DrawableCompat.wrap(drawable!!).mutate()
+        DrawableCompat.setTint(drawableWrap, ContextCompat.getColor(requireContext(), color))
+        auth_enter.setImageDrawable(drawable)
+    }
+
+    private fun doAuth() {
+        if (auth_password_input_layout.isEnabled) {
+            val password = auth_password_text.text.toString()
+            handleResult(PasswordKeystoreHelper(password), KeyStore.PASSWORD)
+        }
     }
 
     private fun handleResult(keystoreHelper: BaseEncryptHelper, keyStore: KeyStore) {
