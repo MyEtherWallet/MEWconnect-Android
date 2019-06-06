@@ -8,11 +8,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
-import androidx.annotation.ColorInt
-import androidx.annotation.DrawableRes
-import androidx.annotation.RawRes
-import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
@@ -25,6 +20,11 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.widget.Toast
+import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
+import androidx.annotation.RawRes
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.vision.CameraSource
@@ -197,7 +197,9 @@ class ScanFragment : BaseViewModelFragment() {
     }
 
     private fun createCameraSource() {
-        val barcodeDetector = BarcodeDetector.Builder(context).build()
+        val barcodeDetector = BarcodeDetector.Builder(context)
+                .setBarcodeFormats(Barcode.QR_CODE)
+                .build()
         val barcodeFactory = BarcodeTrackerFactory(this@ScanFragment::onBarCodeDetected)
         barcodeDetector.setProcessor(MultiProcessor.Builder<Barcode>(barcodeFactory).build())
 

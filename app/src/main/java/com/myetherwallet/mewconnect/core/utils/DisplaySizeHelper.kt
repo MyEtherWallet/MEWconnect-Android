@@ -19,6 +19,7 @@ object DisplaySizeHelper {
         private set
     var cutOut = 0
         private set
+    private val handler = Handler()
 
     fun init(view: View) {
         val displayMetrics = DisplayMetrics()
@@ -26,15 +27,11 @@ object DisplaySizeHelper {
                 .defaultDisplay
                 .getMetrics(displayMetrics)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            Handler().postDelayed({
+            handler.postDelayed({
                 cutOut = getCutOut(view)
                 width = displayMetrics.widthPixels
                 height = displayMetrics.heightPixels + cutOut
             }, 500)
-//            view.setOnApplyWindowInsetsListener { _, insets ->
-//
-//                insets
-//            }
         } else {
             width = displayMetrics.widthPixels
             height = displayMetrics.heightPixels

@@ -143,7 +143,7 @@ class ApplicationPreferences(context: Context, private val preferences: SharedPr
     fun shouldShowWhatsNewDialog(): Boolean {
         val current = preferences.getInt(WHATS_NEW_DIALOG_VERSION, 0)
         preferences.edit().putInt(WHATS_NEW_DIALOG_VERSION, BuildConfig.VERSION_CODE).apply()
-        return current != BuildConfig.VERSION_CODE
+        return current != BuildConfig.VERSION_CODE && current > 0
     }
 
     fun isBiometricPromoShown() = preferences.getBoolean(IS_BIOMETRIC_PROMO_SHOWN, false)

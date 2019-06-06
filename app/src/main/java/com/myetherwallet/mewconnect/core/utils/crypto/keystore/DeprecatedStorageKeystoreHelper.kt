@@ -13,6 +13,7 @@ private const val PROVIDER_ANDROID_KEYSTORE = "AndroidKeyStore"
 private const val TRANSFORMATION = "${KeyProperties.KEY_ALGORITHM_RSA}/${KeyProperties.BLOCK_MODE_ECB}/${KeyProperties.ENCRYPTION_PADDING_RSA_PKCS1}"
 private const val ALIAS = "MewWalletKeys"
 
+@Deprecated("Use StorageKeystoreHelper instead")
 class DeprecatedStorageKeystoreHelper(context: Context) : BaseRsaKeystoreHelper(context) {
 
     override fun getKeyGenParameterSpec(builder: KeyGenParameterSpec.Builder): KeyGenParameterSpec = builder

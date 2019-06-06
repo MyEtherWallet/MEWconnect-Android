@@ -1,8 +1,14 @@
 package com.myetherwallet.mewconnect.feature.auth.utils
 
+import android.app.KeyguardManager
 import android.content.Context
+import android.content.Context.KEYGUARD_SERVICE
+import android.os.Handler
 import android.security.keystore.KeyPermanentlyInvalidatedException
 import android.text.TextUtils
+import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.biometric.BiometricPrompt
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import androidx.fragment.app.FragmentActivity
@@ -16,6 +22,7 @@ import com.myetherwallet.mewconnect.core.utils.crypto.keystore.encrypt.BaseEncry
 import java.util.concurrent.Executors
 import javax.crypto.Cipher
 
+
 /**
  * Created by BArtWell on 15.04.2019.
  */
@@ -25,7 +32,18 @@ private const val TAG = "BiometricUtils"
 object BiometricUtils {
 
     // TODO: migrate to biometric hardware checkout
-    fun isAvailable(context: Context) = FingerprintManagerCompat.from(context).isHardwareDetected
+    fun isAvailable(context: Context): Boolean {
+        val fingerprintManager = FingerprintManagerCompat.from(context)
+        if (fingerprintManager.isHardwareDetected) {
+            val keyguardManager = context.getSystemService(KEYGUARD_SERVICE) as KeyguardManager
+            if (keyguardManager.isKeyguardSecure) {
+                if (fingerprintManager.hasEnrolledFingerprints()) {
+                    return true
+                }
+            }
+        }
+        return false
+    }
 
     fun authenticate(activity: FragmentActivity, successCallback: (cipher: Cipher?) -> Unit) {
         val callback = object : BiometricPrompt.AuthenticationCallback() {
@@ -45,7 +63,6 @@ object BiometricUtils {
                 MewLog.d(TAG, "onAuthenticationError: errorCode=$errorCode; errString=$errString")
             }
         }
-
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
                 .setTitle(activity.getString(R.string.app_name))
                 .setDescription(activity.getString(R.string.fingerprint_prompt_description))

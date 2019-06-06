@@ -207,8 +207,6 @@
     <string name="rate_button_rate" comment="Rater dialog - button">Sure, I\'ll rate it</string>
     <string name="rate_button_feedback" comment="Rater dialog - button">I have feedback</string>
 
-    <string name="whats_new_title" comment="'What's new' dialog - title">What\'s new</string>
-
     <string name="transaction_network_unknown" comment="Networks names list item">Unknown network</string>
     <string name="transaction_network_eth" comment="Networks names list item">Ethereum</string>
     <string name="transaction_network_exp" comment="Networks names list item">Expanse</string>
@@ -237,13 +235,13 @@
     <string name="service_notification_text" comment="Service notification - text">Connected</string>
     <string name="service_notification_disconnect" comment="Service notification - button">Disconnect</string>
 
-    <string name="fingerprint_prompt_description">Touch the fingerprint sensor</string>
-    <string name="fingerprint_available_title">Fingerprint unlock is now available</string>
-    <string name="fingerprint_available_description1">We added biometric authentication to MEWconnect, so you can access your account much faster, and with the same level of security.</string>
-    <string name="fingerprint_available_description2">You can enable it now or set it up later in Info section of the app.</string>
-    <string name="fingerprint_available_enable">Enable Fingerprint Unlock</string>
-    <string name="fingerprint_available_set_up_later">Set up later</string>
-    <string name="fingerprint_enabled_title">Fingerprint unlock is now enabled</string>
-    <string name="auth_fingerprint_description">To open your wallet</string>
+    <string name="fingerprint_prompt_description" comment="Fingerprint dialog - description">Touch the fingerprint sensor</string>
+    <string name="fingerprint_available_title" comment="Fingerprint available screen - title">Fingerprint unlock is now available</string>
+    <string name="fingerprint_available_description1" comment="Fingerprint available screen - text">We added biometric authentication to MEWconnect, so you can access your account much faster, and with the same level of security.</string>
+    <string name="fingerprint_available_description2" comment="Fingerprint available screen - text">You can enable it now or set it up later in Info section of the app.</string>
+    <string name="fingerprint_available_enable" comment="Fingerprint available screen - button">Enable Fingerprint Unlock</string>
+    <string name="fingerprint_available_set_up_later" comment="Fingerprint available screen - cancel">Set up later</string>
+    <string name="fingerprint_enabled_title" comment="Fingerprint enabled screen - title">Fingerprint unlock is now enabled</string>
 
+    <string name="whats_new_title" comment="'What's new' screen - title">What’s new</string>
 </resources>

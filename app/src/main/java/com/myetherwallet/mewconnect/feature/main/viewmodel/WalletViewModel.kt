@@ -36,6 +36,9 @@ class WalletViewModel
 
     private var serviceConnection: ServiceConnection? = null
     private var service: SocketService? = null
+    private var disconnectListener: (() -> Unit)? = null
+    private var messageSignListener: ((message: MessageToSign) -> Unit)? = null
+    private var transactionConfirmListener: ((transaction: Transaction) -> Unit)? = null
 
     var walletData: MutableLiveData<WalletData> = MutableLiveData()
 
@@ -47,6 +50,9 @@ class WalletViewModel
         serviceConnection = object : ServiceConnection {
             override fun onServiceConnected(name: ComponentName, binder: IBinder) {
                 service = (binder as ServiceBinder<SocketService>).service
+                service?.disconnectListener = disconnectListener
+                service?.messageSignListener = messageSignListener
+                service?.transactionConfirmListener = transactionConfirmListener
             }
 
             override fun onServiceDisconnected(name: ComponentName) {
@@ -58,15 +64,15 @@ class WalletViewModel
     }
 
     fun setOnTransactionListener(onTransactionListener: (transaction: Transaction) -> Unit) {
-        service?.transactionConfirmListener = { onTransactionListener(it) }
+        transactionConfirmListener = { onTransactionListener(it) }
     }
 
     fun setOnMessageListener(onMessageListener: (message: MessageToSign) -> Unit) {
-        service?.messageSignListener = { onMessageListener(it) }
+        messageSignListener = { onMessageListener(it) }
     }
 
     fun setOnDisconnectListener(onDisconnectListener: (() -> Unit)?) {
-        service?.disconnectListener = onDisconnectListener
+        disconnectListener = onDisconnectListener
     }
 
     fun checkConnected() = service?.isConnected ?: false
