@@ -1,8 +1,11 @@
-### Release 1.0.5 (19050901)
+### Release 1.0.6 (19060601)
 
-- Fixed crashes
-- Fixed ‘User guide’ URL
-- Fixed ENS confirmation issue
+- Add biometric authentication
+- Update ‘What's new’ screen
+- Add explicit enter button on ‘Enter password’ screen
+- Make fee label contextual on ‘Buy’ screen
+- Fix scroll issue for device with notch
+- Bugfix
 
 ### Release 1.0.4 (19050101)
 
