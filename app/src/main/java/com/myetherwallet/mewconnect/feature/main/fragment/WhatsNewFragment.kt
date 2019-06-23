@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseDiFragment
@@ -64,6 +65,7 @@ class WhatsNewFragment : BaseDiFragment() {
         val marginTop = if (isFirst) 0 else headerPaddingTop
         setPadding(headerPaddingLeft, marginTop, 0, 0)
         setTextSize(TypedValue.COMPLEX_UNIT_PX, headerSize)
+        setTextColor(ContextCompat.getColor(requireContext(), R.color.text_black))
         letterSpacing = 0.02f
     }
 
@@ -76,6 +78,7 @@ class WhatsNewFragment : BaseDiFragment() {
             includeFontPadding = false
             setPadding(bodyDashPaddingLeft, 0, 0, 0)
             setTextSize(TypedValue.COMPLEX_UNIT_PX, bodySize)
+            setTextColor(ContextCompat.getColor(requireContext(), R.color.text_black))
             letterSpacing = 0.02f
         }
         linearLayout.addView(dashView)
@@ -85,6 +88,7 @@ class WhatsNewFragment : BaseDiFragment() {
             includeFontPadding = false
             setPadding(bodyTextPaddingLeft, 0, 0, 0)
             setTextSize(TypedValue.COMPLEX_UNIT_PX, bodySize)
+            setTextColor(ContextCompat.getColor(requireContext(), R.color.text_black))
             letterSpacing = 0.02f
             setLineSpacing(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, bodyLineSpacing, resources.displayMetrics), 1.0f)
         }

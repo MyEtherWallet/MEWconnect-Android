@@ -179,7 +179,10 @@ class BuyFragment : BaseViewModelFragment() {
         populateCurrency()
     }
 
-    private fun getCurrentValue() = buy_sum_1.text.toString()
+    private fun getCurrentValue(): String {
+        var text = buy_sum_1.text.toString()
+        return if (text.isEmpty()) "0" else text
+    }
 
     private fun calculateFee(amount: BigDecimal) =
             if (amount.compareTo(BigDecimal.ZERO) == 0) {
