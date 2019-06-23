@@ -27,7 +27,8 @@ enum class TransactionNetwork(val title: Int, val chainId: Long) {
     AKA(R.string.transaction_network_aka, 200625),
     ETHO(R.string.transaction_network_etho, 1313114),
     MUSIC(R.string.transaction_network_music, 7762959),
-    PIRL(R.string.transaction_network_pirl, 3125659152);
+    PIRL(R.string.transaction_network_pirl, 3125659152),
+    XSM(R.string.transaction_network_xsm,20080914);
 
     companion object {
 
