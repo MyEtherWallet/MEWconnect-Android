@@ -54,8 +54,7 @@ class BiometricKeystoreHelper(context: Context) : BaseRsaKeystoreHelper(context)
     override fun getKeyGenParameterSpec(builder: KeyGenParameterSpec.Builder): KeyGenParameterSpec = builder
             .setDigests(KeyProperties.DIGEST_SHA256, KeyProperties.DIGEST_SHA512)
             .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_RSA_OAEP)
-//            .setUserAuthenticationRequired(true)
-//            .setUserAuthenticationValidityDurationSeconds(10)
+            .setUserAuthenticationRequired(true)
             .build()
 
     fun removeKey() {
