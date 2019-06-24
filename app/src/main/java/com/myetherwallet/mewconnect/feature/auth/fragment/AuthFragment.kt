@@ -3,6 +3,8 @@ package com.myetherwallet.mewconnect.feature.auth.fragment
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.inputmethod.EditorInfo
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
@@ -88,22 +90,33 @@ class AuthFragment : BaseDiFragment() {
             false
         }
 
+        auth_fingerprint.setOnClickListener {
+            showBiometricPrompt()
+        }
+
         if (isBiometricAllowed && BiometricUtils.isAvailable(requireContext()) && BiometricUtils.isEnabled(requireContext(), preferences)) {
+            auth_fingerprint.visibility = VISIBLE
             handler.postDelayed({
                 try {
-                    BiometricUtils.authenticate(requireActivity()) { cipher ->
-                        cipher?.let {
-                            requireActivity().runOnUiThread {
-                                handleResult(BiometricKeystoreHelper(requireContext(), cipher), KeyStore.BIOMETRIC)
-                            }
-                        }
-                    }
+                    showBiometricPrompt()
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }, 300L)
+        } else {
+            auth_fingerprint.visibility = GONE
         }
         KeyboardUtils.showKeyboard(auth_password_text)
+    }
+
+    private fun showBiometricPrompt() {
+        BiometricUtils.authenticate(requireActivity(), preferences) { cipher ->
+            cipher?.let {
+                requireActivity().runOnUiThread {
+                    handleResult(BiometricKeystoreHelper(requireContext(), cipher), KeyStore.BIOMETRIC)
+                }
+            }
+        }
     }
 
     private fun setEnterButtonEnabled(enabled: Boolean) {

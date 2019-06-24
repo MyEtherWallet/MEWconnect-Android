@@ -1,6 +1,7 @@
 package com.myetherwallet.mewconnect.core.utils.crypto.keystore
 
 import android.content.Context
+import android.os.Build
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.util.Base64
@@ -33,9 +34,9 @@ class BiometricKeystoreHelper(context: Context) : BaseRsaKeystoreHelper(context)
 
     override fun getDecryptCipher() = signedDecryptCipher ?: super.getDecryptCipher()
 
-//    override fun decryptToBytes(text: String): ByteArray? {
-//        return getDecryptCipher().doFinal(Base64.decode(text, Base64.NO_WRAP))
-//    }
+    override fun decryptToBytes(text: String): ByteArray? {
+        return getDecryptCipher().doFinal(Base64.decode(text, Base64.NO_WRAP))
+    }
 
     override fun getEncryptCipher(): Cipher {
         val key = keyStore.getCertificate(getAlias()).publicKey
@@ -51,11 +52,15 @@ class BiometricKeystoreHelper(context: Context) : BaseRsaKeystoreHelper(context)
         return Base64.encodeToString(bytes, Base64.NO_WRAP)
     }
 
-    override fun getKeyGenParameterSpec(builder: KeyGenParameterSpec.Builder): KeyGenParameterSpec = builder
-            .setDigests(KeyProperties.DIGEST_SHA256, KeyProperties.DIGEST_SHA512)
-            .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_RSA_OAEP)
-            .setUserAuthenticationRequired(true)
-            .build()
+    override fun getKeyGenParameterSpec(builder: KeyGenParameterSpec.Builder): KeyGenParameterSpec = with(builder) {
+        setDigests(KeyProperties.DIGEST_SHA256, KeyProperties.DIGEST_SHA512)
+        setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_RSA_OAEP)
+        setUserAuthenticationRequired(true)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            setInvalidatedByBiometricEnrollment(true)
+        }
+        build()
+    }
 
     fun removeKey() {
         try {

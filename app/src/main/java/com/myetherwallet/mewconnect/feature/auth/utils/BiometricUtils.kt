@@ -3,12 +3,8 @@ package com.myetherwallet.mewconnect.feature.auth.utils
 import android.app.KeyguardManager
 import android.content.Context
 import android.content.Context.KEYGUARD_SERVICE
-import android.os.Handler
 import android.security.keystore.KeyPermanentlyInvalidatedException
 import android.text.TextUtils
-import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import androidx.biometric.BiometricPrompt
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import androidx.fragment.app.FragmentActivity
@@ -45,7 +41,7 @@ object BiometricUtils {
         return false
     }
 
-    fun authenticate(activity: FragmentActivity, successCallback: (cipher: Cipher?) -> Unit) {
+    fun authenticate(activity: FragmentActivity, preferences: PreferencesManager, successCallback: (cipher: Cipher?) -> Unit) {
         val callback = object : BiometricPrompt.AuthenticationCallback() {
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                 super.onAuthenticationSucceeded(result)
@@ -63,28 +59,37 @@ object BiometricUtils {
                 MewLog.d(TAG, "onAuthenticationError: errorCode=$errorCode; errString=$errString")
             }
         }
-        val promptInfo = BiometricPrompt.PromptInfo.Builder()
-                .setTitle(activity.getString(R.string.app_name))
-                .setDescription(activity.getString(R.string.fingerprint_prompt_description))
-                .setNegativeButtonText(activity.getString(R.string.cancel))
-                .build()
-        val cryptoObject = BiometricPrompt.CryptoObject(BiometricKeystoreHelper(activity).getDecryptCipher())
-        val biometricPrompt = BiometricPrompt(activity, Executors.newSingleThreadExecutor(), callback)
-        biometricPrompt.authenticate(promptInfo, cryptoObject)
+
+        getDecryptCipherSafely(activity, preferences)?.let { cipher ->
+            val promptInfo = BiometricPrompt.PromptInfo.Builder()
+                    .setTitle(activity.getString(R.string.app_name))
+//                    .setDescription(activity.getString(R.string.fingerprint_prompt_description))
+                    .setNegativeButtonText(activity.getString(R.string.cancel))
+                    .build()
+            val cryptoObject = BiometricPrompt.CryptoObject(cipher)
+            val biometricPrompt = BiometricPrompt(activity, Executors.newSingleThreadExecutor(), callback)
+            biometricPrompt.authenticate(promptInfo, cryptoObject)
+        }
     }
 
     fun isEnabled(context: Context, preferences: PreferencesManager): Boolean {
         val isEnabled = !TextUtils.isEmpty(preferences.applicationPreferences.getWalletMnemonic(KeyStore.BIOMETRIC))
         if (isEnabled) {
-            try {
-                BiometricKeystoreHelper(context).getEncryptCipher()
-                return true
-            } catch (e: KeyPermanentlyInvalidatedException) {
-                MewLog.w(TAG, "KeyPermanentlyInvalidatedException")
-                BiometricKeystoreHelper(context).removeKey()
-            }
+            return getDecryptCipherSafely(context, preferences) != null
         }
         return false
+    }
+
+    fun getDecryptCipherSafely(context: Context, preferences: PreferencesManager): Cipher? {
+        val biometricKeystoreHelper = BiometricKeystoreHelper(context)
+        try {
+            return biometricKeystoreHelper.getDecryptCipher()
+        } catch (e: KeyPermanentlyInvalidatedException) {
+            MewLog.w(TAG, "Fingerprints was changed", e)
+            biometricKeystoreHelper.removeKey()
+            disable(preferences)
+        }
+        return null
     }
 
     fun disable(preferences: PreferencesManager) {
