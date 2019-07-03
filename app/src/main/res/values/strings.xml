@@ -235,7 +235,8 @@
     <string name="service_notification_text" comment="Service notification - text">Connected</string>
     <string name="service_notification_disconnect" comment="Service notification - button">Disconnect</string>
 
-    <string name="fingerprint_prompt_description" comment="Fingerprint dialog - description">Touch the fingerprint sensor</string>
+    <string name="fingerprint_prompt_title" comment="Fingerprint dialog - title">Touch the fingerprint sensor</string>
+    <string name="fingerprint_prompt_description" comment="Fingerprint dialog - description">To verify your identity</string>
     <string name="fingerprint_available_title" comment="Fingerprint available screen - title">Fingerprint unlock is now available</string>
     <string name="fingerprint_available_description1" comment="Fingerprint available screen - text">We added biometric authentication to MEWconnect, so you can access your account much faster, and with the same level of security.</string>
     <string name="fingerprint_available_description2" comment="Fingerprint available screen - text">You can enable it now or set it up later in Info section of the app.</string>

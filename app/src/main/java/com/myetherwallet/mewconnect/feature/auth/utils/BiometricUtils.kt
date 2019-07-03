@@ -62,8 +62,8 @@ object BiometricUtils {
 
         getDecryptCipherSafely(activity, preferences)?.let { cipher ->
             val promptInfo = BiometricPrompt.PromptInfo.Builder()
-                    .setTitle(activity.getString(R.string.app_name))
-//                    .setDescription(activity.getString(R.string.fingerprint_prompt_description))
+                    .setTitle(activity.getString(R.string.fingerprint_prompt_title))
+                    .setDescription(activity.getString(R.string.fingerprint_prompt_description))
                     .setNegativeButtonText(activity.getString(R.string.cancel))
                     .build()
             val cryptoObject = BiometricPrompt.CryptoObject(cipher)
