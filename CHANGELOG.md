@@ -1,11 +1,17 @@
-### Release 1.0.6 (19060601)
+### Release 1.0.6 (19070301)
 
-- Add biometric authentication
-- Update ‘What's new’ screen
-- Add explicit enter button on ‘Enter password’ screen
-- Make fee label contextual on ‘Buy’ screen
-- Fix scroll issue for device with notch
-- Bugfix
+- Added biometric authentication (i.e. Fingerprint unlock and alike)
+- Updates to ‘What's new’ screen
+- Explicit ‘Log in’ button on ‘Enter password’ screen 
+- Some minor changes on how fees are displayed on ‘Buy Ether’ screen.
+- Cosmetic fixes on devices with a notch
+- Other minor bugfixes and improvements
+
+### Release 1.0.5 (19050901)
+
+- Fixed crashes
+- Fixed ‘User guide’ URL
+- Fixed ENS confirmation issue
 
 ### Release 1.0.4 (19050101)
 
