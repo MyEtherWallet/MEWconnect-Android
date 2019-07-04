@@ -36,7 +36,6 @@
             android:textSize="@dimen/text_size_40sp"
             android:textStyle="bold" />
 
-
         <TextView
             android:id="@+id/sign_message_description"
             android:layout_width="match_parent"

@@ -147,7 +147,7 @@
     <string name="view_recovery_phrase_title" comment="'View recovery phrase' screen - title">Your recovery phrase</string>
 
     <string name="back_up_wallet_title" comment="'Back up wallet' screen - title">Back up your  wallet</string>
-    <string name="back_up_wallet_description" comment="'Back up wallet' screen - description">Your Ethereum address and private key are stored in a local secure vault on this device.\nBut, what happens if you loose this device? Well… unless you back up your wallet, you will loose all your funds forever.</string>
+    <string name="back_up_wallet_description" comment="'Back up wallet' screen - description">Your Ethereum address and private key are stored in a local secure vault on this device.\nBut, what happens if you lose this device? Well… unless you back up your wallet, you will lose all your funds forever.</string>
     <string name="back_up_wallet_now" comment="'Back up wallet' screen - button">Back up now</string>
 
     <string name="info_title" comment="Info screen - title">Info</string>
@@ -156,24 +156,25 @@
     <string name="info_knowledge_base" comment="Info screen - button">Knowledge base</string>
     <string name="info_site" comment="Info screen - button">MyEtherWallet.com</string>
     <string name="info_view_recovery_phrase" comment="Info screen - button">View my recovery phrase</string>
+    <string name="info_view_biometric" comment="Info screen - button">Use biometric authentication</string>
     <string name="info_back_up" comment="Info screen - button">Back up my wallet</string>
     <string name="info_privacy_and_terms" comment="Info screen - button">Privacy and terms</string>
     <string name="info_copyright" comment="Info screen - copyright">Copyright 2018 MyEtherWallet Inc.</string>
     <string name="info_version" comment="Info screen - version">Version %s (%d)</string>
 
-    <string name="reset_wallet_title" comment="'Reset wallet' screen - dialog title">⚠ Warning: you can loose your account and funds forever</string>
+    <string name="reset_wallet_title" comment="'Reset wallet' screen - dialog title">⚠ Warning: you can lose your account and funds forever</string>
     <string name="reset_wallet_message" comment="'Reset wallet' screen - dialog text">Don\'t reset if you didn\'t make a backup, as there will be NO WAY to restore your account after you reset.</string>
 
     <string name="backup_warning_title" comment="'Backup warning' screen - dialog title">Action required: please back up your wallet</string>
-    <string name="backup_warning_message" comment="'Backup warning' screen - dialog text">If you don\'t back up, you can loose all your funds forever once you uninstall the app, or if your device gets lost or stolen.</string>
+    <string name="backup_warning_message" comment="'Backup warning' screen - dialog text">If you don\'t back up, you can lose all your funds forever once you uninstall the app, or if your device gets lost or stolen.</string>
     <string name="backup_warning_button" comment="'Backup warning' screen - dialog button">Backup now</string>
 
     <string name="buy_title" comment="'Buy title' screen - title">Buy Ether</string>
     <string name="buy_button" comment="'Buy title' screen - button">Buy with credit card</string>
     <string name="buy_minimum_warning" comment="'Buy title' screen - note">$50 minimum purchase</string>
     <string name="buy_loading_error" comment="'Buy title' screen - error">Buy Ether failed</string>
-    <string name="buy_simplex_description_full" comment="'Buy title' screen - description for large screen"><![CDATA[Purchase will be done via <u>Simplex</u><br/>Approximate fee is already<br/>included in this rate]]></string>
-    <string name="buy_simplex_description_short" comment="'Buy title' screen - description for small screen"><![CDATA[Appox. <u>Simplex</u> fee included in rate]]></string>
+    <string name="buy_simplex_description_full" comment="'Buy title' screen - description for large screen"><![CDATA[Purchase will be done via <u>Simplex</u><br/>with a %s fee, which is already<br/>included in this rate]]></string>
+    <string name="buy_simplex_description_short" comment="'Buy title' screen - description for small screen"><![CDATA[%s <u>Simplex</u> fee is already included in rate]]></string>
 
     <string name="buy_webview_upload_error" comment="'Buy browser' screen - error">Unable to open file chooser</string>
     <string name="buy_webview_rationale" comment="'Buy browser' screen - files permission rationale">Please enable files access for MEWconnect</string>
@@ -206,8 +207,6 @@
     <string name="rate_button_rate" comment="Rater dialog - button">Sure, I\'ll rate it</string>
     <string name="rate_button_feedback" comment="Rater dialog - button">I have feedback</string>
 
-    <string name="whats_new_title" comment="'What's new' dialog - title">What\'s new</string>
-
     <string name="transaction_network_unknown" comment="Networks names list item">Unknown network</string>
     <string name="transaction_network_eth" comment="Networks names list item">Ethereum</string>
     <string name="transaction_network_exp" comment="Networks names list item">Expanse</string>
@@ -235,4 +234,15 @@
     <string name="service_notification_title" comment="Service notification - title">MEWconnect</string>
     <string name="service_notification_text" comment="Service notification - text">Connected</string>
     <string name="service_notification_disconnect" comment="Service notification - button">Disconnect</string>
+
+    <string name="fingerprint_prompt_title" comment="Fingerprint dialog - title">Touch the fingerprint sensor</string>
+    <string name="fingerprint_prompt_description" comment="Fingerprint dialog - description">To verify your identity</string>
+    <string name="fingerprint_available_title" comment="Fingerprint available screen - title">Fingerprint unlock is now available</string>
+    <string name="fingerprint_available_description1" comment="Fingerprint available screen - text">We added biometric authentication to MEWconnect, so you can access your account much faster, and with the same level of security.</string>
+    <string name="fingerprint_available_description2" comment="Fingerprint available screen - text">You can enable it now or set it up later in Info section of the app.</string>
+    <string name="fingerprint_available_enable" comment="Fingerprint available screen - button">Enable Fingerprint Unlock</string>
+    <string name="fingerprint_available_set_up_later" comment="Fingerprint available screen - cancel">Set up later</string>
+    <string name="fingerprint_enabled_title" comment="Fingerprint enabled screen - title">Fingerprint unlock is now enabled</string>
+
+    <string name="whats_new_title" comment="'What's new' screen - title">What’s new</string>
 </resources>

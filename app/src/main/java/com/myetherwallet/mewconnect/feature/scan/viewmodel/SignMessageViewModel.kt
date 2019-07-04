@@ -1,17 +1,18 @@
 package com.myetherwallet.mewconnect.feature.scan.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import android.content.ComponentName
 import android.content.ServiceConnection
 import android.os.IBinder
+import androidx.lifecycle.AndroidViewModel
 import com.google.android.gms.common.util.Hex
 import com.myetherwallet.mewconnect.content.data.MessageToSign
 import com.myetherwallet.mewconnect.content.data.Transaction
+import com.myetherwallet.mewconnect.core.persist.prefenreces.KeyStore
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.utils.HexUtils
 import com.myetherwallet.mewconnect.core.utils.crypto.MessageCrypt
-import com.myetherwallet.mewconnect.core.utils.crypto.StorageCryptHelper
+import com.myetherwallet.mewconnect.core.utils.crypto.keystore.encrypt.BaseEncryptHelper
 import com.myetherwallet.mewconnect.feature.scan.service.ServiceBinder
 import com.myetherwallet.mewconnect.feature.scan.service.SocketService
 import org.web3j.crypto.ECKeyPair
@@ -43,11 +44,11 @@ class SignMessageViewModel
     }
 
     override fun onCleared() {
-        getApplication<Application>().unbindService(serviceConnection);
+        getApplication<Application>().unbindService(serviceConnection)
         super.onCleared()
     }
 
-    fun signMessage(messageToSign: MessageToSign, preferences: PreferencesManager, password: String) {
+    fun signMessage(messageToSign: MessageToSign, preferences: PreferencesManager, helper: BaseEncryptHelper, keyStore: KeyStore) {
         val hash = if (HexUtils.isStringHexWithPrefix(messageToSign.text)) {
             MessageCrypt.formatKeyWithPrefix(Hex.stringToBytes(HexUtils.removePrefix(messageToSign.text)))
         } else {
@@ -58,7 +59,7 @@ class SignMessageViewModel
             return
         }
 
-        val privateKey = StorageCryptHelper.decrypt(preferences.getCurrentWalletPreferences().getWalletPrivateKey(), password)
+        val privateKey = helper.decryptToBytes(preferences.getCurrentWalletPreferences().getWalletPrivateKey(keyStore))
         val signatureData = Sign.signMessage(Hex.stringToBytes(messageToSign.hash), ECKeyPair.create(privateKey), false)
         val v = (signatureData.v - 27).toString(16).padStart(2, '0')
         val signature = HexUtils.withPrefixLowerCase(HexUtils.bytesToStringLowercase(signatureData.r) + HexUtils.bytesToStringLowercase(signatureData.s) + v)

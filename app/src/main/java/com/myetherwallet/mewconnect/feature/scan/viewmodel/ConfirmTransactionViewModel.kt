@@ -1,14 +1,15 @@
 package com.myetherwallet.mewconnect.feature.scan.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import android.content.ComponentName
 import android.content.ServiceConnection
 import android.os.IBinder
+import androidx.lifecycle.AndroidViewModel
 import com.myetherwallet.mewconnect.content.data.Transaction
+import com.myetherwallet.mewconnect.core.persist.prefenreces.KeyStore
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.utils.HexUtils
-import com.myetherwallet.mewconnect.core.utils.crypto.StorageCryptHelper
+import com.myetherwallet.mewconnect.core.utils.crypto.keystore.encrypt.BaseEncryptHelper
 import com.myetherwallet.mewconnect.feature.scan.service.ServiceBinder
 import com.myetherwallet.mewconnect.feature.scan.service.SocketService
 import org.web3j.crypto.Credentials
@@ -44,8 +45,8 @@ class ConfirmTransactionViewModel
         super.onCleared()
     }
 
-    fun confirmTransaction(preferences: PreferencesManager, password: String) {
-        val privateKey = StorageCryptHelper.decrypt(preferences.getCurrentWalletPreferences().getWalletPrivateKey(), password)
+    fun confirmTransaction(preferences: PreferencesManager, helper: BaseEncryptHelper, keyStore: KeyStore) {
+        val privateKey = helper.decryptToBytes(preferences.getCurrentWalletPreferences().getWalletPrivateKey(keyStore))
         val credentials = Credentials.create(HexUtils.bytesToStringLowercase(privateKey))
         val rawTransaction = transaction.toRawTransaction()
         val signedMessage = TransactionEncoder.signMessage(rawTransaction, transaction.chainId, credentials)

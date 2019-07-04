@@ -6,7 +6,7 @@ import android.view.View
 import androidx.viewpager.widget.ViewPager
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseFragment
-import com.myetherwallet.mewconnect.core.utils.ApplicationUtils
+import com.myetherwallet.mewconnect.core.utils.DisplaySizeHelper
 import com.myetherwallet.mewconnect.feature.auth.fragment.RestoreExistingWalletFragment
 import com.myetherwallet.mewconnect.feature.main.adapter.IntroPagerAdapter
 import com.myetherwallet.mewconnect.feature.register.fragment.password.PickPasswordFragment
@@ -25,14 +25,12 @@ class IntroFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val displayWidth = ApplicationUtils.getDisplaySize(requireContext()).width
-
         intro_tabs.setupWithViewPager(intro_pager, true)
         val adapter = IntroPagerAdapter()
         intro_pager.adapter = adapter
 
         val animatedPagesCount = adapter.count - 1
-        intro_animation.setMaxProgress(animatedPagesCount * displayWidth)
+        intro_animation.setMaxProgress(animatedPagesCount * DisplaySizeHelper.width)
         intro_animation.setPagesCount(animatedPagesCount)
         intro_animation.init()
 
@@ -43,9 +41,9 @@ class IntroFragment : BaseFragment() {
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 handler.post {
-                    intro_animation.x = max(displayWidth - (positionOffsetPixels + displayWidth * position), 0).toFloat()
+                    intro_animation.x = max(DisplaySizeHelper.width - (positionOffsetPixels + DisplaySizeHelper.width * position), 0).toFloat()
                     if (position > 0) {
-                        intro_animation.setProgress(positionOffsetPixels + displayWidth * (position - 1), position - 1)
+                        intro_animation.setProgress(positionOffsetPixels + DisplaySizeHelper.width * (position - 1), position - 1)
                     }
                 }
             }

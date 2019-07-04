@@ -2,15 +2,11 @@ package com.myetherwallet.mewconnect.core.utils
 
 import android.content.Context
 import android.content.res.Resources
-import android.os.Build
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
-import androidx.annotation.AttrRes
-import android.util.DisplayMetrics
-import android.util.Size
 import android.util.TypedValue
 import android.view.View
-import android.view.WindowManager
+import androidx.annotation.AttrRes
 import com.myetherwallet.mewconnect.content.data.Network
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 
@@ -40,14 +36,6 @@ object ApplicationUtils {
         return Math.round(px).toFloat()
     }
 
-    fun getDisplaySize(context: Context): Size {
-        val displayMetrics = DisplayMetrics()
-        (context.getSystemService(Context.WINDOW_SERVICE) as WindowManager)
-                .defaultDisplay
-                .getMetrics(displayMetrics)
-        return Size(displayMetrics.widthPixels, displayMetrics.heightPixels)
-    }
-
     fun getStatusBarHeight(context: Context?): Int {
         context?.let {
             val resources = context.resources
@@ -59,16 +47,11 @@ object ApplicationUtils {
         return ApplicationUtils.dpToPx(if (VERSION.SDK_INT >= VERSION_CODES.M) 24f else 25f).toInt()
     }
 
-    fun getToolbarMargin(view: View?): Int {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            view?.rootWindowInsets?.displayCutout?.let {
-                if (it.boundingRects.isNotEmpty()) {
-                    return it.boundingRects[0].height()
-                }
-            }
-        }
-        return ApplicationUtils.getStatusBarHeight(view?.context)
-    }
+    fun getToolbarMargin(view: View?) =
+            if (DisplaySizeHelper.cutOut > 0)
+                DisplaySizeHelper.cutOut
+            else
+                getStatusBarHeight(view?.context)
 
     fun removeAllData(context: Context?, preferences: PreferencesManager) {
         context?.let { CardBackgroundHelper.remove(it, preferences.applicationPreferences.getCurrentNetwork()) }

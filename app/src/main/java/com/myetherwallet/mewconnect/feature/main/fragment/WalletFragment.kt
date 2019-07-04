@@ -22,6 +22,7 @@ import com.myetherwallet.mewconnect.core.ui.callback.EmptyTextWatcher
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseViewModelFragment
 import com.myetherwallet.mewconnect.core.utils.ApplicationUtils
 import com.myetherwallet.mewconnect.core.utils.CardBackgroundHelper
+import com.myetherwallet.mewconnect.feature.auth.utils.BiometricUtils
 import com.myetherwallet.mewconnect.feature.backup.fragment.BackUpWalletFragment
 import com.myetherwallet.mewconnect.feature.buy.fragment.BuyFragment
 import com.myetherwallet.mewconnect.feature.main.adapter.WalletListAdapter
@@ -87,6 +88,14 @@ class WalletFragment : BaseViewModelFragment() {
 
         wallet_header.onUpdateClickListener = { load() }
         init()
+
+        if (BiometricUtils.isAvailable(requireContext()) &&
+                !preferences.applicationPreferences.isBiometricPromoShown() &&
+                preferences.getCurrentWalletPreferences().isWalletExists() &&
+                !BiometricUtils.isEnabled(requireContext(), preferences)) {
+            addOrReplaceFragment(FingerprintAvailableFragment.newInstance(), FingerprintAvailableFragment.FINGERPRINT_FRAGMENTS_TAG)
+            preferences.applicationPreferences.setBiometricPromoShown(true)
+        }
 
         RateDialog.newInstance(requireActivity().application as MewApplication).show(childFragmentManager)
     }

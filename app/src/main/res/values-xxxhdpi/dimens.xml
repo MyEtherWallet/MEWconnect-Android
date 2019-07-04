@@ -16,6 +16,7 @@
     <dimen name="dimen_40dp">40dp</dimen>
     <dimen name="dimen_44dp">44dp</dimen>
     <dimen name="dimen_48dp">48dp</dimen>
+    <dimen name="dimen_52dp">52dp</dimen>
     <dimen name="dimen_56dp">56dp</dimen>
     <dimen name="dimen_60dp">60dp</dimen>
     <dimen name="dimen_68dp">68dp</dimen>
@@ -70,7 +71,6 @@
     <dimen name="text_size_fixed_40sp">40dp</dimen>
     <dimen name="text_size_fixed_48sp">48dp</dimen>
 
-    <dimen name="wallet_scroll_threshold">216dp</dimen>
     <dimen name="wallet_list_item_height">56dp</dimen>
     <dimen name="wallet_list_footer_height">80dp</dimen>
     <dimen name="wallet_toolbar_height">48dp</dimen>

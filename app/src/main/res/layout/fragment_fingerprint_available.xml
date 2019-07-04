@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_background"
+    android:orientation="vertical">
+
+    <com.myetherwallet.mewconnect.core.ui.view.StaticToolbar
+        android:id="@+id/fingerprint_available_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:innerTopPadding="@dimen/dimen_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/fingerprint_available_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_24dp"
+        android:layout_marginTop="@dimen/dimen_4dp"
+        android:layout_marginEnd="@dimen/dimen_24dp"
+        android:lineSpacingExtra="-8sp"
+        android:text="@string/fingerprint_available_title"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/text_size_40sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fingerprint_available_toolbar" />
+
+    <TextView
+        android:id="@+id/fingerprint_available_description1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_24dp"
+        android:layout_marginTop="@dimen/dimen_12dp"
+        android:layout_marginEnd="@dimen/dimen_24dp"
+        android:letterSpacing="0.03"
+        android:lineSpacingExtra="6dp"
+        android:text="@string/fingerprint_available_description1"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text_size_16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fingerprint_available_title" />
+
+    <TextView
+        android:id="@+id/fingerprint_available_description2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_24dp"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:layout_marginEnd="@dimen/dimen_24dp"
+        android:letterSpacing="0.03"
+        android:lineSpacingExtra="6dp"
+        android:text="@string/fingerprint_available_description2"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text_size_16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fingerprint_available_description1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/fingerprint_available_enable"
+        style="@style/Button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_24dp"
+        android:layout_marginEnd="@dimen/dimen_24dp"
+        android:layout_marginBottom="@dimen/dimen_8dp"
+        android:gravity="center"
+        android:text="@string/fingerprint_available_enable"
+        app:layout_constraintBottom_toTopOf="@+id/fingerprint_available_set_up_later"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/fingerprint_available_set_up_later"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_36dp"
+        android:layout_marginBottom="@dimen/dimen_16dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:paddingStart="@dimen/dimen_8dp"
+        android:paddingEnd="@dimen/dimen_8dp"
+        android:text="@string/fingerprint_available_set_up_later"
+        android:textAllCaps="true"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text_size_14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

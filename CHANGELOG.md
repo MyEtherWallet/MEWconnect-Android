@@ -1,3 +1,12 @@
+### Release 1.0.6 (19070301)
+
+- Added biometric authentication (i.e. Fingerprint unlock and alike)
+- Updates to ‘What's new’ screen
+- Explicit ‘Log in’ button on ‘Enter password’ screen 
+- Some minor changes on how fees are displayed on ‘Buy Ether’ screen.
+- Cosmetic fixes on devices with a notch
+- Other minor bugfixes and improvements
+
 ### Release 1.0.5 (19050901)
 
 - Fixed crashes
@@ -15,7 +24,7 @@
 
 ### Release 1.0.3 (19032801)
 
-- Additional backup reminders (don’t forget to back up your wallet, otherwise you might loose your funds if you accidentally delete the app or lose your phone.)
+- Additional backup reminders (don’t forget to back up your wallet, otherwise you might lose your funds if you accidentally delete the app or lose your phone.)
 - Additional confirmation if active network in MEW is not matching active network in MEWconnect
 - You can now use MEWconnect to sign transactions for all network supported by MyEtherWallet.com
 - Improved connection process in some cases

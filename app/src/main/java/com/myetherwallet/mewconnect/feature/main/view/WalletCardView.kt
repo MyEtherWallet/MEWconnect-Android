@@ -1,7 +1,6 @@
 package com.myetherwallet.mewconnect.feature.main.view
 
 import android.content.Context
-import androidx.cardview.widget.CardView
 import android.util.AttributeSet
 import android.view.View
 import com.myetherwallet.mewconnect.MewApplication
@@ -13,6 +12,7 @@ import com.myetherwallet.mewconnect.core.extenstion.getSize
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.utils.ApplicationUtils
 import com.myetherwallet.mewconnect.core.utils.CardBackgroundHelper
+import com.myetherwallet.mewconnect.core.utils.DisplaySizeHelper
 import com.myetherwallet.mewconnect.core.utils.HexUtils
 import com.myetherwallet.mewconnect.feature.main.data.WalletBalance
 import com.myetherwallet.mewconnect.feature.main.utils.WalletSizingUtils
@@ -36,10 +36,10 @@ class WalletCardView @JvmOverloads constructor(
     @Inject
     lateinit var preferences: PreferencesManager
 
-    private val collapsedWidth = ApplicationUtils.getDisplaySize(context).width
-    private val expandedWidth = WalletSizingUtils.calculateCardWidth(context)
+    private val collapsedWidth = DisplaySizeHelper.width
+    private val expandedWidth = WalletSizingUtils.calculateCardWidth()
     private var collapsedHeight = 0
-    private val expandedHeight = WalletSizingUtils.calculateCardHeight(context)
+    private val expandedHeight = WalletSizingUtils.calculateCardHeight()
     private var expandedY = 0
 
     private var cornerRadius = context.resources.getDimension(R.dimen.dimen_12dp).toInt()
@@ -61,8 +61,8 @@ class WalletCardView @JvmOverloads constructor(
         collapsedHeight = expandedY + resources.getDimension(R.dimen.dimen_32dp).toInt()
 
         val layoutParams = wallet_card_content.layoutParams
-        layoutParams.width = expandedWidth.toInt()
-        layoutParams.height = expandedHeight.toInt()
+        layoutParams.width = expandedWidth
+        layoutParams.height = expandedHeight
         wallet_card_content.layoutParams = layoutParams
 
         CardBackgroundHelper.setImage(wallet_card_background, preferences.applicationPreferences.getCurrentNetwork())

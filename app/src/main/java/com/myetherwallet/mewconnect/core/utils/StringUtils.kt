@@ -14,5 +14,5 @@ object StringUtils {
         Html.fromHtml(source)
     }
 
-    fun fromHtml(context: Context, @StringRes strRes: Int) = StringUtils.fromHtml(context.getString(strRes))
+    fun fromHtml(context: Context, @StringRes strRes: Int) = fromHtml(context.getString(strRes))
 }
