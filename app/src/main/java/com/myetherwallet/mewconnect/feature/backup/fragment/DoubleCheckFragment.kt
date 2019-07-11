@@ -9,10 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
 import com.myetherwallet.mewconnect.core.extenstion.getString
-import com.myetherwallet.mewconnect.core.persist.prefenreces.KeyStore
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseDiFragment
-import com.myetherwallet.mewconnect.core.utils.crypto.keystore.encrypt.PasswordKeystoreHelper
 import com.myetherwallet.mewconnect.feature.backup.adapter.DoubleCheckAdapter
 import kotlinx.android.synthetic.main.fragment_double_check.*
 import javax.inject.Inject
@@ -55,15 +53,17 @@ class DoubleCheckFragment : BaseDiFragment(), View.OnClickListener, Toolbar.OnMe
         double_check_list.isNestedScrollingEnabled = false
         double_check_list.setHasFixedSize(false)
 
-        getString(EXTRA_MNEMONIC)?.let {mnemonic ->
+        getString(EXTRA_MNEMONIC)?.let { mnemonic ->
             adapter.setItems(mnemonic.split(" "))
         } ?: Toast.makeText(context, R.string.words_loading_error, Toast.LENGTH_LONG).show()
     }
 
     private fun setDoneButtonEnabled(isEnabled: Boolean) {
-        double_check_toolbar.getMenu().findItem(R.id.done).isEnabled = isEnabled
-        val icon = if (isEnabled) R.drawable.ic_action_done_enabled else R.drawable.ic_action_done_disabled
-        double_check_toolbar.getMenu().findItem(R.id.done).setIcon(icon)
+        addOnResumeListener {
+            double_check_toolbar.getMenu().findItem(R.id.done).isEnabled = isEnabled
+            val icon = if (isEnabled) R.drawable.ic_action_done_enabled else R.drawable.ic_action_done_disabled
+            double_check_toolbar.getMenu().findItem(R.id.done).setIcon(icon)
+        }
     }
 
     override fun onMenuItemClick(menuItem: MenuItem): Boolean {

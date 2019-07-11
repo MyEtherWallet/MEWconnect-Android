@@ -45,7 +45,7 @@ class MainActivity : BaseDiActivity() {
         setStatusBarColor()
 
         if (preferences.applicationPreferences.shouldShowWhatsNewDialog()) {
-            addFragment(WhatsNewFragment())
+            addFragment(WhatsNewFragment.newInstance())
         }
     }
 

@@ -78,13 +78,15 @@ abstract class BaseMnemonicListFragment : BaseDiFragment(), View.OnClickListener
         MewLog.d(TAG, "Auth success")
         mnemonic = helper.decrypt(preferences.applicationPreferences.getWalletMnemonic(keyStore))
 
-        requireActivity().runOnUiThread {
-            if (TextUtils.isEmpty(mnemonic)) {
-                Toast.makeText(context, R.string.words_loading_error, Toast.LENGTH_LONG).show()
-            } else {
-                adapter.setItems(mnemonic!!.split(" "))
+        addOnResumeListener {
+            requireActivity().runOnUiThread {
+                if (TextUtils.isEmpty(mnemonic)) {
+                    Toast.makeText(context, R.string.words_loading_error, Toast.LENGTH_LONG).show()
+                } else {
+                    adapter.setItems(mnemonic!!.split(" "))
+                }
+                close()
             }
-            close()
         }
     }
 

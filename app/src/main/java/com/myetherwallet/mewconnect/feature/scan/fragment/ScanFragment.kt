@@ -129,21 +129,23 @@ class ScanFragment : BaseViewModelFragment() {
     }
 
     private fun showPermissionRationale(shouldOpenDialog: Boolean?) {
-        if (shouldOpenDialog == null) {
-            scan_camera_permission_rationale.visibility = GONE
-        } else {
-            if (shouldOpenDialog) {
-                setRationaleText(R.string.scan_camera_permission_rationale_dialog, 7, 20) {
-                    permissionHelper.requestPermissions(this)
-                }
+        addOnResumeListener {
+            if (shouldOpenDialog == null) {
+                scan_camera_permission_rationale.visibility = GONE
             } else {
-                setRationaleText(R.string.scan_camera_permission_rationale_settings, 46, 54) {
-                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                    intent.data = Uri.fromParts("package", requireContext().packageName, null)
-                    startActivityForResult(intent, REQUEST_CODE_PERMISSIONS)
+                if (shouldOpenDialog) {
+                    setRationaleText(R.string.scan_camera_permission_rationale_dialog, 7, 20) {
+                        permissionHelper.requestPermissions(this)
+                    }
+                } else {
+                    setRationaleText(R.string.scan_camera_permission_rationale_settings, 46, 54) {
+                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                        intent.data = Uri.fromParts("package", requireContext().packageName, null)
+                        startActivityForResult(intent, REQUEST_CODE_PERMISSIONS)
+                    }
                 }
+                scan_camera_permission_rationale.visibility = VISIBLE
             }
-            scan_camera_permission_rationale.visibility = VISIBLE
         }
     }
 
