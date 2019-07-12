@@ -81,7 +81,11 @@ abstract class BaseFragment : Fragment() {
     }
 
     fun addOnResumeListener(listener: () -> Unit) {
-        onResumeListeners.add(listener)
+        if (isResumed) {
+            listener.invoke()
+        } else {
+            onResumeListeners.add(listener)
+        }
     }
 
     open fun onBackPressed() = false
