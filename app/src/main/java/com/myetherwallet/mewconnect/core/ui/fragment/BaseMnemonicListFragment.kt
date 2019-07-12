@@ -85,9 +85,9 @@ abstract class BaseMnemonicListFragment : BaseDiFragment(), View.OnClickListener
                 } else {
                     adapter.setItems(mnemonic!!.split(" "))
                 }
-                close()
             }
         }
+        close()
     }
 
     override fun onAuthCancel() {
