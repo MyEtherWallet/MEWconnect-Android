@@ -261,26 +261,28 @@ class WalletFragment : BaseViewModelFragment() {
     }
 
     private fun setConnectedStatus() {
-        when {
-            networkHandler.isConnected != true -> {
-                wallet_status_container.visibility = GONE
-                wallet_offline_container.visibility = VISIBLE
-                wallet_scan_to_connect.setBackgroundResource(R.drawable.wallet_scan_to_connect_background_grey)
-                wallet_scan_to_connect.visibility = VISIBLE
-            }
-            viewModel.checkConnected() -> {
-                viewModel.setOnTransactionListener { activity?.runOnUiThread { openConfirmFragment(it) } }
-                viewModel.setOnMessageListener { activity?.runOnUiThread { openSignMessageFragment(it) } }
-                wallet_status_container.visibility = VISIBLE
-                wallet_offline_container.visibility = GONE
-                wallet_scan_to_connect.visibility = GONE
-            }
-            else -> {
-                viewModel.bindService()
-                wallet_status_container.visibility = GONE
-                wallet_offline_container.visibility = GONE
-                wallet_scan_to_connect.setBackgroundResource(R.drawable.wallet_scan_to_connect_background_blue)
-                wallet_scan_to_connect.visibility = VISIBLE
+        addOnResumeListener {
+            when {
+                networkHandler.isConnected != true -> {
+                    wallet_status_container.visibility = GONE
+                    wallet_offline_container.visibility = VISIBLE
+                    wallet_scan_to_connect.setBackgroundResource(R.drawable.wallet_scan_to_connect_background_grey)
+                    wallet_scan_to_connect.visibility = VISIBLE
+                }
+                viewModel.checkConnected() -> {
+                    viewModel.setOnTransactionListener { activity?.runOnUiThread { openConfirmFragment(it) } }
+                    viewModel.setOnMessageListener { activity?.runOnUiThread { openSignMessageFragment(it) } }
+                    wallet_status_container.visibility = VISIBLE
+                    wallet_offline_container.visibility = GONE
+                    wallet_scan_to_connect.visibility = GONE
+                }
+                else -> {
+                    viewModel.bindService()
+                    wallet_status_container.visibility = GONE
+                    wallet_offline_container.visibility = GONE
+                    wallet_scan_to_connect.setBackgroundResource(R.drawable.wallet_scan_to_connect_background_blue)
+                    wallet_scan_to_connect.visibility = VISIBLE
+                }
             }
         }
     }

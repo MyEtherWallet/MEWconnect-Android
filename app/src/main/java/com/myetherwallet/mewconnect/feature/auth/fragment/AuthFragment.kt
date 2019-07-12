@@ -74,8 +74,10 @@ class AuthFragment : BaseDiFragment() {
 
         auth_password_text.addTextChangedListener(object : EmptyTextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                auth_password_input_layout.isErrorEnabled = false
-                setEnterButtonEnabled(auth_password_text.length() > 0)
+                addOnResumeListener {
+                    auth_password_input_layout.isErrorEnabled = false
+                    setEnterButtonEnabled(auth_password_text.length() > 0)
+                }
             }
         })
 
@@ -110,10 +112,12 @@ class AuthFragment : BaseDiFragment() {
     }
 
     private fun showBiometricPrompt() {
-        BiometricUtils.authenticate(requireActivity(), preferences) { cipher ->
-            cipher?.let {
-                requireActivity().runOnUiThread {
-                    handleResult(BiometricKeystoreHelper(requireContext(), cipher), KeyStore.BIOMETRIC)
+        addOnResumeListener {
+            BiometricUtils.authenticate(requireActivity(), preferences) { cipher ->
+                cipher?.let {
+                    requireActivity().runOnUiThread {
+                        handleResult(BiometricKeystoreHelper(requireContext(), cipher), KeyStore.BIOMETRIC)
+                    }
                 }
             }
         }
@@ -129,9 +133,11 @@ class AuthFragment : BaseDiFragment() {
     }
 
     private fun doAuth() {
-        if (auth_password_input_layout.isEnabled) {
-            val password = auth_password_text.text.toString()
-            handleResult(PasswordKeystoreHelper(password), KeyStore.PASSWORD)
+        addOnResumeListener {
+            if (auth_password_input_layout.isEnabled) {
+                val password = auth_password_text.text.toString()
+                handleResult(PasswordKeystoreHelper(password), KeyStore.PASSWORD)
+            }
         }
     }
 

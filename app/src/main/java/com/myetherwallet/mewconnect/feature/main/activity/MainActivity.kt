@@ -3,6 +3,7 @@ package com.myetherwallet.mewconnect.feature.main.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
@@ -29,6 +30,7 @@ class MainActivity : BaseDiActivity() {
     @Inject
     lateinit var preferences: PreferencesManager
     private lateinit var fragmentTransactor: FragmentTransactor
+    private val handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +47,9 @@ class MainActivity : BaseDiActivity() {
         setStatusBarColor()
 
         if (preferences.applicationPreferences.shouldShowWhatsNewDialog()) {
-            addFragment(WhatsNewFragment())
+            handler.postDelayed({
+                addFragment(WhatsNewFragment.newInstance())
+            }, 1000)
         }
     }
 

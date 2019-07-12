@@ -21,7 +21,7 @@ object DisplaySizeHelper {
         private set
     private val handler = Handler()
 
-    fun init(view: View) {
+    fun setup(view: View) {
         val displayMetrics = DisplayMetrics()
         (view.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager)
                 .defaultDisplay
@@ -48,4 +48,6 @@ object DisplaySizeHelper {
         }
         return 0
     }
+
+    fun init() {}
 }

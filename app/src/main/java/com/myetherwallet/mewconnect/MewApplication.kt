@@ -7,6 +7,7 @@ import com.myetherwallet.mewconnect.core.di.DaggerApplicationComponent
 import com.myetherwallet.mewconnect.core.persist.database.DatabaseModule
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesModule
+import com.myetherwallet.mewconnect.core.utils.DisplaySizeHelper
 import javax.inject.Inject
 
 
@@ -28,6 +29,7 @@ class MewApplication : Application() {
         super.onCreate()
         injectMembers()
 
+        DisplaySizeHelper.init()
         preferences.applicationPreferences.setInstallTime()
     }
 

@@ -1,4 +1,4 @@
-### Release 1.0.6 (19070301)
+### Release 1.0.6 (19071201)
 
 - Added biometric authentication (i.e. Fingerprint unlock and alike)
 - Updates to ‘What's new’ screen
