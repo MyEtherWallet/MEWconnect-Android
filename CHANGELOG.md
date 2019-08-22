@@ -1,3 +1,8 @@
+### Release 1.0.7 (19082201)
+
+- Fix hyphenation issue on ‘Backup’ screen 
+- Prevent long words truncation on ‘Backup’ screen 
+
 ### Release 1.0.6 (19070301)
 
 - Added biometric authentication (i.e. Fingerprint unlock and alike)
