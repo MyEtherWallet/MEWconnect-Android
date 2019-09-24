@@ -1,11 +1,7 @@
-### Release 1.0.8 (19092401)
+### Release 1.0.7 (19092401)
 
-- Fix connection issue related with Arabic language
-
-### Release 1.0.7 (19082201)
-
-- Fix hyphenation issue on ‘Backup’ screen 
-- Prevent long words truncation on ‘Backup’ screen 
+- Fixed a rare case with truncated words in Backup scenario
+- Fixed connection scenario for Arabic languages
 
 ### Release 1.0.6 (19070301)
 
