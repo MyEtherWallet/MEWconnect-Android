@@ -1,3 +1,7 @@
+### Release 1.0.8 (19092401)
+
+- Fix connection issue related with Arabic language
+
 ### Release 1.0.7 (19082201)
 
 - Fix hyphenation issue on ‘Backup’ screen 
