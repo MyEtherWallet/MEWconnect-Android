@@ -24,7 +24,7 @@ import javax.crypto.KeyAgreement
  * Created by BArtWell on 24.07.2018.
  */
 
-private const val KEY_PREFIX_FORMAT = "\u0019Ethereum Signed Message:\n%d"
+private const val KEY_PREFIX = "\u0019Ethereum Signed Message:\n"
 
 class MessageCrypt(private val privateKey: String) {
 
@@ -34,7 +34,7 @@ class MessageCrypt(private val privateKey: String) {
         }
 
         fun formatKeyWithPrefix(data: ByteArray): ByteArray {
-            val keyWithPrefix = String.format(KEY_PREFIX_FORMAT, data.size).toByteArray()
+            val keyWithPrefix = (KEY_PREFIX + data.size).toByteArray()
             return CryptoUtils.keccak256Bytes(keyWithPrefix + data)
         }
     }
