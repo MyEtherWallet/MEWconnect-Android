@@ -1,4 +1,9 @@
-### Release 1.0.6 (19071201)
+### Release 1.0.7 (19092401)
+
+- Fixed a rare case with truncated words in Backup scenario
+- Fixed connection scenario for Arabic languages
+
+### Release 1.0.6 (19070301)
 
 - Added biometric authentication (i.e. Fingerprint unlock and alike)
 - Updates to ‘What's new’ screen
