@@ -14,7 +14,7 @@ data class Transaction(
         val nonce: BigInteger,
         val gasPrice: BigInteger,
         val gas: BigInteger,
-        val to: String,
+        val to: String?,
         val value: BigInteger,
         val data: String,
         val chainId: Long,

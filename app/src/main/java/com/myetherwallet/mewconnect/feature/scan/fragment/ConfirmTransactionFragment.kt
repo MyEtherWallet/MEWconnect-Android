@@ -67,7 +67,7 @@ class ConfirmTransactionFragment : BaseViewModelFragment(), AuthCallback {
             isUnknownToken = transactionData?.function == TransactionData.FUNCTION_TOKEN_TRANSFER
             val currency: String
             val amount: BigDecimal
-            val to: String
+            val to: String?
             if (transaction.value == BigInteger.ZERO && transactionData?.function == TransactionData.FUNCTION_TOKEN_TRANSFER) {
                 if (transaction.currency == null) {
                     amount = transactionData.amount.toBigDecimal().stripTrailingZeros()
@@ -94,7 +94,9 @@ class ConfirmTransactionFragment : BaseViewModelFragment(), AuthCallback {
                 confirm_transaction_network_container.visibility = GONE
             }
 
-            confirm_transaction_wallet_emoticon.setImageBitmap(EmoticonHelper.draw(to, resources.getDimension(R.dimen.dimen_32dp).toInt()))
+            to?.let {
+                confirm_transaction_wallet_emoticon.setImageBitmap(EmoticonHelper.draw(to, resources.getDimension(R.dimen.dimen_32dp).toInt()))
+            }
             confirm_transaction_ok.setOnClickListener {
                 val authFragment = AuthFragment.newInstance()
                 authFragment.setTargetFragment(this, AUTH_REQUEST_CODE)
