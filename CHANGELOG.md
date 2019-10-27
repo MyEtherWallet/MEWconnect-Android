@@ -1,6 +1,6 @@
 ### Release 1.0.8 (19102701)
 
-- Fixed crash related with contract deploy
+- Fixed a rare crash when signing a transaction related to deploying a new smart contract
 
 ### Release 1.0.7 (19092401)
 
