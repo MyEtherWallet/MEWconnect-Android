@@ -1,3 +1,7 @@
+### Release 1.0.8 (19102701)
+
+- Fixed a rare crash when signing a transaction related to deploying a new smart contract
+
 ### Release 1.0.7 (19092401)
 
 - Fixed a rare case with truncated words in Backup scenario
