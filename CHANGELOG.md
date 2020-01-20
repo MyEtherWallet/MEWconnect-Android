@@ -1,7 +1,11 @@
-### Release 1.0.7 (19082201)
+### Release 1.0.8 (19102701)
 
-- Fix hyphenation issue on ‘Backup’ screen 
-- Prevent long words truncation on ‘Backup’ screen 
+- Fixed a rare crash when signing a transaction related to deploying a new smart contract
+
+### Release 1.0.7 (19092401)
+
+- Fixed a rare case with truncated words in Backup scenario
+- Fixed connection scenario for Arabic languages
 
 ### Release 1.0.6 (19070301)
 
