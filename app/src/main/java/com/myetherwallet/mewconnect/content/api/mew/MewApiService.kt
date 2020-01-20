@@ -15,7 +15,7 @@ class MewApiService
 
     private val mewApi by lazy { client.retrofit.create(MewApi::class.java) }
 
-    override fun getAllBalances(apiMethod: String, jsonRpc: JsonRpcRequest<Transaction>) = mewApi.getAllBalances(apiMethod, jsonRpc)
+    override fun getAllBalances(apiMethod: String, jsonRpc: JsonRpcRequest<Any>) = mewApi.getAllBalances(apiMethod, jsonRpc)
 
     override fun getWalletBalance(apiMethod: String, jsonRpc: JsonRpcRequest<String>) = mewApi.getWalletBalance(apiMethod, jsonRpc)
 }

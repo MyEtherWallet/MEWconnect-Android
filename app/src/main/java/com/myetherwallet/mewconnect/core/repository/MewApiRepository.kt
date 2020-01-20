@@ -7,7 +7,6 @@ import com.myetherwallet.mewconnect.core.platform.NetworkHandler
 import com.myetherwallet.mewconnect.feature.main.data.Balance
 import com.myetherwallet.mewconnect.feature.main.data.JsonRpcRequest
 import com.myetherwallet.mewconnect.feature.main.utils.JsonRpcResponseConverter
-import org.web3j.protocol.core.methods.request.Transaction
 import retrofit2.Call
 import retrofit2.HttpException
 import java.math.BigDecimal
@@ -19,7 +18,7 @@ import javax.inject.Inject
 
 interface MewApiRepository {
 
-    fun getAllBalances(apiMethod: String, jsonRpc: JsonRpcRequest<Transaction>): Either<Failure, List<Balance>>
+    fun getAllBalances(apiMethod: String, jsonRpc: JsonRpcRequest<Any>): Either<Failure, List<Balance>>
 
     fun getWalletBalance(apiMethod: String, jsonRpc: JsonRpcRequest<String>): Either<Failure, BigDecimal>
 
@@ -27,7 +26,7 @@ interface MewApiRepository {
     @Inject constructor(private val networkHandler: NetworkHandler,
                         private val service: MewApiService) : MewApiRepository {
 
-        override fun getAllBalances(apiMethod: String, jsonRpc: JsonRpcRequest<Transaction>): Either<Failure, List<Balance>> {
+        override fun getAllBalances(apiMethod: String, jsonRpc: JsonRpcRequest<Any>): Either<Failure, List<Balance>> {
             return when (networkHandler.isConnected) {
                 true -> request(service.getAllBalances(apiMethod, jsonRpc)) { JsonRpcResponseConverter(it).toBalancesList() }
                 false, null -> Either.Left(Failure.NetworkConnection())
