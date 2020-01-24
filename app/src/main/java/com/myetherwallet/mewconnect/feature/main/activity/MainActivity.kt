@@ -15,11 +15,14 @@ import com.myetherwallet.mewconnect.feature.main.fragment.IntroFragment
 import com.myetherwallet.mewconnect.feature.main.fragment.WhatsNewFragment
 import com.myetherwallet.mewconnect.feature.main.utils.FragmentTransactor
 import com.myetherwallet.mewconnect.feature.scan.receiver.ServiceAlarmReceiver
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 /**
  * Created by BArtWell on 30.06.2018.
  */
+
+private val NO_LOCK_LIMIT = TimeUnit.MINUTES.toMillis(2)
 
 class MainActivity : BaseDiActivity() {
 
@@ -31,6 +34,7 @@ class MainActivity : BaseDiActivity() {
     lateinit var preferences: PreferencesManager
     private lateinit var fragmentTransactor: FragmentTransactor
     private val handler = Handler()
+    private var activityPaused = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +43,7 @@ class MainActivity : BaseDiActivity() {
         fragmentTransactor = FragmentTransactor()
 
         if (preferences.getCurrentWalletPreferences().isWalletExists()) {
-            replaceFragment(AuthFragment.newInstance())
+            lockApp()
         } else {
             replaceFragment(IntroFragment.newInstance())
         }
@@ -56,16 +60,30 @@ class MainActivity : BaseDiActivity() {
     override fun onResume() {
         super.onResume()
         ServiceAlarmReceiver.cancel(this)
+        activityPaused = 0
     }
 
     override fun onPause() {
         super.onPause()
         ServiceAlarmReceiver.schedule(this)
+        activityPaused = System.currentTimeMillis()
     }
 
     override fun onPostResume() {
         super.onPostResume()
         fragmentTransactor.resume(supportFragmentManager)
+    }
+
+    override fun onRestart() {
+        val fragment = getCurrentFragment()
+        if (fragment != null && fragment !is AuthFragment && System.currentTimeMillis() - activityPaused > NO_LOCK_LIMIT) {
+            lockApp()
+        }
+        super.onRestart()
+    }
+
+    private fun lockApp() {
+        fragmentTransactor.replaceNow(supportFragmentManager, AuthFragment.newInstance())
     }
 
     fun addFragment(fragment: Fragment) {
@@ -88,8 +106,10 @@ class MainActivity : BaseDiActivity() {
         fragmentTransactor.popToFirst(supportFragmentManager)
     }
 
+    private fun getCurrentFragment() = supportFragmentManager.findFragmentById(R.id.main_fragment_container)
+
     override fun onBackPressed() {
-        val fragment = supportFragmentManager.findFragmentById(R.id.main_fragment_container)
+        val fragment = getCurrentFragment()
         if (fragment !is BaseFragment || !fragment.onBackPressed()) {
             super.onBackPressed()
         }

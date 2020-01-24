@@ -19,6 +19,7 @@ class FragmentTransactor {
                 ActionId.ADD_OR_REPLACE -> addOrReplaceFragment(fragmentManager, action.fragment!!, action.tag!!)
                 ActionId.POP -> popFragment(fragmentManager)
                 ActionId.POP_TO_FIRST -> popFragmentToFirst(fragmentManager)
+                ActionId.REPLACE_NOW -> replaceFragmentNow(fragmentManager, action.fragment!!)
             }
             actions.remove(action)
         }
@@ -37,6 +38,14 @@ class FragmentTransactor {
             actions.add(Action(ActionId.REPLACE, fragment))
         } else {
             replaceFragment(fragmentManager, fragment)
+        }
+    }
+
+    fun replaceNow(fragmentManager: FragmentManager, fragment: Fragment) {
+        if (fragmentManager.isStateSaved) {
+            actions.add(Action(ActionId.REPLACE_NOW, fragment))
+        } else {
+            replaceFragmentNow(fragmentManager, fragment)
         }
     }
 
@@ -72,6 +81,15 @@ class FragmentTransactor {
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
             fragmentTransaction.commit()
+        }
+    }
+
+    private fun replaceFragmentNow(fragmentManager: FragmentManager, fragment: Fragment) {
+        handler.post {
+            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.main_fragment_container, fragment, fragment.toString())
+            fragmentTransaction.commitNow()
         }
     }
 
@@ -119,6 +137,6 @@ class FragmentTransactor {
     private data class Action(val id: ActionId, val fragment: Fragment? = null, val tag: String? = null)
 
     private enum class ActionId {
-        ADD, REPLACE, ADD_OR_REPLACE, POP, POP_TO_FIRST
+        ADD, REPLACE, ADD_OR_REPLACE, POP, POP_TO_FIRST, REPLACE_NOW
     }
 }

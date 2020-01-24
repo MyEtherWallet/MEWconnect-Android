@@ -28,7 +28,7 @@ class ResetWalletDialog : BaseDialogFragment() {
                 .setView(R.layout.dialog_reset_wallet)
                 .setPositiveButton(R.string.reset_wallet) { _, _ ->
                     listener?.invoke()
-                    dialog.dismiss()
+                    dialog?.dismiss()
                 }
                 .setNegativeButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
                 .create()
