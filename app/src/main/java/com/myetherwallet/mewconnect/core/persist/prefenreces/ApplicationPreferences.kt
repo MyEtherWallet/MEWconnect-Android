@@ -25,6 +25,7 @@ private const val AUTH_ATTEMPTS_COUNT = "auth_attempts_count"
 private const val AUTH_TIMER_TIME = "auth_timer_time"
 private const val WHATS_NEW_DIALOG_VERSION = "whats_new_dialog_version"
 private const val IS_BIOMETRIC_PROMO_SHOWN = "is_biometric_promo_shown"
+private const val SIMPLEX_USER_ID = "simplex_user_id"
 
 private const val DEPRECATED_WALLET_MNEMONIC = "wallet_mnemonic"
 
@@ -149,6 +150,10 @@ class ApplicationPreferences(context: Context, private val preferences: SharedPr
     fun isBiometricPromoShown() = preferences.getBoolean(IS_BIOMETRIC_PROMO_SHOWN, false)
 
     fun setBiometricPromoShown(shown: Boolean) = preferences.edit().putBoolean(IS_BIOMETRIC_PROMO_SHOWN, shown).apply()
+
+    fun getSimplexUserId() = preferences.getString(SIMPLEX_USER_ID, null)
+
+    fun setSimplexUserId(id: String?) = preferences.edit().putString(SIMPLEX_USER_ID, id).apply()
 
     override fun getSharedPreferences() = preferences
 }
