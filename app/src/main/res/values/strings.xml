@@ -245,4 +245,7 @@
     <string name="fingerprint_enabled_title" comment="Fingerprint enabled screen - title">Fingerprint unlock is now enabled</string>
 
     <string name="whats_new_title" comment="'What's new' screen - title">What’s new</string>
+    <string name="wallet_mewwallet_title">MEW wallet app is now available</string>
+    <string name="wallet_mewwallet_text">A fully fledged mobile wallet\nthat works with your\nexisting MEWconnect\naccount.\nDownload the app to upgrade.</string>
+    <string name="wallet_mewwallet_button">Free upgrade</string>
 </resources>
