@@ -20,6 +20,6 @@ internal interface ApiccswapApi {
     @POST("quote")
     fun getBuyQuote(@Header("mewapikey") key: String, @Header("Referer") referer: String, @Body request: BuyQuoteRequest): Call<BuyResponse<BuyQuoteResult>>
 
-    @GET("status/{userId}")
-    fun getStatus(@Path("userId") userId: String): Call<BuyResponse<PurchaseStatus>>
+    @GET("status/{userId}/{quoteId}")
+    fun getStatus(@Path("userId") userId: String, @Path("quoteId") quoteId: String): Call<BuyResponse<PurchaseStatus>>
 }

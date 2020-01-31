@@ -20,7 +20,7 @@ interface ApiccswapApiRepository {
 
     fun getBuyQuote(request: BuyQuoteRequest): Either<Failure, BuyResponse<BuyQuoteResult>>
 
-    fun getStatus(userId: String): Either<Failure, BuyResponse<PurchaseStatus>>
+    fun getStatus(userId: String, quoteId: String): Either<Failure, BuyResponse<PurchaseStatus>>
 
     class Network
     @Inject constructor(private val networkHandler: NetworkHandler,
@@ -40,9 +40,9 @@ interface ApiccswapApiRepository {
             }
         }
 
-        override fun getStatus(userId: String): Either<Failure, BuyResponse<PurchaseStatus>> {
+        override fun getStatus(userId: String, quoteId: String): Either<Failure, BuyResponse<PurchaseStatus>> {
             return when (networkHandler.isConnected) {
-                true -> request(service.getStatus(userId)) { it }
+                true -> request(service.getStatus(userId, quoteId)) { it }
                 false, null -> Either.Left(Failure.NetworkConnection())
             }
         }

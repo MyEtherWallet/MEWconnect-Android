@@ -2,6 +2,8 @@ package com.myetherwallet.mewconnect.core.persist.database
 
 import androidx.room.Room
 import android.content.Context
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Inject
@@ -19,7 +21,9 @@ class DatabaseModule @Inject constructor(private val context: Context) {
     @Singleton
     @Provides
     fun provideDatabase(): MewDatabase {
-        return Room.databaseBuilder(context, MewDatabase::class.java, DATABASE_NAME).build()
+        return Room.databaseBuilder(context, MewDatabase::class.java, DATABASE_NAME)
+                .fallbackToDestructiveMigration()
+                .build()
     }
 
     @Singleton

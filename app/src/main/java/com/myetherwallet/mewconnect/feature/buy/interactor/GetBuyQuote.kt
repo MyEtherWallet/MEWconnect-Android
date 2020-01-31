@@ -20,14 +20,12 @@ class GetBuyQuote
 @Inject constructor(private val repository: ApiccswapApiRepository, private val preferences: PreferencesManager) : BaseInteractor<BuyResponse<BuyQuoteResult>, GetBuyQuote.Params>() {
 
     override suspend fun run(params: Params): Either<Failure, BuyResponse<BuyQuoteResult>> {
-        val request = BuyQuoteRequest(params.requestedCurrency, params.amount)
+        val savedUserId = preferences.applicationPreferences.getSimplexUserId()
+        val request = BuyQuoteRequest(params.requestedCurrency, params.amount, savedUserId)
         val response = repository.getBuyQuote(request)
         if (response.isRight) {
-            val savedUserId = preferences.applicationPreferences.getSimplexUserId()
             if (savedUserId.isNullOrEmpty()) {
                 response.map { preferences.applicationPreferences.setSimplexUserId(it.result?.userId) }
-            } else {
-                response.map { it.result?.userId = savedUserId }
             }
         }
         return response
