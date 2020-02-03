@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/pressed_background">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/wallet_mewwallet_button" />
+            <corners android:radius="@dimen/dimen_8dp" />
+        </shape>
+    </item>
+</ripple>

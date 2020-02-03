@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import android.view.View
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.utils.ApplicationUtils
-import com.myetherwallet.mewconnect.core.utils.LaunchUtils
+import com.myetherwallet.mewconnect.feature.main.utils.MewWalletUtils
 import com.myetherwallet.mewconnect.feature.main.utils.WalletSizingUtils
 import kotlinx.android.synthetic.main.view_wallet_mewwallet.view.*
 import java.util.concurrent.TimeUnit
@@ -35,9 +35,12 @@ class MewWalletView @JvmOverloads constructor(
         y = toolbarHeight + WalletSizingUtils.calculateCardHeight() + resources.getDimension(R.dimen.dimen_16dp)
 
         wallet_mewwallet_button.setOnClickListener {
-//            LaunchUtils.
+            if (MewWalletUtils.isInstalled(context)) {
+                MewWalletUtils.launchApp(context)
+            } else {
+                MewWalletUtils.launchMarket(context)
+            }
         }
-
         playAnimation()
     }
 
