@@ -18,14 +18,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/wallet_mewwallet_animation"
         android:layout_width="@dimen/dimen_96dp"
         android:layout_height="@dimen/dimen_96dp"
         android:layout_marginTop="@dimen/dimen_8dp"
         android:contentDescription="@null"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/wallet_mewwallet_title" />
+        app:layout_constraintTop_toBottomOf="@id/wallet_mewwallet_title"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/lottie_astronaut"
+        app:lottie_repeatCount="0" />
 
     <TextView
         android:id="@+id/wallet_mewwallet_text"
