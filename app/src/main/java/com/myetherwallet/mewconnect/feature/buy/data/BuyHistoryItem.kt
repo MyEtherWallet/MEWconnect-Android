@@ -12,6 +12,7 @@ import java.util.*
 @Entity(tableName = "buy_history")
 data class BuyHistoryItem(
         val userId: String,
+        val quoteId: String,
         val date: Date = Date()
 ) {
     @PrimaryKey(autoGenerate = true)

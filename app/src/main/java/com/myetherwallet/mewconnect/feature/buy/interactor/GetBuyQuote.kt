@@ -1,8 +1,10 @@
 package com.myetherwallet.mewconnect.feature.buy.interactor
 
+import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.platform.BaseInteractor
 import com.myetherwallet.mewconnect.core.platform.Either
 import com.myetherwallet.mewconnect.core.platform.Failure
+import com.myetherwallet.mewconnect.core.platform.map
 import com.myetherwallet.mewconnect.core.repository.ApiccswapApiRepository
 import com.myetherwallet.mewconnect.feature.buy.data.BuyQuoteRequest
 import com.myetherwallet.mewconnect.feature.buy.data.BuyQuoteResult
@@ -15,11 +17,18 @@ import javax.inject.Inject
  */
 
 class GetBuyQuote
-@Inject constructor(private val repository: ApiccswapApiRepository) : BaseInteractor<BuyResponse<BuyQuoteResult>, GetBuyQuote.Params>() {
+@Inject constructor(private val repository: ApiccswapApiRepository, private val preferences: PreferencesManager) : BaseInteractor<BuyResponse<BuyQuoteResult>, GetBuyQuote.Params>() {
 
     override suspend fun run(params: Params): Either<Failure, BuyResponse<BuyQuoteResult>> {
-        val request = BuyQuoteRequest(params.requestedCurrency, params.amount)
-        return repository.getBuyQuote(request)
+        val savedUserId = preferences.applicationPreferences.getSimplexUserId()
+        val request = BuyQuoteRequest(params.requestedCurrency, params.amount, savedUserId)
+        val response = repository.getBuyQuote(request)
+        if (response.isRight) {
+            if (savedUserId.isNullOrEmpty()) {
+                response.map { preferences.applicationPreferences.setSimplexUserId(it.result?.userId) }
+            }
+        }
+        return response
     }
 
     data class Params(val amount: BigDecimal, val requestedCurrency: String)

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class BuyQuoteResult(
         @SerializedName("user_id")
-        val userId: String?,
+        var userId: String?,
         @SerializedName("quote_id")
         val quoteId: String,
         @SerializedName("digital_money")

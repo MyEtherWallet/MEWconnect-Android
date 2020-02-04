@@ -12,6 +12,8 @@ data class BuyQuoteRequest(
         val requestedCurrency: String,
         @SerializedName("requested_amount")
         val requestedAmount: BigDecimal,
+        @SerializedName("user_id")
+        val userId: String?,
         @SerializedName("digital_currency")
         val digitalCurrency: String = "ETH",
         @SerializedName("fiat_currency")

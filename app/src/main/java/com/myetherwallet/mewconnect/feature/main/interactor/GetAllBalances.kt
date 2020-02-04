@@ -1,6 +1,7 @@
 package com.myetherwallet.mewconnect.feature.main.interactor
 
 import com.myetherwallet.mewconnect.content.data.Network
+import com.myetherwallet.mewconnect.content.gson.JsonParser
 import com.myetherwallet.mewconnect.core.platform.BaseInteractor
 import com.myetherwallet.mewconnect.core.platform.Either
 import com.myetherwallet.mewconnect.core.platform.Failure
@@ -32,6 +33,8 @@ private const val WEBSITE = false
 private const val EMAIL = false
 private val COUNT = BigInteger.ZERO
 
+private const val PERIOD = "latest"
+
 class GetAllBalances
 @Inject constructor(private val repository: MewApiRepository) : BaseInteractor<List<Balance>, GetAllBalances.Params>() {
 
@@ -45,7 +48,7 @@ class GetAllBalances
                 Arrays.asList<TypeReference<*>>(object : TypeReference<DynamicBytes>() {}))
         val data = FunctionEncoder.encode(function)
         val transaction = Transaction.createEthCallTransaction(null, CONTRACT_ADDRESS, data)
-        return repository.getAllBalances(params.network.apiMethod, JsonRpcRequest(TRANSACTION_METHOD, listOf(transaction)))
+        return repository.getAllBalances(params.network.apiMethod, JsonRpcRequest(TRANSACTION_METHOD, listOf(transaction, PERIOD)))
     }
 
     data class Params(val network: Network, val address: String)

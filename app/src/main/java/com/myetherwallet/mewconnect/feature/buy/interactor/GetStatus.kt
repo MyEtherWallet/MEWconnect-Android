@@ -16,8 +16,8 @@ class GetStatus
 @Inject constructor(private val repository: ApiccswapApiRepository) : BaseInteractor<BuyResponse<PurchaseStatus>, GetStatus.Params>() {
 
     override suspend fun run(params: Params): Either<Failure, BuyResponse<PurchaseStatus>> {
-        return repository.getStatus(params.userId)
+        return repository.getStatus(params.userId, params.quoteId)
     }
 
-    data class Params(val userId: String)
+    data class Params(val userId: String, val quoteId: String)
 }

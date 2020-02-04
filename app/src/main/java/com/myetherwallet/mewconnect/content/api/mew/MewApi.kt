@@ -17,7 +17,7 @@ internal interface MewApi {
 
     @POST("{apiMethod}")
     @Headers("content-type: application/json")
-    fun getAllBalances(@Path("apiMethod") apiMethod: String, @Body jsonRpc: JsonRpcRequest<Transaction>): Call<JsonRpcResponse>
+    fun getAllBalances(@Path("apiMethod") apiMethod: String, @Body jsonRpc: JsonRpcRequest<Any>): Call<JsonRpcResponse>
 
     @POST("{apiMethod}")
     @Headers("content-type: application/json")

@@ -28,7 +28,7 @@ class BackupWarningDialog : BaseDialogFragment() {
                 .setView(R.layout.dialog_backup_warning)
                 .setPositiveButton(R.string.backup_warning_button) { _, _ ->
                     listener?.invoke()
-                    dialog.dismiss()
+                    dialog?.dismiss()
                 }
                 .setNegativeButton(R.string.close) { dialog, _ -> dialog.dismiss() }
                 .create()

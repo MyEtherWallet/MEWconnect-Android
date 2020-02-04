@@ -13,6 +13,10 @@
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
+    <permission
+        android:name="com.myetherwallet.mewconnect.ACCESS_SECRET_DATA"
+        android:protectionLevel="signature" />
+
     <application
         android:name=".MewApplication"
         android:allowBackup="false"
@@ -59,5 +63,12 @@
             android:name=".feature.scan.receiver.ServiceAlarmReceiver"
             android:enabled="true"
             android:exported="false" />
+
+        <provider
+            android:name=".content.provider.MewContentProvider"
+            android:authorities="com.myetherwallet.mewconnect.secret"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="com.myetherwallet.mewconnect.ACCESS_SECRET_DATA" />
     </application>
 </manifest>

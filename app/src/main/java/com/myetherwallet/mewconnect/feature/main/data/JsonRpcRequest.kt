@@ -12,12 +12,12 @@ class JsonRpcRequest<T>(
         @SerializedName("params")
         private val params: List<T>) {
 
-    companion object {
-        private val nextId = AtomicInteger(0)
-    }
-
     @SerializedName("jsonrpc")
     val version: String = "2.0"
     @SerializedName("id")
     val id = nextId.getAndIncrement()
+
+    companion object {
+        private val nextId = AtomicInteger(0)
+    }
 }

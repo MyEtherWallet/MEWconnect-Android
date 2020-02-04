@@ -47,7 +47,7 @@ class RateDialog : BaseDialogFragment() {
                 .setPositiveButton(R.string.rate_button_rate) { _, _ ->
                     disableRateDialog()
                     LaunchUtils.openMarket(context)
-                    dialog.dismiss()
+                    dialog?.dismiss()
                 }
                 .setNegativeButton(R.string.rate_button_feedback) { dialog, _ ->
                     disableRateDialog()
@@ -70,7 +70,7 @@ class RateDialog : BaseDialogFragment() {
         (dialog as AlertDialog).setView(view)
         view.rate_close.setOnClickListener {
             disableRateDialog()
-            dialog.dismiss()
+            dialog?.dismiss()
         }
     }
 
