@@ -120,12 +120,16 @@ class BuyFragment : BaseViewModelFragment() {
                     preferences.getCurrentWalletPreferences().getWalletAddress(),
                     preferences.applicationPreferences.getInstallTime(),
                     {
-                        startActivity(BuyWebViewActivity.createIntent(requireContext(), it.url, it.getEncodedPostData()))
-                        buy_loading.visibility = GONE
+                        addOnResumeListener {
+                            startActivity(BuyWebViewActivity.createIntent(requireContext(), it.url, it.getEncodedPostData()))
+                            buy_loading.visibility = GONE
+                        }
                     },
                     {
-                        Toast.makeText(context, R.string.buy_loading_error, Toast.LENGTH_LONG).show()
-                        buy_loading.visibility = GONE
+                        addOnResumeListener {
+                            Toast.makeText(context, R.string.buy_loading_error, Toast.LENGTH_LONG).show()
+                            buy_loading.visibility = GONE
+                        }
                     })
         }
     }

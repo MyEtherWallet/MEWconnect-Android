@@ -12,7 +12,7 @@ class FragmentTransactor {
     private val actions = mutableListOf<Action>()
 
     fun resume(fragmentManager: FragmentManager) {
-        for (action in actions) {
+        actions.removeAll { action ->
             when (action.id) {
                 ActionId.ADD -> addFragment(fragmentManager, action.fragment!!)
                 ActionId.REPLACE -> replaceFragment(fragmentManager, action.fragment!!)
@@ -21,7 +21,7 @@ class FragmentTransactor {
                 ActionId.POP_TO_FIRST -> popFragmentToFirst(fragmentManager)
                 ActionId.REPLACE_NOW -> replaceFragmentNow(fragmentManager, action.fragment!!)
             }
-            actions.remove(action)
+            true
         }
     }
 

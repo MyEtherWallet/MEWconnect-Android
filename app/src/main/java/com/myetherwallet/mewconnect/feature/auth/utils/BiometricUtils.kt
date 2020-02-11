@@ -73,9 +73,13 @@ object BiometricUtils {
     }
 
     fun isEnabled(context: Context, preferences: PreferencesManager): Boolean {
-        val isEnabled = !TextUtils.isEmpty(preferences.applicationPreferences.getWalletMnemonic(KeyStore.BIOMETRIC))
-        if (isEnabled) {
-            return getDecryptCipherSafely(context, preferences) != null
+        try {
+            val isEnabled = !TextUtils.isEmpty(preferences.applicationPreferences.getWalletMnemonic(KeyStore.BIOMETRIC))
+            if (isEnabled) {
+                return getDecryptCipherSafely(context, preferences) != null
+            }
+        } catch (e: Exception) {
+            MewLog.i(TAG, "Error while retrieve cipher", e)
         }
         return false
     }
