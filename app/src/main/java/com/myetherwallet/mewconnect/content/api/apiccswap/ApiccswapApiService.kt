@@ -19,5 +19,5 @@ class ApiccswapApiService
 
     override fun getBuyQuote(key: String, referer: String, request: BuyQuoteRequest) = apiccswapApi.getBuyQuote(key, referer, request)
 
-    override fun getStatus(userId: String) = apiccswapApi.getStatus(userId)
+    override fun getStatus(userId: String, quoteId: String) = apiccswapApi.getStatus(userId, quoteId)
 }

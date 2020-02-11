@@ -40,7 +40,7 @@ class IntroFragment : BaseFragment() {
             }
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                handler.post {
+                addOnResumeListener {
                     intro_animation.x = max(DisplaySizeHelper.width - (positionOffsetPixels + DisplaySizeHelper.width * position), 0).toFloat()
                     if (position > 0) {
                         intro_animation.setProgress(positionOffsetPixels + DisplaySizeHelper.width * (position - 1), position - 1)

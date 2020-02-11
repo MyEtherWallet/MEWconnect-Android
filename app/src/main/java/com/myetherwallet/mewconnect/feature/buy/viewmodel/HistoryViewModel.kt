@@ -36,7 +36,7 @@ class HistoryViewModel
             data.postValue(emptyList())
         } else {
             for (item in items) {
-                getStatus.execute(GetStatus.Params(item.userId)) {
+                getStatus.execute(GetStatus.Params(item.userId, item.quoteId)) {
                     it.either(::onStatusLoadFailed, ::onStatusLoaded)
                 }
             }
