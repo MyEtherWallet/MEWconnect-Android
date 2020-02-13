@@ -1,7 +1,5 @@
 ### Release 1.0.10 (20021301)
-- Fixed the issue that prevented token balances to be shown in some cases.
-- The app will lock itself after a certain time, if you put it in the background.
-- Updated Vision and Biometric libraries
+
 - Stability improvements
 
 ### Release 1.0.9 (20020301)
