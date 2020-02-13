@@ -112,7 +112,7 @@ class AuthFragment : BaseDiFragment() {
     }
 
     private fun showBiometricPrompt() {
-        addOnResumeListener {
+        if (isResumed) {
             BiometricUtils.authenticate(requireActivity(), preferences) { cipher ->
                 cipher?.let {
                     requireActivity().runOnUiThread {
