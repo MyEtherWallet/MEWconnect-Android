@@ -18,8 +18,10 @@ private const val TAG = "MewContentProvider"
 private const val AUTHORITY = "com.myetherwallet.mewconnect.secret"
 private const val PATH_VERSION = "version"
 private const val ID_VERSION = 0
+private const val PATH_IS_WALLET_AVAILABLE = "is_wallet_available"
+private const val ID_IS_AVAILABLE = 1
 private const val PATH_GET_MNEMONIC = "mnemonic"
-private const val ID_MNEMONIC = 1
+private const val ID_MNEMONIC = 2
 private const val QUERY_PASSWORD = "password"
 
 class MewContentProvider : ContentProvider() {
@@ -32,6 +34,7 @@ class MewContentProvider : ContentProvider() {
         MewLog.d(TAG, "onCreate")
         (context?.applicationContext as MewApplication?)?.appComponent?.inject(this)
         uriMatcher.addURI(AUTHORITY, PATH_VERSION, ID_VERSION)
+        uriMatcher.addURI(AUTHORITY, PATH_IS_WALLET_AVAILABLE, ID_IS_AVAILABLE)
         uriMatcher.addURI(AUTHORITY, PATH_GET_MNEMONIC, ID_MNEMONIC)
         return true
     }
@@ -42,6 +45,11 @@ class MewContentProvider : ContentProvider() {
             ID_VERSION -> {
                 MewLog.d(TAG, "Version")
                 return createOneItemCursor(BuildConfig.VERSION_CODE)
+            }
+            ID_IS_AVAILABLE -> {
+                MewLog.d(TAG, "Is wallet available")
+                val data = if (preferences.getCurrentWalletPreferences().isWalletExists()) 1 else 0
+                return createOneItemCursor(data)
             }
             ID_MNEMONIC -> {
                 MewLog.d(TAG, "Mnemonic")
