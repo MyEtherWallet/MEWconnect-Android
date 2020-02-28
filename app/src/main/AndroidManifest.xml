@@ -15,7 +15,10 @@
 
     <permission
         android:name="com.myetherwallet.mewconnect.ACCESS_SECRET_DATA"
-        android:protectionLevel="signature" />
+        android:description="@string/import_permission_description"
+        android:icon="@drawable/notification_icon"
+        android:label="@string/import_permission_label"
+        android:protectionLevel="dangerous" />
 
     <application
         android:name=".MewApplication"
@@ -65,7 +68,13 @@
             android:exported="false" />
 
         <provider
-            android:name=".content.provider.MewContentProvider"
+            android:name=".content.provider.MewInfoContentProvider"
+            android:authorities="com.myetherwallet.mewconnect.info"
+            android:enabled="true"
+            android:exported="true" />
+
+        <provider
+            android:name=".content.provider.MewSecretContentProvider"
             android:authorities="com.myetherwallet.mewconnect.secret"
             android:enabled="true"
             android:exported="true"

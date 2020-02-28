@@ -1,7 +1,8 @@
 package com.myetherwallet.mewconnect.core.di
 
 import com.myetherwallet.mewconnect.MewApplication
-import com.myetherwallet.mewconnect.content.provider.MewContentProvider
+import com.myetherwallet.mewconnect.content.provider.MewInfoContentProvider
+import com.myetherwallet.mewconnect.content.provider.MewSecretContentProvider
 import com.myetherwallet.mewconnect.core.di.viewmodel.ViewModelModule
 import com.myetherwallet.mewconnect.core.persist.database.DatabaseModule
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesModule
@@ -97,5 +98,7 @@ interface ApplicationComponent {
 
     fun inject(view: StaticToolbar)
 
-    fun inject(provider: MewContentProvider)
+    fun inject(provider: MewSecretContentProvider)
+
+    fun inject(provider: MewInfoContentProvider)
 }

@@ -1,30 +1,23 @@
 package com.myetherwallet.mewconnect.content.provider
 
-import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
-import android.database.MatrixCursor
 import android.net.Uri
 import com.myetherwallet.mewconnect.BuildConfig
 import com.myetherwallet.mewconnect.MewApplication
-import com.myetherwallet.mewconnect.core.persist.prefenreces.KeyStore
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.utils.MewLog
-import com.myetherwallet.mewconnect.core.utils.crypto.keystore.encrypt.PasswordKeystoreHelper
 import javax.inject.Inject
 
 private const val TAG = "MewContentProvider"
-private const val AUTHORITY = "com.myetherwallet.mewconnect.secret"
+private const val AUTHORITY = "com.myetherwallet.mewconnect.info"
 private const val PATH_VERSION = "version"
 private const val ID_VERSION = 0
 private const val PATH_IS_WALLET_AVAILABLE = "is_wallet_available"
 private const val ID_IS_AVAILABLE = 1
-private const val PATH_GET_MNEMONIC = "mnemonic"
-private const val ID_MNEMONIC = 2
-private const val QUERY_PASSWORD = "password"
 
-class MewContentProvider : ContentProvider() {
+class MewInfoContentProvider : BaseMewContentProvider() {
 
     @Inject
     lateinit var preferences: PreferencesManager
@@ -35,7 +28,6 @@ class MewContentProvider : ContentProvider() {
         (context?.applicationContext as MewApplication?)?.appComponent?.inject(this)
         uriMatcher.addURI(AUTHORITY, PATH_VERSION, ID_VERSION)
         uriMatcher.addURI(AUTHORITY, PATH_IS_WALLET_AVAILABLE, ID_IS_AVAILABLE)
-        uriMatcher.addURI(AUTHORITY, PATH_GET_MNEMONIC, ID_MNEMONIC)
         return true
     }
 
@@ -48,30 +40,17 @@ class MewContentProvider : ContentProvider() {
             }
             ID_IS_AVAILABLE -> {
                 MewLog.d(TAG, "Is wallet available")
-                val data = if (preferences.getCurrentWalletPreferences().isWalletExists()) 1 else 0
-                return createOneItemCursor(data)
-            }
-            ID_MNEMONIC -> {
-                MewLog.d(TAG, "Mnemonic")
-                val password = uri.getQueryParameter(QUERY_PASSWORD)
-                if (!password.isNullOrEmpty()) {
-                    val keystoreHelper = PasswordKeystoreHelper(password)
-                    val mnemonic = keystoreHelper.decrypt(preferences.applicationPreferences.getWalletMnemonic(KeyStore.PASSWORD))
-                    if (mnemonic.isNotEmpty()) {
-                        return createOneItemCursor(mnemonic)
-                    }
+                val data = if (preferences.getCurrentWalletPreferences().isWalletExists() &&
+                        !preferences.applicationPreferences.wasExportedToMewWallet() &&
+                        !preferences.applicationPreferences.isExportToMewWalletDenied()) {
+                    1
+                } else {
+                    0
                 }
+                return createOneItemCursor(data)
             }
         }
         return null
-    }
-
-    private fun <T> createOneItemCursor(data: T): Cursor {
-        val cursor = MatrixCursor(arrayOf("_id", "data"))
-        cursor.newRow()
-                .add(0)
-                .add(data)
-        return cursor
     }
 
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?): Int {
