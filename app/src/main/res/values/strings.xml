@@ -245,4 +245,7 @@
     <string name="fingerprint_enabled_title" comment="Fingerprint enabled screen - title">Fingerprint unlock is now enabled</string>
 
     <string name="whats_new_title" comment="'What's new' screen - title">What’s new</string>
+
+    <string name="import_permission_label">Import wallet data</string>
+    <string name="import_permission_description">to import your account from MEWconnect app</string>
 </resources>

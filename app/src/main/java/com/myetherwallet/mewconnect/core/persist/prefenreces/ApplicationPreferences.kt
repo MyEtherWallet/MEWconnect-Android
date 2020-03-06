@@ -26,6 +26,8 @@ private const val AUTH_TIMER_TIME = "auth_timer_time"
 private const val WHATS_NEW_DIALOG_VERSION = "whats_new_dialog_version"
 private const val IS_BIOMETRIC_PROMO_SHOWN = "is_biometric_promo_shown"
 private const val SIMPLEX_USER_ID = "simplex_user_id"
+private const val WAS_EXPORTED_TO_MEW_WALLET = "was_exported_to_mew_wallet"
+private const val EXPORT_TO_MEW_WALLET_DENIED_COUNT = "export_to_mew_wallet_denied_count"
 
 private const val DEPRECATED_WALLET_MNEMONIC = "wallet_mnemonic"
 
@@ -140,6 +142,18 @@ class ApplicationPreferences(context: Context, private val preferences: SharedPr
     fun setAuthTimerTime(uptime: Long) = preferences.edit().putLong(AUTH_TIMER_TIME, uptime).apply()
 
     fun resetAuthTimerTime() = preferences.edit().remove(AUTH_TIMER_TIME).apply()
+
+    fun wasExportedToMewWallet() = preferences.getBoolean(WAS_EXPORTED_TO_MEW_WALLET, false)
+
+    fun setWasExportedToMewWallet(was: Boolean) = preferences.edit().putBoolean(WAS_EXPORTED_TO_MEW_WALLET, was).apply()
+
+    fun isExportToMewWalletDenied() = getExportToMewWalletDeniedCount() > 20
+
+    private fun getExportToMewWalletDeniedCount() = preferences.getInt(EXPORT_TO_MEW_WALLET_DENIED_COUNT, 0)
+
+    fun updateExportToMewWalletDenied() {
+        preferences.edit().putInt(EXPORT_TO_MEW_WALLET_DENIED_COUNT, getExportToMewWalletDeniedCount() + 1).apply()
+    }
 
     fun shouldShowWhatsNewDialog(): Boolean {
         val current = preferences.getInt(WHATS_NEW_DIALOG_VERSION, 0)
