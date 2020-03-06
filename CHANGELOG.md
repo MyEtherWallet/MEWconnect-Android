@@ -1,4 +1,4 @@
-### Release 1.0.11 (20030401)
+### Release 1.0.11 (20030501)
 
 - Minor improvements
 
