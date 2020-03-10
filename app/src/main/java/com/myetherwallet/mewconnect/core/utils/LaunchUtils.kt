@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.text.TextUtils
 import com.myetherwallet.mewconnect.BuildConfig
@@ -57,9 +58,11 @@ object LaunchUtils {
         }
     }
 
-    fun openMarket(context: Context?) {
+    fun openMarket(context: Context?) = openMarket(context, BuildConfig.APPLICATION_ID)
+
+    fun openMarket(context: Context?, packageName: String) {
         context?.let {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}"))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName"))
             val apps = context.packageManager.queryIntentActivities(intent, 0)
             for (app in apps) {
                 if (app.activityInfo.applicationInfo.packageName == "com.android.vending") {
@@ -73,7 +76,16 @@ object LaunchUtils {
                     return
                 }
             }
-            openWebSite(context, "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}")
+            openWebSite(context, "https://play.google.com/store/apps/details?id=$packageName")
+        }
+    }
+
+    fun openApp(context: Context, packageName: String) {
+        try {
+            val intent = context.packageManager.getLaunchIntentForPackage(packageName)
+            context.startActivity(intent)
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
         }
     }
 }

@@ -70,9 +70,9 @@ class WalletScrollBehavior(context: Context, attrs: AttributeSet?, private val s
             if (ratio < 0) {
                 ratio = 0f
             }
-            views[0].setRatio(ratio)
-            views[1].setRatio(ratio)
-            views[2].setRatio(ratio)
+            for (view in views) {
+                view.setRatio(ratio)
+            }
         }
     }
 }

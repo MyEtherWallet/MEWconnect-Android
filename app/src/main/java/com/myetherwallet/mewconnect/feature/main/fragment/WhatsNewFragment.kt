@@ -2,6 +2,7 @@ package com.myetherwallet.mewconnect.feature.main.fragment
 
 import android.graphics.Typeface
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.util.TypedValue
 import android.view.View
 import android.widget.LinearLayout
@@ -11,6 +12,7 @@ import androidx.core.content.ContextCompat
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseDiFragment
+import com.myetherwallet.mewconnect.core.utils.StringUtils
 import kotlinx.android.synthetic.main.fragment_whats_new.*
 import java.util.regex.Pattern
 
@@ -44,14 +46,19 @@ class WhatsNewFragment : BaseDiFragment() {
         })
 
         val text = getString(R.string.whats_new)
-        val pattern = Pattern.compile("### Release ([^(]+)\\(\\d+\\)(?:\n\n### [A-Za-z]+)?\n\n([\\s\\S]+?)\n\n")
+        val pattern = Pattern.compile("### Release ([^(]+)\\(\\d+\\)(?:\n\n### [A-Za-z]+)?\n\n([^#]+)\n\n")
         val matcher = pattern.matcher(text)
         var isFirstIteration = true
         while (matcher.find()) {
             whats_new_content_container.addView(createHeader(matcher.group(1), isFirstIteration))
-            val lines = matcher.group(2).split('\n')
-            for (line in lines) {
-                whats_new_content_container.addView(createBody(line))
+            val bodyText = matcher.group(2)
+            if (bodyText.startsWith('-')) {
+                val lines = bodyText.split('\n')
+                for (line in lines) {
+                    whats_new_content_container.addView(createBody(line))
+                }
+            } else {
+                whats_new_content_container.addView(createBody(bodyText, false))
             }
             if (isFirstIteration) {
                 isFirstIteration = false
@@ -69,9 +76,9 @@ class WhatsNewFragment : BaseDiFragment() {
         letterSpacing = 0.02f
     }
 
-    private fun createBody(value: String?): View {
+    private fun createBody(value: String?, showDash: Boolean = true): View {
         val linearLayout = LinearLayout(requireContext())
-        linearLayout.setPadding(0, bodyTextPaddingTop, 0, 0)
+        linearLayout.setPadding(0, bodyTextPaddingTop, bodyTextPaddingTop, 0)
 
         val dashView = TextView(requireContext()).apply {
             text = "–"
@@ -82,15 +89,21 @@ class WhatsNewFragment : BaseDiFragment() {
             letterSpacing = 0.02f
         }
         linearLayout.addView(dashView)
+        if (!showDash) {
+            dashView.visibility = View.INVISIBLE
+        }
 
         val textView = TextView(requireContext()).apply {
-            text = removeDash(value)
+            removeDash(value)?.let {
+                text = StringUtils.fromHtml(StringUtils.replaceBreaks(it))
+            }
             includeFontPadding = false
             setPadding(bodyTextPaddingLeft, 0, 0, 0)
             setTextSize(TypedValue.COMPLEX_UNIT_PX, bodySize)
             setTextColor(ContextCompat.getColor(requireContext(), R.color.text_black))
             letterSpacing = 0.02f
             setLineSpacing(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, bodyLineSpacing, resources.displayMetrics), 1.0f)
+            movementMethod = LinkMovementMethod.getInstance()
         }
         linearLayout.addView(textView)
         return linearLayout

@@ -1,0 +1,63 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/wallet_mewwallet_height"
+    android:padding="@dimen/dimen_16dp">
+
+    <TextView
+        android:id="@+id/wallet_mewwallet_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_16dp"
+        android:layout_marginEnd="@dimen/dimen_16dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/wallet_mewwallet_title"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text_size_fixed_16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/wallet_mewwallet_animation"
+        android:layout_width="@dimen/dimen_96dp"
+        android:layout_height="@dimen/dimen_96dp"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:contentDescription="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/wallet_mewwallet_title"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/lottie_astronaut"
+        app:lottie_repeatCount="0" />
+
+    <TextView
+        android:id="@+id/wallet_mewwallet_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dimen_16dp"
+        android:letterSpacing="0.01"
+        android:lineSpacingExtra="4sp"
+        android:text="@string/wallet_mewwallet_text"
+        android:textColor="@color/text_grey"
+        android:textSize="@dimen/text_size_fixed_14sp"
+        app:layout_constraintStart_toEndOf="@id/wallet_mewwallet_animation"
+        app:layout_constraintTop_toTopOf="@id/wallet_mewwallet_animation" />
+
+    <TextView
+        android:id="@+id/wallet_mewwallet_button"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_36dp"
+        android:layout_marginStart="@dimen/dimen_16dp"
+        android:layout_marginEnd="@dimen/dimen_16dp"
+        android:background="@drawable/wallet_mewwallet_button"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:soundEffectsEnabled="false"
+        android:text="@string/wallet_mewwallet_button"
+        android:textAllCaps="true"
+        android:textColor="@color/blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/wallet_list_item_height">
+    android:layout_height="@dimen/wallet_list_item_height"
+    android:background="@color/wallet_background">
 
     <TextView
         android:id="@+id/wallet_list_title"

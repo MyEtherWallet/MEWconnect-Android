@@ -4,6 +4,7 @@ import android.content.Context
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
+import android.view.View.OnFocusChangeListener
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.extenstion.formatUsd
@@ -38,7 +39,7 @@ class WalletHeader @JvmOverloads constructor(
 
         val statusBarHeight = ApplicationUtils.getStatusBarHeight(context)
         yCollapsed = statusBarHeight + resources.getDimension(R.dimen.wallet_toolbar_height).toInt()
-        yExpanded = yCollapsed + WalletSizingUtils.calculateCardHeight() + resources.getDimension(R.dimen.dimen_16dp).toInt()
+        yExpanded = (yCollapsed + WalletSizingUtils.calculateCardHeight() + resources.getDimension(R.dimen.dimen_16dp) + resources.getDimension(R.dimen.wallet_mewwallet_height)).toInt()
 
         wallet_header_update_button.setOnClickListener {
             setUpdating(true)

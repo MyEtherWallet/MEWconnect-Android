@@ -48,4 +48,6 @@
     <color name="buy_keyboard_background">#f9f9f9</color>
 
     <color name="auth_enter_disabled">#56000000</color>
+
+    <color name="wallet_mewwallet_button">#e6edfa</color>
 </resources>

@@ -45,6 +45,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="@dimen/dimen_20dp" />
+
+            <com.myetherwallet.mewconnect.feature.main.view.MewWalletView
+                android:id="@+id/wallet_mewwallet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginEnd="@dimen/dimen_16dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/dimen_16dp"
+                app:cardElevation="0dp" />
         </FrameLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
