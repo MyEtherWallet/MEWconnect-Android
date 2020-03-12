@@ -22,11 +22,12 @@ object WalletSizingUtils {
         val toolbarHeight = view.context.resources.getDimension(R.dimen.wallet_toolbar_height)
         val toolbarMargin = ApplicationUtils.getToolbarMargin(view)
         val headerHeight = view.context.resources.getDimension(R.dimen.wallet_header_height)
+        val mewWalletHeight = view.context.resources.getDimension(R.dimen.wallet_mewwallet_height)
         val cardHeight = calculateCardHeight()
-        return (toolbarHeight + toolbarMargin + headerHeight + cardHeight).toInt()
+        return (toolbarHeight + toolbarMargin + headerHeight + cardHeight + mewWalletHeight).toInt()
     }
 
     fun calculateScrollThreshold(view: View): Int {
-        return calculateListMargin(view) / 2
+        return calculateListMargin(view) / 3 * 2
     }
 }
