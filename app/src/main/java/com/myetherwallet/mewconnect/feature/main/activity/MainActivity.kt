@@ -13,6 +13,7 @@ import com.myetherwallet.mewconnect.core.ui.activity.BaseDiActivity
 import com.myetherwallet.mewconnect.core.ui.fragment.BaseFragment
 import com.myetherwallet.mewconnect.feature.auth.fragment.AuthFragment
 import com.myetherwallet.mewconnect.feature.main.fragment.IntroFragment
+import com.myetherwallet.mewconnect.feature.main.fragment.WalletFragment
 import com.myetherwallet.mewconnect.feature.main.fragment.WhatsNewFragment
 import com.myetherwallet.mewconnect.feature.main.utils.FragmentTransactor
 import com.myetherwallet.mewconnect.feature.scan.receiver.ServiceAlarmReceiver
@@ -41,6 +42,7 @@ class MainActivity : BaseDiActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        WalletFragment.isFirstLaunch = true
         fragmentTransactor = FragmentTransactor()
 
         if (preferences.getCurrentWalletPreferences().isWalletExists()) {

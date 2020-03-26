@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.res.Resources
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
+import android.telephony.TelephonyManager
 import android.util.TypedValue
 import android.view.View
 import androidx.annotation.AttrRes
 import com.myetherwallet.mewconnect.content.data.Network
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
+import java.util.*
 
 /**
  * Created by BArtWell on 21.08.2018.
@@ -34,6 +36,16 @@ object ApplicationUtils {
         val metrics = Resources.getSystem().displayMetrics
         val px = dp * (metrics.densityDpi / 160f)
         return Math.round(px).toFloat()
+    }
+
+    fun getCountryIso(context: Context): String {
+        val telephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+        val networkCountryIso = telephonyManager.networkCountryIso
+        return if (networkCountryIso.isEmpty()) {
+            Locale.getDefault().country
+        } else {
+            networkCountryIso
+        }
     }
 
     fun getStatusBarHeight(context: Context?): Int {

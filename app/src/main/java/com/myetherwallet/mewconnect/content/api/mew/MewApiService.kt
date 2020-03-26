@@ -1,7 +1,6 @@
 package com.myetherwallet.mewconnect.content.api.mew
 
-import com.myetherwallet.mewconnect.feature.main.data.JsonRpcRequest
-import org.web3j.protocol.core.methods.request.Transaction
+import com.myetherwallet.mewconnect.content.data.AnalyticsEventsRequest
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -15,7 +14,5 @@ class MewApiService
 
     private val mewApi by lazy { client.retrofit.create(MewApi::class.java) }
 
-    override fun getAllBalances(apiMethod: String, jsonRpc: JsonRpcRequest<Any>) = mewApi.getAllBalances(apiMethod, jsonRpc)
-
-    override fun getWalletBalance(apiMethod: String, jsonRpc: JsonRpcRequest<String>) = mewApi.getWalletBalance(apiMethod, jsonRpc)
+    override fun submit(platform: String, iso: String, events: AnalyticsEventsRequest) = mewApi.submit(platform, iso, events)
 }

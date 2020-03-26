@@ -16,6 +16,8 @@ private const val AUTHORITY = "com.myetherwallet.mewconnect.secret"
 private const val PATH_GET_MNEMONIC = "mnemonic"
 private const val ID_MNEMONIC = 0
 private const val QUERY_PASSWORD = "password"
+private const val PATH_PROTECT_MNEMONIC = "protect_mnemonic"
+private const val ID_PROTECT_MNEMONIC = 1
 
 class MewSecretContentProvider : BaseMewContentProvider() {
 
@@ -27,6 +29,7 @@ class MewSecretContentProvider : BaseMewContentProvider() {
         MewLog.d(TAG, "onCreate")
         (context?.applicationContext as MewApplication?)?.appComponent?.inject(this)
         uriMatcher.addURI(AUTHORITY, PATH_GET_MNEMONIC, ID_MNEMONIC)
+        uriMatcher.addURI(AUTHORITY, PATH_PROTECT_MNEMONIC, ID_PROTECT_MNEMONIC)
         return true
     }
 
@@ -44,11 +47,15 @@ class MewSecretContentProvider : BaseMewContentProvider() {
                         if (mnemonic.isEmpty()) {
                             preferences.applicationPreferences.updateExportToMewWalletDenied()
                         } else {
-                            preferences.applicationPreferences.setWasExportedToMewWallet(true)
+                            preferences.applicationPreferences.resetExportToMewWalletDenied()
                             return createOneItemCursor(mnemonic)
                         }
                     }
                 }
+            }
+            ID_PROTECT_MNEMONIC -> {
+                preferences.applicationPreferences.setWasExportedToMewWallet(true)
+                return createOneItemCursor(1)
             }
         }
         return null

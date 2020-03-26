@@ -22,6 +22,7 @@ class MewWalletView @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : androidx.cardview.widget.CardView(context, attrs, defStyleAttr), WalletScrollable {
 
+    var clickListener: (() -> Unit)? = null
     private val viewHandler = Handler()
 
     init {
@@ -36,11 +37,7 @@ class MewWalletView @JvmOverloads constructor(
 
         wallet_mewwallet_button.setOnClickListener {
             if (alpha > 0.90f) {
-                if (MewWalletUtils.isInstalled(context)) {
-                    MewWalletUtils.launchApp(context)
-                } else {
-                    MewWalletUtils.launchMarket(context)
-                }
+                clickListener?.invoke()
             }
         }
         playAnimation()
