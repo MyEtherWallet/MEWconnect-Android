@@ -4,7 +4,7 @@ import com.myetherwallet.mewconnect.content.data.Network
 import com.myetherwallet.mewconnect.core.platform.BaseInteractor
 import com.myetherwallet.mewconnect.core.platform.Either
 import com.myetherwallet.mewconnect.core.platform.Failure
-import com.myetherwallet.mewconnect.core.repository.MewApiRepository
+import com.myetherwallet.mewconnect.core.repository.NodeApiRepository
 import com.myetherwallet.mewconnect.core.utils.HexUtils
 import com.myetherwallet.mewconnect.feature.main.data.JsonRpcRequest
 import java.math.BigDecimal
@@ -18,7 +18,7 @@ private const val METHOD = "eth_getBalance"
 private const val PERIOD = "latest"
 
 class GetWalletBalance
-@Inject constructor(private val repository: MewApiRepository) : BaseInteractor<BigDecimal, GetWalletBalance.Params>() {
+@Inject constructor(private val repository: NodeApiRepository) : BaseInteractor<BigDecimal, GetWalletBalance.Params>() {
 
     override suspend fun run(params: Params): Either<Failure, BigDecimal> {
         val address = HexUtils.withPrefixLowerCase(params.address)

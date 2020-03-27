@@ -6,7 +6,7 @@ apply plugin: 'org.jetbrains.kotlin.android.extensions'
 
 int MAJOR_VERSION = 1
 int MINOR_VERSION = 0
-int MICRO_VERSION = 12
+int MICRO_VERSION = 13
 int BUILD_FOR_TODAY = 1
 
 def secretsPropertiesFile = rootProject.file("secrets.properties")
@@ -40,7 +40,8 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         buildConfigField "String", "CONNECT_API_END_POINT", "\"https://connect.mewapi.io\""
-        buildConfigField "String", "MEW_API_END_POINT", "\"https://nodes.mewapi.io/rpc/\""
+        buildConfigField "String", "NODE_API_END_POINT", "\"https://nodes.mewapi.io/rpc/\""
+        buildConfigField "String", "MEW_API_END_POINT", "\"https://mainnet.mewwallet.dev/\""
         buildConfigField "String", "APICCSWAP_API_END_POINT", "\"https://apiccswap.myetherwallet.com/\""
         buildConfigField "String", "APICCSWAP_API_KEY", "\"" + secretsProperties['apiccswapApiKey'] + "\""
         buildConfigField "String", "APICCSWAP_REFERER", "\"" + secretsProperties['apiccswapReferer'] + "\""

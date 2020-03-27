@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.myetherwallet.mewconnect.MewApplication
 import com.myetherwallet.mewconnect.R
+import com.myetherwallet.mewconnect.content.data.AnalyticsEvent
 import com.myetherwallet.mewconnect.content.data.MessageToSign
 import com.myetherwallet.mewconnect.content.data.Network
 import com.myetherwallet.mewconnect.content.data.Transaction
@@ -32,6 +33,7 @@ import com.myetherwallet.mewconnect.feature.main.dialog.BackupWarningDialog
 import com.myetherwallet.mewconnect.feature.main.dialog.ChooseNetworkDialog
 import com.myetherwallet.mewconnect.feature.main.dialog.RateDialog
 import com.myetherwallet.mewconnect.feature.main.receiver.NetworkStateReceiver
+import com.myetherwallet.mewconnect.feature.main.utils.MewWalletUtils
 import com.myetherwallet.mewconnect.feature.main.utils.WalletSizingUtils
 import com.myetherwallet.mewconnect.feature.main.view.behavior.WalletScrollBehavior
 import com.myetherwallet.mewconnect.feature.main.viewmodel.WalletViewModel
@@ -53,6 +55,8 @@ class WalletFragment : BaseViewModelFragment() {
 
     companion object {
 
+        var isFirstLaunch = true
+
         private val BACKUP_WARNING_DELAY = TimeUnit.HOURS.toMillis(12)
 
         fun newInstance() = WalletFragment()
@@ -60,6 +64,7 @@ class WalletFragment : BaseViewModelFragment() {
 
     @Inject
     lateinit var preferences: PreferencesManager
+
     @Inject
     lateinit var networkHandler: NetworkHandler
     private lateinit var viewModel: WalletViewModel
@@ -98,6 +103,20 @@ class WalletFragment : BaseViewModelFragment() {
         }
 
         RateDialog.newInstance(requireActivity().application as MewApplication).show(childFragmentManager)
+
+        if (isFirstLaunch) {
+            isFirstLaunch = false
+            viewModel.submitEvents(context, AnalyticsEvent(AnalyticsEvent.BANNER_SHOWN))
+        }
+
+        wallet_mewwallet.clickListener = {
+            if (MewWalletUtils.isInstalled(requireContext())) {
+                MewWalletUtils.launchApp(requireContext())
+            } else {
+                MewWalletUtils.launchMarket(requireContext())
+            }
+            viewModel.submitEvents(context, AnalyticsEvent(AnalyticsEvent.BANNER_FREE_UPGRADE_CLICKED))
+        }
     }
 
     private fun init() {

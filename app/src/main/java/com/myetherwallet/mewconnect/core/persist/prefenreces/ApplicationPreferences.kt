@@ -155,6 +155,10 @@ class ApplicationPreferences(context: Context, private val preferences: SharedPr
         preferences.edit().putInt(EXPORT_TO_MEW_WALLET_DENIED_COUNT, getExportToMewWalletDeniedCount() + 1).apply()
     }
 
+    fun resetExportToMewWalletDenied() {
+        preferences.edit().putInt(EXPORT_TO_MEW_WALLET_DENIED_COUNT, 0).apply()
+    }
+
     fun shouldShowWhatsNewDialog(): Boolean {
         val current = preferences.getInt(WHATS_NEW_DIALOG_VERSION, 0)
         preferences.edit().putInt(WHATS_NEW_DIALOG_VERSION, BuildConfig.VERSION_CODE).apply()

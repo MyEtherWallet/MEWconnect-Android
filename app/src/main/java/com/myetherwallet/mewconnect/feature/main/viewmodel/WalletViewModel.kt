@@ -8,11 +8,13 @@ import android.os.IBinder
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.myetherwallet.mewconnect.MewApplication
+import com.myetherwallet.mewconnect.content.data.AnalyticsEvent
 import com.myetherwallet.mewconnect.content.data.MessageToSign
 import com.myetherwallet.mewconnect.content.data.Network
 import com.myetherwallet.mewconnect.content.data.Transaction
 import com.myetherwallet.mewconnect.core.persist.prefenreces.WalletPreferences
 import com.myetherwallet.mewconnect.core.platform.Failure
+import com.myetherwallet.mewconnect.core.utils.ApplicationUtils
 import com.myetherwallet.mewconnect.feature.main.data.Balance
 import com.myetherwallet.mewconnect.feature.main.data.WalletBalance
 import com.myetherwallet.mewconnect.feature.main.data.WalletData
@@ -20,6 +22,7 @@ import com.myetherwallet.mewconnect.feature.main.data.WalletListItem
 import com.myetherwallet.mewconnect.feature.main.interactor.GetAllBalances
 import com.myetherwallet.mewconnect.feature.main.interactor.GetTickerData
 import com.myetherwallet.mewconnect.feature.main.interactor.GetWalletBalance
+import com.myetherwallet.mewconnect.feature.main.interactor.SubmitAnalyticsEvent
 import com.myetherwallet.mewconnect.feature.scan.service.ServiceBinder
 import com.myetherwallet.mewconnect.feature.scan.service.SocketService
 import java.math.BigDecimal
@@ -32,7 +35,7 @@ import javax.inject.Inject
 private const val USD_SYMBOL = "ETH"
 
 class WalletViewModel
-@Inject constructor(application: Application, private val getWalletBalance: GetWalletBalance, private val getAllBalances: GetAllBalances, private val getTickerData: GetTickerData) : AndroidViewModel(application) {
+@Inject constructor(application: Application, private val getWalletBalance: GetWalletBalance, private val getAllBalances: GetAllBalances, private val getTickerData: GetTickerData, private val submitAnalyticsEvent: SubmitAnalyticsEvent) : AndroidViewModel(application) {
 
     private var serviceConnection: ServiceConnection? = null
     private var service: SocketService? = null
@@ -183,6 +186,14 @@ class WalletViewModel
             val stockPrice = tickerData!![USD_SYMBOL]
             val valueUsd = stockPrice?.multiply(walletBalance)
             callback(items, WalletBalance(walletBalance!!, valueUsd, stockPrice))
+        }
+    }
+
+    fun submitEvents(context: Context?, event: AnalyticsEvent) {
+        context?.let {
+            submitAnalyticsEvent.execute(SubmitAnalyticsEvent.Params(ApplicationUtils.getCountryIso(context), listOf(event))) {
+                it.either({ }, { })
+            }
         }
     }
 }

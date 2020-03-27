@@ -1,6 +1,5 @@
-package com.myetherwallet.mewconnect.content.api.mew
+package com.myetherwallet.mewconnect.content.api.node
 
-import com.google.gson.GsonBuilder
 import com.myetherwallet.mewconnect.BuildConfig
 import com.myetherwallet.mewconnect.core.utils.MewLog
 import okhttp3.OkHttpClient
@@ -9,29 +8,25 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 /**
- * Created by BArtWell on 26.03.2020.
+ * Created by BArtWell on 01.09.2018.
  */
 
-class MewClient {
+class NodeClient {
 
     val retrofit = createRetrofit()
 
     private fun createRetrofit(): Retrofit {
-        val gson = GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-                .create()
         return Retrofit.Builder()
-                .baseUrl(BuildConfig.MEW_API_END_POINT)
+                .baseUrl(BuildConfig.NODE_API_END_POINT)
                 .client(createClient())
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(GsonConverterFactory.create())
                 .build()
     }
 
     private fun createClient(): OkHttpClient {
         val okHttpClientBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
         if (MewLog.shouldDisplayLogs()) {
-            val loggingInterceptor = HttpLoggingInterceptor()
-                    .setLevel(HttpLoggingInterceptor.Level.BODY)
+            val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             okHttpClientBuilder.addInterceptor(loggingInterceptor)
         }
         return okHttpClientBuilder.build()

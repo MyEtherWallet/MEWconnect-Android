@@ -1,11 +1,10 @@
 package com.myetherwallet.mewconnect.feature.main.interactor
 
 import com.myetherwallet.mewconnect.content.data.Network
-import com.myetherwallet.mewconnect.content.gson.JsonParser
 import com.myetherwallet.mewconnect.core.platform.BaseInteractor
 import com.myetherwallet.mewconnect.core.platform.Either
 import com.myetherwallet.mewconnect.core.platform.Failure
-import com.myetherwallet.mewconnect.core.repository.MewApiRepository
+import com.myetherwallet.mewconnect.core.repository.NodeApiRepository
 import com.myetherwallet.mewconnect.core.utils.HexUtils
 import com.myetherwallet.mewconnect.feature.main.data.Balance
 import com.myetherwallet.mewconnect.feature.main.data.JsonRpcRequest
@@ -36,7 +35,7 @@ private val COUNT = BigInteger.ZERO
 private const val PERIOD = "latest"
 
 class GetAllBalances
-@Inject constructor(private val repository: MewApiRepository) : BaseInteractor<List<Balance>, GetAllBalances.Params>() {
+@Inject constructor(private val repository: NodeApiRepository) : BaseInteractor<List<Balance>, GetAllBalances.Params>() {
 
     override suspend fun run(params: Params): Either<Failure, List<Balance>> {
         val function = Function(FUNCTION_METHOD,

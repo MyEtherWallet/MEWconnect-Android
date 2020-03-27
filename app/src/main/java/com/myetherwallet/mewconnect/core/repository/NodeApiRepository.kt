@@ -1,30 +1,40 @@
 package com.myetherwallet.mewconnect.core.repository
 
-import com.myetherwallet.mewconnect.content.api.mew.MewApiService
-import com.myetherwallet.mewconnect.content.data.AnalyticsEvent
-import com.myetherwallet.mewconnect.content.data.AnalyticsEventsRequest
+import com.myetherwallet.mewconnect.content.api.node.NodeApiService
 import com.myetherwallet.mewconnect.core.platform.Either
 import com.myetherwallet.mewconnect.core.platform.Failure
 import com.myetherwallet.mewconnect.core.platform.NetworkHandler
+import com.myetherwallet.mewconnect.feature.main.data.Balance
+import com.myetherwallet.mewconnect.feature.main.data.JsonRpcRequest
+import com.myetherwallet.mewconnect.feature.main.utils.JsonRpcResponseConverter
 import retrofit2.Call
 import retrofit2.HttpException
+import java.math.BigDecimal
 import javax.inject.Inject
 
 /**
- * Created by BArtWell on 26.03.2020.
+ * Created by BArtWell on 16.07.2018.
  */
 
-interface MewApiRepository {
+interface NodeApiRepository {
 
-    fun submit(iso: String, events: List<AnalyticsEvent>): Either<Failure, Any>
+    fun getAllBalances(apiMethod: String, jsonRpc: JsonRpcRequest<Any>): Either<Failure, List<Balance>>
+
+    fun getWalletBalance(apiMethod: String, jsonRpc: JsonRpcRequest<String>): Either<Failure, BigDecimal>
 
     class Network
-    @Inject constructor(private val networkHandler: NetworkHandler,
-                        private val service: MewApiService) : MewApiRepository {
+    @Inject constructor(private val networkHandler: NetworkHandler, private val service: NodeApiService) : NodeApiRepository {
 
-        override fun submit(iso: String, events: List<AnalyticsEvent>): Either<Failure, Any> {
+        override fun getAllBalances(apiMethod: String, jsonRpc: JsonRpcRequest<Any>): Either<Failure, List<Balance>> {
             return when (networkHandler.isConnected) {
-                true -> request(service.submit("android", iso, AnalyticsEventsRequest(events))) { it }
+                true -> request(service.getAllBalances(apiMethod, jsonRpc)) { JsonRpcResponseConverter(it).toBalancesList() }
+                false, null -> Either.Left(Failure.NetworkConnection())
+            }
+        }
+
+        override fun getWalletBalance(apiMethod: String, jsonRpc: JsonRpcRequest<String>): Either<Failure, BigDecimal> {
+            return when (networkHandler.isConnected) {
+                true -> request(service.getWalletBalance(apiMethod, jsonRpc)) { JsonRpcResponseConverter(it).toWalletBalance() }
                 false, null -> Either.Left(Failure.NetworkConnection())
             }
         }

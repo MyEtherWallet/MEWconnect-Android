@@ -1,3 +1,7 @@
+### Release 1.0.13 (20032601)
+
+Updates to import process.
+
 ### Release 1.0.12 (20031101)
 
 ANNOUNCEMENT: Full-fledged MEW wallet app is now available!
