@@ -1,16 +1,6 @@
-### Release 1.0.14 (20032601)
+### Release 1.0.13 (20032601)
 
 Updates to import process.
-
-ANNOUNCEMENT: Full-fledged MEW wallet app is now available!
-You can now buy, hold and send Ether and tokens directly in the app, without having to connect to MEW web.
-
-Upgrade your MEWconnect app in just a few taps: download MEW wallet app, it will automatically detect if you are already using MEWconnect and offer you to import your account.
-
-Launch MEWconnect after this update for more details.
-P. S. If you don't want to upgrade, you can continue using MEWconnect app.
-
-Questions? Please reach out to us via <a href="mailto:support@myetherwallet.com">support@myetherwallet.com</a>
 
 ### Release 1.0.12 (20031101)
 
