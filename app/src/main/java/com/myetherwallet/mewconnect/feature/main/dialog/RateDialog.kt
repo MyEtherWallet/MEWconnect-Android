@@ -56,7 +56,9 @@ class RateDialog : BaseDialogFragment() {
                 }
                 .create()
         alertDialog.setOnShowListener {
-            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(requireContext(), R.color.text_grey))
+            context?.let {
+                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(it, R.color.text_grey))
+            }
         }
         return alertDialog
     }

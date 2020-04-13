@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
+import android.os.Binder
 import com.myetherwallet.mewconnect.MewApplication
 import com.myetherwallet.mewconnect.core.persist.prefenreces.KeyStore
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
@@ -12,6 +13,7 @@ import com.myetherwallet.mewconnect.core.utils.crypto.keystore.encrypt.PasswordK
 import javax.inject.Inject
 
 private const val TAG = "MewContentProvider"
+private const val MEW_WALLET_PACKAGE = "com.myetherwallet.mewwallet"
 private const val AUTHORITY = "com.myetherwallet.mewconnect.secret"
 private const val PATH_GET_MNEMONIC = "mnemonic"
 private const val ID_MNEMONIC = 0
@@ -38,17 +40,19 @@ class MewSecretContentProvider : BaseMewContentProvider() {
         when (uriMatcher.match(uri)) {
             ID_MNEMONIC -> {
                 MewLog.d(TAG, "Mnemonic")
-                if (!preferences.applicationPreferences.wasExportedToMewWallet() &&
-                        !preferences.applicationPreferences.isExportToMewWalletDenied()) {
-                    val password = uri.getQueryParameter(QUERY_PASSWORD)
-                    if (!password.isNullOrEmpty()) {
-                        val keystoreHelper = PasswordKeystoreHelper(password)
-                        val mnemonic = keystoreHelper.decrypt(preferences.applicationPreferences.getWalletMnemonic(KeyStore.PASSWORD))
-                        if (mnemonic.isEmpty()) {
-                            preferences.applicationPreferences.updateExportToMewWalletDenied()
-                        } else {
-                            preferences.applicationPreferences.resetExportToMewWalletDenied()
-                            return createOneItemCursor(mnemonic)
+                if (isCallingPackageAllowed()) {
+                    if (!preferences.applicationPreferences.wasExportedToMewWallet() &&
+                            !preferences.applicationPreferences.isExportToMewWalletDenied()) {
+                        val password = uri.getQueryParameter(QUERY_PASSWORD)
+                        if (!password.isNullOrEmpty()) {
+                            val keystoreHelper = PasswordKeystoreHelper(password)
+                            val mnemonic = keystoreHelper.decrypt(preferences.applicationPreferences.getWalletMnemonic(KeyStore.PASSWORD))
+                            if (mnemonic.isEmpty()) {
+                                preferences.applicationPreferences.updateExportToMewWalletDenied()
+                            } else {
+                                preferences.applicationPreferences.resetExportToMewWalletDenied()
+                                return createOneItemCursor(mnemonic)
+                            }
                         }
                     }
                 }
@@ -59,6 +63,17 @@ class MewSecretContentProvider : BaseMewContentProvider() {
             }
         }
         return null
+    }
+
+    private fun isCallingPackageAllowed(): Boolean {
+        context?.let {
+            val packageName = it.packageManager.getNameForUid(Binder.getCallingUid())
+            MewLog.d(TAG, "Package: $packageName")
+            if (packageName == MEW_WALLET_PACKAGE) {
+                return true
+            }
+        }
+        return false
     }
 
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?): Int {
