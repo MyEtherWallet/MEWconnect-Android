@@ -86,7 +86,7 @@ class MainActivity : BaseDiActivity() {
     }
 
     private fun lockApp() {
-        fragmentTransactor.replaceNow(supportFragmentManager, AuthFragment.newInstance())
+        fragmentTransactor.replace(supportFragmentManager, AuthFragment.newInstance())
     }
 
     fun addFragment(fragment: Fragment) {

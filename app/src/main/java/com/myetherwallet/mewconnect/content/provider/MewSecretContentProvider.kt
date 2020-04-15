@@ -38,17 +38,19 @@ class MewSecretContentProvider : BaseMewContentProvider() {
         when (uriMatcher.match(uri)) {
             ID_MNEMONIC -> {
                 MewLog.d(TAG, "Mnemonic")
-                if (!preferences.applicationPreferences.wasExportedToMewWallet() &&
-                        !preferences.applicationPreferences.isExportToMewWalletDenied()) {
-                    val password = uri.getQueryParameter(QUERY_PASSWORD)
-                    if (!password.isNullOrEmpty()) {
-                        val keystoreHelper = PasswordKeystoreHelper(password)
-                        val mnemonic = keystoreHelper.decrypt(preferences.applicationPreferences.getWalletMnemonic(KeyStore.PASSWORD))
-                        if (mnemonic.isEmpty()) {
-                            preferences.applicationPreferences.updateExportToMewWalletDenied()
-                        } else {
-                            preferences.applicationPreferences.resetExportToMewWalletDenied()
-                            return createOneItemCursor(mnemonic)
+                if (isCallingAppAllowed()) {
+                    if (!preferences.applicationPreferences.wasExportedToMewWallet() &&
+                            !preferences.applicationPreferences.isExportToMewWalletDenied()) {
+                        val password = uri.getQueryParameter(QUERY_PASSWORD)
+                        if (!password.isNullOrEmpty()) {
+                            val keystoreHelper = PasswordKeystoreHelper(password)
+                            val mnemonic = keystoreHelper.decrypt(preferences.applicationPreferences.getWalletMnemonic(KeyStore.PASSWORD))
+                            if (mnemonic.isEmpty()) {
+                                preferences.applicationPreferences.updateExportToMewWalletDenied()
+                            } else {
+                                preferences.applicationPreferences.resetExportToMewWalletDenied()
+                                return createOneItemCursor(mnemonic)
+                            }
                         }
                     }
                 }
