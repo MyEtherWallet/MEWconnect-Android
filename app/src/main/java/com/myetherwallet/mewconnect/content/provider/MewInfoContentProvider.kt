@@ -40,10 +40,7 @@ class MewInfoContentProvider : BaseMewContentProvider() {
             }
             ID_IS_AVAILABLE -> {
                 MewLog.d(TAG, "Is wallet available")
-                val data = if (preferences.getCurrentWalletPreferences().isWalletExists() &&
-                        !preferences.applicationPreferences.wasExportedToMewWallet() &&
-                        !preferences.applicationPreferences.isExportToMewWalletDenied() &&
-                        isCallingAppAllowed()) {
+                val data = if (preferences.getCurrentWalletPreferences().isWalletExists() && isCallingAppAllowed()) {
                     1
                 } else {
                     0
