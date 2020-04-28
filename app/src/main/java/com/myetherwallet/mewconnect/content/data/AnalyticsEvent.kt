@@ -14,5 +14,7 @@ data class AnalyticsEvent(
     companion object {
         val BANNER_SHOWN = "Android-MEWconnectApp-Banner-shown"
         val BANNER_FREE_UPGRADE_CLICKED = "Android-MEWconnectApp-Banner-FreeUpgrade-Clicked"
+        val INTRO_BANNER_SHOWN = "Android-MEWconnectApp-IntroScreen-Banner-shown"
+        val INTRO_BANNER_FREE_UPGRADE_CLICKED = "Android-MEWconnectApp-IntroScreen-Banner-FreeUpgrade-Clicked"
     }
 }

@@ -8,6 +8,7 @@ import com.myetherwallet.mewconnect.core.persist.database.DatabaseModule
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesManager
 import com.myetherwallet.mewconnect.core.persist.prefenreces.PreferencesModule
 import com.myetherwallet.mewconnect.core.utils.DisplaySizeHelper
+import com.myetherwallet.mewconnect.feature.scan.utils.NotificationsUtils
 import javax.inject.Inject
 
 
@@ -31,6 +32,7 @@ class MewApplication : Application() {
 
         DisplaySizeHelper.init()
         preferences.applicationPreferences.setInstallTime()
+        NotificationsUtils.showMewWalletNotification(this, preferences.applicationPreferences)
     }
 
     private fun injectMembers() = appComponent.inject(this)

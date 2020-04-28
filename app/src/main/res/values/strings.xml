@@ -245,4 +245,8 @@
 
     <string name="import_permission_label">Import wallet data</string>
     <string name="import_permission_description">to import your account from MEWconnect app</string>
+    <string name="update_notification_channel_name">Important messages</string>
+    <string name="update_notification_channel_description">Information messages</string>
+    <string name="update_notification_title">MEW wallet app is now available</string>
+    <string name="update_notification_text">A free upgrade your MEW connect. Download from PlayStore now.</string>
 </resources>
