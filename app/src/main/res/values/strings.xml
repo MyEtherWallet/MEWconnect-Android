@@ -102,6 +102,7 @@
     <string name="scan_camera_permission_rationale_dialog" comment="Scan screen - camera permission rationale in dialog">Please enable camera access for\nMEWconnect</string>
     <string name="scan_low_storage_error" comment="Scan screen - error">Not enough free space</string>
     <string name="scan_camera_source_error" comment="Scan screen - error">Unable to start camera</string>
+    <string name="scan_camera_wrong_qr" comment="Scan screen - error">Wrong QR</string>
     <string name="scan_error" comment="Scan screen - scan error">Something went wrong</string>
     <string name="scan_error_try_again" comment="Scan screen - button">Try again</string>
     <string name="scan_offline" comment="Scan screen - offline screen">No internet connection</string>
