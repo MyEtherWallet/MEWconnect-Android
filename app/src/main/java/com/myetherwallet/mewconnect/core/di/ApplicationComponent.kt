@@ -14,6 +14,7 @@ import com.myetherwallet.mewconnect.feature.buy.fragment.HistoryFragment
 import com.myetherwallet.mewconnect.feature.main.activity.MainActivity
 import com.myetherwallet.mewconnect.feature.main.dialog.RateDialog
 import com.myetherwallet.mewconnect.feature.main.fragment.*
+import com.myetherwallet.mewconnect.feature.main.receiver.UpdateAppReceiver
 import com.myetherwallet.mewconnect.feature.main.view.WalletCardView
 import com.myetherwallet.mewconnect.feature.register.fragment.GeneratingFragment
 import com.myetherwallet.mewconnect.feature.scan.fragment.*
@@ -101,4 +102,6 @@ interface ApplicationComponent {
     fun inject(provider: MewSecretContentProvider)
 
     fun inject(provider: MewInfoContentProvider)
+
+    fun inject(receiver: UpdateAppReceiver)
 }

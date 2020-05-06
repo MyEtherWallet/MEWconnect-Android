@@ -249,17 +249,24 @@ class ScanFragment : BaseViewModelFragment() {
     private fun onBarCodeDetected(barcode: Barcode) {
         if (barcode.format == Barcode.QR_CODE) {
             MewLog.d(TAG, "QR detected")
-            viewModel.connectWithBarcode(barcode.rawValue) {
-                activity?.runOnUiThread {
-                    if (!isStateSaved) {
-                        changeScreenState(it)
-                    }
-                }
-            }
             VibrateUtils.vibrate(context)
             playSound(R.raw.peep_note)
             activity?.runOnUiThread {
                 preview.stop()
+            }
+            if ("^[^_]+_[0-9a-f]+_[0-9a-f]+$".toRegex() matches barcode.rawValue) {
+                viewModel.connectWithBarcode(barcode.rawValue) {
+                    activity?.runOnUiThread {
+                        if (!isStateSaved) {
+                            changeScreenState(it)
+                        }
+                    }
+                }
+            } else {
+                activity?.runOnUiThread {
+                    Toast.makeText(context, R.string.scan_camera_wrong_qr, Toast.LENGTH_LONG).show()
+                    preview.start(cameraSource)
+                }
             }
         }
     }

@@ -13,6 +13,14 @@ object MewWalletUtils {
 
     private const val MEW_WALLET_PACKAGE_NAME = "com.myetherwallet.mewwallet"
 
+    fun launchAppOrMarket(context: Context) {
+        if (isInstalled(context)) {
+            launchApp(context)
+        } else {
+            launchMarket(context)
+        }
+    }
+
     fun isInstalled(context: Context) = try {
         context.packageManager.getPackageInfo(MEW_WALLET_PACKAGE_NAME, 0)
         true

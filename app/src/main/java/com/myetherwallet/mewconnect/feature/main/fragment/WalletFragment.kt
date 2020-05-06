@@ -110,11 +110,7 @@ class WalletFragment : BaseViewModelFragment() {
         }
 
         wallet_mewwallet.clickListener = {
-            if (MewWalletUtils.isInstalled(requireContext())) {
-                MewWalletUtils.launchApp(requireContext())
-            } else {
-                MewWalletUtils.launchMarket(requireContext())
-            }
+            MewWalletUtils.launchAppOrMarket(requireContext())
             viewModel.submitEvents(context, AnalyticsEvent(AnalyticsEvent.BANNER_FREE_UPGRADE_CLICKED))
         }
     }

@@ -54,17 +54,11 @@
     <string name="prepare_write_description" comment="'Prepare to write down' screen - description">If your device gets lost or stolen, you can restore your wallet using your recovery phrase. Get pen and paper before you start.</string>
     <string name="prepare_write_confirm" comment="'Prepare to write down' screen - button">Start</string>
 
-    <string name="intro_by_mew_label" comment="Intro screen - company">by MyEtherWallet</string>
-    <string name="intro_verify" comment="Intro screen - button">Verify</string>
+    <string name="intro_subtitle" comment="Intro screen - company">Signing app for MyEtherWallet web</string>
     <string name="intro_restore_wallet" comment="Intro screen - button">Restore wallet</string>
-    <string name="intro_setup" comment="Intro screen - button">CREATE NEW WALLET</string>
-    <string name="intro_page_footer1" comment="Intro screen - description">Finally, a ‘hardware wallet’\nwithout all the hardware.\nOfficially by MyEtherWallet.</string>
-    <string name="intro_page_footer2" comment="Intro screen - description"><b>Secure</b> your every\nMyEtherWallet\ntransaction with two-\nfactor verification.</string>
-    <string name="intro_page_footer3" comment="Intro screen - description"><b>Store</b> your private keys\nsafely in a local isolated\nsecure vault on your\ndevice.</string>
-    <string name="intro_page_footer4" comment="Intro screen - description"><b>Protect</b> yourself from\nphishers and malware.\nNo one can obtain\nyour private key.</string>
-    <string name="intro_page_footer5" comment="Intro screen - description">No data collection:\nMyEtherWallet can\'t\ncollect your personal data\neven if we wanted to.</string>
-    <string name="intro_page_footer6" comment="Intro screen - description">No centralized servers, no\ndatabases.\nMEWconnect and\nMyEtherWallet talk via\nP2P communication.</string>
-    <string name="intro_page_footer7" comment="Intro screen - description">Transparent, free and\nopen source. Audited by\nthe community.</string>
+    <string name="intro_setup" comment="Intro screen - button">Create new wallet</string>
+    <string name="intro_mewwallet_text">Please use our latest app, it has all features of MEWconnect and much more.\nThere\'s no need to use both apps.</string>
+    <string name="intro_mewwallet_button">Get the app</string>
 
     <string name="generating_start_animation_text1" comment="'Generating animation' screen - text"><![CDATA[Generating your<br/><font color="#064dd6">Ethereum address</font>]]></string>
     <string name="generating_start_animation_text2" comment="'Generating animation' screen - text"><![CDATA[Encrypting your<br/><font color="#064dd6">private key</font> using<br/>your password]]></string>
@@ -108,6 +102,7 @@
     <string name="scan_camera_permission_rationale_dialog" comment="Scan screen - camera permission rationale in dialog">Please enable camera access for\nMEWconnect</string>
     <string name="scan_low_storage_error" comment="Scan screen - error">Not enough free space</string>
     <string name="scan_camera_source_error" comment="Scan screen - error">Unable to start camera</string>
+    <string name="scan_camera_wrong_qr" comment="Scan screen - error">Wrong QR</string>
     <string name="scan_error" comment="Scan screen - scan error">Something went wrong</string>
     <string name="scan_error_try_again" comment="Scan screen - button">Try again</string>
     <string name="scan_offline" comment="Scan screen - offline screen">No internet connection</string>
@@ -246,9 +241,13 @@
 
     <string name="whats_new_title" comment="'What's new' screen - title">What’s new</string>
     <string name="wallet_mewwallet_title">MEW wallet app is now available</string>
-    <string name="wallet_mewwallet_text">A fully fledged mobile wallet\nthat works with your\nexisting MEWconnect\naccount.\nDownload the app to upgrade.</string>
+    <string name="wallet_mewwallet_text">A fully fledged mobile wallet that works with your existing MEWconnect account.\nDownload the app to upgrade.</string>
     <string name="wallet_mewwallet_button">Free upgrade</string>
 
     <string name="import_permission_label">Import wallet data</string>
     <string name="import_permission_description">to import your account from MEWconnect app</string>
+    <string name="update_notification_channel_name">Important messages</string>
+    <string name="update_notification_channel_description">Information messages</string>
+    <string name="update_notification_title">MEW wallet app is now available</string>
+    <string name="update_notification_text">A free upgrade your MEW connect. Download from PlayStore now.</string>
 </resources>

@@ -5,4 +5,9 @@
         <attr name="innerTopPadding" format="dimension" />
         <attr name="innerBackground" format="reference" />
     </declare-styleable>
+    <declare-styleable name="MewWalletView">
+        <attr name="staticPosition" format="boolean" />
+        <attr name="text" format="string" />
+        <attr name="buttonText" format="string" />
+    </declare-styleable>
 </resources>

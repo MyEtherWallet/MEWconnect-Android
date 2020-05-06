@@ -11,64 +11,156 @@
         android:scaleType="centerCrop"
         android:src="@drawable/default_window_background" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/intro_margin_top"
-            android:layout_weight="1">
-
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/intro_pager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <com.myetherwallet.mewconnect.feature.main.view.IntroAnimationView
-                android:id="@+id/intro_animation"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </FrameLayout>
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/intro_tabs"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/intro_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            app:tabBackground="@drawable/intro_pager_selector"
-            app:tabGravity="center"
-            app:tabIndicatorHeight="0dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/intro_setup"
-            style="@style/Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_40dp"
-            android:layout_marginEnd="@dimen/dimen_40dp"
-            android:text="@string/intro_setup" />
+            android:layout_marginTop="@dimen/dimen_100dp"
+            android:contentDescription="@null"
+            android:src="@drawable/intro_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/intro_restore_wallet"
+            android:id="@+id/intro_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:alpha="0.7"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="-0.01"
+            android:text="@string/intro_subtitle"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_17sp"
+            app:layout_constraintStart_toStartOf="@id/intro_title"
+            app:layout_constraintTop_toBottomOf="@id/intro_title" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:buttonText="@string/intro_mewwallet_button"
+            app:cardCornerRadius="@dimen/dimen_8dp"
+            app:layout_constraintBottom_toTopOf="@id/intro_setup"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/intro_title"
+            app:layout_constraintWidth_max="@dimen/dimen_312dp"
+            app:staticPosition="true"
+            app:text="@string/intro_mewwallet_text">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_16dp">
+
+                <TextView
+                    android:id="@+id/intro_mewwallet_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.03"
+                    android:text="@string/wallet_mewwallet_title"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_size_fixed_16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/intro_mewwallet_animation"
+                    android:layout_width="@dimen/dimen_96dp"
+                    android:layout_height="@dimen/dimen_96dp"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:contentDescription="@null"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/intro_mewwallet_title"
+                    app:lottie_autoPlay="false"
+                    app:lottie_loop="false"
+                    app:lottie_rawRes="@raw/lottie_astronaut"
+                    app:lottie_repeatCount="0" />
+
+                <TextView
+                    android:id="@+id/intro_mewwallet_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:letterSpacing="0.01"
+                    android:lineSpacingExtra="4sp"
+                    android:text="@string/intro_mewwallet_text"
+                    android:textColor="@color/text_grey"
+                    android:textSize="@dimen/text_size_fixed_14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/intro_mewwallet_animation"
+                    app:layout_constraintTop_toTopOf="@id/intro_mewwallet_animation" />
+
+                <TextView
+                    android:id="@+id/intro_mewwallet_button"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dimen_36dp"
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:background="@drawable/wallet_mewwallet_button"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:soundEffectsEnabled="false"
+                    android:text="@string/intro_mewwallet_button"
+                    android:textAllCaps="true"
+                    android:textColor="@color/blue"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/intro_mewwallet_text" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/intro_setup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dimen_8dp"
-            android:layout_marginBottom="@dimen/dimen_16dp"
+            android:layout_marginBottom="@dimen/dimen_24dp"
             android:background="?attr/selectableItemBackground"
             android:fontFamily="sans-serif-medium"
             android:letterSpacing="0.09"
             android:paddingStart="@dimen/dimen_20dp"
             android:paddingTop="@dimen/dimen_4dp"
             android:paddingEnd="@dimen/dimen_20dp"
-            android:paddingBottom="@dimen/dimen_8dp"
+            android:paddingBottom="@dimen/dimen_4dp"
+            android:text="@string/intro_setup"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_14sp"
+            app:layout_constraintBottom_toTopOf="@+id/intro_restore_wallet"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/intro_restore_wallet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/dimen_32dp"
+            android:background="?attr/selectableItemBackground"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.09"
+            android:paddingStart="@dimen/dimen_20dp"
+            android:paddingTop="@dimen/dimen_4dp"
+            android:paddingEnd="@dimen/dimen_20dp"
+            android:paddingBottom="@dimen/dimen_4dp"
             android:text="@string/intro_restore_wallet"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_14sp" />
-    </LinearLayout>
+            android:textSize="@dimen/text_size_14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
