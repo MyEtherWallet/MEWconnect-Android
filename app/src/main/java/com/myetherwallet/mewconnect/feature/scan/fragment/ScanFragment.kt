@@ -13,7 +13,7 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.util.DisplayMetrics
+import android.util.Log
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -27,10 +27,9 @@ import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
-import com.google.android.gms.vision.CameraSource
-import com.google.android.gms.vision.MultiProcessor
 import com.google.android.gms.vision.barcode.Barcode
-import com.google.android.gms.vision.barcode.BarcodeDetector
+import com.google.firebase.ml.common.FirebaseMLException
+import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode
 import com.myetherwallet.mewconnect.BuildConfig
 import com.myetherwallet.mewconnect.R
 import com.myetherwallet.mewconnect.core.di.ApplicationComponent
@@ -42,9 +41,10 @@ import com.myetherwallet.mewconnect.core.utils.MewLog
 import com.myetherwallet.mewconnect.core.utils.StringUtils
 import com.myetherwallet.mewconnect.feature.main.activity.MainActivity
 import com.myetherwallet.mewconnect.feature.main.receiver.NetworkStateReceiver
-import com.myetherwallet.mewconnect.feature.scan.utils.BarcodeTrackerFactory
 import com.myetherwallet.mewconnect.feature.scan.utils.PermissionHelper
 import com.myetherwallet.mewconnect.feature.scan.utils.VibrateUtils
+import com.myetherwallet.mewconnect.feature.scan.view.BarcodeScanningProcessor
+import com.myetherwallet.mewconnect.feature.scan.view.CameraSource
 import com.myetherwallet.mewconnect.feature.scan.view.CameraSourcePreview
 import com.myetherwallet.mewconnect.feature.scan.viewmodel.ScanViewModel
 import kotlinx.android.synthetic.main.fragment_scan.*
@@ -80,6 +80,7 @@ class ScanFragment : BaseViewModelFragment() {
     private val toolbarBackgroundBlue = R.drawable.scan_toolbar_background_blue
     private val toolbarBackgroundGrey = R.drawable.scan_toolbar_background_grey
     private var isStarted = false
+    private var isScanStopped = true
 
     private val permissionHelper = PermissionHelper(Manifest.permission.CAMERA, ::checkPermissionAndStart)
     private val networkStateReceiver = NetworkStateReceiver(::setConnectedStatus)
@@ -103,7 +104,7 @@ class ScanFragment : BaseViewModelFragment() {
 
         scan_error_contact.setOnClickListener { LaunchUtils.openMailApp(context, SUPPORT_EMAIL, SUPPORT_SUBJECT) }
         scan_error_try_again.setOnClickListener {
-            preview.start(cameraSource)
+            startCamera()
             changeScreenState(null)
         }
     }
@@ -189,7 +190,7 @@ class ScanFragment : BaseViewModelFragment() {
 
     override fun onPause() {
         networkStateReceiver.unregister(requireContext())
-        preview.stop()
+        stopCamera()
         super.onPause()
     }
 
@@ -198,32 +199,17 @@ class ScanFragment : BaseViewModelFragment() {
         preview.release()
     }
 
-    private fun createCameraSource() {
-        val barcodeDetector = BarcodeDetector.Builder(context)
-                .setBarcodeFormats(Barcode.QR_CODE)
-                .build()
-        val barcodeFactory = BarcodeTrackerFactory(this@ScanFragment::onBarCodeDetected)
-        barcodeDetector.setProcessor(MultiProcessor.Builder<Barcode>(barcodeFactory).build())
 
-        if (!barcodeDetector.isOperational) {
-            MewLog.w(TAG, "Detector dependencies are not yet available.")
-            val cacheDir = activity?.cacheDir
-            if (cacheDir == null || cacheDir.usableSpace * 100 / cacheDir.totalSpace <= 10) {
-                MewLog.w(TAG, "Low storage, quit")
-                Toast.makeText(context, R.string.scan_low_storage_error, Toast.LENGTH_LONG).show()
-                close()
-            }
+    private fun createCameraSource() {
+        if (cameraSource == null) {
+            cameraSource = CameraSource(requireActivity())
         }
 
-        val metrics = DisplayMetrics()
-        activity?.windowManager?.defaultDisplay?.getMetrics(metrics)
-
-        cameraSource = CameraSource.Builder(context, barcodeDetector)
-                .setFacing(CameraSource.CAMERA_FACING_BACK)
-                .setRequestedPreviewSize(metrics.heightPixels, metrics.widthPixels)
-                .setRequestedFps(15.0f)
-                .setAutoFocusEnabled(true)
-                .build()
+        try {
+            cameraSource?.setMachineLearningFrameProcessor(BarcodeScanningProcessor(::onBarCodeDetected))
+        } catch (e: FirebaseMLException) {
+            MewLog.e(TAG, "Can't create camera source")
+        }
     }
 
     private fun startCameraSource() {
@@ -231,44 +217,62 @@ class ScanFragment : BaseViewModelFragment() {
         if (code != ConnectionResult.SUCCESS) {
             GoogleApiAvailability.getInstance().getErrorDialog(activity, code, 0).show()
         }
-
-        if (cameraSource != null) {
+        cameraSource?.let {
             try {
-                @Suppress("MissingPermission")
-                preview.start(cameraSource!!)
+                startCamera()
+                isScanStopped = false
             } catch (e: IOException) {
-                MewLog.e(TAG, "Unable to start camera source.", e)
+                Log.e(TAG, "Unable to start camera source.", e)
                 cameraSource?.release()
                 cameraSource = null
-                Toast.makeText(context, R.string.scan_camera_source_error, Toast.LENGTH_LONG).show()
-                close()
             }
         }
     }
 
-    private fun onBarCodeDetected(barcode: Barcode) {
+    private fun onBarCodeDetected(barcode: FirebaseVisionBarcode) {
+        if (isScanStopped) {
+            return
+        }
         if (barcode.format == Barcode.QR_CODE) {
             MewLog.d(TAG, "QR detected")
             VibrateUtils.vibrate(context)
             playSound(R.raw.peep_note)
             activity?.runOnUiThread {
-                preview.stop()
+                stopCamera()
             }
-            if ("^[^_]+_[0-9a-f]+_[0-9a-f]+$".toRegex() matches barcode.rawValue) {
-                viewModel.connectWithBarcode(barcode.rawValue) {
-                    activity?.runOnUiThread {
-                        if (!isStateSaved) {
-                            changeScreenState(it)
-                        }
-                    }
+            val barcodeValue = barcode.rawValue
+            if (barcodeValue == null) {
+                activity?.runOnUiThread {
+                    Toast.makeText(context, R.string.scan_camera_unreadable_qr, Toast.LENGTH_LONG).show()
+                    startCamera()
                 }
             } else {
-                activity?.runOnUiThread {
-                    Toast.makeText(context, R.string.scan_camera_wrong_qr, Toast.LENGTH_LONG).show()
-                    preview.start(cameraSource)
+                if ("^[^_]+_[0-9a-f]+_[0-9a-f]+$".toRegex() matches barcodeValue) {
+                    viewModel.connectWithBarcode(barcodeValue) {
+                        activity?.runOnUiThread {
+                            if (!isStateSaved) {
+                                changeScreenState(it)
+                            }
+                        }
+                    }
+                } else {
+                    activity?.runOnUiThread {
+                        Toast.makeText(context, R.string.scan_camera_wrong_qr, Toast.LENGTH_LONG).show()
+                        startCamera()
+                    }
                 }
             }
         }
+    }
+
+    private fun startCamera() {
+        isScanStopped = false
+        preview.start(cameraSource)
+    }
+
+    private fun stopCamera() {
+        isScanStopped = true
+        preview.stop()
     }
 
     private fun changeScreenState(state: ScanViewModel.State?) {
@@ -312,7 +316,7 @@ class ScanFragment : BaseViewModelFragment() {
         } else {
             MewLog.d(TAG, "Disconnected")
             scan_offline_container.visibility = VISIBLE
-            preview.stop()
+            stopCamera()
         }
     }
 

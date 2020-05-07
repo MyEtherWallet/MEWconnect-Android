@@ -5,37 +5,39 @@ import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.ViewGroup
-import com.google.android.gms.vision.CameraSource
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import com.myetherwallet.mewconnect.core.utils.MewLog
 import java.io.IOException
 
 /**
- * Created by BArtWell on 14.07.2018.
+ * Created by BArtWell on 06.05.2020.
  */
 
 private const val TAG = "CameraSourcePreview"
 
-class CameraSourcePreview(context: Context, attrs: AttributeSet) : ViewGroup(context, attrs) {
+class CameraSourcePreview(context: Context, attrs: AttributeSet?) : ViewGroup(context, attrs) {
 
-    private val surfaceView: SurfaceView = SurfaceView(context)
-    private var isStartRequested: Boolean = false
-    private var isSurfaceAvailable: Boolean = false
+    private val surfaceView: SurfaceView
+    private var startRequested: Boolean
+    private var surfaceAvailable: Boolean
     private var cameraSource: CameraSource? = null
 
     init {
+        startRequested = false
+        surfaceAvailable = false
+        surfaceView = SurfaceView(context)
         surfaceView.holder.addCallback(SurfaceCallback())
         addView(surfaceView)
+        val layoutParams = surfaceView.layoutParams
+        layoutParams.width = MATCH_PARENT
+        layoutParams.height = MATCH_PARENT
+        surfaceView.layoutParams = layoutParams
     }
 
     fun start(cameraSource: CameraSource?) {
-        if (cameraSource == null) {
-            stop()
-        }
-
         this.cameraSource = cameraSource
-
         if (this.cameraSource != null) {
-            isStartRequested = true
+            startRequested = true
             startIfReady()
         }
     }
@@ -45,35 +47,31 @@ class CameraSourcePreview(context: Context, attrs: AttributeSet) : ViewGroup(con
     }
 
     fun release() {
-        cameraSource?.let {
-            it.release()
-            cameraSource = null
-        }
+        cameraSource?.release()
+        cameraSource = null
+        surfaceView.holder.surface.release()
     }
 
     private fun startIfReady() {
-        if (isStartRequested && isSurfaceAvailable) {
-            @Suppress("MissingPermission")
-            cameraSource?.start(surfaceView.holder)
-            isStartRequested = false
-            layout()
+        if (startRequested && surfaceAvailable) {
+            cameraSource!!.start(surfaceView.holder)
+            requestLayout()
+            startRequested = false
         }
     }
 
     private inner class SurfaceCallback : SurfaceHolder.Callback {
         override fun surfaceCreated(surface: SurfaceHolder) {
-            isSurfaceAvailable = true
+            surfaceAvailable = true
             try {
                 startIfReady()
-            } catch (se: SecurityException) {
-                MewLog.e(TAG, "Do not have permission to start the camera", se)
             } catch (e: IOException) {
-                MewLog.e(TAG, "Could not start camera source.", e)
+                MewLog.e(TAG, "Could not start camera source", e)
             }
         }
 
         override fun surfaceDestroyed(surface: SurfaceHolder) {
-            isSurfaceAvailable = false
+            surfaceAvailable = false
         }
 
         override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {}
