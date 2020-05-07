@@ -1,3 +1,10 @@
+### Release 1.0.15 (20050601)
+
+ANNOUNCEMENT: MEW wallet app is now available on Play Store, this is our latest full fledged wallet, we recommend you to upgrade your MEWconnect app to MEW wallet app. Search for 'MEW wallet' on Play Store. There's no need to use both apps. 
+
+- MEW wallet banner on intro screen
+- Minor fixes and improvements 
+
 ### Release 1.0.14 (20041501)
 
 - Minor updates and improvements
