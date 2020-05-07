@@ -10,3 +10,4 @@
 .externalNativeBuild
 /.idea
 /secrets.properties
+/app/google-services.json
