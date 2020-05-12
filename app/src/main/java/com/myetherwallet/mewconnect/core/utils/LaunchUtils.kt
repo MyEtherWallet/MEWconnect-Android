@@ -51,7 +51,7 @@ object LaunchUtils {
             try {
                 val intent = Intent(Intent.ACTION_VIEW)
                 intent.data = Uri.parse(url)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 context.startActivity(intent)
             } catch (e: ActivityNotFoundException) {
                 e.printStackTrace()
