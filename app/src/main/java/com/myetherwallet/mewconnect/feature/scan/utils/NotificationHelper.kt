@@ -46,6 +46,7 @@ object NotificationHelper {
                 .setContentIntent(getActivityPendingIntent(context))
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setDefaults(Notification.DEFAULT_ALL)
+                .setAutoCancel(true)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setCategory(Notification.CATEGORY_REMINDER)
                 .build()

@@ -5,6 +5,7 @@ install:
   - openssl aes-256-cbc -K $encrypted_1bce3901ab10_key -iv $encrypted_1bce3901ab10_iv
     -in mewconnect.tar.enc -out mewconnect.tar -d
   - tar xvf mewconnect.tar
+  - openssl aes-256-cbc -K $encrypted_6698c40ae6ed_key -iv $encrypted_6698c40ae6ed_iv -in google-services.json.enc -out ./app/google-services.json -d
   - gpg --allow-secret-key-import --import mew_sec.gpg
   - docker build -q -t android-build .
   - docker run --rm -v "$PWD":/home/gradle/ -w /home/gradle/ android-build gradle assemble
