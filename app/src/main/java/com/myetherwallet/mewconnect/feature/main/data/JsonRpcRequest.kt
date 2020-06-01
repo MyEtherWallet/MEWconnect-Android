@@ -10,7 +10,8 @@ class JsonRpcRequest<T>(
         @SerializedName("method")
         private val method: String,
         @SerializedName("params")
-        private val params: List<T>) {
+        private val params: List<T>
+) {
 
     @SerializedName("jsonrpc")
     val version: String = "2.0"

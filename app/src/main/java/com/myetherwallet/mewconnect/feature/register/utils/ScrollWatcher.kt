@@ -51,8 +51,7 @@ class ScrollWatcher {
     }
 
     private fun calculateCurrentScrollPosition(): Int {
-        val layoutManager = recyclerView.layoutManager as
-                LinearLayoutManager
+        val layoutManager = recyclerView.layoutManager as LinearLayoutManager
         val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
         val firstVisibleView = layoutManager.findViewByPosition(firstVisibleItemPosition)
         return if (firstVisibleItemPosition > 0) {

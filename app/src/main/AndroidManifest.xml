@@ -87,8 +87,7 @@
             android:exported="true"
             android:permission="com.myetherwallet.mewconnect.ACCESS_DANGEROUS_DATA" />
 
-        <receiver
-            android:name=".feature.main.receiver.UpdateAppReceiver">
+        <receiver android:name=".feature.main.receiver.UpdateAppReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
