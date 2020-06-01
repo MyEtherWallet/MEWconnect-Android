@@ -7,7 +7,7 @@ apply plugin: 'com.google.gms.google-services'
 
 int MAJOR_VERSION = 1
 int MINOR_VERSION = 0
-int MICRO_VERSION = 15
+int MICRO_VERSION = 16
 int BUILD_FOR_TODAY = 1
 
 def secretsPropertiesFile = rootProject.file("secrets.properties")
