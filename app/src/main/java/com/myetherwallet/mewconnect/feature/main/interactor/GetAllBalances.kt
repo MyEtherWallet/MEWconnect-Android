@@ -8,6 +8,7 @@ import com.myetherwallet.mewconnect.core.repository.NodeApiRepository
 import com.myetherwallet.mewconnect.core.utils.HexUtils
 import com.myetherwallet.mewconnect.feature.main.data.Balance
 import com.myetherwallet.mewconnect.feature.main.data.JsonRpcRequest
+import com.myetherwallet.mewconnect.feature.main.data.Transaction
 import org.web3j.abi.FunctionEncoder
 import org.web3j.abi.TypeReference
 import org.web3j.abi.datatypes.Address
@@ -15,7 +16,6 @@ import org.web3j.abi.datatypes.Bool
 import org.web3j.abi.datatypes.DynamicBytes
 import org.web3j.abi.datatypes.Function
 import org.web3j.abi.datatypes.generated.Uint256
-import org.web3j.protocol.core.methods.request.Transaction
 import java.math.BigInteger
 import java.util.*
 import javax.inject.Inject
@@ -24,7 +24,6 @@ import javax.inject.Inject
  * Created by BArtWell on 29.08.2018.
  */
 
-private const val CONTRACT_ADDRESS = "0x2783c0a4bfd3721961653a9e9939fc63687bf07f"
 private const val TRANSACTION_METHOD = "eth_call"
 private const val FUNCTION_METHOD = "getAllBalance"
 private const val NAME = true
@@ -42,11 +41,10 @@ class GetAllBalances
                 Arrays.asList(Address(HexUtils.withPrefixLowerCase(params.address)),
                         Bool(NAME),
                         Bool(WEBSITE),
-                        Bool(EMAIL),
-                        Uint256(COUNT)),
+                        Bool(EMAIL)),
                 Arrays.asList<TypeReference<*>>(object : TypeReference<DynamicBytes>() {}))
         val data = FunctionEncoder.encode(function)
-        val transaction = Transaction.createEthCallTransaction(null, CONTRACT_ADDRESS, data)
+        val transaction = Transaction(HexUtils.withPrefix(params.address), null, null, "0x11e1a300", params.network.contract, null, data)
         return repository.getAllBalances(params.network.apiMethod, JsonRpcRequest(TRANSACTION_METHOD, listOf(transaction, PERIOD)))
     }
 
